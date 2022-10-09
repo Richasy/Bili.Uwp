@@ -3,10 +3,11 @@
 using System;
 using System.Text;
 using Bili.DI.App;
+using Bili.DI.Container;
 using Bili.Models.App.Constants;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
-using Splat;
+using NLog;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
@@ -34,7 +35,7 @@ namespace Bili.App
             UnhandledException += OnUnhandledException;
             var provider = CodePagesEncodingProvider.Instance;
             Encoding.RegisterProvider(provider);
-            Locator.Current.GetService<IAppToolkit>().InitializeTheme();
+            Locator.Instance.GetService<IAppToolkit>().InitializeTheme();
             RequiresPointerMode = ApplicationRequiresPointerMode.WhenRequested;
         }
 
@@ -80,7 +81,7 @@ namespace Bili.App
 
             if (e is LaunchActivatedEventArgs && (e as LaunchActivatedEventArgs).PrelaunchActivated == false)
             {
-                var settingsToolkit = Locator.Current.GetService<ISettingsToolkit>();
+                var settingsToolkit = Locator.Instance.GetService<ISettingsToolkit>();
                 var isPrelaunch = settingsToolkit.ReadLocalSetting(Models.Enums.SettingNames.IsPrelaunch, true);
                 CoreApplication.EnablePrelaunch(isPrelaunch);
                 if (rootFrame.Content == null)
@@ -98,7 +99,7 @@ namespace Bili.App
                 }
                 else
                 {
-                    await Locator.Current.GetService<IAppViewModel>()
+                    await Locator.Instance.GetService<IAppViewModel>()
                         .InitializeProtocolFromQueryAsync(protocalArgs.Uri);
                 }
             }
@@ -120,7 +121,7 @@ namespace Bili.App
                 else
                 {
                     var args = e as CommandLineActivatedEventArgs;
-                    await Locator.Current.GetService<IAppViewModel>()
+                    await Locator.Instance.GetService<IAppViewModel>()
                         .InitializeCommandFromArgumentsAsync(args.Operation.Arguments);
                 }
             }
@@ -140,7 +141,7 @@ namespace Bili.App
             }
 
             Window.Current.Activate();
-            Locator.Current.GetService<IAppToolkit>().InitializeTitleBar();
+            Locator.Instance.GetService<IAppToolkit>().InitializeTitleBar();
         }
 
         /// <summary>
@@ -172,8 +173,7 @@ namespace Bili.App
         private void OnUnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
         {
             e.Handled = true;
-
-            Locator.Current.GetService<ILogger>().Write(e.Exception, e.Message, Splat.LogLevel.Error);
+            Locator.Instance.GetService<ILogger>().Error(e.Exception);
         }
 
         private void NavigateToRootPage(object args = null)

@@ -3,11 +3,10 @@
 using System;
 using System.Threading.Tasks;
 using Bili.App.Controls.Dialogs;
+using Bili.DI.Container;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Video;
-using ReactiveUI;
-using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -24,14 +23,14 @@ namespace Bili.App.Controls.Favorite
         public VideoFavoritePanel()
         {
             InitializeComponent();
-            ViewModel = Locator.Current.GetService<IVideoFavoriteModuleViewModel>();
+            ViewModel = Locator.Instance.GetService<IVideoFavoriteModuleViewModel>();
             DataContext = ViewModel;
         }
 
         /// <summary>
         /// 核心视图模型.
         /// </summary>
-        public IAppViewModel CoreViewModel { get; } = Locator.Current.GetService<IAppViewModel>();
+        public IAppViewModel CoreViewModel { get; } = Locator.Instance.GetService<IAppViewModel>();
 
         private async void OnRemoveFavoriteButtonClickAsync(object sender, RoutedEventArgs e)
             => await RemoveAsync(sender);
@@ -39,7 +38,7 @@ namespace Bili.App.Controls.Favorite
         private async Task RemoveAsync(object sender)
         {
             var vm = (sender as FrameworkElement).DataContext as IVideoFavoriteFolderViewModel;
-            var resourceToolkit = Locator.Current.GetService<IResourceToolkit>();
+            var resourceToolkit = Locator.Instance.GetService<IResourceToolkit>();
             var warning = vm.IsMine
                 ? resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.DeleteFavoriteWarning)
                 : resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.UnFavoriteWarning);
@@ -48,12 +47,12 @@ namespace Bili.App.Controls.Favorite
 
             if (isConfirm)
             {
-                vm.RemoveCommand.Execute().Subscribe();
+                _ = vm.RemoveCommand.ExecuteAsync(null);
             }
         }
 
         private void OnDefaultExpanderClick(object sender, Richasy.ExpanderEx.Uwp.ExpanderExClickEventArgs e)
-            => ViewModel.ShowDefaultFolderDetailCommand.Execute().Subscribe();
+            => ViewModel.ShowDefaultFolderDetailCommand.Execute(null);
     }
 
     /// <summary>

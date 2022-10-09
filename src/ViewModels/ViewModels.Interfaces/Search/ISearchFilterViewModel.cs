@@ -1,14 +1,14 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System.ComponentModel;
 using Bili.Models.Data.Appearance;
-using ReactiveUI;
 
 namespace Bili.ViewModels.Interfaces.Search
 {
     /// <summary>
     /// 搜索过滤视图模型的接口定义.
     /// </summary>
-    public interface ISearchFilterViewModel : IReactiveObject
+    public interface ISearchFilterViewModel : INotifyPropertyChanged
     {
         /// <summary>
         /// 筛选器.

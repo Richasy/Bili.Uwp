@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using Bili.DI.Container;
 using Bili.ViewModels.Interfaces.Community;
-using Splat;
 
 namespace Bili.App.Controls.Community
 {
@@ -16,7 +16,7 @@ namespace Bili.App.Controls.Community
         public CommentPageView()
         {
             DefaultStyleKey = typeof(CommentPageView);
-            ViewModel = Locator.Current.GetService<ICommentPageViewModel>();
+            ViewModel = Locator.Instance.GetService<ICommentPageViewModel>();
         }
     }
 }

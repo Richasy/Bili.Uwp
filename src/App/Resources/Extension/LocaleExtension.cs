@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using Bili.DI.Container;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
-using Splat;
 using Windows.UI.Xaml.Markup;
 
 namespace Bili.App.Resources.Extension
@@ -21,7 +21,7 @@ namespace Bili.App.Resources.Extension
         /// <inheritdoc/>
         protected override object ProvideValue()
         {
-            return Splat.Locator.Current.GetService<IResourceToolkit>()
+            return Locator.Instance.GetService<IResourceToolkit>()
                                           .GetLocaleString(Name);
         }
     }

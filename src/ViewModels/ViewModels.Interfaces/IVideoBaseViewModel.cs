@@ -1,14 +1,14 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System.ComponentModel;
 using Bili.Models.Data.Video;
-using ReactiveUI;
 
 namespace Bili.ViewModels.Interfaces
 {
     /// <summary>
     /// 视频基类视图模型接口.
     /// </summary>
-    public interface IVideoBaseViewModel : IReactiveObject
+    public interface IVideoBaseViewModel : INotifyPropertyChanged
     {
     }
 

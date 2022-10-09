@@ -1,12 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
-using System.Reactive;
 using Bili.Models.Data.Local;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Core
 {
@@ -19,29 +18,28 @@ namespace Bili.ViewModels.Uwp.Core
         private readonly ISettingsToolkit _settingsToolkit;
         private readonly ICallerViewModel _callerViewModel;
 
-        /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> CheckContinuePlayCommand { get; }
+        [ObservableProperty]
+        private bool _isShowPlayRecordButton;
 
         /// <inheritdoc/>
-        public ReactiveCommand<PlaySnapshot, Unit> AddLastPlayItemCommand { get; }
+        public IRelayCommand CheckContinuePlayCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> DeleteLastPlayItemCommand { get; }
+        public IAsyncRelayCommand<PlaySnapshot> AddLastPlayItemCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<PlayRecord, Unit> AddPlayRecordCommand { get; }
+        public IAsyncRelayCommand DeleteLastPlayItemCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<PlayRecord, Unit> RemovePlayRecordCommand { get; }
+        public IRelayCommand<PlayRecord> AddPlayRecordCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ClearPlayRecordCommand { get; }
+        public IRelayCommand<PlayRecord> RemovePlayRecordCommand { get; }
+
+        /// <inheritdoc/>
+        public IRelayCommand ClearPlayRecordCommand { get; }
 
         /// <inheritdoc/>
         public ObservableCollection<PlayRecord> PlayRecords { get; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsShowPlayRecordButton { get; set; }
     }
 }

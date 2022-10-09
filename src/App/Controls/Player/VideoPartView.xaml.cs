@@ -1,9 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using System.Linq;
 using Bili.ViewModels.Interfaces.Video;
-using ReactiveUI;
 using Windows.UI.Xaml;
 
 namespace Bili.App.Controls.Player
@@ -24,7 +22,7 @@ namespace Bili.App.Controls.Player
             var data = card.DataContext as IVideoIdentifierSelectableViewModel;
             if (!data.Data.Equals(ViewModel.CurrentVideoPart))
             {
-                ViewModel.ChangeVideoPartCommand.Execute(data.Data).Subscribe();
+                ViewModel.ChangeVideoPartCommand.Execute(data.Data);
             }
             else
             {

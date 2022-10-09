@@ -4,14 +4,14 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Bili.DI.Container;
 using Bili.Lib.Interfaces;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Common;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Pgc;
-using ReactiveUI;
-using Splat;
+using CommunityToolkit.Mvvm.Input;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Base
@@ -43,7 +43,7 @@ namespace Bili.ViewModels.Uwp.Base
             _navigationViewModel = navigationViewModel;
             Banners = new ObservableCollection<IBannerViewModel>();
 
-            GotoIndexPageCommand = ReactiveCommand.Create(GotoIndexPage);
+            GotoIndexPageCommand = new RelayCommand(GotoIndexPage);
 
             Title = _type switch
             {
@@ -71,7 +71,7 @@ namespace Bili.ViewModels.Uwp.Base
             {
                 data.Banners.ToList().ForEach(p =>
                 {
-                    var vm = Locator.Current.GetService<IBannerViewModel>();
+                    var vm = Locator.Instance.GetService<IBannerViewModel>();
                     vm.InjectData(p);
                     Banners.Add(vm);
                 });
@@ -83,7 +83,7 @@ namespace Bili.ViewModels.Uwp.Base
             {
                 foreach (var item in data.Seasons)
                 {
-                    var seasonVM = Locator.Current.GetService<ISeasonItemViewModel>();
+                    var seasonVM = Locator.Instance.GetService<ISeasonItemViewModel>();
                     seasonVM.InjectData(item);
                     Items.Add(seasonVM);
                 }

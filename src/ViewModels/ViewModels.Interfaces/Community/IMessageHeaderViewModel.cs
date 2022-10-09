@@ -1,14 +1,14 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System.ComponentModel;
 using Bili.Models.Enums.App;
-using ReactiveUI;
 
 namespace Bili.ViewModels.Interfaces.Community
 {
     /// <summary>
     /// 消息头部视图模型的接口定义.
     /// </summary>
-    public interface IMessageHeaderViewModel : IReactiveObject
+    public interface IMessageHeaderViewModel : INotifyPropertyChanged
     {
         /// <summary>
         /// 消息类型.

@@ -2,32 +2,23 @@
 
 using Bili.Models.Enums;
 using Bili.ViewModels.Interfaces.Search;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Bili.ViewModels.Uwp.Search
 {
     /// <summary>
     /// 搜索模块条目视图模型.
     /// </summary>
-    public sealed class SearchModuleItemViewModel : ViewModelBase, ISearchModuleItemViewModel
+    public sealed partial class SearchModuleItemViewModel : ViewModelBase, ISearchModuleItemViewModel
     {
-        /// <summary>
-        /// 类型.
-        /// </summary>
-        [Reactive]
-        public SearchModuleType Type { get; set; }
+        [ObservableProperty]
+        private SearchModuleType _type;
 
-        /// <summary>
-        /// 标题.
-        /// </summary>
-        [Reactive]
-        public string Title { get; set; }
+        [ObservableProperty]
+        private string _title;
 
-        /// <summary>
-        /// 是否可用.
-        /// </summary>
-        [Reactive]
-        public bool IsEnabled { get; set; }
+        [ObservableProperty]
+        private bool _isEnabled;
 
         /// <inheritdoc/>
         public void SetData(SearchModuleType type, string title, bool isEnabled = true)

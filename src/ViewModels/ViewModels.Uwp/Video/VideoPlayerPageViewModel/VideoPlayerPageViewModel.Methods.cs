@@ -2,6 +2,7 @@
 
 using System;
 using System.Linq;
+using Bili.DI.Container;
 using Bili.Models.App.Args;
 using Bili.Models.Data.Community;
 using Bili.Models.Data.Local;
@@ -9,7 +10,6 @@ using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Bili.Models.Enums.Bili;
 using Bili.ViewModels.Interfaces.Video;
-using Splat;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage.Streams;
 
@@ -22,7 +22,7 @@ namespace Bili.ViewModels.Uwp.Video
     {
         private IVideoItemViewModel GetItemViewModel(VideoInformation information)
         {
-            var vm = Locator.Current.GetService<IVideoItemViewModel>();
+            var vm = Locator.Instance.GetService<IVideoItemViewModel>();
             vm.InjectData(information);
             return vm;
         }
@@ -73,16 +73,16 @@ namespace Bili.ViewModels.Uwp.Video
 
             if (IsVideoFixed)
             {
-                _accountViewModel.RemoveFixedItemCommand.Execute(View.Information.Identifier.Id).Subscribe();
+                _accountViewModel.RemoveFixedItemCommand.ExecuteAsync(View.Information.Identifier.Id);
                 IsVideoFixed = false;
             }
             else
             {
-                _accountViewModel.AddFixedItemCommand.Execute(new FixedItem(
+                _accountViewModel.AddFixedItemCommand.ExecuteAsync(new FixedItem(
                     View.Information.Identifier.Cover.Uri,
                     View.Information.Identifier.Title,
                     View.Information.Identifier.Id,
-                    Models.Enums.App.FixedType.Video)).Subscribe();
+                    Models.Enums.App.FixedType.Video));
                 IsVideoFixed = true;
             }
         }
@@ -96,7 +96,7 @@ namespace Bili.ViewModels.Uwp.Video
 
             CurrentVideoPart = VideoParts.FirstOrDefault(p => p.IsSelected).Data;
             CreatePlayNextAction();
-            MediaPlayerViewModel.ChangePartCommand.Execute(identifier).Subscribe();
+            MediaPlayerViewModel.ChangePartCommand.ExecuteAsync(identifier);
         }
 
         private void CreatePlayNextAction()
@@ -138,7 +138,7 @@ namespace Bili.ViewModels.Uwp.Video
             }
             else if (Sections.Any(p => p.Type == PlayerSectionType.UgcSeason))
             {
-                ClearPlaylistCommand.Execute().Subscribe();
+                ClearPlaylistCommand.Execute(null);
                 var currentVideo = CurrentSeasonVideos.FirstOrDefault(p => p.IsSelected);
                 if (currentVideo != null)
                 {
@@ -154,7 +154,7 @@ namespace Bili.ViewModels.Uwp.Video
             else if (_settingsToolkit.ReadLocalSetting(SettingNames.IsAutoPlayNextRelatedVideo, false)
                 && RelatedVideos.Count > 0)
             {
-                ClearPlaylistCommand.Execute().Subscribe();
+                ClearPlaylistCommand.Execute(null);
                 nextPart = RelatedVideos.First().Data.Identifier;
                 isNewVideo = true;
             }
@@ -212,11 +212,11 @@ namespace Bili.ViewModels.Uwp.Video
             }
             else
             {
-                MediaPlayerViewModel.ShowNextVideoTipCommand.Execute().Subscribe();
+                MediaPlayerViewModel.ShowNextVideoTipCommand.Execute(null);
             }
         }
 
         private void OnInternalPartChanged(object sender, VideoIdentifier e)
-            => ChangeVideoPartCommand.Execute(e).Subscribe();
+            => ChangeVideoPartCommand.Execute(e);
     }
 }

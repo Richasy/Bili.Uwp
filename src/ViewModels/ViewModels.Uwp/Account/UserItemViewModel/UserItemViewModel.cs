@@ -2,6 +2,7 @@
 
 using System;
 using System.Threading.Tasks;
+using Bili.DI.Container;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.User;
 using Bili.Models.Enums;
@@ -9,8 +10,7 @@ using Bili.Models.Enums.Community;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Core;
-using ReactiveUI;
-using Splat;
+using CommunityToolkit.Mvvm.Input;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Account
@@ -40,14 +40,11 @@ namespace Bili.ViewModels.Uwp.Account
             _accountViewModel = accountViewModel;
             _dispatcher = dispatcher;
 
-            ToggleRelationCommand = ReactiveCommand.CreateFromTask(ToggleRelationAsync);
-            InitializeRelationCommand = ReactiveCommand.CreateFromTask(InitializeRelationAsync);
-            ShowDetailCommand = ReactiveCommand.Create(ShowDetail);
+            ToggleRelationCommand = new AsyncRelayCommand(ToggleRelationAsync);
+            InitializeRelationCommand = new AsyncRelayCommand(InitializeRelationAsync);
+            ShowDetailCommand = new RelayCommand(ShowDetail);
 
-            _isRelationChanging = ToggleRelationCommand.IsExecuting.ToProperty(
-                this,
-                x => x.IsRelationChanging,
-                scheduler: RxApp.MainThreadScheduler);
+            AttachIsRunningToAsyncCommand(p => IsRelationChanging = p, ToggleRelationCommand);
         }
 
         /// <summary>
@@ -127,7 +124,7 @@ namespace Bili.ViewModels.Uwp.Account
 
         private async Task InitializeRelationAsync()
         {
-            var accountVM = Locator.Current.GetService<IAccountViewModel>();
+            var accountVM = Locator.Instance.GetService<IAccountViewModel>();
             if (accountVM.State != AuthorizeState.SignedIn)
             {
                 IsRelationButtonShown = false;

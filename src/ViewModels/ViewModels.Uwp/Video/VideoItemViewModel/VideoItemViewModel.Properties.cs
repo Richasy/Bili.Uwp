@@ -2,15 +2,14 @@
 
 using System;
 using System.Collections.Generic;
-using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Video;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Video
 {
@@ -29,63 +28,53 @@ namespace Bili.ViewModels.Uwp.Video
         private Action<IVideoItemViewModel> _additionalAction;
         private object _additionalData;
 
-        /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> AddToViewLaterCommand { get; }
+        [ObservableProperty]
+        private VideoInformation _data;
+
+        [ObservableProperty]
+        private IUserItemViewModel _publisher;
+
+        [ObservableProperty]
+        private string _playCountText;
+
+        [ObservableProperty]
+        private string _danmakuCountText;
+
+        [ObservableProperty]
+        private string _likeCountText;
+
+        [ObservableProperty]
+        private string _durationText;
+
+        [ObservableProperty]
+        private bool _isShowScore;
+
+        [ObservableProperty]
+        private string _scoreText;
+
+        [ObservableProperty]
+        private bool _isShowCommunity;
+
+        [ObservableProperty]
+        private bool _isSelected;
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> RemoveFromViewLaterCommand { get; }
+        public IAsyncRelayCommand AddToViewLaterCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> RemoveFromHistoryCommand { get; }
+        public IAsyncRelayCommand RemoveFromViewLaterCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> RemoveFromFavoriteCommand { get; }
+        public IAsyncRelayCommand RemoveFromHistoryCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> OpenInBroswerCommand { get; }
+        public IAsyncRelayCommand RemoveFromFavoriteCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> PlayCommand { get; }
+        public IAsyncRelayCommand OpenInBroswerCommand { get; }
 
         /// <inheritdoc/>
-        [Reactive]
-        public VideoInformation Data { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public IUserItemViewModel Publisher { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public string PlayCountText { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public string DanmakuCountText { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public string LikeCountText { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public string DurationText { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsShowScore { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public string ScoreText { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsShowCommunity { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsSelected { get; set; }
+        public IRelayCommand PlayCommand { get; }
 
         /// <inheritdoc/>
         public override bool Equals(object obj) => obj is VideoItemViewModel model && EqualityComparer<VideoInformation>.Default.Equals(Data, model.Data);

@@ -2,12 +2,12 @@
 
 using System;
 using System.Threading.Tasks;
+using Bili.DI.Container;
 using Bili.Models.App.Constants;
 using Bili.Models.Data.Local;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Article;
 using Newtonsoft.Json;
-using Splat;
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
@@ -57,11 +57,8 @@ namespace Bili.App.Controls.Article
                 _isPreLoaded = true;
             }
 
-            vm.ReloadCommand.Execute()
-                .Subscribe(async _ =>
-                {
-                    await LoadContentAsync();
-                });
+            await vm.ReloadCommand.ExecuteAsync(null);
+            await LoadContentAsync();
         }
 
         private async Task LoadContentAsync()
@@ -69,7 +66,7 @@ namespace Bili.App.Controls.Article
             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
             {
                 var detail = await ViewModel.GetDetailAsync();
-                var fileToolkit = Locator.Current.GetService<IFileToolkit>();
+                var fileToolkit = Locator.Instance.GetService<IFileToolkit>();
                 var content = detail.Replace("=\"//", "=\"http://")
                     .Replace("data-src", "src");
                 var readerContainerStr = await fileToolkit.ReadPackageFile("ms-appx:///Resources/Html/ReaderPage.html");
@@ -85,12 +82,11 @@ namespace Bili.App.Controls.Article
             });
         }
 
-        private void OnArticleRefreshButtonClick(object sender, RoutedEventArgs e)
-            => ViewModel.ReloadCommand.Execute()
-                .Subscribe(async _ =>
-                {
-                    await LoadContentAsync();
-                });
+        private async void OnArticleRefreshButtonClickAsync(object sender, RoutedEventArgs e)
+        {
+            await ViewModel.ReloadCommand.ExecuteAsync(null);
+            await LoadContentAsync();
+        }
 
         private void OnClosed(object sender, EventArgs e) => ReaderWebView.NavigateToString(string.Empty);
 

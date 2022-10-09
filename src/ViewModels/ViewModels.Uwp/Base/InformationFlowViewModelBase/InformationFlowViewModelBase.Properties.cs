@@ -1,9 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
-using System.Reactive;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Base
@@ -17,32 +16,28 @@ namespace Bili.ViewModels.Uwp.Base
         private readonly CoreDispatcher _dispatcher;
         private bool _isNeedLoadAgain;
 
-        /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> InitializeCommand { get; }
+        [ObservableProperty]
+        private bool _isReloading;
+
+        [ObservableProperty]
+        private bool _isIncrementalLoading;
+
+        [ObservableProperty]
+        private bool _isError;
+
+        [ObservableProperty]
+        private string _errorText;
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ReloadCommand { get; }
+        public IAsyncRelayCommand InitializeCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> IncrementalCommand { get; }
+        public IAsyncRelayCommand ReloadCommand { get; }
+
+        /// <inheritdoc/>
+        public IAsyncRelayCommand IncrementalCommand { get; }
 
         /// <inheritdoc/>
         public ObservableCollection<T> Items { get; }
-
-        /// <inheritdoc/>
-        [ObservableAsProperty]
-        public bool IsReloading { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableAsProperty]
-        public bool IsIncrementalLoading { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsError { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public string ErrorText { get; set; }
     }
 }

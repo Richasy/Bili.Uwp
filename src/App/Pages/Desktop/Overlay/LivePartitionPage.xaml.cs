@@ -32,7 +32,7 @@ namespace Bili.App.Pages.Desktop.Overlay
 
             if (data != ViewModel.CurrentParentPartition)
             {
-                ViewModel.SelectPartitionCommand.Execute(data).Subscribe();
+                ViewModel.SelectPartitionCommand.Execute(data);
             }
         }
     }

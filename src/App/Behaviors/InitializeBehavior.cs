@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using Bili.ViewModels.Interfaces;
 using Microsoft.Toolkit.Uwp.UI.Behaviors;
 using Windows.UI.Xaml.Controls;
@@ -17,7 +16,7 @@ namespace Bili.App.Behaviors
         {
             if (AssociatedObject.DataContext is IInitializeViewModel initVM)
             {
-                initVM.InitializeCommand.Execute().Subscribe();
+                initVM.InitializeCommand.ExecuteAsync(null);
             }
         }
     }

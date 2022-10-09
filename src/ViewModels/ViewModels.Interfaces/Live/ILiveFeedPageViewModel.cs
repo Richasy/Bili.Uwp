@@ -1,10 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
-using System.Reactive;
 using Bili.Models.Data.Community;
 using Bili.ViewModels.Interfaces.Common;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Interfaces.Live
 {
@@ -31,7 +30,7 @@ namespace Bili.ViewModels.Interfaces.Live
         /// <summary>
         /// 查看全部分区的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> SeeAllPartitionsCommand { get; }
+        IRelayCommand SeeAllPartitionsCommand { get; }
 
         /// <summary>
         /// 用户是否已登录.

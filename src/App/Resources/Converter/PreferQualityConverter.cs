@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using Bili.DI.Container;
 using Bili.Models.Enums.Player;
 using Bili.Toolkit.Interfaces;
-using Splat;
 using Windows.UI.Xaml.Data;
 
 namespace Bili.App.Resources.Converter
@@ -17,7 +17,7 @@ namespace Bili.App.Resources.Converter
         {
             if(value is PreferQuality quality)
             {
-                var resToolkit = Locator.Current.GetService<IResourceToolkit>();
+                var resToolkit = Locator.Instance.GetService<IResourceToolkit>();
                 return quality switch
                 {
                     PreferQuality.HDFirst => resToolkit.GetLocaleString(Models.Enums.LanguageNames.HDFirst),

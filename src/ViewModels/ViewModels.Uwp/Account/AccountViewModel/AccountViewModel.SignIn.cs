@@ -51,14 +51,17 @@ namespace Bili.ViewModels.Uwp.Account
         {
             if (State == AuthorizeState.SignedIn)
             {
-                LoadMyProfileCommand.Execute().Subscribe(async _ =>
+                LoadMyProfileCommand.ExecuteAsync(null).ContinueWith(async t =>
                 {
-                    await _dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+                    if (t.Status == TaskStatus.RanToCompletion)
                     {
-                        IsConnected = true;
-                        await InitializeFixedItemAsync();
-                        State = AuthorizeState.SignedIn;
-                    });
+                        await _dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+                        {
+                            IsConnected = true;
+                            await InitializeFixedItemAsync();
+                            State = AuthorizeState.SignedIn;
+                        });
+                    }
                 });
             }
         }
@@ -74,7 +77,7 @@ namespace Bili.ViewModels.Uwp.Account
                 if (exception is ServiceException serviceEx
                     && (!serviceEx.IsHttpError()))
                 {
-                    SignOutCommand.Execute().Subscribe();
+                    SignOutCommand.ExecuteAsync(null);
                 }
             }
         }

@@ -30,7 +30,7 @@ namespace Bili.App.Pages.Desktop.Overlay
 
             if (data != ViewModel.CurrentType)
             {
-                ViewModel.SelectTypeCommand.Execute(data).Subscribe();
+                ViewModel.SelectTypeCommand.Execute(data);
             }
         }
     }

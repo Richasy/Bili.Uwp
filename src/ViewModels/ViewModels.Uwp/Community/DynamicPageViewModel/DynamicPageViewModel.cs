@@ -1,15 +1,13 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reactive.Linq;
 using Bili.Lib.Interfaces;
 using Bili.Models.App.Args;
 using Bili.Models.App.Other;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Community;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Community
 {
@@ -38,10 +36,8 @@ namespace Bili.ViewModels.Uwp.Community
                 new DynamicHeader(false, _resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.ComprehensiveDynamics)),
             };
 
-            var canInteraction = this.WhenAnyValue(p => p.NeedSignIn)
-                .Select(p => !p);
-            SelectHeaderCommand = ReactiveCommand.Create<DynamicHeader>(SelectHeader, canInteraction, RxApp.MainThreadScheduler);
-            RefreshModuleCommand = ReactiveCommand.Create(RefreshModule, canInteraction, RxApp.MainThreadScheduler);
+            SelectHeaderCommand = new RelayCommand<DynamicHeader>(SelectHeader, _ => !NeedSignIn);
+            RefreshModuleCommand = new RelayCommand(RefreshModule, () => !NeedSignIn);
 
             NeedSignIn = _authorizeProvider.State != Models.Enums.AuthorizeState.SignedIn;
             _authorizeProvider.StateChanged += OnAuthorizeStateChanged;
@@ -52,11 +48,11 @@ namespace Bili.ViewModels.Uwp.Community
         {
             if (CurrentHeader.IsVideo)
             {
-                VideoModule.ReloadCommand.Execute().Subscribe();
+                VideoModule.ReloadCommand.ExecuteAsync(null);
             }
             else
             {
-                AllModule.ReloadCommand.Execute().Subscribe();
+                AllModule.ReloadCommand.ExecuteAsync(null);
             }
         }
 
@@ -70,7 +66,7 @@ namespace Bili.ViewModels.Uwp.Community
         private void OnAuthorizeStateChanged(object sender, AuthorizeStateChangedEventArgs e)
         {
             NeedSignIn = e.NewState != Models.Enums.AuthorizeState.SignedIn;
-            RefreshModuleCommand.Execute().Subscribe();
+            RefreshModuleCommand.Execute(null);
         }
     }
 }

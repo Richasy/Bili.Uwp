@@ -7,7 +7,7 @@ using Bili.Models.Data.Pgc;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Pgc;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 using Windows.System;
 
 namespace Bili.ViewModels.Uwp.Pgc
@@ -29,10 +29,10 @@ namespace Bili.ViewModels.Uwp.Pgc
             _favoriteProvider = favoriteProvider;
             _navigationViewModel = navigationViewModel;
 
-            OpenInBroswerCommand = ReactiveCommand.CreateFromTask(OpenInBroswerAsync);
-            PlayCommand = ReactiveCommand.Create(Play);
-            UnfollowCommand = ReactiveCommand.CreateFromTask(UnfollowAsync);
-            ChangeFavoriteStatusCommand = ReactiveCommand.CreateFromTask<int>(ChangeFavoriteStatusAsync);
+            OpenInBroswerCommand = new AsyncRelayCommand(OpenInBroswerAsync);
+            PlayCommand = new RelayCommand(Play);
+            UnfollowCommand = new AsyncRelayCommand(UnfollowAsync);
+            ChangeFavoriteStatusCommand = new AsyncRelayCommand<int>(ChangeFavoriteStatusAsync);
         }
 
         /// <inheritdoc/>

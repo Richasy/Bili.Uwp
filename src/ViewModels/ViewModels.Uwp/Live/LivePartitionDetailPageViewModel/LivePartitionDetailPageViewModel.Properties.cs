@@ -2,14 +2,13 @@
 
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Community;
 using Bili.Models.Data.Live;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Live
 {
@@ -25,25 +24,22 @@ namespace Bili.ViewModels.Uwp.Live
 
         private int _totalCount;
 
+        [ObservableProperty]
+        private Partition _originPartition;
+
+        [ObservableProperty]
+        private LiveTag _currentTag;
+
+        [ObservableProperty]
+        private bool _isEmpty;
+
         /// <inheritdoc/>
         public ObservableCollection<LiveTag> Tags { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<LiveTag, Unit> SelectTagCommand { get; }
+        public IAsyncRelayCommand<LiveTag> SelectTagCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> SeeAllPartitionsCommand { get; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public Partition OriginPartition { get; private set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public LiveTag CurrentTag { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsEmpty { get; set; }
+        public IRelayCommand SeeAllPartitionsCommand { get; }
     }
 }

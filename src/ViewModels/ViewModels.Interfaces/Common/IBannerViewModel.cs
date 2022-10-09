@@ -1,14 +1,14 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System.ComponentModel;
 using Bili.Models.Data.Community;
-using ReactiveUI;
 
 namespace Bili.ViewModels.Interfaces.Common
 {
     /// <summary>
     /// 横幅视图模型的接口定义.
     /// </summary>
-    public interface IBannerViewModel : IReactiveObject, IInjectDataViewModel<BannerIdentifier>
+    public interface IBannerViewModel : INotifyPropertyChanged, IInjectDataViewModel<BannerIdentifier>
     {
         /// <summary>
         /// 导航地址.

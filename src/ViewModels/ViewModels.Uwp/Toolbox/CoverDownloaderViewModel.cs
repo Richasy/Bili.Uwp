@@ -2,14 +2,12 @@
 
 using System;
 using System.Net.Http;
-using System.Reactive;
-using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Toolbox;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Windows.Storage;
 using Windows.System;
 using Windows.UI.Core;
@@ -19,11 +17,26 @@ namespace Bili.ViewModels.Uwp.Toolbox
     /// <summary>
     /// 封面下载器视图模型.
     /// </summary>
-    public sealed class CoverDownloaderViewModel : ViewModelBase, ICoverDownloaderViewModel
+    public sealed partial class CoverDownloaderViewModel : ViewModelBase, ICoverDownloaderViewModel
     {
         private readonly IPlayerProvider _playerProvider;
         private readonly IVideoToolkit _videoToolkit;
         private readonly CoreDispatcher _dispatcher;
+
+        [ObservableProperty]
+        private string _coverUrl;
+
+        [ObservableProperty]
+        private string _inputId;
+
+        [ObservableProperty]
+        private bool _isShowError;
+
+        [ObservableProperty]
+        private string _errorMessage;
+
+        [ObservableProperty]
+        private bool _isDownloading;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CoverDownloaderViewModel"/> class.
@@ -37,45 +50,18 @@ namespace Bili.ViewModels.Uwp.Toolbox
             _playerProvider = playerProvider;
             _dispatcher = dispatcher;
 
-            DownloadCommand = ReactiveCommand.CreateFromTask(DownloadCoverAsync);
-            LoadPreviewCommand = ReactiveCommand.CreateFromTask(LoadPreviewAsync);
+            DownloadCommand = new AsyncRelayCommand(DownloadCoverAsync);
+            LoadPreviewCommand = new AsyncRelayCommand(LoadPreviewAsync);
 
-            DownloadCommand.IsExecuting.ToPropertyEx(this, x => x.IsDownloading);
-
-            this.WhenAnyValue(x => x.ErrorMessage)
-                .Subscribe(x => IsShowError = !string.IsNullOrEmpty(x));
-
-            DownloadCommand.ThrownExceptions
-                .Merge(LoadPreviewCommand.ThrownExceptions)
-                .ObserveOn(RxApp.MainThreadScheduler)
-                .Subscribe(DisplayExAsync);
+            AttachIsRunningToAsyncCommand(p => IsDownloading = p, DownloadCommand);
+            AttachExceptionHandlerToAsyncCommand(DisplayExAsync, DownloadCommand, LoadPreviewCommand);
         }
 
         /// <inheritdoc/>
-        [Reactive]
-        public string CoverUrl { get; set; }
+        public IAsyncRelayCommand LoadPreviewCommand { get; }
 
         /// <inheritdoc/>
-        [Reactive]
-        public string InputId { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsShowError { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public string ErrorMessage { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableAsProperty]
-        public bool IsDownloading { get; set; }
-
-        /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> LoadPreviewCommand { get; }
-
-        /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> DownloadCommand { get; }
+        public IAsyncRelayCommand DownloadCommand { get; }
 
         private async Task LoadPreviewAsync()
         {
@@ -116,5 +102,8 @@ namespace Bili.ViewModels.Uwp.Toolbox
                 ErrorMessage = ex.Message;
             });
         }
+
+        partial void OnErrorMessageChanged(string value)
+            => IsShowError = !string.IsNullOrEmpty(value);
     }
 }

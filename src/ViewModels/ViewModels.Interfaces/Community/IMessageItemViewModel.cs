@@ -1,8 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System.Reactive;
 using Bili.Models.Data.Community;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Interfaces.Community
 {
@@ -19,6 +18,6 @@ namespace Bili.ViewModels.Interfaces.Community
         /// <summary>
         /// 激活命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ActiveCommand { get; }
+        IAsyncRelayCommand ActiveCommand { get; }
     }
 }

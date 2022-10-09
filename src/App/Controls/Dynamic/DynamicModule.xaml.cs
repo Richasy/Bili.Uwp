@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using Bili.DI.Container;
 using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
-using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -27,7 +27,7 @@ namespace Bili.App.Controls.Dynamic
         /// <summary>
         /// 核心视图模型.
         /// </summary>
-        public IAppViewModel CoreViewModel { get; } = Locator.Current.GetService<IAppViewModel>();
+        public IAppViewModel CoreViewModel { get; } = Locator.Instance.GetService<IAppViewModel>();
 
         /// <summary>
         /// 视图模型.

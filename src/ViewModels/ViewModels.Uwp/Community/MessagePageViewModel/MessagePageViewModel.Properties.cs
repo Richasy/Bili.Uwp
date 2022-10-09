@@ -2,15 +2,14 @@
 
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Community;
 using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Community;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Community
 {
@@ -28,25 +27,25 @@ namespace Bili.ViewModels.Uwp.Community
         private bool _shouldClearCache;
 
         /// <summary>
+        /// 当前选中的消息类型.
+        /// </summary>
+        [ObservableProperty]
+        private IMessageHeaderViewModel _currentType;
+
+        /// <summary>
+        /// 是否为空.
+        /// </summary>
+        [ObservableProperty]
+        private bool _isEmpty;
+
+        /// <summary>
         /// 选择消息类型命令.
         /// </summary>
-        public ReactiveCommand<IMessageHeaderViewModel, Unit> SelectTypeCommand { get; }
+        public IAsyncRelayCommand<IMessageHeaderViewModel> SelectTypeCommand { get; }
 
         /// <summary>
         /// 消息类型集合.
         /// </summary>
         public ObservableCollection<IMessageHeaderViewModel> MessageTypes { get; }
-
-        /// <summary>
-        /// 当前选中的消息类型.
-        /// </summary>
-        [Reactive]
-        public IMessageHeaderViewModel CurrentType { get; set; }
-
-        /// <summary>
-        /// 是否为空.
-        /// </summary>
-        [Reactive]
-        public bool IsEmpty { get; set; }
     }
 }

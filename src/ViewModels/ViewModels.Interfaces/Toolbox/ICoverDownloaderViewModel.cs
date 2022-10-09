@@ -1,14 +1,14 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System.Reactive;
-using ReactiveUI;
+using System.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Interfaces.Toolbox
 {
     /// <summary>
     /// 封面下载器视图模型的接口定义.
     /// </summary>
-    public interface ICoverDownloaderViewModel : IReactiveObject
+    public interface ICoverDownloaderViewModel : INotifyPropertyChanged
     {
         /// <summary>
         /// 预览图片.
@@ -38,11 +38,11 @@ namespace Bili.ViewModels.Interfaces.Toolbox
         /// <summary>
         /// 加载预览命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> LoadPreviewCommand { get; }
+        IAsyncRelayCommand LoadPreviewCommand { get; }
 
         /// <summary>
         /// 下载命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> DownloadCommand { get; }
+        IAsyncRelayCommand DownloadCommand { get; }
     }
 }

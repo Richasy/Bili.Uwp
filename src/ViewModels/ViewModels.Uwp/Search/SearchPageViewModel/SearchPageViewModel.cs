@@ -1,11 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reactive.Linq;
 using System.Threading.Tasks;
+using Bili.DI.Container;
 using Bili.Lib.Interfaces;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
@@ -17,9 +16,7 @@ using Bili.ViewModels.Interfaces.Pgc;
 using Bili.ViewModels.Interfaces.Search;
 using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
-using Splat;
+using CommunityToolkit.Mvvm.Input;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Search
@@ -60,21 +57,11 @@ namespace Bili.ViewModels.Uwp.Search
             Lives = new ObservableCollection<ILiveItemViewModel>();
             CurrentFilters = new ObservableCollection<ISearchFilterViewModel>();
 
-            ReloadModuleCommand = ReactiveCommand.CreateFromTask(ReloadModuleAsync);
-            SelectModuleCommand = ReactiveCommand.CreateFromTask<ISearchModuleItemViewModel>(SelectModuleAsync);
+            ReloadModuleCommand = new AsyncRelayCommand(ReloadModuleAsync);
+            SelectModuleCommand = new AsyncRelayCommand<ISearchModuleItemViewModel>(SelectModuleAsync);
 
-            ReloadModuleCommand.IsExecuting
-                .Merge(SelectModuleCommand.IsExecuting)
-                .ToPropertyEx(this, x => x.IsReloadingModule);
-
-            ReloadModuleCommand.ThrownExceptions
-                .Merge(SelectModuleCommand.ThrownExceptions)
-                .Subscribe(ex => DisplayException(ex));
-
-            this.WhenAnyValue(x => x.CurrentModule)
-                .WhereNotNull()
-                .ObserveOn(RxApp.MainThreadScheduler)
-                .Subscribe(_ => CheckModuleVisibility());
+            AttachIsRunningToAsyncCommand(p => IsReloadingModule = p, ReloadModuleCommand, SelectModuleCommand);
+            AttachExceptionHandlerToAsyncCommand(DisplayException, ReloadModuleCommand, SelectModuleCommand);
         }
 
         /// <inheritdoc/>
@@ -227,9 +214,17 @@ namespace Bili.ViewModels.Uwp.Search
 
         private ISearchModuleItemViewModel GetModuleItemViewModel(SearchModuleType type, string title, bool isEnabled = true)
         {
-            var vm = Locator.Current.GetService<ISearchModuleItemViewModel>();
+            var vm = Locator.Instance.GetService<ISearchModuleItemViewModel>();
             vm.SetData(type, title, isEnabled);
             return vm;
+        }
+
+        partial void OnCurrentModuleChanged(ISearchModuleItemViewModel value)
+        {
+            if (value != null)
+            {
+                CheckModuleVisibility();
+            }
         }
     }
 }

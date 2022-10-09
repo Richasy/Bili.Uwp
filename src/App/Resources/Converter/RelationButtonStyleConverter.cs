@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using Bili.DI.Container;
 using Bili.Models.Enums.Community;
 using Bili.Toolkit.Interfaces;
-using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 
@@ -19,7 +19,7 @@ namespace Bili.App.Resources.Converter
         {
             if (value is UserRelationStatus status)
             {
-                var resourceToolkit = Splat.Locator.Current.GetService<IResourceToolkit>();
+                var resourceToolkit = Locator.Instance.GetService<IResourceToolkit>();
                 return status == UserRelationStatus.Unfollow || status == UserRelationStatus.BeFollowed
                     ? resourceToolkit.GetResource<Style>("AccentButtonStyle")
                     : (object)resourceToolkit.GetResource<Style>("DefaultButtonStyle");

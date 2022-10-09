@@ -153,7 +153,7 @@ namespace Bili.App.Controls.Danmaku
             {
                 if (!ViewModel.IsShowDanmaku)
                 {
-                    ViewModel.ResetCommand.Execute().Subscribe();
+                    ViewModel.ResetCommand.Execute(null);
                     ClearAll();
                 }
                 else

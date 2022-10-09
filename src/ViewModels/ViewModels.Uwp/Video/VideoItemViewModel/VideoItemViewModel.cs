@@ -2,6 +2,7 @@
 
 using System;
 using System.Threading.Tasks;
+using Bili.DI.Container;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums;
@@ -9,8 +10,7 @@ using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Video;
-using ReactiveUI;
-using Splat;
+using CommunityToolkit.Mvvm.Input;
 using Windows.System;
 
 namespace Bili.ViewModels.Uwp.Video
@@ -40,19 +40,21 @@ namespace Bili.ViewModels.Uwp.Video
             _navigationViewModel = navigationViewModel;
             _callerViewModel = callerViewModel;
 
-            PlayCommand = ReactiveCommand.Create(Play);
-            AddToViewLaterCommand = ReactiveCommand.CreateFromTask(AddToViewLaterAsync);
-            RemoveFromViewLaterCommand = ReactiveCommand.CreateFromTask(RemoveFromViewLaterAsync);
-            RemoveFromHistoryCommand = ReactiveCommand.CreateFromTask(RemoveFromHistoryAsync);
-            OpenInBroswerCommand = ReactiveCommand.CreateFromTask(OpenInBroswerAsync);
-            RemoveFromFavoriteCommand = ReactiveCommand.CreateFromTask(RemoveFromFavoriteAsync);
+            PlayCommand = new RelayCommand(Play);
+            AddToViewLaterCommand = new AsyncRelayCommand(AddToViewLaterAsync);
+            RemoveFromViewLaterCommand = new AsyncRelayCommand(RemoveFromViewLaterAsync);
+            RemoveFromHistoryCommand = new AsyncRelayCommand(RemoveFromHistoryAsync);
+            OpenInBroswerCommand = new AsyncRelayCommand(OpenInBroswerAsync);
+            RemoveFromFavoriteCommand = new AsyncRelayCommand(RemoveFromFavoriteAsync);
 
-            RemoveFromFavoriteCommand.ThrownExceptions.Subscribe(x =>
-            {
-                _callerViewModel.ShowTip(
-                    x.Message,
-                    Models.Enums.App.InfoType.Error);
-            });
+            AttachExceptionHandlerToAsyncCommand(
+                ex =>
+                {
+                    _callerViewModel.ShowTip(
+                        ex.Message,
+                        Models.Enums.App.InfoType.Error);
+                },
+                RemoveFromFavoriteCommand);
         }
 
         /// <inheritdoc/>
@@ -73,7 +75,7 @@ namespace Bili.ViewModels.Uwp.Video
         private void InitializeData()
         {
             IsShowCommunity = Data.CommunityInformation != null;
-            var userVM = Locator.Current.GetService<IUserItemViewModel>();
+            var userVM = Locator.Instance.GetService<IUserItemViewModel>();
             userVM.SetProfile(Data.Publisher);
             Publisher = userVM;
             if (IsShowCommunity)
@@ -99,7 +101,7 @@ namespace Bili.ViewModels.Uwp.Video
             var snapshot = new Models.Data.Local.PlaySnapshot(Data.Identifier.Id, "0", VideoType.Video);
             if (_navigationViewModel.IsPlayViewShown && _navigationViewModel.PlayViewId == PageIds.VideoPlayer)
             {
-                var videoPlayerPageVM = Locator.Current.GetService<IVideoPlayerPageViewModel>();
+                var videoPlayerPageVM = Locator.Instance.GetService<IVideoPlayerPageViewModel>();
                 videoPlayerPageVM.SetSnapshot(snapshot);
             }
             else

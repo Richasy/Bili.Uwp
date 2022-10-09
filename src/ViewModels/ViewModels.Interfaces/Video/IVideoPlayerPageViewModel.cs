@@ -2,14 +2,13 @@
 
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Reactive;
 using Bili.Models.App.Other;
 using Bili.Models.Data.Community;
 using Bili.Models.Data.Local;
 using Bili.Models.Data.Video;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Common;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Interfaces.Video
 {
@@ -21,72 +20,72 @@ namespace Bili.ViewModels.Interfaces.Video
         /// <summary>
         /// 请求用户已有的收藏夹列表的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> RequestFavoriteFoldersCommand { get; }
+        IAsyncRelayCommand RequestFavoriteFoldersCommand { get; }
 
         /// <summary>
         /// 请求获取实时在线观看人数的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> RequestOnlineCountCommand { get; }
+        IAsyncRelayCommand RequestOnlineCountCommand { get; }
 
         /// <summary>
         /// 改变视频分P的命令.
         /// </summary>
-        ReactiveCommand<VideoIdentifier, Unit> ChangeVideoPartCommand { get; }
+        IRelayCommand<VideoIdentifier> ChangeVideoPartCommand { get; }
 
         /// <summary>
         /// 搜索标签命令.
         /// </summary>
-        ReactiveCommand<Tag, Unit> SearchTagCommand { get; }
+        IRelayCommand<Tag> SearchTagCommand { get; }
 
         /// <summary>
         /// 选中视频合集的命令.
         /// </summary>
-        ReactiveCommand<VideoSeason, Unit> SelectSeasonCommand { get; }
+        IRelayCommand<VideoSeason> SelectSeasonCommand { get; }
 
         /// <summary>
         /// 收藏视频命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> FavoriteVideoCommand { get; }
+        IAsyncRelayCommand FavoriteVideoCommand { get; }
 
         /// <summary>
         /// 投币命令.
         /// </summary>
-        ReactiveCommand<int, Unit> CoinCommand { get; }
+        IAsyncRelayCommand<int> CoinCommand { get; }
 
         /// <summary>
         /// 点赞/取消点赞命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> LikeCommand { get; }
+        IAsyncRelayCommand LikeCommand { get; }
 
         /// <summary>
         /// 一键三连命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> TripleCommand { get; }
+        IAsyncRelayCommand TripleCommand { get; }
 
         /// <summary>
         /// 重置社区信息命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ReloadCommunityInformationCommand { get; }
+        IAsyncRelayCommand ReloadCommunityInformationCommand { get; }
 
         /// <summary>
         /// 分享命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ShareCommand { get; }
+        IRelayCommand ShareCommand { get; }
 
         /// <summary>
         /// 固定条目命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> FixedCommand { get; }
+        IRelayCommand FixedCommand { get; }
 
         /// <summary>
         /// 清除播放列表命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ClearPlaylistCommand { get; }
+        IRelayCommand ClearPlaylistCommand { get; }
 
         /// <summary>
         /// 清除播放数据的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ClearCommand { get; }
+        IRelayCommand ClearCommand { get; }
 
         /// <summary>
         /// 视频协作者.

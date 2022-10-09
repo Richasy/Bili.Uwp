@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
-using System.Reactive;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using Bili.Models.Data.Local;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Interfaces.Core
 {
@@ -14,37 +14,37 @@ namespace Bili.ViewModels.Interfaces.Core
     /// <remarks>
     /// 这个视图模型不涉及在线数据，仅记录本地的播放记录，比如上一次播放了什么视频，或者在这次应用运行过程中看过哪些视频等.
     /// </remarks>
-    public interface IRecordViewModel : IReactiveObject
+    public interface IRecordViewModel : INotifyPropertyChanged
     {
         /// <summary>
         /// 添加继续播放视图模型的命令.
         /// </summary>
-        ReactiveCommand<PlaySnapshot, Unit> AddLastPlayItemCommand { get; }
+        IAsyncRelayCommand<PlaySnapshot> AddLastPlayItemCommand { get; }
 
         /// <summary>
         /// 清除本地的继续播放视图模型的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> DeleteLastPlayItemCommand { get; }
+        IAsyncRelayCommand DeleteLastPlayItemCommand { get; }
 
         /// <summary>
         /// 添加本地播放历史条目的命令.
         /// </summary>
-        ReactiveCommand<PlayRecord, Unit> AddPlayRecordCommand { get; }
+        IRelayCommand<PlayRecord> AddPlayRecordCommand { get; }
 
         /// <summary>
         /// 移除本地播放历史条目的命令.
         /// </summary>
-        ReactiveCommand<PlayRecord, Unit> RemovePlayRecordCommand { get; }
+        IRelayCommand<PlayRecord> RemovePlayRecordCommand { get; }
 
         /// <summary>
         /// 清空本地历史条目的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ClearPlayRecordCommand { get; }
+        IRelayCommand ClearPlayRecordCommand { get; }
 
         /// <summary>
         /// 检查继续播放的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> CheckContinuePlayCommand { get; }
+        IRelayCommand CheckContinuePlayCommand { get; }
 
         /// <summary>
         /// 应用生命周期内的播放历史记录.

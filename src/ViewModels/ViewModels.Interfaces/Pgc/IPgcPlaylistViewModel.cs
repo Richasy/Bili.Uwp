@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
-using System.Reactive;
+using System.Windows.Input;
 using Bili.Models.Data.Pgc;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Interfaces.Pgc
 {
@@ -30,6 +30,6 @@ namespace Bili.ViewModels.Interfaces.Pgc
         /// <summary>
         /// 显示更多的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ShowMoreCommand { get; }
+        IRelayCommand ShowMoreCommand { get; }
     }
 }

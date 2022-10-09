@@ -29,7 +29,7 @@ namespace Bili.App.Pages.Desktop
             var data = args.InvokedItem as FollowGroup;
             if (data != ViewModel.CurrentGroup)
             {
-                ViewModel.SelectGroupCommand.Execute(data).Subscribe();
+                ViewModel.SelectGroupCommand.Execute(data);
             }
         }
     }

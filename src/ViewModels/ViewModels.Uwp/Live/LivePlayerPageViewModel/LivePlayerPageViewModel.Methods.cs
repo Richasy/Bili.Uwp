@@ -8,7 +8,6 @@ using Bili.Models.App.Args;
 using Bili.Models.Data.Live;
 using Bili.Models.Data.Local;
 using Bili.Models.Enums;
-using DynamicData;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage.Streams;
 using Windows.System;
@@ -38,12 +37,16 @@ namespace Bili.ViewModels.Uwp.Live
                 {
                     var data = e.Data as LiveDanmakuInformation;
                     Danmakus.Add(data);
-                    MediaPlayerViewModel.DanmakuViewModel.AddLiveDanmakuCommand.Execute(data).Subscribe();
+                    MediaPlayerViewModel.DanmakuViewModel.AddLiveDanmakuCommand.Execute(data);
 
                     if (Danmakus.Count > 1000)
                     {
-                        var removedMessages = Danmakus.Take(600).ToList();
-                        Danmakus.RemoveMany(removedMessages);
+                        var reserveMessages = Danmakus.TakeLast(100);
+                        Danmakus.Clear();
+                        foreach (var item in reserveMessages)
+                        {
+                            Danmakus.Add(item);
+                        }
                     }
 
                     if (IsDanmakusAutoScroll)
@@ -71,16 +74,16 @@ namespace Bili.ViewModels.Uwp.Live
 
             if (IsLiveFixed)
             {
-                _accountViewModel.RemoveFixedItemCommand.Execute(View.Information.Identifier.Id).Subscribe();
+                _accountViewModel.RemoveFixedItemCommand.ExecuteAsync(View.Information.Identifier.Id);
                 IsLiveFixed = false;
             }
             else
             {
-                _accountViewModel.AddFixedItemCommand.Execute(new FixedItem(
+                _accountViewModel.AddFixedItemCommand.ExecuteAsync(new FixedItem(
                     View.Information.User.Avatar.Uri,
                     View.Information.Identifier.Title,
                     View.Information.Identifier.Id,
-                    Models.Enums.App.FixedType.Video)).Subscribe();
+                    Models.Enums.App.FixedType.Video));
                 IsLiveFixed = true;
             }
         }

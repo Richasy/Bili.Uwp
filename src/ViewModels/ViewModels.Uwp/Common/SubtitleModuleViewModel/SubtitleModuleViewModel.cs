@@ -1,10 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Player;
@@ -12,8 +10,7 @@ using Bili.Models.Enums;
 using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Common;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Common
 {
@@ -43,29 +40,12 @@ namespace Bili.ViewModels.Uwp.Common
             ConvertType = _settingsToolkit.ReadLocalSetting(SettingNames.SubtitleConvertType, SubtitleConvertType.None);
             CanShowSubtitle = _settingsToolkit.ReadLocalSetting(SettingNames.CanShowSubtitle, true);
 
-            ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync);
-            ChangeMetaCommand = ReactiveCommand.CreateFromTask<SubtitleMeta>(ChangeMetaAsync);
-            SeekCommand = ReactiveCommand.Create<double>(Seek);
+            ReloadCommand = new AsyncRelayCommand(ReloadAsync);
+            ChangeMetaCommand = new AsyncRelayCommand<SubtitleMeta>(ChangeMetaAsync);
+            SeekCommand = new RelayCommand<double>(Seek);
 
-            ReloadCommand.IsExecuting.ToPropertyEx(this, x => x.IsReloading);
-
-            SeekCommand.ThrownExceptions
-                .Merge(ReloadCommand.ThrownExceptions)
-                .Subscribe(LogException);
-
-            this.WhenAnyValue(p => p.ConvertType)
-                .ObserveOn(RxApp.MainThreadScheduler)
-                .Subscribe(x =>
-                {
-                    _settingsToolkit.WriteLocalSetting(SettingNames.SubtitleConvertType, x);
-                });
-
-            this.WhenAnyValue(p => p.CanShowSubtitle)
-                .ObserveOn(RxApp.MainThreadScheduler)
-                .Subscribe(x =>
-                {
-                    _settingsToolkit.WriteLocalSetting(SettingNames.CanShowSubtitle, x);
-                });
+            AttachIsRunningToAsyncCommand(p => IsReloading = p, ReloadCommand);
+            AttachExceptionHandlerToAsyncCommand(LogException, ReloadCommand);
         }
 
         /// <inheritdoc/>
@@ -73,7 +53,7 @@ namespace Bili.ViewModels.Uwp.Common
         {
             _mainId = mainId;
             _partId = partId;
-            ReloadCommand.Execute().Subscribe();
+            ReloadCommand.ExecuteAsync(null);
         }
 
         private void Reset()
@@ -109,7 +89,7 @@ namespace Bili.ViewModels.Uwp.Common
                 _subtitles.Add(subtitle);
             }
 
-            SeekCommand.Execute(_currentSeconds).Subscribe();
+            SeekCommand.Execute(_currentSeconds);
         }
 
         private void Seek(double sec)
@@ -130,5 +110,11 @@ namespace Bili.ViewModels.Uwp.Common
                 }
                 : string.Empty;
         }
+
+        partial void OnConvertTypeChanged(SubtitleConvertType value)
+            => _settingsToolkit.WriteLocalSetting(SettingNames.SubtitleConvertType, value);
+
+        partial void OnCanShowSubtitleChanged(bool value)
+            => _settingsToolkit.WriteLocalSetting(SettingNames.CanShowSubtitle, value);
     }
 }

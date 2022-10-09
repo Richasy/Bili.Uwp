@@ -7,7 +7,7 @@ using Bili.Models.App.Constants;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 using Windows.Globalization;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
@@ -47,12 +47,10 @@ namespace Bili.ViewModels.Uwp.Core
             IsNetworkAvaliable = _networkHelper.ConnectionInformation.IsInternetAvailable;
             IsShowTitleBar = true;
 
-            CheckUpdateCommand = ReactiveCommand.CreateFromTask(CheckUpdateAsync);
-            CheckNewDynamicRegistrationCommand = ReactiveCommand.CreateFromTask(CheckNewDynamicRegistrationAsync);
+            CheckUpdateCommand = new AsyncRelayCommand(CheckUpdateAsync);
+            CheckNewDynamicRegistrationCommand = new AsyncRelayCommand(CheckNewDynamicRegistrationAsync);
 
-            CheckUpdateCommand.ThrownExceptions.Subscribe(LogException);
-
-            RxApp.DefaultExceptionHandler = new UnhandledExceptionHandler();
+            AttachExceptionHandlerToAsyncCommand(LogException, CheckUpdateCommand);
 
             var lan = ApplicationLanguages.Languages.First();
             _settingsToolkit.WriteLocalSetting(SettingNames.LastAppLanguage, lan);
@@ -90,7 +88,7 @@ namespace Bili.ViewModels.Uwp.Core
                 }
             }
 
-            this.RaisePropertyChanged(nameof(PageHorizontalPadding));
+            OnPropertyChanged(nameof(PageHorizontalPadding));
         }
     }
 }

@@ -1,10 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using System.Linq;
+using Bili.DI.Container;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Pgc;
-using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -29,7 +28,7 @@ namespace Bili.App.Controls.Favorite
         /// <summary>
         /// 核心数据模型.
         /// </summary>
-        public IAppViewModel CoreViewModel { get; } = Locator.Current.GetService<IAppViewModel>();
+        public IAppViewModel CoreViewModel { get; } = Locator.Instance.GetService<IAppViewModel>();
 
         /// <summary>
         /// 视图模型.
@@ -58,14 +57,14 @@ namespace Bili.App.Controls.Favorite
             var item = sender as MenuFlyoutItem;
             var context = item.DataContext as ISeasonItemViewModel;
             var status = int.Parse(item.Tag.ToString());
-            context.ChangeFavoriteStatusCommand.Execute(status).Subscribe();
+            context.ChangeFavoriteStatusCommand.Execute(status);
         }
 
         private void OnStatusSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (StatusComboBox.SelectedItem is int status && status != ViewModel.Status)
             {
-                ViewModel.SetStatusCommand.Execute(status).Subscribe();
+                ViewModel.SetStatusCommand.Execute(status);
             }
         }
     }

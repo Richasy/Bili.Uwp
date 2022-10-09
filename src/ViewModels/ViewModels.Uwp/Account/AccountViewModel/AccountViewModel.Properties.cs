@@ -2,15 +2,14 @@
 
 using System;
 using System.Collections.ObjectModel;
-using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Community;
 using Bili.Models.Data.Local;
 using Bili.Models.Data.User;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Account
@@ -30,6 +29,84 @@ namespace Bili.ViewModels.Uwp.Account
         private bool _isRequestLogout = false;
 
         /// <summary>
+        /// 当前视图模型状态.
+        /// </summary>
+        [ObservableProperty]
+        private AuthorizeState _state;
+
+        /// <summary>
+        /// 头像.
+        /// </summary>
+        [ObservableProperty]
+        private string _avatar;
+
+        /// <summary>
+        /// 显示名称.
+        /// </summary>
+        [ObservableProperty]
+        private string _displayName;
+
+        /// <summary>
+        /// 等级.
+        /// </summary>
+        [ObservableProperty]
+        private int _level;
+
+        /// <summary>
+        /// 工具提示及自动化文本.
+        /// </summary>
+        [ObservableProperty]
+        private string _tipText;
+
+        /// <summary>
+        /// 是否为大会员.
+        /// </summary>
+        [ObservableProperty]
+        private bool _isVip;
+
+        /// <summary>
+        /// 动态数.
+        /// </summary>
+        [ObservableProperty]
+        private string _dynamicCount;
+
+        /// <summary>
+        /// 粉丝数.
+        /// </summary>
+        [ObservableProperty]
+        private string _followerCount;
+
+        /// <summary>
+        /// 关注人数.
+        /// </summary>
+        [ObservableProperty]
+        private string _followCount;
+
+        /// <summary>
+        /// 是否已经完成了与账户的连接.
+        /// </summary>
+        [ObservableProperty]
+        private bool _isConnected;
+
+        /// <summary>
+        /// 未读提及数.
+        /// </summary>
+        [ObservableProperty]
+        private UnreadInformation _unreadInformation;
+
+        /// <summary>
+        /// 是否显示未读消息数.
+        /// </summary>
+        [ObservableProperty]
+        private bool _isShowUnreadMessage;
+
+        /// <summary>
+        /// 是否显示固定的内容.
+        /// </summary>
+        [ObservableProperty]
+        private bool _isShowFixedItem;
+
+        /// <summary>
         /// 用户信息.
         /// </summary>
         public AccountInformation AccountInformation { get; internal set; }
@@ -47,120 +124,36 @@ namespace Bili.ViewModels.Uwp.Account
         /// <summary>
         /// 尝试登录的命令.
         /// </summary>
-        public ReactiveCommand<bool, Unit> TrySignInCommand { get; }
+        public IAsyncRelayCommand<bool> TrySignInCommand { get; }
 
         /// <summary>
         /// 登出命令.
         /// </summary>
-        public ReactiveCommand<Unit, Unit> SignOutCommand { get; }
+        public IAsyncRelayCommand SignOutCommand { get; }
 
         /// <summary>
         /// 加载个人资料的命令.
         /// </summary>
-        public ReactiveCommand<Unit, Unit> LoadMyProfileCommand { get; }
+        public IAsyncRelayCommand LoadMyProfileCommand { get; }
 
         /// <summary>
         /// 初始化社区信息的命令.
         /// </summary>
-        public ReactiveCommand<Unit, Unit> InitializeCommunityCommand { get; }
+        public IAsyncRelayCommand InitializeCommunityCommand { get; }
 
         /// <summary>
         /// 初始化未读消息的命令.
         /// </summary>
-        public ReactiveCommand<Unit, Unit> InitializeUnreadCommand { get; }
+        public IAsyncRelayCommand InitializeUnreadCommand { get; }
 
         /// <summary>
         /// 添加固定条目的命令.
         /// </summary>
-        public ReactiveCommand<FixedItem, Unit> AddFixedItemCommand { get; }
+        public IAsyncRelayCommand<FixedItem> AddFixedItemCommand { get; }
 
         /// <summary>
         /// 移除固定条目的命令.
         /// </summary>
-        public ReactiveCommand<string, Unit> RemoveFixedItemCommand { get; }
-
-        /// <summary>
-        /// 当前视图模型状态.
-        /// </summary>
-        [Reactive]
-        public AuthorizeState State { get; set; }
-
-        /// <summary>
-        /// 头像.
-        /// </summary>
-        [Reactive]
-        public string Avatar { get; set; }
-
-        /// <summary>
-        /// 显示名称.
-        /// </summary>
-        [Reactive]
-        public string DisplayName { get; set; }
-
-        /// <summary>
-        /// 等级.
-        /// </summary>
-        [Reactive]
-        public int Level { get; set; }
-
-        /// <summary>
-        /// 工具提示及自动化文本.
-        /// </summary>
-        [Reactive]
-        public string TipText { get; set; }
-
-        /// <summary>
-        /// 是否为大会员.
-        /// </summary>
-        [Reactive]
-        public bool IsVip { get; set; }
-
-        /// <summary>
-        /// 动态数.
-        /// </summary>
-        [Reactive]
-        public string DynamicCount { get; set; }
-
-        /// <summary>
-        /// 粉丝数.
-        /// </summary>
-        [Reactive]
-        public string FollowerCount { get; set; }
-
-        /// <summary>
-        /// 关注人数.
-        /// </summary>
-        [Reactive]
-        public string FollowCount { get; set; }
-
-        /// <summary>
-        /// 是否已经完成了与账户的连接.
-        /// </summary>
-        [Reactive]
-        public bool IsConnected { get; set; }
-
-        /// <summary>
-        /// 未读提及数.
-        /// </summary>
-        [Reactive]
-        public UnreadInformation UnreadInformation { get; set; }
-
-        /// <summary>
-        /// 是否显示未读消息数.
-        /// </summary>
-        [Reactive]
-        public bool IsShowUnreadMessage { get; set; }
-
-        /// <summary>
-        /// 是否显示固定的内容.
-        /// </summary>
-        [Reactive]
-        public bool IsShowFixedItem { get; set; }
-
-        /// <summary>
-        /// 是否正在尝试登录.
-        /// </summary>
-        [ObservableAsProperty]
-        public bool IsSigning { get; set; }
+        public IAsyncRelayCommand<string> RemoveFixedItemCommand { get; }
     }
 }

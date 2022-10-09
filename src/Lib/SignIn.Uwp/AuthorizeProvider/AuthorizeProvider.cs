@@ -4,13 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Bili.DI.Container;
 using Bili.Lib.Interfaces;
 using Bili.Models.App.Args;
 using Bili.Models.App.Constants;
 using Bili.Models.BiliBili;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
-using Splat;
 
 namespace Bili.SignIn.Uwp
 {
@@ -210,7 +210,7 @@ namespace Bili.SignIn.Uwp
 
             State = AuthorizeState.SignedOut;
             CurrentUserId = default;
-            Splat.Locator.Current.GetService<IAccountProvider>().UserId = 0;
+            Locator.Instance.GetService<IAccountProvider>().UserId = 0;
             return Task.CompletedTask;
         }
 

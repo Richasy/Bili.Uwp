@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using Bili.DI.Container;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Video;
-using Splat;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -60,7 +60,7 @@ namespace Bili.App.Controls.Videos
                 return;
             }
 
-            var resourceToolkit = Locator.Current.GetService<IResourceToolkit>();
+            var resourceToolkit = Locator.Instance.GetService<IResourceToolkit>();
             Style = orientation == Orientation.Horizontal
                 ? IsDynamic ? resourceToolkit.GetResource<Style>("HorizontalDynamicVideoItemStyle") : resourceToolkit.GetResource<Style>("HorizontalVideoItemStyle")
                 : IsDynamic ? resourceToolkit.GetResource<Style>("VerticalDynamicVideoItemStyle") : resourceToolkit.GetResource<Style>("VerticalVideoItemStyle");

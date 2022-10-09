@@ -2,15 +2,14 @@
 
 using System;
 using System.Collections.ObjectModel;
-using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.App.Other;
 using Bili.Models.Enums.Bili;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Community;
 using Bili.ViewModels.Interfaces.Core;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Community
 {
@@ -27,6 +26,24 @@ namespace Bili.ViewModels.Uwp.Community
         private string _targetId;
         private ICommentItemViewModel _selectedComment;
 
+        [ObservableProperty]
+        private ICommentItemViewModel _topComment;
+
+        [ObservableProperty]
+        private bool _isEmpty;
+
+        [ObservableProperty]
+        private CommentSortHeader _currentSort;
+
+        [ObservableProperty]
+        private string _replyTip;
+
+        [ObservableProperty]
+        private string _replyText;
+
+        [ObservableProperty]
+        private bool _isSending;
+
         /// <inheritdoc/>
         public event EventHandler<ICommentItemViewModel> RequestShowDetail;
 
@@ -34,36 +51,12 @@ namespace Bili.ViewModels.Uwp.Community
         public ObservableCollection<CommentSortHeader> SortCollection { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<CommentSortHeader, Unit> ChangeSortCommand { get; }
+        public IRelayCommand<CommentSortHeader> ChangeSortCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ResetSelectedCommentCommand { get; }
+        public IRelayCommand ResetSelectedCommentCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> SendCommentCommand { get; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public ICommentItemViewModel TopComment { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsEmpty { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public CommentSortHeader CurrentSort { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public string ReplyTip { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public string ReplyText { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableAsProperty]
-        public bool IsSending { get; set; }
+        public IAsyncRelayCommand SendCommentCommand { get; }
     }
 }

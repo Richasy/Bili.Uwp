@@ -1,16 +1,16 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
-using System.Reactive;
+using System.ComponentModel;
 using Bili.Models.Data.Community;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Interfaces.Live
 {
     /// <summary>
     /// 直播分区页面视图模型的接口定义.
     /// </summary>
-    public interface ILivePartitionPageViewModel : IReactiveObject, IInitializeViewModel, IReloadViewModel
+    public interface ILivePartitionPageViewModel : INotifyPropertyChanged, IInitializeViewModel, IReloadViewModel
     {
         /// <summary>
         /// 父分区集合.
@@ -25,7 +25,7 @@ namespace Bili.ViewModels.Interfaces.Live
         /// <summary>
         /// 选择分区命令.
         /// </summary>
-        public ReactiveCommand<Partition, Unit> SelectPartitionCommand { get; }
+        public IAsyncRelayCommand<Partition> SelectPartitionCommand { get; }
 
         /// <summary>
         /// 当前选中的父分区.

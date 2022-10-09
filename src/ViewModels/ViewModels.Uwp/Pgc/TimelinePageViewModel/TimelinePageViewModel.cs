@@ -3,7 +3,6 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.App.Other;
@@ -11,8 +10,7 @@ using Bili.Models.Data.Pgc;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Pgc;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Pgc
 {
@@ -34,16 +32,11 @@ namespace Bili.ViewModels.Uwp.Pgc
             _resourceToolkit = resourceToolkit;
             Timelines = new ObservableCollection<TimelineInformation>();
 
-            InitializeCommand = ReactiveCommand.CreateFromTask(InitializeAsync);
-            ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync);
+            InitializeCommand = new AsyncRelayCommand(InitializeAsync);
+            ReloadCommand = new AsyncRelayCommand(ReloadAsync);
 
-            InitializeCommand.IsExecuting
-                .Merge(ReloadCommand.IsExecuting)
-                .ToPropertyEx(this, x => x.IsReloading);
-
-            InitializeCommand.ThrownExceptions
-                .Merge(ReloadCommand.ThrownExceptions)
-                .Subscribe(DisplayException);
+            AttachIsRunningToAsyncCommand(p => IsReloading = p, InitializeCommand, ReloadCommand);
+            AttachExceptionHandlerToAsyncCommand(DisplayException, InitializeCommand, ReloadCommand);
         }
 
         /// <inheritdoc/>

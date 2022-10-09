@@ -23,7 +23,7 @@ namespace Bili.App.Pages.Xbox.Overlay
             if (e.Parameter is VideoFavoriteFolder folder)
             {
                 ViewModel.InjectData(folder);
-                ViewModel.ReloadCommand.Execute().Subscribe();
+                ViewModel.ReloadCommand.ExecuteAsync(null);
             }
         }
 

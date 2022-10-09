@@ -2,10 +2,9 @@
 
 using System;
 using System.Collections.ObjectModel;
-using System.Reactive;
 using Bili.Models.App.Other;
 using Bili.Models.Enums.Bili;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Interfaces.Community
 {
@@ -27,17 +26,17 @@ namespace Bili.ViewModels.Interfaces.Community
         /// <summary>
         /// 改变排序方式的命令.
         /// </summary>
-        ReactiveCommand<CommentSortHeader, Unit> ChangeSortCommand { get; }
+        IRelayCommand<CommentSortHeader> ChangeSortCommand { get; }
 
         /// <summary>
         /// 重置选中的评论.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ResetSelectedCommentCommand { get; }
+        IRelayCommand ResetSelectedCommentCommand { get; }
 
         /// <summary>
         /// 发送评论命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> SendCommentCommand { get; }
+        IAsyncRelayCommand SendCommentCommand { get; }
 
         /// <summary>
         /// 置顶评论.

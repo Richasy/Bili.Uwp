@@ -4,17 +4,18 @@ using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Bili.DI.Container;
 using Bili.Models.App.Constants;
 using Bili.Models.App.Other;
-using ReactiveUI;
-using Splat;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp
 {
     /// <summary>
     /// ViewModel的基类.
     /// </summary>
-    public class ViewModelBase : ReactiveObject
+    public class ViewModelBase : ObservableObject
     {
         /// <summary>
         /// 从错误中获取错误的消息文本.
@@ -36,7 +37,8 @@ namespace Bili.ViewModels.Uwp
         protected void LogException(Exception exception)
         {
             Debug.WriteLine(exception.StackTrace);
-            this.Log().Error(exception);
+            var logger = Locator.Instance.GetService<NLog.ILogger>();
+            logger.Error(exception);
         }
 
         /// <summary>
@@ -69,6 +71,50 @@ namespace Bili.ViewModels.Uwp
             if (collection.Count > 0)
             {
                 collection.Clear();
+            }
+        }
+
+        /// <summary>
+        /// 为异步命令添加错误回调.
+        /// </summary>
+        /// <param name="handler">错误回调.</param>
+        /// <param name="commands">命令集.</param>
+        protected void AttachExceptionHandlerToAsyncCommand(Action<Exception> handler, params IAsyncRelayCommand[] commands)
+        {
+            foreach (var command in commands)
+            {
+                command.PropertyChanged += (s, e) =>
+                {
+                    if (e.PropertyName == nameof(AsyncRelayCommand.ExecutionTask) &&
+                        ((IAsyncRelayCommand)s).ExecutionTask is Task task &&
+                        task.Exception is AggregateException exception)
+                    {
+                        exception.Handle(ex =>
+                        {
+                            handler(ex);
+                            return true;
+                        });
+                    }
+                };
+            }
+        }
+
+        /// <summary>
+        /// 为异步命令的 <see cref="AsyncRelayCommand.IsRunning"/> 属性添加回调.
+        /// </summary>
+        /// <param name="handler">回调.</param>
+        /// <param name="commands">命令集合.</param>
+        protected void AttachIsRunningToAsyncCommand(Action<bool> handler, params IAsyncRelayCommand[] commands)
+        {
+            foreach (var command in commands)
+            {
+                command.PropertyChanged += (s, e) =>
+                {
+                    if (e.PropertyName == nameof(AsyncRelayCommand.IsRunning))
+                    {
+                        handler(command.IsRunning);
+                    }
+                };
             }
         }
     }

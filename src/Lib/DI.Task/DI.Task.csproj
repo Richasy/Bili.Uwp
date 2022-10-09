@@ -128,11 +128,6 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.14</Version>
     </PackageReference>
-    <PackageReference Include="Splat.DependencyInjection.SourceGenerator">
-      <Version>1.1.69</Version>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Adapter\Adapter.Implementation\Adapter.Implementation.csproj">
@@ -154,6 +149,10 @@
     <ProjectReference Include="..\..\Utilities\Toolkit\Toolkit.Uwp\Toolkit.Uwp.csproj">
       <Project>{07b6d3b7-0ac0-489b-bf27-588ab6226b1c}</Project>
       <Name>Toolkit.Uwp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DI.Container\DI.Container.csproj">
+      <Project>{81b36a8c-e9a5-46f1-b803-b4d329c6e4b4}</Project>
+      <Name>DI.Container</Name>
     </ProjectReference>
     <ProjectReference Include="..\Lib.Implementation\Lib.Implementation.csproj">
       <Project>{ee5c62af-b6b7-4cf9-895f-60adc1801175}</Project>

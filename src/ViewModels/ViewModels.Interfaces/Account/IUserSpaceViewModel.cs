@@ -1,10 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
-using System.Reactive;
 using Bili.Models.Data.User;
 using Bili.ViewModels.Interfaces.Video;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Interfaces.Account
 {
@@ -16,32 +15,32 @@ namespace Bili.ViewModels.Interfaces.Account
         /// <summary>
         /// 搜索命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> SearchCommand { get; }
+        IAsyncRelayCommand SearchCommand { get; }
 
         /// <summary>
         /// 进入搜索模式的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> EnterSearchModeCommand { get; }
+        IRelayCommand EnterSearchModeCommand { get; }
 
         /// <summary>
         /// 退出搜索模式的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ExitSearchModeCommand { get; }
+        IRelayCommand ExitSearchModeCommand { get; }
 
         /// <summary>
         /// 前往粉丝页面的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> GotoFansPageCommand { get; }
+        IRelayCommand GotoFansPageCommand { get; }
 
         /// <summary>
         /// 前往关注者页面的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> GotoFollowsPageCommand { get; }
+        IRelayCommand GotoFollowsPageCommand { get; }
 
         /// <summary>
         /// 固定条目的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> FixedCommand { get; }
+        IRelayCommand FixedCommand { get; }
 
         /// <summary>
         /// 搜索的视频结果.

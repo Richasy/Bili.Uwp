@@ -1,9 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Core;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Account
 {
@@ -22,10 +21,10 @@ namespace Bili.ViewModels.Uwp.Account
             _navigationViewModel = navigationViewModel;
             AccountViewModel = accountViewModel;
 
-            GotoFavoritePageCommand = ReactiveCommand.Create(GotoFavoritePage);
-            GotoViewLaterPageCommand = ReactiveCommand.Create(GotoViewLaterPage);
-            GotoHistoryPageCommand = ReactiveCommand.Create(GotoHistoryPage);
-            SignOutCommand = ReactiveCommand.Create(SignOut);
+            GotoFavoritePageCommand = new RelayCommand(GotoFavoritePage);
+            GotoViewLaterPageCommand = new RelayCommand(GotoViewLaterPage);
+            GotoHistoryPageCommand = new RelayCommand(GotoHistoryPage);
+            SignOutCommand = new RelayCommand(SignOut);
         }
 
         private void GotoFavoritePage()
@@ -40,7 +39,7 @@ namespace Bili.ViewModels.Uwp.Account
         private void SignOut()
         {
             _navigationViewModel.NavigateToMainView(Models.Enums.PageIds.Recommend);
-            AccountViewModel.SignOutCommand.Execute().Subscribe();
+            AccountViewModel.SignOutCommand.ExecuteAsync(null);
         }
     }
 }

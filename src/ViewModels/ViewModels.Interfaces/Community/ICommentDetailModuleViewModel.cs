@@ -1,8 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using System.Reactive;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Interfaces.Community
 {
@@ -19,17 +18,17 @@ namespace Bili.ViewModels.Interfaces.Community
         /// <summary>
         /// 重置选中的评论.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ResetSelectedCommentCommand { get; }
+        IRelayCommand ResetSelectedCommentCommand { get; }
 
         /// <summary>
         /// 发送评论命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> SendCommentCommand { get; }
+        IAsyncRelayCommand SendCommentCommand { get; }
 
         /// <summary>
         /// 返回到上一层（主视图）的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> BackCommand { get; }
+        IRelayCommand BackCommand { get; }
 
         /// <summary>
         /// 根评论.

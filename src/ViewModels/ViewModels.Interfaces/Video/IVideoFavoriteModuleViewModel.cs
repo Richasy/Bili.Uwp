@@ -1,8 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System.Reactive;
 using Bili.Models.Data.Video;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Interfaces.Video
 {
@@ -14,7 +13,7 @@ namespace Bili.ViewModels.Interfaces.Video
         /// <summary>
         /// 显示默认收藏夹详情的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ShowDefaultFolderDetailCommand { get; }
+        IRelayCommand ShowDefaultFolderDetailCommand { get; }
 
         /// <summary>
         /// 默认收藏夹.

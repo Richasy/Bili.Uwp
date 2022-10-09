@@ -2,15 +2,14 @@
 
 using System;
 using System.Threading.Tasks;
+using Bili.DI.Container;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Article;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Article;
 using Bili.ViewModels.Interfaces.Core;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
-using Splat;
+using CommunityToolkit.Mvvm.Input;
 using Windows.System;
 
 namespace Bili.ViewModels.Uwp.Article
@@ -36,13 +35,13 @@ namespace Bili.ViewModels.Uwp.Article
             _articleProvider = articleProvider;
             _favoriteProvider = favoriteProvider;
 
-            ReadCommand = ReactiveCommand.Create(Read);
-            OpenInBroswerCommand = ReactiveCommand.CreateFromTask(OpenInBroswerAsync);
-            ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync);
-            UnfavoriteCommand = ReactiveCommand.CreateFromTask(UnfavoriteAsync);
+            ReadCommand = new RelayCommand(Read);
+            OpenInBroswerCommand = new AsyncRelayCommand(OpenInBroswerAsync);
+            ReloadCommand = new AsyncRelayCommand(ReloadAsync);
+            UnfavoriteCommand = new AsyncRelayCommand(UnfavoriteAsync);
 
-            ReloadCommand.IsExecuting.ToPropertyEx(this, x => x.IsReloading);
-            ReloadCommand.ThrownExceptions.Subscribe(DisplayException);
+            AttachIsRunningToAsyncCommand(p => IsReloading = p, ReloadCommand);
+            AttachExceptionHandlerToAsyncCommand(DisplayException, ReloadCommand);
         }
 
         /// <summary>
@@ -100,7 +99,7 @@ namespace Bili.ViewModels.Uwp.Article
         private void InitializeData()
         {
             IsShowCommunity = Data.CommunityInformation != null;
-            var userVM = Locator.Current.GetService<IUserItemViewModel>();
+            var userVM = Locator.Instance.GetService<IUserItemViewModel>();
             userVM.SetProfile(Data.Publisher);
             Publisher = userVM;
             if (IsShowCommunity)

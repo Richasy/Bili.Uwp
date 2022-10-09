@@ -1,19 +1,19 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
-using System.Reactive;
+using System.ComponentModel;
 using Bili.Models.Data.Community;
 using Bili.Models.Data.Local;
 using Bili.Models.Data.User;
 using Bili.Models.Enums;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Interfaces.Account
 {
     /// <summary>
     /// 登录用户的视图模型接口定义.
     /// </summary>
-    public interface IAccountViewModel : IReactiveObject
+    public interface IAccountViewModel : INotifyPropertyChanged
     {
         /// <summary>
         /// 用户信息.
@@ -33,37 +33,37 @@ namespace Bili.ViewModels.Interfaces.Account
         /// <summary>
         /// 尝试登录的命令.
         /// </summary>
-        ReactiveCommand<bool, Unit> TrySignInCommand { get; }
+        IAsyncRelayCommand<bool> TrySignInCommand { get; }
 
         /// <summary>
         /// 登出命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> SignOutCommand { get; }
+        IAsyncRelayCommand SignOutCommand { get; }
 
         /// <summary>
         /// 加载个人资料的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> LoadMyProfileCommand { get; }
+        IAsyncRelayCommand LoadMyProfileCommand { get; }
 
         /// <summary>
         /// 初始化社区信息的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> InitializeCommunityCommand { get; }
+        IAsyncRelayCommand InitializeCommunityCommand { get; }
 
         /// <summary>
         /// 初始化未读消息的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> InitializeUnreadCommand { get; }
+        IAsyncRelayCommand InitializeUnreadCommand { get; }
 
         /// <summary>
         /// 添加固定条目的命令.
         /// </summary>
-        ReactiveCommand<FixedItem, Unit> AddFixedItemCommand { get; }
+        IAsyncRelayCommand<FixedItem> AddFixedItemCommand { get; }
 
         /// <summary>
         /// 移除固定条目的命令.
         /// </summary>
-        ReactiveCommand<string, Unit> RemoveFixedItemCommand { get; }
+        IAsyncRelayCommand<string> RemoveFixedItemCommand { get; }
 
         /// <summary>
         /// 当前视图模型状态.
@@ -129,10 +129,5 @@ namespace Bili.ViewModels.Interfaces.Account
         /// 是否显示固定的内容.
         /// </summary>
         bool IsShowFixedItem { get; }
-
-        /// <summary>
-        /// 是否正在尝试登录.
-        /// </summary>
-        bool IsSigning { get; }
     }
 }

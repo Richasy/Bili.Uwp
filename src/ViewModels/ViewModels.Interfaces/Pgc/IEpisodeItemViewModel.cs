@@ -1,8 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System.Reactive;
 using Bili.Models.Data.Pgc;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Interfaces.Pgc
 {
@@ -14,12 +13,12 @@ namespace Bili.ViewModels.Interfaces.Pgc
         /// <summary>
         /// 在网页中打开的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> OpenInBroswerCommand { get; }
+        IAsyncRelayCommand OpenInBroswerCommand { get; }
 
         /// <summary>
         /// 播放命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> PlayCommand { get; }
+        IRelayCommand PlayCommand { get; }
 
         /// <summary>
         /// 播放次数的可读文本.

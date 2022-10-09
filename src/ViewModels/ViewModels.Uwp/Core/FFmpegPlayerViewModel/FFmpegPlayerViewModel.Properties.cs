@@ -1,13 +1,12 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using System.Reactive;
 using Bili.Models.App.Args;
 using Bili.Models.Data.Player;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
+using CommunityToolkit.Mvvm.Input;
 using FFmpegInteropX;
-using ReactiveUI;
 using Windows.Media;
 using Windows.Media.Playback;
 using Windows.UI.Core;
@@ -60,7 +59,7 @@ namespace Bili.ViewModels.Uwp.Core
         public event EventHandler<object> MediaPlayerChanged;
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ClearCommand { get; }
+        public IRelayCommand ClearCommand { get; }
 
         /// <inheritdoc/>
         public TimeSpan Position => _videoCurrentSession?.Position ?? TimeSpan.Zero;

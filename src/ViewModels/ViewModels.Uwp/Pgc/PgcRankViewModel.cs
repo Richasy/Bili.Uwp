@@ -3,27 +3,26 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Bili.DI.Container;
 using Bili.Models.Data.Pgc;
 using Bili.ViewModels.Interfaces.Pgc;
-using ReactiveUI.Fody.Helpers;
-using Splat;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Bili.ViewModels.Uwp.Pgc
 {
     /// <summary>
     /// PGC 排行榜视图模型.
     /// </summary>
-    public sealed class PgcRankViewModel : ViewModelBase, IPgcRankViewModel
+    public sealed partial class PgcRankViewModel : ViewModelBase, IPgcRankViewModel
     {
+        [ObservableProperty]
+        private string _title;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="PgcRankViewModel"/> class.
         /// </summary>
         public PgcRankViewModel()
             => Episodes = new ObservableCollection<IEpisodeItemViewModel>();
-
-        /// <inheritdoc/>
-        [Reactive]
-        public string Title { get; set; }
 
         /// <inheritdoc/>
         public ObservableCollection<IEpisodeItemViewModel> Episodes { get; }
@@ -35,7 +34,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             episodes
                 .Select(p =>
                 {
-                    var episodeVM = Splat.Locator.Current.GetService<IEpisodeItemViewModel>();
+                    var episodeVM = Locator.Instance.GetService<IEpisodeItemViewModel>();
                     episodeVM.InjectData(p);
                     return episodeVM;
                 })

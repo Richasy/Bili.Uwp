@@ -31,7 +31,7 @@ namespace Bili.App.Pages.Xbox.Overlay
 
             if (data != ViewModel.CurrentParentPartition)
             {
-                ViewModel.SelectPartitionCommand.Execute(data).Subscribe();
+                ViewModel.SelectPartitionCommand.Execute(data);
             }
         }
     }

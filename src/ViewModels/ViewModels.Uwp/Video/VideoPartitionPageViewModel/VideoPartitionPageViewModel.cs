@@ -1,14 +1,12 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Community;
 using Bili.ViewModels.Interfaces.Video;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Video
 {
@@ -26,19 +24,12 @@ namespace Bili.ViewModels.Uwp.Video
             _homeProvider = homeProvider;
             Partitions = new ObservableCollection<Partition>();
 
-            var canInitialize = this.WhenAnyValue(
-                x => x.Partitions.Count,
-                count => count == 0);
-
-            InitializeCommand = ReactiveCommand.CreateFromTask(
+            InitializeCommand = new AsyncRelayCommand(
                 InitializeAsync,
-                canInitialize,
-                outputScheduler: RxApp.MainThreadScheduler);
+                () => Partitions.Count == 0);
 
-            InitializeCommand.ThrownExceptions.Subscribe(LogException);
-            InitializeCommand.IsExecuting.ToPropertyEx(
-                this,
-                x => x.IsInitializing);
+            AttachExceptionHandlerToAsyncCommand(LogException, InitializeCommand);
+            AttachIsRunningToAsyncCommand(p => IsInitializing = p, InitializeCommand);
         }
 
         private async Task InitializeAsync()

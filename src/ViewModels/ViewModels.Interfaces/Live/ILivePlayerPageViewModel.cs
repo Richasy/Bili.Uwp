@@ -2,12 +2,11 @@
 
 using System;
 using System.Collections.ObjectModel;
-using System.Reactive;
 using Bili.Models.App.Other;
 using Bili.Models.Data.Live;
 using Bili.Models.Data.Local;
 using Bili.ViewModels.Interfaces.Account;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Interfaces.Live
 {
@@ -24,22 +23,22 @@ namespace Bili.ViewModels.Interfaces.Live
         /// <summary>
         /// 分享命令.
         /// </summary>
-        public ReactiveCommand<Unit, Unit> ShareCommand { get; }
+        public IRelayCommand ShareCommand { get; }
 
         /// <summary>
         /// 固定条目命令.
         /// </summary>
-        public ReactiveCommand<Unit, Unit> FixedCommand { get; }
+        public IRelayCommand FixedCommand { get; }
 
         /// <summary>
         /// 清除数据命令.
         /// </summary>
-        public ReactiveCommand<Unit, Unit> ClearCommand { get; }
+        public IRelayCommand ClearCommand { get; }
 
         /// <summary>
         /// 在网页中打开的命令.
         /// </summary>
-        public ReactiveCommand<Unit, Unit> OpenInBroswerCommand { get; }
+        public IAsyncRelayCommand OpenInBroswerCommand { get; }
 
         /// <summary>
         /// 弹幕池.

@@ -1,15 +1,14 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
-using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.User;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Video;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Account
 {
@@ -28,61 +27,52 @@ namespace Bili.ViewModels.Uwp.Account
         private bool _isSearchVideoFinished;
         private string _requestKeyword;
 
-        /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> SearchCommand { get; }
+        [ObservableProperty]
+        private IUserItemViewModel _userViewModel;
+
+        [ObservableProperty]
+        private bool _isMe;
+
+        [ObservableProperty]
+        private bool _isSearchMode;
+
+        [ObservableProperty]
+        private string _keyword;
+
+        [ObservableProperty]
+        private bool _isSpaceVideoEmpty;
+
+        [ObservableProperty]
+        private bool _isSearchVideoEmpty;
+
+        [ObservableProperty]
+        private bool _isFixed;
+
+        [ObservableProperty]
+        private bool _isSearching;
+
+        [ObservableProperty]
+        private bool _canSearch;
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> EnterSearchModeCommand { get; }
+        public IAsyncRelayCommand SearchCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ExitSearchModeCommand { get; }
+        public IRelayCommand EnterSearchModeCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> GotoFansPageCommand { get; }
+        public IRelayCommand ExitSearchModeCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> GotoFollowsPageCommand { get; }
+        public IRelayCommand GotoFansPageCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> FixedCommand { get; }
+        public IRelayCommand GotoFollowsPageCommand { get; }
+
+        /// <inheritdoc/>
+        public IRelayCommand FixedCommand { get; }
 
         /// <inheritdoc/>
         public ObservableCollection<IVideoItemViewModel> SearchVideos { get; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public IUserItemViewModel UserViewModel { get; internal set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsMe { get; internal set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsSearchMode { get; internal set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public string Keyword { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsSpaceVideoEmpty { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsSearchVideoEmpty { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsFixed { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableAsProperty]
-        public bool IsSearching { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableAsProperty]
-        public bool CanSearch { get; set; }
     }
 }

@@ -3,8 +3,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Bili.DI.Container;
 using Bili.ViewModels.Interfaces.Core;
-using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -52,7 +52,7 @@ namespace Bili.App.Controls.Dynamic
             var image = sender as CommonImageEx;
             var sources = ItemsSource as List<Models.Data.Appearance.Image>;
             var index = sources.ToList().IndexOf(image.DataContext as Models.Data.Appearance.Image);
-            Locator.Current.GetService<ICallerViewModel>().ShowImages(sources, index);
+            Locator.Instance.GetService<ICallerViewModel>().ShowImages(sources, index);
         }
 
         private void LimitHeight()

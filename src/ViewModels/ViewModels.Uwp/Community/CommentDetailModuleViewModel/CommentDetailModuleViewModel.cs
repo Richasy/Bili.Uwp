@@ -3,15 +3,14 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Bili.DI.Container;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Community;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Community;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Uwp.Base;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
-using Splat;
+using CommunityToolkit.Mvvm.Input;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Community
@@ -35,11 +34,11 @@ namespace Bili.ViewModels.Uwp.Community
             _resourceToolkit = resourceToolkit;
             _callerViewModel = callerViewModel;
 
-            SendCommentCommand = ReactiveCommand.CreateFromTask(SendCommentAsync);
-            BackCommand = ReactiveCommand.Create(Back);
-            ResetSelectedCommentCommand = ReactiveCommand.Create(UnselectComment);
+            SendCommentCommand = new AsyncRelayCommand(SendCommentAsync);
+            BackCommand = new RelayCommand(Back);
+            ResetSelectedCommentCommand = new RelayCommand(UnselectComment);
 
-            SendCommentCommand.IsExecuting.ToPropertyEx(this, x => x.IsSending);
+            AttachIsRunningToAsyncCommand(p => IsSending = p, SendCommentCommand);
         }
 
         /// <inheritdoc/>
@@ -47,7 +46,7 @@ namespace Bili.ViewModels.Uwp.Community
         {
             TryClear(Items);
             RootComment = GetItemViewModel(rootItem.Data);
-            InitializeCommand.Execute().Subscribe();
+            InitializeCommand.ExecuteAsync(null);
         }
 
         /// <inheritdoc/>
@@ -123,7 +122,7 @@ namespace Bili.ViewModels.Uwp.Community
 
                 // 即便评论发送成功也需要等待一点时间才会显示.
                 await Task.Delay(500);
-                ReloadCommand.Execute().Subscribe();
+                _ = ReloadCommand.ExecuteAsync(null);
             }
             else
             {
@@ -133,7 +132,7 @@ namespace Bili.ViewModels.Uwp.Community
 
         private ICommentItemViewModel GetItemViewModel(CommentInformation information)
         {
-            var vm = Locator.Current.GetService<ICommentItemViewModel>();
+            var vm = Locator.Instance.GetService<ICommentItemViewModel>();
             var highlightUserId = RootComment == null
                 ? information.Publisher.User.Id
                 : RootComment.Data.Publisher.User.Id;

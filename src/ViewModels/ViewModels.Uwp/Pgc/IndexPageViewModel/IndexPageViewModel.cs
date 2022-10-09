@@ -5,12 +5,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Bili.DI.Container;
 using Bili.Lib.Interfaces;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Pgc;
 using Bili.ViewModels.Uwp.Base;
-using Splat;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Pgc
@@ -89,7 +89,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             var isAnime = _type == PgcType.Bangumi || _type == PgcType.Domestic;
             foreach (var item in filters)
             {
-                var vm = Locator.Current.GetService<IIndexFilterViewModel>();
+                var vm = Locator.Instance.GetService<IIndexFilterViewModel>();
                 if (isAnime && item.Id == "area")
                 {
                     var areaId = _type == PgcType.Bangumi ? "2" : "1,";
@@ -126,7 +126,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             _isFinished = isFinished;
             foreach (var item in items)
             {
-                var seasonVM = Splat.Locator.Current.GetService<ISeasonItemViewModel>();
+                var seasonVM = Locator.Instance.GetService<ISeasonItemViewModel>();
                 seasonVM.InjectData(item);
                 Items.Add(seasonVM);
             }

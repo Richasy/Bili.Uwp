@@ -1,14 +1,14 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System.ComponentModel;
 using Bili.Models.Data.Appearance;
-using ReactiveUI;
 
 namespace Bili.ViewModels.Interfaces.Pgc
 {
     /// <summary>
     /// 索引过滤条件视图模型的接口定义.
     /// </summary>
-    public interface IIndexFilterViewModel : IReactiveObject
+    public interface IIndexFilterViewModel : INotifyPropertyChanged
     {
         /// <summary>
         /// 数据.

@@ -4,8 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reactive.Linq;
 using System.Threading.Tasks;
+using Bili.DI.Container;
 using Bili.Lib.Interfaces;
 using Bili.Models.App.Other;
 using Bili.Models.Data.Appearance;
@@ -14,9 +14,7 @@ using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Home;
 using Bili.ViewModels.Interfaces.Video;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
-using Splat;
+using CommunityToolkit.Mvvm.Input;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Home
@@ -45,21 +43,21 @@ namespace Bili.ViewModels.Uwp.Home
             Videos = new ObservableCollection<IVideoItemViewModel>();
             Partitions = new ObservableCollection<Partition>();
 
-            var canReload = this.WhenAnyValue(x => x.IsReloading).Select(p => !p);
+            InitializeCommand = new AsyncRelayCommand(InitializeAsync);
+            ReloadCommand = new AsyncRelayCommand(ReloadAsync, () => !IsReloading);
+            SelectPartitionCommand = new AsyncRelayCommand<Partition>(SelectPartitionAsync);
 
-            InitializeCommand = ReactiveCommand.CreateFromTask(InitializeAsync);
-            ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync, canReload, RxApp.MainThreadScheduler);
-            SelectPartitionCommand = ReactiveCommand.CreateFromTask<Partition>(SelectPartitionAsync);
+            AttachExceptionHandlerToAsyncCommand(
+                DisplayException,
+                InitializeCommand,
+                ReloadCommand,
+                SelectPartitionCommand);
 
-            InitializeCommand.ThrownExceptions
-                .Merge(ReloadCommand.ThrownExceptions)
-                .Merge(SelectPartitionCommand.ThrownExceptions)
-                .Subscribe(DisplayException);
-
-            InitializeCommand.IsExecuting
-                .Merge(ReloadCommand.IsExecuting)
-                .Merge(SelectPartitionCommand.IsExecuting)
-                .ToPropertyEx(this, x => x.IsReloading);
+            AttachIsRunningToAsyncCommand(
+                p => IsReloading = p,
+                InitializeCommand,
+                ReloadCommand,
+                SelectPartitionCommand);
         }
 
         /// <inheritdoc/>
@@ -115,7 +113,7 @@ namespace Bili.ViewModels.Uwp.Home
 
                 foreach (var item in videos)
                 {
-                    var videoVM = Splat.Locator.Current.GetService<IVideoItemViewModel>();
+                    var videoVM = Locator.Instance.GetService<IVideoItemViewModel>();
                     videoVM.InjectData(item);
                     Videos.Add(videoVM);
                 }

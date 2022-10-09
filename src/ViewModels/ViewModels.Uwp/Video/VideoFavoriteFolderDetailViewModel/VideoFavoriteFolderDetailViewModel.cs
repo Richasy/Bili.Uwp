@@ -1,13 +1,13 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Threading.Tasks;
+using Bili.DI.Container;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
-using Splat;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Video
@@ -70,7 +70,7 @@ namespace Bili.ViewModels.Uwp.Video
             var data = await _favoriteProvider.GetVideoFavoriteFolderDetailAsync(Data.Id);
             foreach (var item in data.VideoSet.Items)
             {
-                var videoVM = Splat.Locator.Current.GetService<IVideoItemViewModel>();
+                var videoVM = Locator.Instance.GetService<IVideoItemViewModel>();
                 videoVM.InjectData(item);
                 videoVM.SetAdditionalData(Data.Id);
                 videoVM.InjectAction(RemoveVideo);

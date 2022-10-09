@@ -7,9 +7,9 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Bili.DI.Container;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
-using Splat;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
 using Windows.Storage.Pickers;
@@ -41,8 +41,8 @@ namespace Bili.App.Controls
         {
             InitializeComponent();
             _images = new Dictionary<string, byte[]>();
-            _callerViewModel = Locator.Current.GetService<ICallerViewModel>();
-            _resourceToolkit = Locator.Current.GetService<IResourceToolkit>();
+            _callerViewModel = Locator.Instance.GetService<ICallerViewModel>();
+            _resourceToolkit = Locator.Instance.GetService<IResourceToolkit>();
             Instance = this;
             Images = new ObservableCollection<Models.Data.Appearance.Image>();
         }

@@ -2,7 +2,6 @@
 
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Article;
 using Bili.Models.Data.Community;
@@ -10,8 +9,8 @@ using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Article;
 using Bili.ViewModels.Interfaces.Common;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Article
 {
@@ -23,6 +22,18 @@ namespace Bili.ViewModels.Uwp.Article
         private readonly IArticleProvider _articleProvider;
         private readonly IResourceToolkit _resourceToolkit;
         private readonly Dictionary<Partition, IEnumerable<ArticleInformation>> _caches;
+
+        [ObservableProperty]
+        private Partition _currentPartition;
+
+        [ObservableProperty]
+        private ArticleSortType _sortType;
+
+        [ObservableProperty]
+        private bool _isRecommendPartition;
+
+        [ObservableProperty]
+        private bool _isShowBanner;
 
         /// <inheritdoc/>
         public ObservableCollection<IBannerViewModel> Banners { get; }
@@ -37,22 +48,6 @@ namespace Bili.ViewModels.Uwp.Article
         public ObservableCollection<ArticleSortType> SortTypes { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Partition, Unit> SelectPartitionCommand { get; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public Partition CurrentPartition { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public ArticleSortType SortType { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableAsProperty]
-        public bool IsRecommendPartition { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableAsProperty]
-        public bool IsShowBanner { get; set; }
+        public IRelayCommand<Partition> SelectPartitionCommand { get; }
     }
 }

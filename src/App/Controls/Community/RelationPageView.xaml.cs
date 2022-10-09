@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using Bili.DI.Container;
 using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
-using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -19,7 +19,7 @@ namespace Bili.App.Controls.Community
         public static readonly DependencyProperty ViewModelProperty =
             DependencyProperty.Register(nameof(ViewModel), typeof(IRelationPageViewModel), typeof(RelationPageView), new PropertyMetadata(default));
 
-        private readonly IAppViewModel _appViewModel = Locator.Current.GetService<IAppViewModel>();
+        private readonly IAppViewModel _appViewModel = Locator.Instance.GetService<IAppViewModel>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RelationPageView"/> class.

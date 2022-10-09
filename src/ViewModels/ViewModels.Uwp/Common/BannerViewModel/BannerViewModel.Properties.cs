@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using Bili.Models.Data.Community;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Bili.ViewModels.Uwp.Common
 {
@@ -10,28 +10,22 @@ namespace Bili.ViewModels.Uwp.Common
     /// </summary>
     public partial class BannerViewModel
     {
-        /// <inheritdoc/>
-        [Reactive]
-        public string Uri { get; set; }
+        [ObservableProperty]
+        private string _uri;
 
-        /// <inheritdoc/>
-        [Reactive]
-        public string Cover { get; set; }
+        [ObservableProperty]
+        private string _cover;
 
-        /// <inheritdoc/>
-        [Reactive]
-        public string Description { get; set; }
+        [ObservableProperty]
+        private string _description;
 
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsTooltipEnabled { get; set; }
+        [ObservableProperty]
+        private bool _isTooltipEnabled;
 
-        /// <inheritdoc/>
-        [Reactive]
-        public double MinHeight { get; set; }
+        [ObservableProperty]
+        private double _minHeight;
 
-        /// <inheritdoc/>
-        [Reactive]
-        public BannerIdentifier Data { get; set; }
+        [ObservableProperty]
+        private BannerIdentifier _data;
     }
 }

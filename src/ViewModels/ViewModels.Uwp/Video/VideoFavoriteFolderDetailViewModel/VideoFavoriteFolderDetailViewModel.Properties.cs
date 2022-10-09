@@ -5,7 +5,7 @@ using Bili.Models.Data.User;
 using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Bili.ViewModels.Uwp.Video
 {
@@ -19,22 +19,13 @@ namespace Bili.ViewModels.Uwp.Video
         private readonly IAccountViewModel _accountViewModel;
         private bool _isEnd;
 
-        /// <summary>
-        /// 收藏夹创建者信息.
-        /// </summary>
-        [Reactive]
-        public UserProfile User { get; set; }
+        [ObservableProperty]
+        private UserProfile _user;
 
-        /// <summary>
-        /// 收藏夹信息..
-        /// </summary>
-        [Reactive]
-        public VideoFavoriteFolder Data { get; set; }
+        [ObservableProperty]
+        private VideoFavoriteFolder _data;
 
-        /// <summary>
-        /// 收藏夹是否为空.
-        /// </summary>
-        [Reactive]
-        public bool IsEmpty { get; set; }
+        [ObservableProperty]
+        private bool _isEmpty;
     }
 }

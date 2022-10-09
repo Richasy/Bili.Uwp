@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using Bili.DI.Container;
 using Bili.ViewModels.Interfaces.Pgc;
-using Splat;
 
 namespace Bili.App.Controls
 {
@@ -16,7 +16,7 @@ namespace Bili.App.Controls
         public PgcSeasonDetailView()
         {
             InitializeComponent();
-            ViewModel = Locator.Current.GetService<IPgcPlayerPageViewModel>();
+            ViewModel = Locator.Instance.GetService<IPgcPlayerPageViewModel>();
         }
 
         /// <summary>

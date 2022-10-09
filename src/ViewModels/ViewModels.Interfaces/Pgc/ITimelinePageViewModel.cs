@@ -1,16 +1,16 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using Bili.Models.Data.Pgc;
 using Bili.Models.Enums;
-using ReactiveUI;
 
 namespace Bili.ViewModels.Interfaces.Pgc
 {
     /// <summary>
     /// 时间线页面视图模型.
     /// </summary>
-    public interface ITimelinePageViewModel : IReactiveObject, IInitializeViewModel, IReloadViewModel, IErrorViewModel
+    public interface ITimelinePageViewModel : INotifyPropertyChanged, IInitializeViewModel, IReloadViewModel, IErrorViewModel
     {
         /// <summary>
         /// 时间线集合.

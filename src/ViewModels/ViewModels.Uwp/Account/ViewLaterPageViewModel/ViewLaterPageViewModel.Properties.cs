@@ -1,11 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Account
 {
@@ -20,18 +19,16 @@ namespace Bili.ViewModels.Uwp.Account
 
         private bool _isEnd;
 
-        /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> PlayAllCommand { get; }
+        [ObservableProperty]
+        private bool _isEmpty;
+
+        [ObservableProperty]
+        private bool _isClearing;
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ClearCommand { get; }
+        public IRelayCommand PlayAllCommand { get; }
 
         /// <inheritdoc/>
-        [Reactive]
-        public bool IsEmpty { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableAsProperty]
-        public bool IsClearing { get; set; }
+        public IAsyncRelayCommand ClearCommand { get; }
     }
 }

@@ -21,7 +21,7 @@
             WebMessageReceived="OnWebMessageReceivedAsync" />
         <local:OverlayLoadingPanel IsRingActive="{x:Bind ViewModel.IsReloading, Mode=OneWay}" />
         <local:ErrorPanel
-            ActionButtonClick="OnArticleRefreshButtonClick"
+            ActionButtonClick="OnArticleRefreshButtonClickAsync"
             ActionContent="{loc:Locale Name=Refresh}"
             Text="{x:Bind ViewModel.ErrorText}"
             Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}" />

@@ -3,11 +3,10 @@
 using System;
 using System.ComponentModel;
 using Bili.App.Resources.Extension;
+using Bili.DI.Container;
 using Bili.Models.Enums;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Core;
-using ReactiveUI;
-using Splat;
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -27,8 +26,8 @@ namespace Bili.App.Controls
         public AccountAvatar()
         {
             InitializeComponent();
-            ViewModel = Locator.Current.GetService<IAccountViewModel>();
-            _navigationViewModel = Locator.Current.GetService<INavigationViewModel>();
+            ViewModel = Locator.Instance.GetService<IAccountViewModel>();
+            _navigationViewModel = Locator.Instance.GetService<INavigationViewModel>();
             Loaded += OnLoaded;
             Unloaded += OnUnloaded;
         }
@@ -90,13 +89,13 @@ namespace Bili.App.Controls
             => FlyoutBase.GetAttachedFlyout(UserAvatar).Hide();
 
         private void OnFlyoutOpened(object sender, object e)
-            => ViewModel.InitializeCommunityCommand.Execute().Subscribe();
+            => ViewModel.InitializeCommunityCommand.ExecuteAsync(null);
 
         private void OnUserAvatarClick(object sender, EventArgs e)
         {
             if (ViewModel.State == AuthorizeState.SignedOut)
             {
-                ViewModel.TrySignInCommand.Execute(false).Subscribe();
+                ViewModel.TrySignInCommand.ExecuteAsync(false);
             }
             else
             {

@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System.Reactive;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Interfaces.Common
 {
@@ -13,6 +12,6 @@ namespace Bili.ViewModels.Interfaces.Common
         /// <summary>
         /// 执行命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ActiveCommand { get; }
+        IRelayCommand ActiveCommand { get; }
     }
 }

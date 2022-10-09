@@ -2,8 +2,8 @@
 
 using System;
 using System.Collections.ObjectModel;
-using System.Reactive.Linq;
 using System.Threading.Tasks;
+using Bili.DI.Container;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Live;
 using Bili.Models.Data.Pgc;
@@ -15,8 +15,7 @@ using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Common;
 using Bili.ViewModels.Interfaces.Core;
-using ReactiveUI;
-using Splat;
+using CommunityToolkit.Mvvm.Input;
 using Windows.Media;
 using Windows.System.Display;
 using Windows.UI.Core;
@@ -73,107 +72,44 @@ namespace Bili.ViewModels.Uwp.Core
             Formats = new ObservableCollection<FormatInformation>();
             PlaybackRates = new ObservableCollection<IPlaybackRateItemViewModel>();
 
-            ReloadCommand = ReactiveCommand.CreateFromTask(LoadAsync);
-            ChangePartCommand = ReactiveCommand.CreateFromTask<VideoIdentifier>(ChangePartAsync);
-            ResetProgressHistoryCommand = ReactiveCommand.Create(ResetProgressHistory);
-            ChangeLiveAudioOnlyCommand = ReactiveCommand.CreateFromTask<bool>(ChangeLiveAudioOnlyAsync);
-            ChangeFormatCommand = ReactiveCommand.CreateFromTask<FormatInformation>(ChangeFormatAsync);
-            ShowNextVideoTipCommand = ReactiveCommand.Create(ShowNextVideoTip);
-            PlayNextCommand = ReactiveCommand.Create(PlayNextVideo);
-            SelectInteractionChoiceCommand = ReactiveCommand.Create<InteractionInformation>(SelectInteractionChoice);
-            BackToInteractionVideoStartCommand = ReactiveCommand.Create(BackToInteractionVideoStart);
+            ReloadCommand = new AsyncRelayCommand(LoadAsync);
+            ChangePartCommand = new AsyncRelayCommand<VideoIdentifier>(ChangePartAsync);
+            ResetProgressHistoryCommand = new RelayCommand(ResetProgressHistory);
+            ChangeLiveAudioOnlyCommand = new AsyncRelayCommand<bool>(ChangeLiveAudioOnlyAsync);
+            ChangeFormatCommand = new AsyncRelayCommand<FormatInformation>(ChangeFormatAsync);
+            ShowNextVideoTipCommand = new RelayCommand(ShowNextVideoTip);
+            PlayNextCommand = new RelayCommand(PlayNextVideo);
+            SelectInteractionChoiceCommand = new RelayCommand<InteractionInformation>(SelectInteractionChoice);
+            BackToInteractionVideoStartCommand = new RelayCommand(BackToInteractionVideoStart);
 
-            PlayPauseCommand = ReactiveCommand.CreateFromTask(PlayPauseAsync);
-            ForwardSkipCommand = ReactiveCommand.CreateFromTask(ForwardSkipAsync);
-            BackwardSkipCommand = ReactiveCommand.CreateFromTask(BackwardSkipAsync);
-            ChangePlayRateCommand = ReactiveCommand.CreateFromTask<double>(ChangePlayRateAsync);
-            ChangeVolumeCommand = ReactiveCommand.Create<double>(ChangeVolume);
-            ToggleFullScreenCommand = ReactiveCommand.Create(ToggleFullScreenMode);
-            ToggleFullWindowCommand = ReactiveCommand.Create(ToggleFullWindowMode);
-            ToggleCompactOverlayCommand = ReactiveCommand.Create(ToggleCompactOverlayMode);
-            ExitFullPlayerCommand = ReactiveCommand.Create(ExitFullPlayer);
-            ScreenShotCommand = ReactiveCommand.CreateFromTask(ScreenShotAsync);
-            ChangeProgressCommand = ReactiveCommand.Create<double>(ChangeProgress);
-            StartTempQuickPlayCommand = ReactiveCommand.CreateFromTask(StartTempQuickPlayAsync);
-            StopTempQuickPlayCommand = ReactiveCommand.CreateFromTask(StopTempQuickPlayAsync);
-            JumpToLastProgressCommand = ReactiveCommand.Create(JumpToLastProgress);
-            ReportViewProgressCommand = ReactiveCommand.CreateFromTask(ReportViewProgressAsync);
-            IncreasePlayRateCommand = ReactiveCommand.Create(IncreasePlayRate);
-            DecreasePlayRateCommand = ReactiveCommand.Create(DecreasePlayRate);
-            IncreaseVolumeCommand = ReactiveCommand.Create(IncreaseVolume);
-            DecreaseVolumeCommand = ReactiveCommand.Create(DecreaseVolume);
-            BackToDefaultModeCommand = ReactiveCommand.Create(BackToDefaultMode);
-            ClearSourceProgressCommand = ReactiveCommand.Create(ClearSourceProgress);
-            ClearCommand = ReactiveCommand.Create(Reset);
+            PlayPauseCommand = new AsyncRelayCommand(PlayPauseAsync);
+            ForwardSkipCommand = new AsyncRelayCommand(ForwardSkipAsync);
+            BackwardSkipCommand = new AsyncRelayCommand(BackwardSkipAsync);
+            ChangePlayRateCommand = new AsyncRelayCommand<double>(ChangePlayRateAsync);
+            ChangeVolumeCommand = new RelayCommand<double>(ChangeVolume);
+            ToggleFullScreenCommand = new RelayCommand(ToggleFullScreenMode);
+            ToggleFullWindowCommand = new RelayCommand(ToggleFullWindowMode);
+            ToggleCompactOverlayCommand = new RelayCommand(ToggleCompactOverlayMode);
+            ExitFullPlayerCommand = new RelayCommand(ExitFullPlayer);
+            ScreenShotCommand = new AsyncRelayCommand(ScreenShotAsync);
+            ChangeProgressCommand = new RelayCommand<double>(ChangeProgress);
+            StartTempQuickPlayCommand = new AsyncRelayCommand(StartTempQuickPlayAsync);
+            StopTempQuickPlayCommand = new AsyncRelayCommand(StopTempQuickPlayAsync);
+            JumpToLastProgressCommand = new RelayCommand(JumpToLastProgress);
+            ReportViewProgressCommand = new AsyncRelayCommand(ReportViewProgressAsync);
+            IncreasePlayRateCommand = new RelayCommand(IncreasePlayRate);
+            DecreasePlayRateCommand = new RelayCommand(DecreasePlayRate);
+            IncreaseVolumeCommand = new RelayCommand(IncreaseVolume);
+            DecreaseVolumeCommand = new RelayCommand(DecreaseVolume);
+            BackToDefaultModeCommand = new RelayCommand(BackToDefaultMode);
+            ClearSourceProgressCommand = new RelayCommand(ClearSourceProgress);
+            ClearCommand = new RelayCommand(Reset);
 
-            _isReloading = ReloadCommand.IsExecuting.ToProperty(this, x => x.IsReloading);
-
-            ReloadCommand.ThrownExceptions.Subscribe(DisplayException);
-            ReportViewProgressCommand.ThrownExceptions.Subscribe(LogException);
+            AttachIsRunningToAsyncCommand(p => IsReloading = p, ReloadCommand);
+            AttachExceptionHandlerToAsyncCommand(DisplayException, ReloadCommand);
+            AttachExceptionHandlerToAsyncCommand(LogException, ReportViewProgressCommand);
 
             InitializeTimers();
-
-            this.WhenAnyValue(p => p.PlaybackRate)
-                .ObserveOn(RxApp.MainThreadScheduler)
-                .InvokeCommand(ChangePlayRateCommand);
-
-            this.WhenAnyValue(p => p.DisplayMode)
-                .ObserveOn(RxApp.MainThreadScheduler)
-                .Subscribe(x =>
-                {
-                    InitializeDisplayModeText();
-                    if (_navigationViewModel.IsPlayViewShown)
-                    {
-                        _appViewModel.IsShowTitleBar = x == PlayerDisplayMode.Default;
-                    }
-
-                    _navigationViewModel.RemoveBackStack(Models.Enums.App.BackBehavior.PlayerModeChange);
-                    if (x != PlayerDisplayMode.Default)
-                    {
-                        _navigationViewModel.AddBackStack(Models.Enums.App.BackBehavior.PlayerModeChange, async _ =>
-                        {
-                            await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                            {
-                                DisplayMode = PlayerDisplayMode.Default;
-                            });
-                        });
-                    }
-
-                    CheckExitFullPlayerButtonVisibility();
-                });
-
-            this.WhenAnyValue(p => p.IsShowMediaTransport)
-                .ObserveOn(RxApp.MainThreadScheduler)
-                .Subscribe(x =>
-                {
-                    if (_appViewModel.IsXbox)
-                    {
-                        _navigationViewModel.RemoveBackStack(Models.Enums.App.BackBehavior.PlayerPopupShown);
-                        if (x)
-                        {
-                            _navigationViewModel.AddBackStack(Models.Enums.App.BackBehavior.PlayerPopupShown, async _ =>
-                            {
-                                await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                                {
-                                    IsShowMediaTransport = false;
-                                });
-                            });
-                        }
-                    }
-
-                    CheckExitFullPlayerButtonVisibility();
-                });
-
-            this.WhenAnyValue(p => p.IsLoop)
-                .ObserveOn(RxApp.MainThreadScheduler)
-                .Subscribe(x =>
-                {
-                    _player?.SetLoop(x);
-                });
-
-            this.WhenAnyValue(p => p.IsError)
-                .ObserveOn(RxApp.MainThreadScheduler)
-                .Subscribe(x => CheckExitFullPlayerButtonVisibility());
         }
 
         /// <inheritdoc/>
@@ -181,7 +117,7 @@ namespace Bili.ViewModels.Uwp.Core
         {
             _viewData = data;
             _videoType = VideoType.Video;
-            ReloadCommand.Execute().Subscribe();
+            ReloadCommand.ExecuteAsync(null);
         }
 
         /// <inheritdoc/>
@@ -190,7 +126,7 @@ namespace Bili.ViewModels.Uwp.Core
             _viewData = view;
             _currentEpisode = episode;
             _videoType = VideoType.Pgc;
-            ReloadCommand.Execute().Subscribe();
+            ReloadCommand.ExecuteAsync(null);
         }
 
         /// <inheritdoc/>
@@ -198,7 +134,7 @@ namespace Bili.ViewModels.Uwp.Core
         {
             _viewData = data;
             _videoType = VideoType.Live;
-            ReloadCommand.Execute().Subscribe();
+            ReloadCommand.ExecuteAsync(null);
         }
 
         /// <inheritdoc/>
@@ -336,11 +272,11 @@ namespace Bili.ViewModels.Uwp.Core
             if (_player == null)
             {
                 _player = _videoType == VideoType.Live
-                    ? Locator.Current.GetService<IFFmpegPlayerViewModel>()
+                    ? Locator.Instance.GetService<IFFmpegPlayerViewModel>()
                     : playerType switch
                     {
-                        PlayerType.FFmpeg => Locator.Current.GetService<IFFmpegPlayerViewModel>(),
-                        _ => Locator.Current.GetService<INativePlayerViewModel>(),
+                        PlayerType.FFmpeg => Locator.Instance.GetService<IFFmpegPlayerViewModel>(),
+                        _ => Locator.Instance.GetService<INativePlayerViewModel>(),
                     };
 
                 _player.MediaOpened += OnMediaOpened;
@@ -360,5 +296,57 @@ namespace Bili.ViewModels.Uwp.Core
             _systemMediaTransportControls.ButtonPressed -= OnSystemControlsButtonPressedAsync;
             _systemMediaTransportControls.ButtonPressed += OnSystemControlsButtonPressedAsync;
         }
+
+        partial void OnPlaybackRateChanged(double value)
+            => ChangePlayRateCommand?.ExecuteAsync(value);
+
+        partial void OnDisplayModeChanged(PlayerDisplayMode value)
+        {
+            InitializeDisplayModeText();
+            if (_navigationViewModel.IsPlayViewShown)
+            {
+                _appViewModel.IsShowTitleBar = value == PlayerDisplayMode.Default;
+            }
+
+            _navigationViewModel.RemoveBackStack(Models.Enums.App.BackBehavior.PlayerModeChange);
+            if (value != PlayerDisplayMode.Default)
+            {
+                _navigationViewModel.AddBackStack(Models.Enums.App.BackBehavior.PlayerModeChange, async _ =>
+                {
+                    await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                    {
+                        DisplayMode = PlayerDisplayMode.Default;
+                    });
+                });
+            }
+
+            CheckExitFullPlayerButtonVisibility();
+        }
+
+        partial void OnIsShowMediaTransportChanged(bool value)
+        {
+            if (_appViewModel.IsXbox)
+            {
+                _navigationViewModel.RemoveBackStack(Models.Enums.App.BackBehavior.PlayerPopupShown);
+                if (value)
+                {
+                    _navigationViewModel.AddBackStack(Models.Enums.App.BackBehavior.PlayerPopupShown, async _ =>
+                    {
+                        await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                        {
+                            IsShowMediaTransport = false;
+                        });
+                    });
+                }
+            }
+
+            CheckExitFullPlayerButtonVisibility();
+        }
+
+        partial void OnIsLoopChanged(bool value)
+            => _player?.SetLoop(value);
+
+        partial void OnIsErrorChanged(bool value)
+            => CheckExitFullPlayerButtonVisibility();
     }
 }

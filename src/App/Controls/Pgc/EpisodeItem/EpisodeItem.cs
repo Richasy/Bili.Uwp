@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using Bili.DI.Container;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Pgc;
-using Splat;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -41,7 +41,7 @@ namespace Bili.App.Controls.Pgc
         /// <inheritdoc/>
         public void ChangeLayout(Orientation orientation)
         {
-            var resourceToolkit = Splat.Locator.Current.GetService<IResourceToolkit>();
+            var resourceToolkit = Locator.Instance.GetService<IResourceToolkit>();
             Style = orientation == Orientation.Horizontal
                 ? IsDynamic ? resourceToolkit.GetResource<Style>("HorizontalDynamicEpisodeItemStyle") : resourceToolkit.GetResource<Style>("HorizontalEpisodeItemStyle")
                 : IsDynamic ? resourceToolkit.GetResource<Style>("VerticalDynamicEpisodeItemStyle") : resourceToolkit.GetResource<Style>("VerticalEpisodeItemStyle");

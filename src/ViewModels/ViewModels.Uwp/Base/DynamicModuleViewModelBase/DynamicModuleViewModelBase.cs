@@ -2,11 +2,11 @@
 
 using System.Linq;
 using System.Threading.Tasks;
+using Bili.DI.Container;
 using Bili.Lib.Interfaces;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Community;
 using Bili.ViewModels.Uwp.Community;
-using Splat;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Base
@@ -79,7 +79,7 @@ namespace Bili.ViewModels.Uwp.Base
 
                 foreach (var item in data.Dynamics)
                 {
-                    var dynamicVM = Splat.Locator.Current.GetService<IDynamicItemViewModel>();
+                    var dynamicVM = Locator.Instance.GetService<IDynamicItemViewModel>();
                     dynamicVM.InjectData(item);
                     Items.Add(dynamicVM);
                 }

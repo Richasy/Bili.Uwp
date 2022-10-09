@@ -78,7 +78,7 @@ namespace Bili.App.Controls.Player
         {
             if (e.NewValue != e.OldValue)
             {
-                ViewModel.ChangeVolumeCommand.Execute(e.NewValue).Subscribe();
+                ViewModel.ChangeVolumeCommand.Execute(e.NewValue);
             }
         }
 
@@ -87,7 +87,7 @@ namespace Bili.App.Controls.Player
             if (_formatListView.SelectedItem is FormatInformation info
                 && ViewModel.CurrentFormat != info)
             {
-                ViewModel.ChangeFormatCommand.Execute(info).Subscribe();
+                ViewModel.ChangeFormatCommand.Execute(info);
             }
         }
     }

@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using Bili.App.Pages.Base;
 using Bili.Models.Data.Video;
 using Windows.UI.Xaml.Navigation;
@@ -31,7 +30,7 @@ namespace Bili.App.Pages.Desktop.Overlay
             if (e.Parameter is VideoFavoriteFolder folder)
             {
                 ViewModel.InjectData(folder);
-                ViewModel.ReloadCommand.Execute().Subscribe();
+                ViewModel.ReloadCommand.ExecuteAsync(null);
             }
         }
     }

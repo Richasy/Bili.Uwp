@@ -4,11 +4,11 @@ using System;
 using System.Collections.Generic;
 using Bili.App.Controls.Dialogs;
 using Bili.App.Pages.Base;
+using Bili.DI.Container;
 using Bili.Models.Data.Community;
 using Bili.Models.Data.Local;
 using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
-using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -44,9 +44,8 @@ namespace Bili.App.Pages.Desktop.Overlay
         /// <inheritdoc/>
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
-            RootGrid.Children.Clear();
-            ViewModel.ClearCommand.Execute().Subscribe();
-            ViewModel.ClearPlaylistCommand.Execute().Subscribe();
+            ViewModel.ClearCommand.Execute(null);
+            ViewModel.ClearPlaylistCommand.Execute(null);
         }
 
         /// <inheritdoc/>
@@ -66,20 +65,20 @@ namespace Bili.App.Pages.Desktop.Overlay
         }
 
         private void OnRefreshFavoriteButtonClick(object sender, RoutedEventArgs e)
-            => ViewModel.RequestFavoriteFoldersCommand.Execute().Subscribe();
+            => ViewModel.RequestFavoriteFoldersCommand.ExecuteAsync(null);
 
         private void OnGiveCoinButtonClick(object sender, RoutedEventArgs e)
         {
             var num = int.Parse((sender as FrameworkElement).Tag.ToString());
-            ViewModel.CoinCommand.Execute(num).Subscribe();
+            ViewModel.CoinCommand.ExecuteAsync(num);
             CoinFlyout.Hide();
         }
 
         private async void OnTagButtonClickAsync(object sender, RoutedEventArgs e)
         {
             var data = (sender as FrameworkElement).DataContext as Tag;
-            var settingsToolkit = Locator.Current.GetService<ISettingsToolkit>();
-            var resourceToolkit = Locator.Current.GetService<IResourceToolkit>();
+            var settingsToolkit = Locator.Instance.GetService<ISettingsToolkit>();
+            var resourceToolkit = Locator.Instance.GetService<IResourceToolkit>();
             var isFirstClick = settingsToolkit.ReadLocalSetting(Models.Enums.SettingNames.IsFirstClickTag, true);
 
             if (isFirstClick)
@@ -94,13 +93,13 @@ namespace Bili.App.Pages.Desktop.Overlay
                 settingsToolkit.WriteLocalSetting(Models.Enums.SettingNames.IsFirstClickTag, false);
             }
 
-            ViewModel.SearchTagCommand.Execute(data).Subscribe();
+            ViewModel.SearchTagCommand.Execute(data);
         }
 
         private void OnLikeButtonHoldingCompleted(object sender, EventArgs e)
         {
             _isLikeHoldCompleted = true;
-            ViewModel.TripleCommand.Execute().Subscribe();
+            ViewModel.TripleCommand.ExecuteAsync(null);
             CoinButton.ShowBubbles();
             FavoriteButton.ShowBubbles();
         }
@@ -119,7 +118,7 @@ namespace Bili.App.Pages.Desktop.Overlay
                 return;
             }
 
-            ViewModel.LikeCommand.Execute().Subscribe();
+            ViewModel.LikeCommand.ExecuteAsync(null);
         }
 
         private void OnCoinButtonClick(object sender, RoutedEventArgs e)
@@ -140,7 +139,7 @@ namespace Bili.App.Pages.Desktop.Overlay
 
             if (ViewModel.FavoriteFolders.Count == 0)
             {
-                ViewModel.RequestFavoriteFoldersCommand.Execute().Subscribe();
+                ViewModel.RequestFavoriteFoldersCommand.ExecuteAsync(null);
             }
 
             FavoriteFlyout.ShowAt(FavoriteButton);

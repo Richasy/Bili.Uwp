@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using Bili.DI.Container;
 using Bili.Models.App.Args;
 using Bili.ViewModels.Interfaces.Community;
-using Splat;
 
 namespace Bili.App.Controls.Community
 {
@@ -22,7 +22,7 @@ namespace Bili.App.Controls.Community
         /// <param name="args">显示参数.</param>
         public void Show(ShowCommentEventArgs args)
         {
-            var pageVM = Locator.Current.GetService<ICommentPageViewModel>();
+            var pageVM = Locator.Instance.GetService<ICommentPageViewModel>();
             pageVM.SetData(args.SourceId, args.Type, args.SortType);
             Show();
         }

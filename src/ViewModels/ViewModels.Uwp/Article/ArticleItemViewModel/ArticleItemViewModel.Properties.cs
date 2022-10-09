@@ -2,15 +2,14 @@
 
 using System;
 using System.Collections.Generic;
-using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Article;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Article;
 using Bili.ViewModels.Interfaces.Core;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Article
 {
@@ -28,53 +27,44 @@ namespace Bili.ViewModels.Uwp.Article
         private string _detailContent;
         private Action<IArticleItemViewModel> _additionalAction;
 
-        /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> OpenInBroswerCommand { get; }
+        [ObservableProperty]
+        private ArticleInformation _data;
+
+        [ObservableProperty]
+        private IUserItemViewModel _publisher;
+
+        [ObservableProperty]
+        private string _viewCountText;
+
+        [ObservableProperty]
+        private string _likeCountText;
+
+        [ObservableProperty]
+        private string _commentCountText;
+
+        [ObservableProperty]
+        private bool _isError;
+
+        [ObservableProperty]
+        private string _errorText;
+
+        [ObservableProperty]
+        private bool _isShowCommunity;
+
+        [ObservableProperty]
+        private bool _isReloading;
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ReadCommand { get; }
+        public IAsyncRelayCommand OpenInBroswerCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ReloadCommand { get; }
+        public IRelayCommand ReadCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> UnfavoriteCommand { get; }
+        public IAsyncRelayCommand ReloadCommand { get; }
 
         /// <inheritdoc/>
-        [Reactive]
-        public ArticleInformation Data { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public IUserItemViewModel Publisher { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public string ViewCountText { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public string LikeCountText { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public string CommentCountText { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsError { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public string ErrorText { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsShowCommunity { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableAsProperty]
-        public bool IsReloading { get; private set; }
+        public IAsyncRelayCommand UnfavoriteCommand { get; }
 
         /// <inheritdoc/>
         public override bool Equals(object obj) => obj is ArticleItemViewModel model && EqualityComparer<ArticleInformation>.Default.Equals(Data, model.Data);

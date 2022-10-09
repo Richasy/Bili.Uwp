@@ -3,13 +3,11 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Player;
 using Bili.ViewModels.Interfaces.Common;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Common
 {
@@ -26,10 +24,10 @@ namespace Bili.ViewModels.Uwp.Common
         {
             _playerProvider = playerProvider;
             Choices = new ObservableCollection<InteractionInformation>();
-            ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync);
+            ReloadCommand = new AsyncRelayCommand(ReloadAsync);
 
-            ReloadCommand.IsExecuting.ToPropertyEx(this, x => x.IsReloading);
-            ReloadCommand.ThrownExceptions.ObserveOn(RxApp.MainThreadScheduler).Subscribe(LogException);
+            AttachIsRunningToAsyncCommand(p => IsReloading = p, ReloadCommand);
+            AttachExceptionHandlerToAsyncCommand(LogException, ReloadCommand);
         }
 
         /// <inheritdoc/>
@@ -38,7 +36,7 @@ namespace Bili.ViewModels.Uwp.Common
             _partId = partId;
             _choiceId = string.IsNullOrEmpty(choiceId) ? "0" : choiceId;
             _graphVersion = graphVersion;
-            ReloadCommand.Execute().Subscribe();
+            ReloadCommand.ExecuteAsync(null);
         }
 
         private void Reset() => TryClear(Choices);

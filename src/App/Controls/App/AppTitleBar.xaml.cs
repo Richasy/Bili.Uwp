@@ -1,11 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using System.ComponentModel;
+using Bili.DI.Container;
 using Bili.Models.Data.Local;
 using Bili.ViewModels.Interfaces.Core;
-using ReactiveUI;
-using Splat;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Windows.UI.Xaml;
 
 namespace Bili.App.Controls
@@ -24,10 +23,10 @@ namespace Bili.App.Controls
         public AppTitleBar()
         {
             InitializeComponent();
-            ViewModel = Locator.Current.GetService<IAppViewModel>();
-            _navigationViewModel = Locator.Current.GetService<INavigationViewModel>();
-            _recordViewModel = Locator.Current.GetService<IRecordViewModel>();
-            (ViewModel as ReactiveObject).PropertyChanged += OnViewModelPropertyChanged;
+            ViewModel = Locator.Instance.GetService<IAppViewModel>();
+            _navigationViewModel = Locator.Instance.GetService<INavigationViewModel>();
+            _recordViewModel = Locator.Instance.GetService<IRecordViewModel>();
+            (ViewModel as ObservableObject).PropertyChanged += OnViewModelPropertyChanged;
             Loaded += OnLoaded;
         }
 
@@ -62,7 +61,7 @@ namespace Bili.App.Controls
         private void OnRemoveRecordButtonClick(object sender, RoutedEventArgs e)
         {
             var context = (sender as FrameworkElement).DataContext as PlayRecord;
-            _recordViewModel.RemovePlayRecordCommand.Execute(context).Subscribe();
+            _recordViewModel.RemovePlayRecordCommand.Execute(context);
         }
 
         private void OnPlayRecordItemClick(object sender, Windows.UI.Xaml.Controls.ItemClickEventArgs e)

@@ -32,7 +32,7 @@ namespace Bili.App.Pages.Desktop.Overlay
             if (e.Parameter is FavoriteType type)
             {
                 var header = ViewModel.TypeCollection.First(p => p.Type == type);
-                ViewModel.SelectTypeCommand.Execute(header).Subscribe();
+                ViewModel.SelectTypeCommand.Execute(header);
             }
         }
 
@@ -49,16 +49,16 @@ namespace Bili.App.Pages.Desktop.Overlay
             switch (ViewModel.CurrentType.Type)
             {
                 case FavoriteType.Video:
-                    VideoPanel.ViewModel.ReloadCommand.Execute().Subscribe();
+                    VideoPanel.ViewModel.ReloadCommand.ExecuteAsync(null);
                     break;
                 case FavoriteType.Anime:
-                    AnimePanel.ViewModel.ReloadCommand.Execute().Subscribe();
+                    AnimePanel.ViewModel.ReloadCommand.ExecuteAsync(null);
                     break;
                 case FavoriteType.Cinema:
-                    CinemaPanel.ViewModel.ReloadCommand.Execute().Subscribe();
+                    CinemaPanel.ViewModel.ReloadCommand.ExecuteAsync(null);
                     break;
                 case FavoriteType.Article:
-                    ArticlePanel.ViewModel.ReloadCommand.Execute().Subscribe();
+                    ArticlePanel.ViewModel.ReloadCommand.ExecuteAsync(null);
                     break;
                 default:
                     break;
@@ -70,7 +70,7 @@ namespace Bili.App.Pages.Desktop.Overlay
             var type = args.InvokedItem as FavoriteHeader;
             if (type != ViewModel.CurrentType)
             {
-                ViewModel.SelectTypeCommand.Execute(type).Subscribe();
+                ViewModel.SelectTypeCommand.Execute(type);
             }
         }
     }

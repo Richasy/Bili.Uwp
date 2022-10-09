@@ -1,13 +1,12 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
-using System.Reactive;
 using System.Threading;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Search;
 using Bili.ViewModels.Interfaces.Core;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 
@@ -26,6 +25,9 @@ namespace Bili.ViewModels.Uwp.Search
         private CancellationTokenSource _suggestionCancellationTokenSource;
         private bool _isKeywordChanged;
 
+        [ObservableProperty]
+        private string _keyword;
+
         /// <inheritdoc/>
         public ObservableCollection<SearchSuggest> HotSearchCollection { get; }
 
@@ -33,16 +35,12 @@ namespace Bili.ViewModels.Uwp.Search
         public ObservableCollection<SearchSuggest> SearchSuggestion { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<string, Unit> SearchCommand { get; }
+        public IRelayCommand<string> SearchCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<SearchSuggest, Unit> SelectSuggestCommand { get; }
+        public IRelayCommand<SearchSuggest> SelectSuggestCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> InitializeCommand { get; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public string Keyword { get; set; }
+        public IAsyncRelayCommand InitializeCommand { get; }
     }
 }

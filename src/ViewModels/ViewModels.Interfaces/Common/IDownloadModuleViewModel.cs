@@ -2,26 +2,25 @@
 
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Reactive;
-using System.Threading.Tasks;
-using ReactiveUI;
+using System.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Interfaces.Common
 {
     /// <summary>
     /// 下载模块视图模型.
     /// </summary>
-    public interface IDownloadModuleViewModel : IReactiveObject
+    public interface IDownloadModuleViewModel : INotifyPropertyChanged
     {
         /// <summary>
         /// 改变保存位置的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ChangeSaveLocationCommand { get; }
+        IAsyncRelayCommand ChangeSaveLocationCommand { get; }
 
         /// <summary>
         /// 保存下载命令到剪切板.
         /// </summary>
-        ReactiveCommand<Unit, Unit> SaveDownloadTextCommand { get; }
+        IAsyncRelayCommand SaveDownloadTextCommand { get; }
 
         /// <summary>
         /// 全部分P集合.

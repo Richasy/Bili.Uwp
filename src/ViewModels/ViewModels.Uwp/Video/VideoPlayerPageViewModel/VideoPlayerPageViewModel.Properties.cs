@@ -2,7 +2,6 @@
 
 using System;
 using System.Collections.ObjectModel;
-using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.App.Other;
 using Bili.Models.Data.Community;
@@ -13,9 +12,8 @@ using Bili.ViewModels.Interfaces.Common;
 using Bili.ViewModels.Interfaces.Community;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Video;
-using Bili.ViewModels.Uwp.Community;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Video
@@ -41,50 +39,149 @@ namespace Bili.ViewModels.Uwp.Video
         private string _presetVideoId;
         private Action _playNextVideoAction;
 
-        /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ReloadCommand { get; }
+        [ObservableProperty]
+        private VideoPlayerView _view;
+
+        [ObservableProperty]
+        private bool _isSignedIn;
+
+        [ObservableProperty]
+        private IUserItemViewModel _author;
+
+        [ObservableProperty]
+        private bool _isCooperationVideo;
+
+        [ObservableProperty]
+        private string _publishTime;
+
+        [ObservableProperty]
+        private string _playCountText;
+
+        [ObservableProperty]
+        private string _danmakuCountText;
+
+        [ObservableProperty]
+        private string _commentCountText;
+
+        [ObservableProperty]
+        private string _watchingCountText;
+
+        [ObservableProperty]
+        private bool _isShowTags;
+
+        [ObservableProperty]
+        private string _likeCountText;
+
+        [ObservableProperty]
+        private string _coinCountText;
+
+        [ObservableProperty]
+        private string _favoriteCountText;
+
+        [ObservableProperty]
+        private bool _isLiked;
+
+        [ObservableProperty]
+        private bool _isCoined;
+
+        [ObservableProperty]
+        private bool _isFavorited;
+
+        [ObservableProperty]
+        private bool _isCoinWithLiked;
+
+        [ObservableProperty]
+        private bool _isError;
+
+        [ObservableProperty]
+        private string _errorText;
+
+        [ObservableProperty]
+        private bool _isFavoriteFoldersError;
+
+        [ObservableProperty]
+        private string _favoriteFoldersErrorText;
+
+        [ObservableProperty]
+        private bool _isVideoFixed;
+
+        [ObservableProperty]
+        private bool _isOnlyShowIndex;
+
+        [ObservableProperty]
+        private PlayerSectionHeader _currentSection;
+
+        [ObservableProperty]
+        private VideoSeason _currentSeason;
+
+        [ObservableProperty]
+        private VideoIdentifier _currentVideoPart;
+
+        [ObservableProperty]
+        private bool _isShowUgcSeason;
+
+        [ObservableProperty]
+        private bool _isShowRelatedVideos;
+
+        [ObservableProperty]
+        private bool _isShowVideoPlaylist;
+
+        [ObservableProperty]
+        private bool _isShowComments;
+
+        [ObservableProperty]
+        private bool _isShowParts;
+
+        [ObservableProperty]
+        private bool _isReloading;
+
+        [ObservableProperty]
+        private bool _isFavoriteFolderRequesting;
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> RequestFavoriteFoldersCommand { get; }
+        public IAsyncRelayCommand ReloadCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> RequestOnlineCountCommand { get; }
+        public IAsyncRelayCommand RequestFavoriteFoldersCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<VideoIdentifier, Unit> ChangeVideoPartCommand { get; }
+        public IAsyncRelayCommand RequestOnlineCountCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Tag, Unit> SearchTagCommand { get; }
+        public IRelayCommand<VideoIdentifier> ChangeVideoPartCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<VideoSeason, Unit> SelectSeasonCommand { get; }
+        public IRelayCommand<Tag> SearchTagCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> FavoriteVideoCommand { get; }
+        public IRelayCommand<VideoSeason> SelectSeasonCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<int, Unit> CoinCommand { get; }
+        public IAsyncRelayCommand FavoriteVideoCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> LikeCommand { get; }
+        public IAsyncRelayCommand<int> CoinCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> TripleCommand { get; }
+        public IAsyncRelayCommand LikeCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ReloadCommunityInformationCommand { get; }
+        public IAsyncRelayCommand TripleCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ShareCommand { get; }
+        public IAsyncRelayCommand ReloadCommunityInformationCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> FixedCommand { get; }
+        public IRelayCommand ShareCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ClearCommand { get; }
+        public IRelayCommand FixedCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ClearPlaylistCommand { get; }
+        public IRelayCommand ClearCommand { get; }
+
+        /// <inheritdoc/>
+        public IRelayCommand ClearPlaylistCommand { get; }
 
         /// <inheritdoc/>
         public ObservableCollection<IUserItemViewModel> Collaborators { get; }
@@ -115,137 +212,5 @@ namespace Bili.ViewModels.Uwp.Video
 
         /// <inheritdoc/>
         public IDownloadModuleViewModel DownloadViewModel { get; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public VideoPlayerView View { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsSignedIn { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public IUserItemViewModel Author { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsCooperationVideo { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public string PublishTime { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public string PlayCountText { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public string DanmakuCountText { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public string CommentCountText { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public string WatchingCountText { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsShowTags { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public string LikeCountText { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public string CoinCountText { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public string FavoriteCountText { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsLiked { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsCoined { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsFavorited { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsCoinWithLiked { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsError { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public string ErrorText { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsFavoriteFoldersError { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public string FavoriteFoldersErrorText { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsVideoFixed { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsOnlyShowIndex { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public PlayerSectionHeader CurrentSection { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public VideoSeason CurrentSeason { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public VideoIdentifier CurrentVideoPart { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsShowUgcSeason { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsShowRelatedVideos { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsShowVideoPlaylist { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsShowComments { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsShowParts { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableAsProperty]
-        public bool IsReloading { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableAsProperty]
-        public bool IsFavoriteFolderRequesting { get; set; }
     }
 }

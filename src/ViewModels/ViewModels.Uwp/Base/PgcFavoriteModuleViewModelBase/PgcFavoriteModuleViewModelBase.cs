@@ -1,16 +1,14 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using System.Collections.ObjectModel;
-using System.Reactive.Linq;
 using System.Threading.Tasks;
+using Bili.DI.Container;
 using Bili.Lib.Interfaces;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Pgc;
-using ReactiveUI;
-using Splat;
+using CommunityToolkit.Mvvm.Input;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Base
@@ -36,7 +34,7 @@ namespace Bili.ViewModels.Uwp.Base
             StatusCollection = new ObservableCollection<int> { 1, 2, 3 };
             Status = 2;
 
-            SetStatusCommand = ReactiveCommand.Create<int>(SetStatus);
+            SetStatusCommand = new RelayCommand<int>(SetStatus);
         }
 
         /// <inheritdoc/>
@@ -77,7 +75,7 @@ namespace Bili.ViewModels.Uwp.Base
 
             foreach (var item in data.Items)
             {
-                var seasonVM = Locator.Current.GetService<ISeasonItemViewModel>();
+                var seasonVM = Locator.Instance.GetService<ISeasonItemViewModel>();
                 seasonVM.InjectData(item);
                 seasonVM.InjectAction(vm => RemoveItem(vm));
                 Items.Add(seasonVM);
@@ -91,7 +89,7 @@ namespace Bili.ViewModels.Uwp.Base
         {
             Status = status;
             TryClear(Items);
-            InitializeCommand.Execute().Subscribe();
+            InitializeCommand.ExecuteAsync(null);
         }
 
         private void RemoveItem(ISeasonItemViewModel vm)

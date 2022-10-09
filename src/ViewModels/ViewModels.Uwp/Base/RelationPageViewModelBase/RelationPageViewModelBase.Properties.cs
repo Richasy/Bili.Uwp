@@ -4,7 +4,7 @@ using Bili.Lib.Interfaces;
 using Bili.Models.Data.User;
 using Bili.Models.Enums.Bili;
 using Bili.Toolkit.Interfaces;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Bili.ViewModels.Uwp.Base
 {
@@ -19,22 +19,13 @@ namespace Bili.ViewModels.Uwp.Base
 
         private bool _isEnd = false;
 
-        /// <summary>
-        /// 对应的用户基础资料.
-        /// </summary>
-        [Reactive]
-        public UserProfile Profile { get; internal set; }
+        [ObservableProperty]
+        private UserProfile _profile;
 
-        /// <summary>
-        /// 标题后缀.
-        /// </summary>
-        [Reactive]
-        public string TitleSuffix { get; internal set; }
+        [ObservableProperty]
+        private string _titleSuffix;
 
-        /// <summary>
-        /// 是否为空.
-        /// </summary>
-        [Reactive]
-        public bool IsEmpty { get; set; }
+        [ObservableProperty]
+        private bool _isEmpty;
     }
 }

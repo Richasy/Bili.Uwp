@@ -1,27 +1,27 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
-using System.Reactive;
+using System.ComponentModel;
 using Bili.Models.Data.Player;
 using Bili.Models.Enums.App;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Interfaces.Common
 {
     /// <summary>
     /// 字幕模块视图模型的接口定义.
     /// </summary>
-    public interface ISubtitleModuleViewModel : IReactiveObject, IReloadViewModel
+    public interface ISubtitleModuleViewModel : INotifyPropertyChanged, IReloadViewModel
     {
         /// <summary>
         /// 重新定位命令.
         /// </summary>
-        ReactiveCommand<double, Unit> SeekCommand { get; }
+        IRelayCommand<double> SeekCommand { get; }
 
         /// <summary>
         /// 更换字幕的命令.
         /// </summary>
-        ReactiveCommand<SubtitleMeta, Unit> ChangeMetaCommand { get; }
+        IAsyncRelayCommand<SubtitleMeta> ChangeMetaCommand { get; }
 
         /// <summary>
         /// 字幕元数据集合.

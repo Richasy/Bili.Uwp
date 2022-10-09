@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System.Reactive;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Interfaces
 {
@@ -18,6 +17,6 @@ namespace Bili.ViewModels.Interfaces
         /// <summary>
         /// 重新加载命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ReloadCommand { get; }
+        IAsyncRelayCommand ReloadCommand { get; }
     }
 }

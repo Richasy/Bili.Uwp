@@ -1,13 +1,12 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Dynamic;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Core;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Community
 {
@@ -22,50 +21,43 @@ namespace Bili.ViewModels.Uwp.Community
         private readonly ICallerViewModel _callerViewModel;
         private readonly INavigationViewModel _navigationViewModel;
 
-        /// <inheritdoc/>
-        [Reactive]
-        public IUserItemViewModel Publisher { get; set; }
+        [ObservableProperty]
+        private IUserItemViewModel _publisher;
+
+        [ObservableProperty]
+        private DynamicInformation _data;
+
+        [ObservableProperty]
+        private bool _isLiked;
+
+        [ObservableProperty]
+        private string _likeCountText;
+
+        [ObservableProperty]
+        private string _commentCountText;
+
+        [ObservableProperty]
+        private bool _isShowCommunity;
+
+        [ObservableProperty]
+        private bool _canAddViewLater;
 
         /// <inheritdoc/>
-        [Reactive]
-        public DynamicInformation Data { get; set; }
+        public IAsyncRelayCommand ToggleLikeCommand { get; }
 
         /// <inheritdoc/>
-        [Reactive]
-        public bool IsLiked { get; set; }
+        public IRelayCommand ActiveCommand { get; }
 
         /// <inheritdoc/>
-        [Reactive]
-        public string LikeCountText { get; set; }
+        public IRelayCommand ShowUserDetailCommand { get; }
 
         /// <inheritdoc/>
-        [Reactive]
-        public string CommentCountText { get; set; }
+        public IRelayCommand AddToViewLaterCommand { get; }
 
         /// <inheritdoc/>
-        [Reactive]
-        public bool IsShowCommunity { get; set; }
+        public IRelayCommand ShowCommentDetailCommand { get; }
 
         /// <inheritdoc/>
-        [Reactive]
-        public bool CanAddViewLater { get; set; }
-
-        /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ToggleLikeCommand { get; }
-
-        /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ActiveCommand { get; }
-
-        /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ShowUserDetailCommand { get; }
-
-        /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> AddToViewLaterCommand { get; }
-
-        /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ShowCommentDetailCommand { get; }
-
-        /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ShareCommand { get; }
+        public IRelayCommand ShareCommand { get; }
     }
 }

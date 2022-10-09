@@ -2,29 +2,26 @@
 
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Bili.DI.Container;
 using Bili.Models.Data.Pgc;
 using Bili.ViewModels.Interfaces.Pgc;
-using ReactiveUI.Fody.Helpers;
-using Splat;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Bili.ViewModels.Uwp.Pgc
 {
     /// <summary>
     /// PGC 附加内容条目视图模型.
     /// </summary>
-    public sealed class PgcExtraItemViewModel : ViewModelBase, IPgcExtraItemViewModel
+    public sealed partial class PgcExtraItemViewModel : ViewModelBase, IPgcExtraItemViewModel
     {
+        [ObservableProperty]
+        private string _title;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="PgcExtraItemViewModel"/> class.
         /// </summary>
         public PgcExtraItemViewModel()
             => Episodes = new ObservableCollection<IEpisodeItemViewModel>();
-
-        /// <summary>
-        /// 标题.
-        /// </summary>
-        [Reactive]
-        public string Title { get; set; }
 
         /// <summary>
         /// 分集.
@@ -37,7 +34,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             Title = title;
             foreach (var item in episodes)
             {
-                var vm = Locator.Current.GetService<IEpisodeItemViewModel>();
+                var vm = Locator.Instance.GetService<IEpisodeItemViewModel>();
                 vm.InjectData(item);
                 vm.IsSelected = item.Identifier.Id == currentId;
                 Episodes.Add(vm);

@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using Bili.DI.Container;
 using Bili.Models.Data.Pgc;
 using Bili.ViewModels.Interfaces.Pgc;
-using Splat;
 using Windows.UI.Xaml;
 
 namespace Bili.App.Controls.Pgc
@@ -68,7 +68,7 @@ namespace Bili.App.Controls.Pgc
             var instance = d as SeasonItem;
             if (e.NewValue is SeasonInformation information)
             {
-                var vm = Locator.Current.GetService<ISeasonItemViewModel>();
+                var vm = Locator.Instance.GetService<ISeasonItemViewModel>();
                 vm.InjectData(information);
                 instance.ViewModel = vm;
             }

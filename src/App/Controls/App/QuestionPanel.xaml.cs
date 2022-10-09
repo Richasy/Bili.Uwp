@@ -1,8 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using Bili.DI.Container;
 using Bili.ViewModels.Interfaces.Home;
-using ReactiveUI;
-using Splat;
 
 namespace Bili.App.Controls
 {
@@ -17,7 +16,7 @@ namespace Bili.App.Controls
         public QuestionPanel()
         {
             InitializeComponent();
-            ViewModel = Splat.Locator.Current.GetService<IHelpPageViewModel>();
+            ViewModel = Locator.Instance.GetService<IHelpPageViewModel>();
         }
     }
 

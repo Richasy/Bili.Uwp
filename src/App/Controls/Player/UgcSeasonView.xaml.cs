@@ -1,10 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using System.Linq;
 using Bili.Models.Data.Video;
 using Bili.ViewModels.Interfaces.Video;
-using ReactiveUI;
 
 namespace Bili.App.Controls.Player
 {
@@ -23,7 +21,7 @@ namespace Bili.App.Controls.Player
             var season = SeasonComboBox.SelectedItem as VideoSeason;
             if (ViewModel.CurrentSeason != season)
             {
-                ViewModel.SelectSeasonCommand.Execute(season).Subscribe();
+                ViewModel.SelectSeasonCommand.Execute(season);
             }
         }
 

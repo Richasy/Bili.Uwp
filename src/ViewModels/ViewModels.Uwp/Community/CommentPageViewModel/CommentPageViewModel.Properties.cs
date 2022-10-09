@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using Bili.ViewModels.Interfaces.Community;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Bili.ViewModels.Uwp.Community
 {
@@ -10,18 +10,16 @@ namespace Bili.ViewModels.Uwp.Community
     /// </summary>
     public sealed partial class CommentPageViewModel
     {
+        [ObservableProperty]
+        private bool _isMainShown;
+
+        [ObservableProperty]
+        private bool _isDetailShown;
+
         /// <inheritdoc/>
         public ICommentMainModuleViewModel MainViewModel { get; }
 
         /// <inheritdoc/>
         public ICommentDetailModuleViewModel DetailViewModel { get; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsMainShown { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsDetailShown { get; set; }
     }
 }

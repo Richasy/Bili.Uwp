@@ -1,14 +1,13 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Linq;
-using System.Reactive.Linq;
 using System.Threading.Tasks;
+using Bili.DI.Container;
 using Bili.Lib.Interfaces;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Home;
 using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
-using Splat;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Home
@@ -47,7 +46,7 @@ namespace Bili.ViewModels.Uwp.Home
             {
                 foreach (var item in videos)
                 {
-                    var vm = Splat.Locator.Current.GetService<IVideoItemViewModel>();
+                    var vm = Locator.Instance.GetService<IVideoItemViewModel>();
                     vm.InjectData(item);
                     Items.Add(vm);
                 }

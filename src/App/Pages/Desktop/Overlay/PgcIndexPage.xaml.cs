@@ -47,7 +47,7 @@ namespace Bili.App.Pages.Desktop
                 if (index >= 0 && index != source.SelectedIndex)
                 {
                     source.SelectedIndex = index;
-                    ViewModel.ReloadCommand.Execute().Subscribe();
+                    ViewModel.ReloadCommand.ExecuteAsync(null);
                 }
             }
         }

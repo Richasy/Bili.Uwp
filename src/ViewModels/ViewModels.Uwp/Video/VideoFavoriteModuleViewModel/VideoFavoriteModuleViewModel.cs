@@ -1,12 +1,12 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Threading.Tasks;
+using Bili.DI.Container;
 using Bili.Lib.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
-using ReactiveUI;
-using Splat;
+using CommunityToolkit.Mvvm.Input;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Video
@@ -29,7 +29,7 @@ namespace Bili.ViewModels.Uwp.Video
             _navigationViewModel = navigationViewModel;
             _accountProvider = accountProvider;
             _favoriteProvider = favoriteProvider;
-            ShowDefaultFolderDetailCommand = ReactiveCommand.Create(ShowDefaultFolderDetail);
+            ShowDefaultFolderDetailCommand = new RelayCommand(ShowDefaultFolderDetail);
         }
 
         /// <inheritdoc/>
@@ -48,7 +48,7 @@ namespace Bili.ViewModels.Uwp.Video
 
             foreach (var item in data.Groups)
             {
-                var groupVM = Locator.Current.GetService<IVideoFavoriteFolderGroupViewModel>();
+                var groupVM = Locator.Instance.GetService<IVideoFavoriteFolderGroupViewModel>();
                 groupVM.InjectData(item);
                 Items.Add(groupVM);
             }

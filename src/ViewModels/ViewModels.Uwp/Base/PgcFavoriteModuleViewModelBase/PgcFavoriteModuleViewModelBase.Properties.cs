@@ -1,12 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
-using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Base
 {
@@ -21,6 +20,12 @@ namespace Bili.ViewModels.Uwp.Base
 
         private bool _isEnd;
 
+        [ObservableProperty]
+        private int _status;
+
+        [ObservableProperty]
+        private bool _isEmpty;
+
         /// <summary>
         /// 状态集合.
         /// </summary>
@@ -29,18 +34,6 @@ namespace Bili.ViewModels.Uwp.Base
         /// <summary>
         /// 选中状态命令.
         /// </summary>
-        public ReactiveCommand<int, Unit> SetStatusCommand { get; }
-
-        /// <summary>
-        /// 状态.
-        /// </summary>
-        [Reactive]
-        public int Status { get; set; }
-
-        /// <summary>
-        /// 是否显示空白.
-        /// </summary>
-        [Reactive]
-        public bool IsEmpty { get; set; }
+        public IRelayCommand<int> SetStatusCommand { get; }
     }
 }

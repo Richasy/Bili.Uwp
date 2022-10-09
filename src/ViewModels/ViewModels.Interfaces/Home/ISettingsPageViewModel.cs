@@ -1,17 +1,17 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
 using Bili.Models.Enums.Player;
-using ReactiveUI;
 
 namespace Bili.ViewModels.Interfaces.Home
 {
     /// <summary>
     /// 设置页面视图模型的接口定义.
     /// </summary>
-    public interface ISettingsPageViewModel : IReactiveObject, IInitializeViewModel
+    public interface ISettingsPageViewModel : INotifyPropertyChanged, IInitializeViewModel
     {
         /// <summary>
         /// 播放器显示模式可选集合.

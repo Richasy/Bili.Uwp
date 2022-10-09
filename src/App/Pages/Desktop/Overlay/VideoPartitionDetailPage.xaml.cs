@@ -40,7 +40,7 @@ namespace Bili.App.Pages.Desktop.Overlay
         {
             var data = args.InvokedItem as Partition;
             ContentScrollViewer.ChangeView(0, 0, 1);
-            ViewModel.SelectPartitionCommand.Execute(data).Subscribe();
+            ViewModel.SelectPartitionCommand.Execute(data);
         }
 
         private void OnVideoSortComboBoxSlectionChanged(object sender, SelectionChangedEventArgs e)
@@ -49,7 +49,7 @@ namespace Bili.App.Pages.Desktop.Overlay
                 && ViewModel.SortType != type)
             {
                 ViewModel.SortType = type;
-                ViewModel.ReloadCommand.Execute().Subscribe();
+                ViewModel.ReloadCommand.ExecuteAsync(null);
             }
         }
     }

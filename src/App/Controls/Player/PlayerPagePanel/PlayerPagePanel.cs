@@ -3,11 +3,11 @@
 using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using Bili.DI.Container;
 using Bili.Models.App.Constants;
 using Bili.Models.App.Other;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
-using Splat;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -68,7 +68,7 @@ namespace Bili.App.Controls.Player
         public PlayerPagePanel()
         {
             DefaultStyleKey = typeof(PlayerPagePanel);
-            _mediumWindowWidth = Locator.Current.GetService<IResourceToolkit>().GetResource<double>(AppConstants.MediumWindowThresholdWidthKey);
+            _mediumWindowWidth = Locator.Instance.GetService<IResourceToolkit>().GetResource<double>(AppConstants.MediumWindowThresholdWidthKey);
             SizeChanged += OnSizeChanged;
             Loaded += OnLoadedAsync;
             Unloaded += OnUnloaded;

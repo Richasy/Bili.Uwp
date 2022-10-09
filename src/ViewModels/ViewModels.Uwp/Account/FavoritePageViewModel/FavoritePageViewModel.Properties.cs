@@ -1,12 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
-using System.Reactive;
 using Bili.Models.App.Other;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Account
 {
@@ -18,30 +17,25 @@ namespace Bili.ViewModels.Uwp.Account
         private readonly IResourceToolkit _resourceToolkit;
         private readonly IAppViewModel _appViewModel;
 
+        [ObservableProperty]
+        private FavoriteHeader _currentType;
+
+        [ObservableProperty]
+        private bool _isVideoShown;
+
+        [ObservableProperty]
+        private bool _isAnimeShown;
+
+        [ObservableProperty]
+        private bool _isCinemaShown;
+
+        [ObservableProperty]
+        private bool _isArticleShown;
+
         /// <inheritdoc/>
         public ObservableCollection<FavoriteHeader> TypeCollection { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<FavoriteHeader, Unit> SelectTypeCommand { get; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public FavoriteHeader CurrentType { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsVideoShown { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsAnimeShown { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsCinemaShown { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsArticleShown { get; set; }
+        public IRelayCommand<FavoriteHeader> SelectTypeCommand { get; }
     }
 }

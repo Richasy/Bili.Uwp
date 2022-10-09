@@ -1,9 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System.Reactive;
 using Bili.Models.Data.Dynamic;
 using Bili.ViewModels.Interfaces.Account;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Interfaces.Community
 {
@@ -45,31 +44,31 @@ namespace Bili.ViewModels.Interfaces.Community
         /// <summary>
         /// 点赞动态的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ToggleLikeCommand { get; }
+        IAsyncRelayCommand ToggleLikeCommand { get; }
 
         /// <summary>
         /// 点击动态的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ActiveCommand { get; }
+        IRelayCommand ActiveCommand { get; }
 
         /// <summary>
         /// 显示用户详情的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ShowUserDetailCommand { get; }
+        IRelayCommand ShowUserDetailCommand { get; }
 
         /// <summary>
         /// 添加到稍后再看的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> AddToViewLaterCommand { get; }
+        IRelayCommand AddToViewLaterCommand { get; }
 
         /// <summary>
         /// 显示评论详情的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ShowCommentDetailCommand { get; }
+        IRelayCommand ShowCommentDetailCommand { get; }
 
         /// <summary>
         /// 显示评论详情的命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ShareCommand { get; }
+        IRelayCommand ShareCommand { get; }
     }
 }

@@ -1,22 +1,22 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
-using System.Reactive;
+using System.ComponentModel;
 using Bili.Models.Data.Community;
 using Bili.ViewModels.Interfaces.Video;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Interfaces.Home
 {
     /// <summary>
     /// 排行榜页面视图模型的接口定义.
     /// </summary>
-    public interface IRankPageViewModel : IReactiveObject, IInitializeViewModel, IReloadViewModel, IErrorViewModel
+    public interface IRankPageViewModel : INotifyPropertyChanged, IInitializeViewModel, IReloadViewModel, IErrorViewModel
     {
         /// <summary>
         /// 选择分区命令.
         /// </summary>
-        ReactiveCommand<Partition, Unit> SelectPartitionCommand { get; }
+        IAsyncRelayCommand<Partition> SelectPartitionCommand { get; }
 
         /// <summary>
         /// 当前的分区.

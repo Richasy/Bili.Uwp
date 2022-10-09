@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Windows.Input;
+using Bili.DI.Container;
 using Bili.ViewModels.Interfaces.Core;
-using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -45,7 +45,7 @@ namespace Bili.App.Controls.App
         public PageHeader()
         {
             InitializeComponent();
-            _appViewModel = Locator.Current.GetService<IAppViewModel>();
+            _appViewModel = Locator.Instance.GetService<IAppViewModel>();
         }
 
         /// <summary>

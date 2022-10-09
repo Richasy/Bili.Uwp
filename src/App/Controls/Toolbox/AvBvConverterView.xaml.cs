@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using Bili.DI.Container;
 using Bili.ViewModels.Interfaces.Toolbox;
-using Splat;
 using Windows.UI.Xaml.Controls;
 
 namespace Bili.App.Controls
@@ -11,7 +11,7 @@ namespace Bili.App.Controls
     /// </summary>
     public sealed partial class AvBvConverterView : CenterPopup
     {
-        private readonly IAvBvConverterViewModel _viewModel = Locator.Current.GetService<IAvBvConverterViewModel>();
+        private readonly IAvBvConverterViewModel _viewModel = Locator.Instance.GetService<IAvBvConverterViewModel>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AvBvConverterView"/> class.

@@ -3,14 +3,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reactive.Linq;
 using Bili.Models.App.Args;
 using Bili.Models.Data.Local;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
 using Bili.ViewModels.Interfaces.Core;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Core
 {
@@ -28,35 +27,6 @@ namespace Bili.ViewModels.Uwp.Core
             _backStack = new List<AppBackEventArgs>();
 
             IsMainViewShown = true;
-            var canBack = this.WhenAnyValue(x => x.CanBack);
-            BackCommand = ReactiveCommand.Create(Back, canBack, RxApp.MainThreadScheduler);
-
-            this.WhenAnyValue(x => x.IsMainViewShown)
-                .Subscribe(x =>
-                {
-                    if (x)
-                    {
-                        IsPlayViewShown = IsSecondaryViewShown = false;
-                    }
-                });
-
-            this.WhenAnyValue(x => x.IsSecondaryViewShown)
-               .Subscribe(x =>
-               {
-                   if (x)
-                   {
-                       IsPlayViewShown = IsMainViewShown = false;
-                   }
-               });
-
-            this.WhenAnyValue(x => x.IsPlayViewShown)
-                .Subscribe(x =>
-                {
-                    if (x)
-                    {
-                        IsMainViewShown = IsSecondaryViewShown = false;
-                    }
-                });
         }
 
         /// <inheritdoc/>
@@ -190,6 +160,7 @@ namespace Bili.ViewModels.Uwp.Core
             CheckBackStatus();
         }
 
+        [RelayCommand]
         private void Back()
         {
             if (!CanBack)
@@ -213,12 +184,12 @@ namespace Bili.ViewModels.Uwp.Core
             if (last.Id == BackBehavior.MainView)
             {
                 NavigateToMainView((PageIds)last.Parameter, null);
-                _recordViewModel.DeleteLastPlayItemCommand.Execute().Subscribe();
+                _recordViewModel.DeleteLastPlayItemCommand.Execute(null);
             }
             else if (last.Id == BackBehavior.SecondaryView)
             {
                 NavigateToSecondaryView((PageIds)last.Parameter, null);
-                _recordViewModel.DeleteLastPlayItemCommand.Execute().Subscribe();
+                _recordViewModel.DeleteLastPlayItemCommand.Execute(null);
             }
             else if (last.Id == BackBehavior.OpenPlayer)
             {
@@ -263,6 +234,30 @@ namespace Bili.ViewModels.Uwp.Core
             };
 
             return pageId;
+        }
+
+        partial void OnIsMainViewShownChanged(bool value)
+        {
+            if (value)
+            {
+                IsPlayViewShown = IsSecondaryViewShown = false;
+            }
+        }
+
+        partial void OnIsSecondaryViewShownChanged(bool value)
+        {
+            if (value)
+            {
+                IsPlayViewShown = IsMainViewShown = false;
+            }
+        }
+
+        partial void OnIsPlayViewShownChanged(bool value)
+        {
+            if (value)
+            {
+                IsMainViewShown = IsSecondaryViewShown = false;
+            }
         }
     }
 }

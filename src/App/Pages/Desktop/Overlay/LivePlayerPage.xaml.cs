@@ -28,7 +28,7 @@ namespace Bili.App.Pages.Desktop.Overlay
 
         /// <inheritdoc/>
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
-            => ViewModel.ClearCommand.Execute().Subscribe();
+            => ViewModel.ClearCommand.Execute(null);
 
         /// <inheritdoc/>
         protected override void OnPageLoaded()
@@ -43,7 +43,7 @@ namespace Bili.App.Pages.Desktop.Overlay
             var isAudioOnly = LiveAudioOnlySwitch.IsOn;
             if (ViewModel.MediaPlayerViewModel.IsLiveAudioOnly != isAudioOnly)
             {
-                ViewModel.MediaPlayerViewModel.ChangeLiveAudioOnlyCommand.Execute(isAudioOnly).Subscribe();
+                ViewModel.MediaPlayerViewModel.ChangeLiveAudioOnlyCommand.Execute(isAudioOnly);
             }
         }
     }

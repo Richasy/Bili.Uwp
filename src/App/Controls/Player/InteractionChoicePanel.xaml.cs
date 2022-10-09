@@ -36,7 +36,7 @@ namespace Bili.App.Controls.Player
         private void OnChoiceClick(object sender, RoutedEventArgs e)
         {
             var data = (sender as FrameworkElement).DataContext as InteractionInformation;
-            ViewModel.SelectInteractionChoiceCommand.Execute(data).Subscribe();
+            ViewModel.SelectInteractionChoiceCommand.Execute(data);
         }
     }
 }

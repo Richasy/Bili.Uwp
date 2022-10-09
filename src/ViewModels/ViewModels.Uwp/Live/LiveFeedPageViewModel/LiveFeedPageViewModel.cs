@@ -3,6 +3,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Bili.DI.Container;
 using Bili.Lib.Interfaces;
 using Bili.Models.App.Args;
 using Bili.Models.Enums;
@@ -11,8 +12,7 @@ using Bili.ViewModels.Interfaces.Common;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Live;
 using Bili.ViewModels.Uwp.Base;
-using ReactiveUI;
-using Splat;
+using CommunityToolkit.Mvvm.Input;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Live
@@ -46,7 +46,7 @@ namespace Bili.ViewModels.Uwp.Live
             Follows = new ObservableCollection<ILiveItemViewModel>();
             HotPartitions = new ObservableCollection<Models.Data.Community.Partition>();
 
-            SeeAllPartitionsCommand = ReactiveCommand.Create(SeeAllPartitions);
+            SeeAllPartitionsCommand = new RelayCommand(SeeAllPartitions);
 
             _authorizeProvider.StateChanged += OnAuthorizeStateChanged;
             IsLoggedIn = _authorizeProvider.State == AuthorizeState.SignedIn;
@@ -74,7 +74,7 @@ namespace Bili.ViewModels.Uwp.Live
             {
                 data.Banners.ToList().ForEach(p =>
                 {
-                    var vm = Locator.Current.GetService<IBannerViewModel>();
+                    var vm = Locator.Instance.GetService<IBannerViewModel>();
                     vm.InjectData(p);
                     Banners.Add(vm);
                 });
@@ -89,7 +89,7 @@ namespace Bili.ViewModels.Uwp.Live
             {
                 foreach (var item in data.RecommendLives)
                 {
-                    var liveVM = Locator.Current.GetService<ILiveItemViewModel>();
+                    var liveVM = Locator.Instance.GetService<ILiveItemViewModel>();
                     liveVM.InjectData(item);
                     Items.Add(liveVM);
                 }
@@ -99,7 +99,7 @@ namespace Bili.ViewModels.Uwp.Live
             {
                 foreach (var item in data.FollowLives)
                 {
-                    var liveVM = Locator.Current.GetService<ILiveItemViewModel>();
+                    var liveVM = Locator.Instance.GetService<ILiveItemViewModel>();
                     liveVM.InjectData(item);
                     Follows.Add(liveVM);
                 }

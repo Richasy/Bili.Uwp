@@ -3,8 +3,8 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reactive.Linq;
 using System.Threading.Tasks;
+using Bili.DI.Container;
 using Bili.Lib.Interfaces;
 using Bili.Models.App.Other;
 using Bili.Models.Data.Live;
@@ -16,9 +16,7 @@ using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Live;
 using Bili.ViewModels.Uwp.Base;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
-using Splat;
+using CommunityToolkit.Mvvm.Input;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Live
@@ -64,20 +62,15 @@ namespace Bili.ViewModels.Uwp.Live
             IsSignedIn = _authorizeProvider.State == AuthorizeState.SignedIn;
             _authorizeProvider.StateChanged += OnAuthorizeStateChanged;
 
-            ReloadCommand = ReactiveCommand.CreateFromTask(GetDataAsync);
-            ShareCommand = ReactiveCommand.Create(Share);
-            FixedCommand = ReactiveCommand.Create(Fix);
-            ClearCommand = ReactiveCommand.Create(Reset);
-            OpenInBroswerCommand = ReactiveCommand.CreateFromTask(OpenInBroswerAsync);
+            ReloadCommand = new AsyncRelayCommand(GetDataAsync);
+            ShareCommand = new RelayCommand(Share);
+            FixedCommand = new RelayCommand(Fix);
+            ClearCommand = new RelayCommand(Reset);
+            OpenInBroswerCommand = new AsyncRelayCommand(OpenInBroswerAsync);
 
-            ReloadCommand.IsExecuting.ToPropertyEx(this, x => x.IsReloading);
-
-            ReloadCommand.ThrownExceptions
-                .Subscribe(DisplayException);
-            ShareCommand.ThrownExceptions
-                .Merge(FixedCommand.ThrownExceptions)
-                .Merge(OpenInBroswerCommand.ThrownExceptions)
-                .Subscribe(LogException);
+            AttachIsRunningToAsyncCommand(p => IsReloading = p, ReloadCommand);
+            AttachExceptionHandlerToAsyncCommand(DisplayException, ReloadCommand);
+            AttachExceptionHandlerToAsyncCommand(LogException, OpenInBroswerCommand);
 
             Danmakus.CollectionChanged += OnDanmakusCollectionChanged;
         }
@@ -88,14 +81,14 @@ namespace Bili.ViewModels.Uwp.Live
             _presetRoomId = snapshot.VideoId;
             var defaultPlayMode = _settingsToolkit.ReadLocalSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
             MediaPlayerViewModel.DisplayMode = snapshot.DisplayMode ?? defaultPlayMode;
-            ReloadCommand.Execute().Subscribe();
+            ReloadCommand.ExecuteAsync(null);
             _liveProvider.MessageReceived += OnMessageReceivedAsync;
         }
 
         private void Reset()
         {
             View = null;
-            MediaPlayerViewModel.ClearCommand.Execute().Subscribe();
+            MediaPlayerViewModel.ClearCommand.Execute(null);
             ResetTimers();
             ResetPublisher();
             ResetOverview();
@@ -105,13 +98,13 @@ namespace Bili.ViewModels.Uwp.Live
         private async Task GetDataAsync()
         {
             Reset();
-            MediaPlayerViewModel = Locator.Current.GetService<IMediaPlayerViewModel>();
+            MediaPlayerViewModel = Locator.Instance.GetService<IMediaPlayerViewModel>();
             View = await _liveProvider.GetLiveRoomDetailAsync(_presetRoomId);
             var snapshot = new PlaySnapshot(View.Information.Identifier.Id, default, VideoType.Live)
             {
                 Title = View.Information.Identifier.Title,
             };
-            _recordViewModel.AddPlayRecordCommand.Execute(new PlayRecord(View.Information.Identifier, snapshot)).Subscribe();
+            _recordViewModel.AddPlayRecordCommand.Execute(new PlayRecord(View.Information.Identifier, snapshot));
 
             var isEnterSuccess = await _liveProvider.EnterLiveRoomAsync(_presetRoomId);
 

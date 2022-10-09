@@ -212,7 +212,7 @@ namespace Bili.ViewModels.Uwp.Core
 
             InteractionViewModel.SetData(view.Information.Identifier.Id, info.Id, view.InteractionVideo.GraphVersion);
             var part = new VideoIdentifier(info.PartId, default, default, default);
-            ChangePartCommand.Execute(part).Subscribe();
+            ChangePartCommand.ExecuteAsync(part);
         }
 
         private void BackToInteractionVideoStart()
@@ -226,7 +226,7 @@ namespace Bili.ViewModels.Uwp.Core
 
             InteractionViewModel.SetData(view.Information.Identifier.Id, default, view.InteractionVideo.GraphVersion);
             var part = view.SubVideos.FirstOrDefault();
-            ChangePartCommand.Execute(part).Subscribe();
+            ChangePartCommand.ExecuteAsync(part);
         }
     }
 }

@@ -5,14 +5,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Bili.DI.Container;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Community;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Uwp.Base;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
-using Splat;
+using CommunityToolkit.Mvvm.Input;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Account
@@ -39,9 +38,9 @@ namespace Bili.ViewModels.Uwp.Account
             Groups = new ObservableCollection<FollowGroup>();
             UserName = _accountViewModel.DisplayName;
 
-            SelectGroupCommand = ReactiveCommand.CreateFromTask<FollowGroup>(SelectGroupAsync);
-            SelectGroupCommand.IsExecuting.ToPropertyEx(this, x => x.IsSwitching);
-            SelectGroupCommand.ThrownExceptions.Subscribe(DisplayException);
+            SelectGroupCommand = new AsyncRelayCommand<FollowGroup>(SelectGroupAsync);
+            AttachIsRunningToAsyncCommand(p => IsSwitching = p, SelectGroupCommand);
+            AttachExceptionHandlerToAsyncCommand(DisplayException, SelectGroupCommand);
         }
 
         /// <inheritdoc/>
@@ -82,7 +81,7 @@ namespace Bili.ViewModels.Uwp.Account
                     return;
                 }
 
-                var accVM = Splat.Locator.Current.GetService<IUserItemViewModel>();
+                var accVM = Locator.Instance.GetService<IUserItemViewModel>();
                 accVM.SetInformation(item);
                 Items.Add(accVM);
             }

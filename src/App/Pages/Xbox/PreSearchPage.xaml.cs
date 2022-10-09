@@ -34,14 +34,14 @@ namespace Bili.App.Pages.Xbox
         {
             if (!string.IsNullOrEmpty(sender.Text))
             {
-                ViewModel.SearchCommand.Execute(sender.Text).Subscribe();
+                ViewModel.SearchCommand.Execute(sender.Text);
             }
         }
 
         private void SelectSuggestItem(object suggestObj)
         {
             var data = suggestObj as SearchSuggest;
-            ViewModel.SelectSuggestCommand.Execute(data).Subscribe();
+            ViewModel.SelectSuggestCommand.Execute(data);
         }
     }
 

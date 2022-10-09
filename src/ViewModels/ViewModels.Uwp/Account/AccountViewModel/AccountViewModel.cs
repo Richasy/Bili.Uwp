@@ -3,9 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.App.Constants;
@@ -13,8 +11,7 @@ using Bili.Models.Data.Local;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.Input;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Account
@@ -42,30 +39,28 @@ namespace Bili.ViewModels.Uwp.Account
             _accountProvider = accountProvider;
             _dispatcher = dispatcher;
 
-            TrySignInCommand = ReactiveCommand.CreateFromTask<bool>(TrySignInAsync);
-            SignOutCommand = ReactiveCommand.CreateFromTask(SignOutAsync);
-            LoadMyProfileCommand = ReactiveCommand.CreateFromTask(GetMyProfileAsync);
-            InitializeCommunityCommand = ReactiveCommand.CreateFromTask(InitCommunityInformationAsync);
-            InitializeUnreadCommand = ReactiveCommand.CreateFromTask(InitUnreadAsync);
-            AddFixedItemCommand = ReactiveCommand.CreateFromTask<FixedItem>(AddFixedItemAsync);
-            RemoveFixedItemCommand = ReactiveCommand.CreateFromTask<string>(RemoveFixedItemAsync);
-
-            TrySignInCommand.IsExecuting.ToPropertyEx(this, x => x.IsSigning);
+            TrySignInCommand = new AsyncRelayCommand<bool>(TrySignInAsync);
+            SignOutCommand = new AsyncRelayCommand(SignOutAsync);
+            LoadMyProfileCommand = new AsyncRelayCommand(GetMyProfileAsync);
+            InitializeCommunityCommand = new AsyncRelayCommand(InitCommunityInformationAsync);
+            InitializeUnreadCommand = new AsyncRelayCommand(InitUnreadAsync);
+            AddFixedItemCommand = new AsyncRelayCommand<FixedItem>(AddFixedItemAsync);
+            RemoveFixedItemCommand = new AsyncRelayCommand<string>(RemoveFixedItemAsync);
 
             FixedItemCollection = new ObservableCollection<FixedItem>();
             _authorizeProvider.StateChanged += OnAuthorizeStateChanged;
             State = _authorizeProvider.State;
 
-            TrySignInCommand.ThrownExceptions
-                .Merge(SignOutCommand.ThrownExceptions)
-                .Merge(LoadMyProfileCommand.ThrownExceptions)
-                .Merge(InitializeCommunityCommand.ThrownExceptions)
-                .Merge(InitializeUnreadCommand.ThrownExceptions)
-                .Merge(AddFixedItemCommand.ThrownExceptions)
-                .Merge(RemoveFixedItemCommand.ThrownExceptions)
-                .Subscribe(LogException);
+            AttachExceptionHandlerToAsyncCommand(
+                LogException,
+                TrySignInCommand,
+                SignOutCommand,
+                LoadMyProfileCommand,
+                InitializeCommunityCommand,
+                InitializeUnreadCommand,
+                AddFixedItemCommand,
+                RemoveFixedItemCommand);
 
-            PropertyChanged += OnPropertyChanged;
             Reset();
 
             if (State == AuthorizeState.SignedIn)
@@ -79,15 +74,8 @@ namespace Bili.ViewModels.Uwp.Account
         /// </summary>
         /// <param name="isSlientOnly">是否只进行静默登录.</param>
         /// <returns><see cref="Task"/>.</returns>
-        private async Task TrySignInAsync(bool isSlientOnly = false)
-        {
-            if (State != AuthorizeState.SignedOut)
-            {
-                return;
-            }
-
-            await InternalSignInAsync(isSlientOnly);
-        }
+        private async Task<bool> TrySignInAsync(bool isSlientOnly = false)
+            => State == AuthorizeState.SignedOut && await InternalSignInAsync(isSlientOnly);
 
         /// <summary>
         /// 登出.
@@ -132,7 +120,7 @@ namespace Bili.ViewModels.Uwp.Account
             DynamicCount = _numberToolkit.GetCountText(data.DynamicCount);
             FollowCount = _numberToolkit.GetCountText(data.FollowCount);
             FollowerCount = _numberToolkit.GetCountText(data.FansCount);
-            InitializeUnreadCommand.Execute().Subscribe();
+            await InitUnreadAsync();
         }
 
         /// <summary>
@@ -199,7 +187,7 @@ namespace Bili.ViewModels.Uwp.Account
             TipText = $"{AccountInformation.User.Name} Lv.{AccountInformation.Level}";
             IsVip = AccountInformation.IsVip;
 
-            InitializeUnreadCommand.Execute().Subscribe();
+            InitializeUnreadCommand.ExecuteAsync(null);
         }
 
         private void Reset()
@@ -237,15 +225,12 @@ namespace Bili.ViewModels.Uwp.Account
             IsShowFixedItem = false;
         }
 
-        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        partial void OnStateChanged(AuthorizeState value)
         {
-            if (e.PropertyName == nameof(State))
+            if (value == AuthorizeState.SignedIn)
             {
-                if (State == AuthorizeState.SignedIn)
-                {
-                    IsConnected = true;
-                    LoadMyProfileCommand.Execute().Subscribe();
-                }
+                IsConnected = true;
+                LoadMyProfileCommand.ExecuteAsync(null);
             }
         }
     }

@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using Bili.App.Pages.Base;
-using Windows.UI.Xaml;
 
 namespace Bili.App.Pages.Xbox
 {
@@ -20,7 +18,7 @@ namespace Bili.App.Pages.Xbox
         protected override void OnPageLoaded()
         {
             Bindings.Update();
-            ViewModel.VideoModule.InitializeCommand.Execute().Subscribe();
+            ViewModel.VideoModule.InitializeCommand.ExecuteAsync(null);
         }
 
         /// <inheritdoc/>

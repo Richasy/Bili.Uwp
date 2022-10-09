@@ -3,15 +3,13 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.App.Other;
 using Bili.Models.Data.Community;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Live;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.Input;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Live
@@ -36,19 +34,21 @@ namespace Bili.ViewModels.Uwp.Live
             ParentPartitions = new ObservableCollection<Partition>();
             DisplayPartitions = new ObservableCollection<Partition>();
 
-            InitializeCommand = ReactiveCommand.CreateFromTask(InitializeAsync);
-            ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync);
-            SelectPartitionCommand = ReactiveCommand.CreateFromTask<Partition>(SelectPartitionAsync);
+            InitializeCommand = new AsyncRelayCommand(InitializeAsync);
+            ReloadCommand = new AsyncRelayCommand(ReloadAsync);
+            SelectPartitionCommand = new AsyncRelayCommand<Partition>(SelectPartitionAsync);
 
-            InitializeCommand.ThrownExceptions
-                .Merge(ReloadCommand.ThrownExceptions)
-                .Merge(SelectPartitionCommand.ThrownExceptions)
-                .Subscribe(DisplayException);
+            AttachExceptionHandlerToAsyncCommand(
+                DisplayException,
+                InitializeCommand,
+                ReloadCommand,
+                SelectPartitionCommand);
 
-            InitializeCommand.IsExecuting
-                .Merge(ReloadCommand.IsExecuting)
-                .Merge(SelectPartitionCommand.IsExecuting)
-                .ToPropertyEx(this, x => x.IsReloading);
+            AttachIsRunningToAsyncCommand(
+                p => IsReloading = p,
+                InitializeCommand,
+                ReloadCommand,
+                SelectPartitionCommand);
         }
 
         private async Task InitializeAsync()

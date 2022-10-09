@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using Bili.DI.Container;
 using Bili.Models.App.Constants;
 using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
-using Splat;
 using Windows.Storage;
 using Windows.System;
 
@@ -32,7 +32,7 @@ namespace Bili.App.Controls
         private async void OnCleanLoggerButtonClickAsync(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             var folder = await ApplicationData.Current.LocalFolder.CreateFolderAsync(ControllerConstants.Names.LoggerFolder, CreationCollisionOption.OpenIfExists).AsTask();
-            var resourceToolkit = Locator.Current.GetService<IResourceToolkit>();
+            var resourceToolkit = Locator.Instance.GetService<IResourceToolkit>();
             try
             {
                 await folder.DeleteAsync(StorageDeleteOption.PermanentDelete).AsTask();
@@ -43,7 +43,7 @@ namespace Bili.App.Controls
             }
             finally
             {
-                Locator.Current.GetService<ICallerViewModel>().ShowTip(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.LogEmptied), InfoType.Success);
+                Locator.Instance.GetService<ICallerViewModel>().ShowTip(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.LogEmptied), InfoType.Success);
             }
         }
     }

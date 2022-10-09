@@ -1,47 +1,35 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
-using System.Reactive.Linq;
+using Bili.DI.Container;
 using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Community;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
-using Splat;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Bili.ViewModels.Uwp.Community
 {
     /// <summary>
     /// 消息头部视图模型.
     /// </summary>
-    public sealed class MessageHeaderViewModel : ViewModelBase, IMessageHeaderViewModel
+    public sealed partial class MessageHeaderViewModel : ViewModelBase, IMessageHeaderViewModel
     {
+        [ObservableProperty]
+        private string _title;
+
+        [ObservableProperty]
+        private int _count;
+
+        [ObservableProperty]
+        private bool _isShowBadge;
+
         /// <inheritdoc/>
         public MessageType Type { get; set; }
-
-        /// <summary>
-        /// 标题.
-        /// </summary>
-        [Reactive]
-        public string Title { get; set; }
-
-        /// <summary>
-        /// 消息数.
-        /// </summary>
-        [Reactive]
-        public int Count { get; set; }
-
-        /// <summary>
-        /// 是否显示徽章文本.
-        /// </summary>
-        [Reactive]
-        public bool IsShowBadge { get; set; }
 
         /// <inheritdoc/>
         public void SetData(MessageType type, int count = 0)
         {
             Type = type;
-            var resourceToolkit = Splat.Locator.Current.GetService<IResourceToolkit>();
+            var resourceToolkit = Locator.Instance.GetService<IResourceToolkit>();
             Title = type switch
             {
                 MessageType.Reply => resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.Reply),
@@ -50,10 +38,7 @@ namespace Bili.ViewModels.Uwp.Community
                 _ => string.Empty,
             };
             Count = count;
-            IsShowBadge = Count == 0;
-
-            this.WhenAnyValue(p => p.Count)
-                .Subscribe(x => IsShowBadge = x > 0);
+            IsShowBadge = Count > 0;
         }
 
         /// <inheritdoc/>
@@ -61,5 +46,8 @@ namespace Bili.ViewModels.Uwp.Community
 
         /// <inheritdoc/>
         public override int GetHashCode() => Type.GetHashCode();
+
+        partial void OnCountChanged(int value)
+            => IsShowBadge = value > 0;
     }
 }

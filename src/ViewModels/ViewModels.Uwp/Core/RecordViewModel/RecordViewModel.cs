@@ -8,7 +8,7 @@ using Bili.Models.Data.Local;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Core
 {
@@ -32,12 +32,12 @@ namespace Bili.ViewModels.Uwp.Core
             PlayRecords = new ObservableCollection<PlayRecord>();
             IsShowPlayRecordButton = false;
 
-            CheckContinuePlayCommand = ReactiveCommand.Create(CheckContinuePlay);
-            AddLastPlayItemCommand = ReactiveCommand.CreateFromTask<PlaySnapshot>(AddLastPlayItemAsync);
-            DeleteLastPlayItemCommand = ReactiveCommand.CreateFromTask(DeleteLastPlayItemAsync);
-            AddPlayRecordCommand = ReactiveCommand.Create<PlayRecord>(AddPlayRecord);
-            RemovePlayRecordCommand = ReactiveCommand.Create<PlayRecord>(RemovePlayRecord);
-            ClearPlayRecordCommand = ReactiveCommand.Create(ClearPlayRecords);
+            CheckContinuePlayCommand = new RelayCommand(CheckContinuePlay);
+            AddLastPlayItemCommand = new AsyncRelayCommand<PlaySnapshot>(AddLastPlayItemAsync);
+            DeleteLastPlayItemCommand = new AsyncRelayCommand(DeleteLastPlayItemAsync);
+            AddPlayRecordCommand = new RelayCommand<PlayRecord>(AddPlayRecord);
+            RemovePlayRecordCommand = new RelayCommand<PlayRecord>(RemovePlayRecord);
+            ClearPlayRecordCommand = new RelayCommand(ClearPlayRecords);
 
             PlayRecords.CollectionChanged += OnPlayRecordsCollectionChanged;
         }

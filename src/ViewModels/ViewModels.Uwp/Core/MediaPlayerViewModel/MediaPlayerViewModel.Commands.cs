@@ -1,9 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System.Reactive;
 using Bili.Models.Data.Player;
 using Bili.Models.Data.Video;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Core
 {
@@ -13,96 +12,96 @@ namespace Bili.ViewModels.Uwp.Core
     public sealed partial class MediaPlayerViewModel
     {
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ReloadCommand { get; }
+        public IAsyncRelayCommand ReloadCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<VideoIdentifier, Unit> ChangePartCommand { get; }
+        public IAsyncRelayCommand<VideoIdentifier> ChangePartCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ResetProgressHistoryCommand { get; }
+        public IRelayCommand ResetProgressHistoryCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<bool, Unit> ChangeLiveAudioOnlyCommand { get; }
+        public IAsyncRelayCommand<bool> ChangeLiveAudioOnlyCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<FormatInformation, Unit> ChangeFormatCommand { get; }
+        public IAsyncRelayCommand<FormatInformation> ChangeFormatCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> PlayPauseCommand { get; }
+        public IAsyncRelayCommand PlayPauseCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ForwardSkipCommand { get; }
+        public IAsyncRelayCommand ForwardSkipCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> BackwardSkipCommand { get; }
+        public IAsyncRelayCommand BackwardSkipCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<double, Unit> ChangePlayRateCommand { get; }
+        public IAsyncRelayCommand<double> ChangePlayRateCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<double, Unit> ChangeVolumeCommand { get; }
+        public IRelayCommand<double> ChangeVolumeCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ToggleFullScreenCommand { get; }
+        public IRelayCommand ToggleFullScreenCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ToggleFullWindowCommand { get; }
+        public IRelayCommand ToggleFullWindowCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ToggleCompactOverlayCommand { get; }
+        public IRelayCommand ToggleCompactOverlayCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ScreenShotCommand { get; }
+        public IAsyncRelayCommand ScreenShotCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<double, Unit> ChangeProgressCommand { get; }
+        public IRelayCommand<double> ChangeProgressCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> StartTempQuickPlayCommand { get; }
+        public IAsyncRelayCommand StartTempQuickPlayCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> StopTempQuickPlayCommand { get; }
+        public IAsyncRelayCommand StopTempQuickPlayCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> JumpToLastProgressCommand { get; }
+        public IRelayCommand JumpToLastProgressCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ClearSourceProgressCommand { get; }
+        public IRelayCommand ClearSourceProgressCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ReportViewProgressCommand { get; }
+        public IAsyncRelayCommand ReportViewProgressCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ShowNextVideoTipCommand { get; }
+        public IRelayCommand ShowNextVideoTipCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> PlayNextCommand { get; }
+        public IRelayCommand PlayNextCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> IncreasePlayRateCommand { get; }
+        public IRelayCommand IncreasePlayRateCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> DecreasePlayRateCommand { get; }
+        public IRelayCommand DecreasePlayRateCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> IncreaseVolumeCommand { get; }
+        public IRelayCommand IncreaseVolumeCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> DecreaseVolumeCommand { get; }
+        public IRelayCommand DecreaseVolumeCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<InteractionInformation, Unit> SelectInteractionChoiceCommand { get; }
+        public IRelayCommand<InteractionInformation> SelectInteractionChoiceCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> BackToInteractionVideoStartCommand { get; }
+        public IRelayCommand BackToInteractionVideoStartCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> BackToDefaultModeCommand { get; }
+        public IRelayCommand BackToDefaultModeCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ExitFullPlayerCommand { get; }
+        public IRelayCommand ExitFullPlayerCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ClearCommand { get; }
+        public IRelayCommand ClearCommand { get; }
     }
 }

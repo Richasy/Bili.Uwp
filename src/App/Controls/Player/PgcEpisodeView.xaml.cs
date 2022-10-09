@@ -1,11 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Bili.ViewModels.Interfaces.Pgc;
-using ReactiveUI;
-using Splat;
 using Windows.UI.Xaml;
 
 namespace Bili.App.Controls.Player
@@ -26,7 +23,7 @@ namespace Bili.App.Controls.Player
             var data = card.DataContext as IEpisodeItemViewModel;
             if (!data.Data.Equals(ViewModel.CurrentEpisode))
             {
-                ViewModel.ChangeEpisodeCommand.Execute(data.Data).Subscribe();
+                ViewModel.ChangeEpisodeCommand.Execute(data.Data);
             }
             else
             {

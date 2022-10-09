@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using ReactiveUI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -10,7 +9,7 @@ namespace Bili.App.Controls
     /// 响应式控件基类.
     /// </summary>
     /// <typeparam name="TViewModel">控件对应的视图模型.</typeparam>
-    public class ReactiveControl<TViewModel> : Control, IViewFor<TViewModel>
+    public class ReactiveControl<TViewModel> : Control
         where TViewModel : class
     {
         /// <summary>
@@ -31,9 +30,6 @@ namespace Bili.App.Controls
             get => (TViewModel)GetValue(ViewModelProperty);
             set => SetValue(ViewModelProperty, value);
         }
-
-        /// <inheritdoc/>
-        object IViewFor.ViewModel { get; set; }
 
         /// <summary>
         /// 当 <see cref="ViewModel"/> 改变时调用该方法，可由派生类重写.

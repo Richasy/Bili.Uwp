@@ -1,14 +1,13 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
-using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Common;
 using Bili.ViewModels.Interfaces.Core;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Base
 {
@@ -22,26 +21,16 @@ namespace Bili.ViewModels.Uwp.Base
         private readonly INavigationViewModel _navigationViewModel;
         private readonly PgcType _type;
 
-        /// <summary>
-        /// 横幅列表.
-        /// </summary>
+        [ObservableProperty]
+        private bool _isShowBanner;
+
+        [ObservableProperty]
+        private string _title;
+
+        /// <inheritdoc/>
         public ObservableCollection<IBannerViewModel> Banners { get; }
 
-        /// <summary>
-        /// 导航至索引页面的命令.
-        /// </summary>
-        public ReactiveCommand<Unit, Unit> GotoIndexPageCommand { get; }
-
-        /// <summary>
-        /// 是否显示横幅.
-        /// </summary>
-        [Reactive]
-        public bool IsShowBanner { get; set; }
-
-        /// <summary>
-        /// 页面标题.
-        /// </summary>
-        [Reactive]
-        public string Title { get; set; }
+        /// <inheritdoc/>
+        public IRelayCommand GotoIndexPageCommand { get; }
     }
 }

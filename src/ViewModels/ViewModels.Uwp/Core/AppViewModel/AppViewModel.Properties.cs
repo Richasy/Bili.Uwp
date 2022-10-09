@@ -1,12 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Microsoft.Toolkit.Uwp.Connectivity;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Core
@@ -27,68 +26,37 @@ namespace Bili.ViewModels.Uwp.Core
 
         private bool? _isWide;
 
-        /// <summary>
-        /// 检查应用更新命令.
-        /// </summary>
-        public ReactiveCommand<Unit, Unit> CheckUpdateCommand { get; }
+        [ObservableProperty]
+        private bool _isNavigatePaneOpen;
 
-        /// <summary>
-        /// 检查新动态通知的命令.
-        /// </summary>
-        public ReactiveCommand<Unit, Unit> CheckNewDynamicRegistrationCommand { get; }
+        [ObservableProperty]
+        private string _headerText;
 
-        /// <summary>
-        /// 导航面板是否已展开.
-        /// </summary>
-        [Reactive]
-        public bool IsNavigatePaneOpen { get; set; }
+        [ObservableProperty]
+        private bool _isXbox;
 
-        /// <summary>
-        /// 页面标题文本.
-        /// </summary>
-        [Reactive]
-        public string HeaderText { get; set; }
+        [ObservableProperty]
+        private double _pageHorizontalPadding;
 
-        /// <summary>
-        /// 是否在Xbox上运行.
-        /// </summary>
-        [Reactive]
-        public bool IsXbox { get; set; }
+        [ObservableProperty]
+        private double _pageTopPadding;
 
-        /// <summary>
-        /// 页面横向边距.
-        /// </summary>
-        [Reactive]
-        public double PageHorizontalPadding { get; set; }
+        [ObservableProperty]
+        private bool _isShowTitleBar;
 
-        /// <summary>
-        /// 页面顶部边距.
-        /// </summary>
-        [Reactive]
-        public double PageTopPadding { get; set; }
+        [ObservableProperty]
+        private bool _isShowMenuButton;
 
-        /// <summary>
-        /// 是否显示标题栏.
-        /// </summary>
-        [Reactive]
-        public bool IsShowTitleBar { get; set; }
+        [ObservableProperty]
+        private bool _isNetworkAvaliable;
 
-        /// <summary>
-        /// 是否显示菜单按钮.
-        /// </summary>
-        [Reactive]
-        public bool IsShowMenuButton { get; set; }
+        [ObservableProperty]
+        private bool _isTraditionalChinese;
 
-        /// <summary>
-        /// 网络是否可用.
-        /// </summary>
-        [Reactive]
-        public bool IsNetworkAvaliable { get; set; }
+        /// <inheritdoc/>
+        public IAsyncRelayCommand CheckUpdateCommand { get; }
 
-        /// <summary>
-        /// 是否为繁体中文环境.
-        /// </summary>
-        [Reactive]
-        public bool IsTraditionalChinese { get; set; }
+        /// <inheritdoc/>
+        public IAsyncRelayCommand CheckNewDynamicRegistrationCommand { get; }
     }
 }

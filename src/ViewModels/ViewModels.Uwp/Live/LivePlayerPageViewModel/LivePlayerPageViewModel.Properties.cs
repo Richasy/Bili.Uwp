@@ -2,15 +2,14 @@
 
 using System;
 using System.Collections.ObjectModel;
-using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.App.Other;
 using Bili.Models.Data.Live;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Core;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 
@@ -35,71 +34,61 @@ namespace Bili.ViewModels.Uwp.Live
         private DispatcherTimer _heartBeatTimer;
         private string _presetRoomId;
 
+        [ObservableProperty]
+        private LivePlayerView _view;
+
+        [ObservableProperty]
+        private bool _isSignedIn;
+
+        [ObservableProperty]
+        private IUserItemViewModel _user;
+
+        [ObservableProperty]
+        private string _watchingCountText;
+
+        [ObservableProperty]
+        private bool _isError;
+
+        [ObservableProperty]
+        private string _errorText;
+
+        [ObservableProperty]
+        private bool _isLiveFixed;
+
+        [ObservableProperty]
+        private PlayerSectionHeader _currentSection;
+
+        [ObservableProperty]
+        private bool _isDanmakusEmpty;
+
+        [ObservableProperty]
+        private bool _isDanmakusAutoScroll;
+
+        [ObservableProperty]
+        private bool _isReloading;
+
         /// <inheritdoc/>
         public event EventHandler RequestDanmakusScrollToBottom;
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ReloadCommand { get; }
+        public IAsyncRelayCommand ReloadCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ShareCommand { get; }
+        public IRelayCommand ShareCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> FixedCommand { get; }
+        public IRelayCommand FixedCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ClearCommand { get; }
+        public IRelayCommand ClearCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> OpenInBroswerCommand { get; }
+        public IAsyncRelayCommand OpenInBroswerCommand { get; }
 
         /// <inheritdoc/>
         public ObservableCollection<LiveDanmakuInformation> Danmakus { get; }
 
         /// <inheritdoc/>
         public ObservableCollection<PlayerSectionHeader> Sections { get; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public LivePlayerView View { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsSignedIn { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public IUserItemViewModel User { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public string WatchingCountText { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsError { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public string ErrorText { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsLiveFixed { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public PlayerSectionHeader CurrentSection { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsDanmakusEmpty { get; set; }
-
-        /// <inheritdoc/>
-        public bool IsDanmakusAutoScroll { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableAsProperty]
-        public bool IsReloading { get; set; }
     }
 }

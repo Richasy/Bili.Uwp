@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Bili.DI.Container;
 using Bili.Lib.Interfaces;
 using Bili.Models.App.Other;
 using Bili.Models.Data.Community;
@@ -12,9 +12,7 @@ using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Community;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Uwp.Base;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
-using Splat;
+using CommunityToolkit.Mvvm.Input;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Community
@@ -46,11 +44,11 @@ namespace Bili.ViewModels.Uwp.Community
 
             CurrentSort = SortCollection.First();
 
-            ChangeSortCommand = ReactiveCommand.Create<CommentSortHeader>(ChangeSort);
-            ResetSelectedCommentCommand = ReactiveCommand.Create(UnselectComment);
-            SendCommentCommand = ReactiveCommand.CreateFromTask(SendCommentAsync);
+            ChangeSortCommand = new RelayCommand<CommentSortHeader>(ChangeSort);
+            ResetSelectedCommentCommand = new RelayCommand(UnselectComment);
+            SendCommentCommand = new AsyncRelayCommand(SendCommentAsync);
 
-            SendCommentCommand.IsExecuting.ToPropertyEx(this, x => x.IsSending);
+            AttachIsRunningToAsyncCommand(p => IsSending = p, SendCommentCommand);
         }
 
         /// <inheritdoc/>
@@ -61,7 +59,7 @@ namespace Bili.ViewModels.Uwp.Community
             _commentType = type;
             var sort = SortCollection.First(p => p.Type == defaultSort);
             CurrentSort = sort;
-            InitializeCommand.Execute().Subscribe();
+            InitializeCommand.ExecuteAsync(null);
         }
 
         /// <inheritdoc/>
@@ -116,7 +114,7 @@ namespace Bili.ViewModels.Uwp.Community
         private void ChangeSort(CommentSortHeader sort)
         {
             CurrentSort = sort;
-            ReloadCommand.Execute().Subscribe();
+            ReloadCommand.ExecuteAsync(null);
         }
 
         private void UnselectComment()
@@ -143,7 +141,7 @@ namespace Bili.ViewModels.Uwp.Community
                 {
                     // 即便评论发送成功也需要等待一点时间才会显示.
                     await Task.Delay(500);
-                    ReloadCommand.Execute().Subscribe();
+                    _ = ReloadCommand.ExecuteAsync(null);
                 }
             }
             else
@@ -154,7 +152,7 @@ namespace Bili.ViewModels.Uwp.Community
 
         private ICommentItemViewModel GetItemViewModel(CommentInformation information)
         {
-            var commentVM = Splat.Locator.Current.GetService<ICommentItemViewModel>();
+            var commentVM = Locator.Instance.GetService<ICommentItemViewModel>();
             commentVM.InjectData(information);
             commentVM.SetDetailAction(vm =>
             {

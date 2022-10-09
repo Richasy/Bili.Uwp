@@ -9,8 +9,8 @@ using Bili.Models.App.Other;
 using Bili.Models.Data.Local;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Home;
+using CommunityToolkit.Mvvm.Input;
 using Newtonsoft.Json;
-using ReactiveUI;
 using Windows.System;
 
 namespace Bili.ViewModels.Uwp.Home
@@ -34,10 +34,10 @@ namespace Bili.ViewModels.Uwp.Home
             LinkCollection = new ObservableCollection<KeyValue<string>>();
             InitializeLinks();
 
-            AskIssueCommand = ReactiveCommand.CreateFromTask(AskIssueAsync);
-            GotoProjectHomeCommand = ReactiveCommand.CreateFromTask(GotoProjectHomeAsync);
-            GotoDeveloperBiliBiliHomePageCommand = ReactiveCommand.CreateFromTask(GotoDeveloperBiliBiliHomePageAsync);
-            InitializeCommand = ReactiveCommand.CreateFromTask(InitializeQuestionsAsync);
+            AskIssueCommand = new AsyncRelayCommand(AskIssueAsync);
+            GotoProjectHomeCommand = new AsyncRelayCommand(GotoProjectHomeAsync);
+            GotoDeveloperBiliBiliHomePageCommand = new AsyncRelayCommand(GotoDeveloperBiliBiliHomePageAsync);
+            InitializeCommand = new AsyncRelayCommand(InitializeQuestionsAsync);
         }
 
         /// <summary>

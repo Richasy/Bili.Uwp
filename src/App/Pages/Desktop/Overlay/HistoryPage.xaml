@@ -74,7 +74,7 @@
                                 x:Name="ClearButton"
                                 VerticalAlignment="Center"
                                 Click="OnClearButtonClickAsync"
-                                IsEnabled="{x:Bind ViewModel.IsClearing, Converter={StaticResource ObjectToBoolReverseConverter}, Mode=OneWay}">
+                                IsEnabled="{x:Bind ViewModel.ClearCommand.IsRunning, Converter={StaticResource ObjectToBoolReverseConverter}, Mode=OneWay}">
                                 <controls:IconTextBlock
                                     Foreground="{ThemeResource SystemFillColorCriticalBrush}"
                                     Symbol="Delete16"

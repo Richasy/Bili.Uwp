@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using Bili.App.Pages.Base;
 using Bili.Models.Data.Local;
 using Windows.UI.Xaml.Input;
@@ -29,7 +28,7 @@ namespace Bili.App.Pages.Xbox.Overlay
 
         /// <inheritdoc/>
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
-            => ViewModel.ClearCommand.Execute().Subscribe();
+            => ViewModel.ClearCommand.Execute(null);
 
         /// <inheritdoc/>
         protected override void OnPageLoaded()
@@ -45,12 +44,12 @@ namespace Bili.App.Pages.Xbox.Overlay
             if (e.Key == Windows.System.VirtualKey.GamepadLeftShoulder)
             {
                 // 后退
-                ViewModel.MediaPlayerViewModel.BackwardSkipCommand.Execute().Subscribe();
+                ViewModel.MediaPlayerViewModel.BackwardSkipCommand.ExecuteAsync(null);
             }
             else if (e.Key == Windows.System.VirtualKey.GamepadRightShoulder)
             {
                 // 跳进
-                ViewModel.MediaPlayerViewModel.ForwardSkipCommand.Execute().Subscribe();
+                ViewModel.MediaPlayerViewModel.ForwardSkipCommand.ExecuteAsync(null);
             }
             else if (e.Key == Windows.System.VirtualKey.GamepadB)
             {
@@ -68,7 +67,7 @@ namespace Bili.App.Pages.Xbox.Overlay
             var isAudioOnly = OnlyAudioButton.IsChecked.Value;
             if (ViewModel.MediaPlayerViewModel.IsLiveAudioOnly != isAudioOnly)
             {
-                ViewModel.MediaPlayerViewModel.ChangeLiveAudioOnlyCommand.Execute(isAudioOnly).Subscribe();
+                ViewModel.MediaPlayerViewModel.ChangeLiveAudioOnlyCommand.Execute(isAudioOnly);
             }
         }
 

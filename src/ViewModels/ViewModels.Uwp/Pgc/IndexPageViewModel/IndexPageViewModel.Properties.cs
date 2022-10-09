@@ -5,7 +5,7 @@ using Bili.Lib.Interfaces;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Pgc;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Bili.ViewModels.Uwp.Pgc
 {
@@ -21,20 +21,20 @@ namespace Bili.ViewModels.Uwp.Pgc
         private bool _isFinished;
 
         /// <summary>
-        /// 筛选条件集合.
-        /// </summary>
-        public ObservableCollection<IIndexFilterViewModel> Filters { get; }
-
-        /// <summary>
         /// 页面类型.
         /// </summary>
-        [Reactive]
-        public string PageType { get; set; }
+        [ObservableProperty]
+        private string _pageType;
 
         /// <summary>
         /// 是否为空.
         /// </summary>
-        [Reactive]
-        public bool IsEmpty { get; set; }
+        [ObservableProperty]
+        private bool _isEmpty;
+
+        /// <summary>
+        /// 筛选条件集合.
+        /// </summary>
+        public ObservableCollection<IIndexFilterViewModel> Filters { get; }
     }
 }

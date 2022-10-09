@@ -108,7 +108,7 @@ namespace Bili.App.Controls.Player
                 _nextVideoStayTime = 0;
                 ViewModel.NextVideoCountdown = 0;
                 ViewModel.IsShowNextVideoTip = false;
-                ViewModel.PlayNextCommand.Execute().Subscribe();
+                ViewModel.PlayNextCommand.Execute(null);
             }
             else
             {

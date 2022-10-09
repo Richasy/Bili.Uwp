@@ -1,14 +1,14 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System.ComponentModel;
 using Bili.Models.Enums.Bili;
-using ReactiveUI;
 
 namespace Bili.ViewModels.Interfaces.Community
 {
     /// <summary>
     /// 评论页面/模块视图模型的接口定义.
     /// </summary>
-    public interface ICommentPageViewModel : IReactiveObject
+    public interface ICommentPageViewModel : INotifyPropertyChanged
     {
         /// <summary>
         /// 主视图模型.

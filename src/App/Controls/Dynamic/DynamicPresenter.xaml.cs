@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.Generic;
+using Bili.DI.Container;
 using Bili.Models.Data.Article;
 using Bili.Models.Data.Dynamic;
 using Bili.Models.Data.Pgc;
@@ -9,7 +10,6 @@ using Bili.ViewModels.Interfaces.Article;
 using Bili.ViewModels.Interfaces.Community;
 using Bili.ViewModels.Interfaces.Pgc;
 using Bili.ViewModels.Interfaces.Video;
-using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
@@ -61,21 +61,21 @@ namespace Bili.App.Controls.Dynamic
 
             if (data is VideoInformation videoInfo)
             {
-                var videoVM = Locator.Current.GetService<IVideoItemViewModel>();
+                var videoVM = Locator.Instance.GetService<IVideoItemViewModel>();
                 videoVM.InjectData(videoInfo);
                 instance.MainPresenter.Content = videoVM;
                 instance.MainPresenter.ContentTemplate = instance.VideoTemplate;
             }
             else if (data is EpisodeInformation episodeInfo)
             {
-                var episodeVM = Locator.Current.GetService<IEpisodeItemViewModel>();
+                var episodeVM = Locator.Instance.GetService<IEpisodeItemViewModel>();
                 episodeVM.InjectData(episodeInfo);
                 instance.MainPresenter.Content = episodeVM;
                 instance.MainPresenter.ContentTemplate = instance.EpisodeTemplate;
             }
             else if (data is DynamicInformation dynamicInfo)
             {
-                var dynamicVM = Locator.Current.GetService<IDynamicItemViewModel>();
+                var dynamicVM = Locator.Instance.GetService<IDynamicItemViewModel>();
                 dynamicVM.InjectData(dynamicInfo);
                 instance.MainPresenter.Content = dynamicVM;
                 instance.MainPresenter.ContentTemplate = instance.ForwardTemplate;
@@ -87,7 +87,7 @@ namespace Bili.App.Controls.Dynamic
             }
             else if (data is ArticleInformation article)
             {
-                var articleVM = Locator.Current.GetService<IArticleItemViewModel>();
+                var articleVM = Locator.Instance.GetService<IArticleItemViewModel>();
                 articleVM.InjectData(article);
                 instance.MainPresenter.Content = articleVM;
                 instance.MainPresenter.ContentTemplate = instance.ArticleTemplate;

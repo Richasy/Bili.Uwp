@@ -2,12 +2,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Reactive;
 using Bili.Models.App.Args;
 using Bili.Models.Enums;
 using Bili.ViewModels.Interfaces.Core;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Bili.ViewModels.Uwp.Core
 {
@@ -19,34 +17,26 @@ namespace Bili.ViewModels.Uwp.Core
         private readonly IRecordViewModel _recordViewModel;
         private readonly List<AppBackEventArgs> _backStack;
 
+        [ObservableProperty]
+        private bool _isMainViewShown;
+
+        [ObservableProperty]
+        private bool _isSecondaryViewShown;
+
+        [ObservableProperty]
+        private bool _isPlayViewShown;
+
+        [ObservableProperty]
+        private bool _canBack;
+
+        [ObservableProperty]
+        private bool _isBackButtonEnabled;
+
         /// <inheritdoc/>
         public event EventHandler<AppNavigationEventArgs> Navigating;
 
         /// <inheritdoc/>
         public event EventHandler ExitPlayer;
-
-        /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> BackCommand { get; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsMainViewShown { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsSecondaryViewShown { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsPlayViewShown { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool CanBack { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsBackButtonEnabled { get; set; }
 
         /// <inheritdoc/>
         public PageIds MainViewId { get; set; }

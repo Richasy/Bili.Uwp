@@ -5,8 +5,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Reactive.Linq;
 using System.Threading.Tasks;
+using Bili.DI.Container;
 using Bili.Lib.Interfaces;
 using Bili.Models.App.Args;
 using Bili.Models.App.Other;
@@ -19,9 +19,7 @@ using Bili.ViewModels.Interfaces.Common;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Pgc;
 using Bili.ViewModels.Interfaces.Video;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
-using Splat;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Base
 {
@@ -75,27 +73,18 @@ namespace Bili.ViewModels.Uwp.Base
             Ranks.CollectionChanged += OnRanksCollectionChanged;
             Playlists.CollectionChanged += OnPlaylistsCollectionChanged;
 
-            InitializeCommand = ReactiveCommand.CreateFromTask(InitializeAsync);
-            ReloadCommand = ReactiveCommand.CreateFromTask(ReloadAsync);
-            IncrementalCommand = ReactiveCommand.CreateFromTask(IncrementalAsync);
-            SelectPartitionCommand = ReactiveCommand.CreateFromTask<Partition>(SetPartitionAsync);
-            GotoFavoritePageCommand = ReactiveCommand.Create(GotoFavoritePage);
-            GotoIndexPageCommand = ReactiveCommand.Create(GotoIndexPage);
-            GotoTimeLinePageCommand = ReactiveCommand.Create(GotoTimelinePage);
+            InitializeCommand = new AsyncRelayCommand(InitializeAsync);
+            ReloadCommand = new AsyncRelayCommand(ReloadAsync);
+            IncrementalCommand = new AsyncRelayCommand(IncrementalAsync);
+            SelectPartitionCommand = new AsyncRelayCommand<Partition>(SetPartitionAsync);
+            GotoFavoritePageCommand = new RelayCommand(GotoFavoritePage);
+            GotoIndexPageCommand = new RelayCommand(GotoIndexPage);
+            GotoTimeLinePageCommand = new RelayCommand(GotoTimelinePage);
 
-            InitializeCommand.IsExecuting
-                .Merge(ReloadCommand.IsExecuting)
-                .ToPropertyEx(this, x => x.IsReloading);
-
-            IncrementalCommand.IsExecuting
-                .Merge(IncrementalCommand.IsExecuting)
-                .ToPropertyEx(this, x => x.IsIncrementalLoading);
-
-            ReloadCommand.ThrownExceptions
-                .Merge(InitializeCommand.ThrownExceptions)
-                .Subscribe(DisplayException);
-
-            IncrementalCommand.ThrownExceptions.Subscribe(LogException);
+            AttachIsRunningToAsyncCommand(p => IsReloading = p, InitializeCommand, ReloadCommand);
+            AttachIsRunningToAsyncCommand(p => IsIncrementalLoading = p, IncrementalCommand);
+            AttachExceptionHandlerToAsyncCommand(DisplayException, ReloadCommand, InitializeCommand);
+            AttachExceptionHandlerToAsyncCommand(LogException, IncrementalCommand);
         }
 
         /// <inheritdoc/>
@@ -179,7 +168,7 @@ namespace Bili.ViewModels.Uwp.Base
             {
                 view.Banners.ToList().ForEach(p =>
                 {
-                    var vm = Locator.Current.GetService<IBannerViewModel>();
+                    var vm = Locator.Instance.GetService<IBannerViewModel>();
                     vm.InjectData(p);
                     Banners.Add(vm);
                 });
@@ -189,7 +178,7 @@ namespace Bili.ViewModels.Uwp.Base
             {
                 foreach (var item in view.Ranks)
                 {
-                    var vm = Locator.Current.GetService<IPgcRankViewModel>();
+                    var vm = Locator.Instance.GetService<IPgcRankViewModel>();
                     vm.SetData(item.Key, item.Value);
                     Ranks.Add(vm);
                 }
@@ -199,7 +188,7 @@ namespace Bili.ViewModels.Uwp.Base
             {
                 foreach (var item in view.Playlists)
                 {
-                    var playlistVM = Locator.Current.GetService<IPgcPlaylistViewModel>();
+                    var playlistVM = Locator.Instance.GetService<IPgcPlaylistViewModel>();
                     playlistVM.InjectData(item);
                     Playlists.Add(playlistVM);
                 }
@@ -228,7 +217,7 @@ namespace Bili.ViewModels.Uwp.Base
                     continue;
                 }
 
-                var videoVM = Splat.Locator.Current.GetService<IVideoItemViewModel>();
+                var videoVM = Locator.Instance.GetService<IVideoItemViewModel>();
                 videoVM.InjectData(item);
                 Videos.Add(videoVM);
             }

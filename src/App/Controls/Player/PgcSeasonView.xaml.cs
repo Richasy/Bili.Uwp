@@ -3,8 +3,6 @@
 using System.Threading.Tasks;
 using Bili.ViewModels.Interfaces.Pgc;
 using Bili.ViewModels.Interfaces.Video;
-using ReactiveUI;
-using Splat;
 using Windows.UI.Xaml;
 
 namespace Bili.App.Controls.Player

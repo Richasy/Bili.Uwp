@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using Bili.DI.Container;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Live;
-using Splat;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -26,7 +26,7 @@ namespace Bili.App.Controls.Live
         /// <inheritdoc/>
         public void ChangeLayout(Orientation orientation)
         {
-            var resourceToolkit = Splat.Locator.Current.GetService<IResourceToolkit>();
+            var resourceToolkit = Locator.Instance.GetService<IResourceToolkit>();
             Style = orientation == Orientation.Horizontal
                 ? resourceToolkit.GetResource<Style>("HorizontalLiveItemStyle")
                 : resourceToolkit.GetResource<Style>("VerticalLiveItemStyle");

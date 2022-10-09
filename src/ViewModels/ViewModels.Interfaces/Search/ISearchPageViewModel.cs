@@ -1,13 +1,12 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
-using System.Reactive;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Article;
 using Bili.ViewModels.Interfaces.Live;
 using Bili.ViewModels.Interfaces.Pgc;
 using Bili.ViewModels.Interfaces.Video;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Interfaces.Search
 {
@@ -19,12 +18,12 @@ namespace Bili.ViewModels.Interfaces.Search
         /// <summary>
         /// 重载搜索模块命令.
         /// </summary>
-        ReactiveCommand<Unit, Unit> ReloadModuleCommand { get; }
+        IAsyncRelayCommand ReloadModuleCommand { get; }
 
         /// <summary>
         /// 选中模块命令.
         /// </summary>
-        ReactiveCommand<ISearchModuleItemViewModel, Unit> SelectModuleCommand { get; }
+        IAsyncRelayCommand<ISearchModuleItemViewModel> SelectModuleCommand { get; }
 
         /// <summary>
         /// 视频集合.

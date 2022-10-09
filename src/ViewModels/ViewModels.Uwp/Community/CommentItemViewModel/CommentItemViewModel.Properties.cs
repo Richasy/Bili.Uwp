@@ -1,14 +1,13 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Community;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Community;
 using Bili.ViewModels.Interfaces.Core;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Community
 {
@@ -25,40 +24,34 @@ namespace Bili.ViewModels.Uwp.Community
         private Action<ICommentItemViewModel> _showCommentDetailAction;
         private Action<ICommentItemViewModel> _clickAction;
 
-        /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ToggleLikeCommand { get; }
+        [ObservableProperty]
+        private CommentInformation _data;
+
+        [ObservableProperty]
+        private bool _isLiked;
+
+        [ObservableProperty]
+        private string _likeCountText;
+
+        [ObservableProperty]
+        private string _replyCountText;
+
+        [ObservableProperty]
+        private string _publishDateText;
+
+        [ObservableProperty]
+        private bool _isUserHighlight;
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ShowCommentDetailCommand { get; }
+        public IAsyncRelayCommand ToggleLikeCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ShowUserDetailCommand { get; }
+        public IRelayCommand ShowCommentDetailCommand { get; }
 
         /// <inheritdoc/>
-        public ReactiveCommand<Unit, Unit> ClickCommand { get; }
+        public IRelayCommand ShowUserDetailCommand { get; }
 
         /// <inheritdoc/>
-        [Reactive]
-        public CommentInformation Data { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsLiked { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public string LikeCountText { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public string ReplyCountText { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public string PublishDateText { get; set; }
-
-        /// <inheritdoc/>
-        [Reactive]
-        public bool IsUserHighlight { get; set; }
+        public IRelayCommand ClickCommand { get; }
     }
 }

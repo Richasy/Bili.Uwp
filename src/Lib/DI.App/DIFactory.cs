@@ -31,8 +31,6 @@ using Bili.ViewModels.Uwp.Pgc;
 using Bili.ViewModels.Uwp.Search;
 using Bili.ViewModels.Uwp.Toolbox;
 using Bili.ViewModels.Uwp.Video;
-using Splat;
-using Splat.NLog;
 using Windows.Storage;
 using Windows.UI.Xaml;
 
@@ -52,133 +50,134 @@ namespace Bili.DI.App
             var logFolderName = AppConstants.Location.LoggerFolder;
             var fullPath = $"{rootFolder.Path}\\{logFolderName}\\";
             NLog.GlobalDiagnosticsContext.Set("LogPath", fullPath);
-            Locator.CurrentMutable.UseNLogWithWrappingFullLogger();
-            SplatRegistrations.RegisterLazySingleton<IResourceToolkit, ResourceToolkit>();
-            SplatRegistrations.RegisterLazySingleton<ISettingsToolkit, SettingsToolkit>();
-            SplatRegistrations.RegisterLazySingleton<INumberToolkit, NumberToolkit>();
-            SplatRegistrations.RegisterLazySingleton<IAppToolkit, AppToolkit>();
-            SplatRegistrations.RegisterLazySingleton<IFileToolkit, FileToolkit>();
-            SplatRegistrations.RegisterLazySingleton<IMD5Toolkit, MD5Toolkit>();
-            SplatRegistrations.RegisterLazySingleton<IFontToolkit, FontToolkit>();
-            SplatRegistrations.RegisterLazySingleton<IVideoToolkit, VideoToolkit>();
-            SplatRegistrations.RegisterLazySingleton<ITextToolkit, TextToolkit>();
+            var logger = NLog.LogManager.GetLogger("Richasy.Bili");
+            Container.Locator.Instance
+                .RegisterSingleton<NLog.ILogger>(logger)
+                .RegisterSingleton<IResourceToolkit, ResourceToolkit>()
+                .RegisterSingleton<INumberToolkit, NumberToolkit>()
+                .RegisterSingleton<ISettingsToolkit, SettingsToolkit>()
+                .RegisterSingleton<IAppToolkit, AppToolkit>()
+                .RegisterSingleton<IFileToolkit, FileToolkit>()
+                .RegisterSingleton<IMD5Toolkit, MD5Toolkit>()
+                .RegisterSingleton<IFontToolkit, FontToolkit>()
+                .RegisterSingleton<IVideoToolkit, VideoToolkit>()
+                .RegisterSingleton<ITextToolkit, TextToolkit>()
 
-            SplatRegistrations.RegisterLazySingleton<IImageAdapter, ImageAdapter>();
-            SplatRegistrations.RegisterLazySingleton<IUserAdapter, UserAdapter>();
-            SplatRegistrations.RegisterLazySingleton<ICommunityAdapter, CommunityAdapter>();
-            SplatRegistrations.RegisterLazySingleton<IVideoAdapter, VideoAdapter>();
-            SplatRegistrations.RegisterLazySingleton<IPgcAdapter, PgcAdapter>();
-            SplatRegistrations.RegisterLazySingleton<ILiveAdapter, LiveAdapter>();
-            SplatRegistrations.RegisterLazySingleton<IArticleAdapter, ArticleAdapter>();
-            SplatRegistrations.RegisterLazySingleton<ISearchAdapter, SearchAdapter>();
-            SplatRegistrations.RegisterLazySingleton<IFavoriteAdapter, FavoriteAdapter>();
-            SplatRegistrations.RegisterLazySingleton<IDynamicAdapter, DynamicAdapter>();
-            SplatRegistrations.RegisterLazySingleton<ICommentAdapter, CommentAdapter>();
-            SplatRegistrations.RegisterLazySingleton<IPlayerAdapter, PlayerAdapter>();
+                .RegisterSingleton<IImageAdapter, ImageAdapter>()
+                .RegisterSingleton<IUserAdapter, UserAdapter>()
+                .RegisterSingleton<ICommunityAdapter, CommunityAdapter>()
+                .RegisterSingleton<IVideoAdapter, VideoAdapter>()
+                .RegisterSingleton<IPgcAdapter, PgcAdapter>()
+                .RegisterSingleton<ILiveAdapter, LiveAdapter>()
+                .RegisterSingleton<IArticleAdapter, ArticleAdapter>()
+                .RegisterSingleton<ISearchAdapter, SearchAdapter>()
+                .RegisterSingleton<IFavoriteAdapter, FavoriteAdapter>()
+                .RegisterSingleton<IDynamicAdapter, DynamicAdapter>()
+                .RegisterSingleton<ICommentAdapter, CommentAdapter>()
+                .RegisterSingleton<IPlayerAdapter, PlayerAdapter>()
 
-            SplatRegistrations.RegisterLazySingleton<IAuthorizeProvider, AuthorizeProvider>();
-            SplatRegistrations.RegisterLazySingleton<IHttpProvider, HttpProvider>();
-            SplatRegistrations.RegisterLazySingleton<IAccountProvider, AccountProvider>();
-            SplatRegistrations.RegisterLazySingleton<IHomeProvider, HomeProvider>();
-            SplatRegistrations.RegisterLazySingleton<ILiveProvider, LiveProvider>();
-            SplatRegistrations.RegisterLazySingleton<IArticleProvider, ArticleProvider>();
-            SplatRegistrations.RegisterLazySingleton<IPgcProvider, PgcProvider>();
-            SplatRegistrations.RegisterLazySingleton<IPlayerProvider, PlayerProvider>();
-            SplatRegistrations.RegisterLazySingleton<ISearchProvider, SearchProvider>();
-            SplatRegistrations.RegisterLazySingleton<ICommunityProvider, CommunityProvider>();
-            SplatRegistrations.RegisterLazySingleton<IUpdateProvider, UpdateProvider>();
-            SplatRegistrations.RegisterLazySingleton<IFavoriteProvider, FavoriteProvider>();
+                .RegisterSingleton<IAuthorizeProvider, AuthorizeProvider>()
+                .RegisterSingleton<IHttpProvider, HttpProvider>()
+                .RegisterSingleton<IAccountProvider, AccountProvider>()
+                .RegisterSingleton<IHomeProvider, HomeProvider>()
+                .RegisterSingleton<ILiveProvider, LiveProvider>()
+                .RegisterSingleton<IArticleProvider, ArticleProvider>()
+                .RegisterSingleton<IPgcProvider, PgcProvider>()
+                .RegisterSingleton<IPlayerProvider, PlayerProvider>()
+                .RegisterSingleton<ISearchProvider, SearchProvider>()
+                .RegisterSingleton<ICommunityProvider, CommunityProvider>()
+                .RegisterSingleton<IUpdateProvider, UpdateProvider>()
+                .RegisterSingleton<IFavoriteProvider, FavoriteProvider>()
 
-            SplatRegistrations.Register<IUserItemViewModel, UserItemViewModel>();
-            SplatRegistrations.Register<IVideoItemViewModel, VideoItemViewModel>();
-            SplatRegistrations.Register<IEpisodeItemViewModel, EpisodeItemViewModel>();
-            SplatRegistrations.Register<IArticleItemViewModel, ArticleItemViewModel>();
-            SplatRegistrations.Register<ISeasonItemViewModel, SeasonItemViewModel>();
-            SplatRegistrations.Register<ILiveItemViewModel, LiveItemViewModel>();
-            SplatRegistrations.Register<IPgcPlaylistViewModel, PgcPlaylistViewModel>();
-            SplatRegistrations.Register<IToolboxItemViewModel, ToolboxItemViewModel>();
-            SplatRegistrations.Register<IBannerViewModel, BannerViewModel>();
-            SplatRegistrations.Register<IMessageItemViewModel, MessageItemViewModel>();
-            SplatRegistrations.Register<IMessageHeaderViewModel, MessageHeaderViewModel>();
-            SplatRegistrations.Register<IDynamicItemViewModel, DynamicItemViewModel>();
-            SplatRegistrations.Register<ICommentItemViewModel, CommentItemViewModel>();
-            SplatRegistrations.Register<IFavoriteMetaViewModel, FavoriteMetaViewModel>();
-            SplatRegistrations.Register<INumberPartViewModel, NumberPartViewModel>();
-            SplatRegistrations.Register<IPlaybackRateItemViewModel, PlaybackRateItemViewModel>();
-            SplatRegistrations.Register<IVideoIdentifierSelectableViewModel, VideoIdentifierSelectableViewModel>();
-            SplatRegistrations.Register<IVideoFavoriteFolderSelectableViewModel, VideoFavoriteFolderSelectableViewModel>();
-            SplatRegistrations.Register<IDownloadModuleViewModel, DownloadModuleViewModel>();
-            SplatRegistrations.Register<ISubtitleModuleViewModel, SubtitleModuleViewModel>();
-            SplatRegistrations.Register<IDanmakuModuleViewModel, DanmakuModuleViewModel>();
-            SplatRegistrations.Register<IInteractionModuleViewModel, InteractionModuleViewModel>();
-            SplatRegistrations.Register<IVideoFavoriteFolderViewModel, VideoFavoriteFolderViewModel>();
-            SplatRegistrations.Register<IVideoFavoriteFolderGroupViewModel, VideoFavoriteFolderGroupViewModel>();
-            SplatRegistrations.Register<ISearchFilterViewModel, SearchFilterViewModel>();
-            SplatRegistrations.Register<ISearchModuleItemViewModel, SearchModuleItemViewModel>();
+                .RegisterTransient<IUserItemViewModel, UserItemViewModel>()
+                .RegisterTransient<IVideoItemViewModel, VideoItemViewModel>()
+                .RegisterTransient<IEpisodeItemViewModel, EpisodeItemViewModel>()
+                .RegisterTransient<IArticleItemViewModel, ArticleItemViewModel>()
+                .RegisterTransient<ISeasonItemViewModel, SeasonItemViewModel>()
+                .RegisterTransient<ILiveItemViewModel, LiveItemViewModel>()
+                .RegisterTransient<IPgcPlaylistViewModel, PgcPlaylistViewModel>()
+                .RegisterTransient<IToolboxItemViewModel, ToolboxItemViewModel>()
+                .RegisterTransient<IBannerViewModel, BannerViewModel>()
+                .RegisterTransient<IMessageItemViewModel, MessageItemViewModel>()
+                .RegisterTransient<IMessageHeaderViewModel, MessageHeaderViewModel>()
+                .RegisterTransient<IDynamicItemViewModel, DynamicItemViewModel>()
+                .RegisterTransient<ICommentItemViewModel, CommentItemViewModel>()
+                .RegisterTransient<IFavoriteMetaViewModel, FavoriteMetaViewModel>()
+                .RegisterTransient<INumberPartViewModel, NumberPartViewModel>()
+                .RegisterTransient<IPlaybackRateItemViewModel, PlaybackRateItemViewModel>()
+                .RegisterTransient<IVideoIdentifierSelectableViewModel, VideoIdentifierSelectableViewModel>()
+                .RegisterTransient<IVideoFavoriteFolderSelectableViewModel, VideoFavoriteFolderSelectableViewModel>()
+                .RegisterTransient<IDownloadModuleViewModel, DownloadModuleViewModel>()
+                .RegisterTransient<ISubtitleModuleViewModel, SubtitleModuleViewModel>()
+                .RegisterTransient<IDanmakuModuleViewModel, DanmakuModuleViewModel>()
+                .RegisterTransient<IInteractionModuleViewModel, InteractionModuleViewModel>()
+                .RegisterTransient<IVideoFavoriteFolderViewModel, VideoFavoriteFolderViewModel>()
+                .RegisterTransient<IVideoFavoriteFolderGroupViewModel, VideoFavoriteFolderGroupViewModel>()
+                .RegisterTransient<ISearchFilterViewModel, SearchFilterViewModel>()
+                .RegisterTransient<ISearchModuleItemViewModel, SearchModuleItemViewModel>()
 
-            SplatRegistrations.Register<IIndexFilterViewModel, IndexFilterViewModel>();
-            SplatRegistrations.Register<IPgcRankViewModel, PgcRankViewModel>();
-            SplatRegistrations.Register<IPgcExtraItemViewModel, PgcExtraItemViewModel>();
-            SplatRegistrations.Register<INativePlayerViewModel, NativePlayerViewModel>();
-            SplatRegistrations.Register<IFFmpegPlayerViewModel, FFmpegPlayerViewModel>();
-            SplatRegistrations.Register<IMediaPlayerViewModel, MediaPlayerViewModel>();
+                .RegisterTransient<IIndexFilterViewModel, IndexFilterViewModel>()
+                .RegisterTransient<IPgcRankViewModel, PgcRankViewModel>()
+                .RegisterTransient<IPgcExtraItemViewModel, PgcExtraItemViewModel>()
+                .RegisterTransient<INativePlayerViewModel, NativePlayerViewModel>()
+                .RegisterTransient<IFFmpegPlayerViewModel, FFmpegPlayerViewModel>()
+                .RegisterTransient<IMediaPlayerViewModel, MediaPlayerViewModel>()
 
-            SplatRegistrations.RegisterLazySingleton<ICallerViewModel, CallerViewModel>();
-            SplatRegistrations.RegisterLazySingleton<IRecordViewModel, RecordViewModel>();
-            SplatRegistrations.RegisterLazySingleton<IAppViewModel, AppViewModel>();
-            SplatRegistrations.RegisterLazySingleton<INavigationViewModel, NavigationViewModel>();
-            SplatRegistrations.RegisterLazySingleton<IAccountViewModel, AccountViewModel>();
-            SplatRegistrations.RegisterLazySingleton<IVideoFavoriteModuleViewModel, VideoFavoriteModuleViewModel>();
-            SplatRegistrations.RegisterLazySingleton<IVideoFavoriteFolderDetailViewModel, VideoFavoriteFolderDetailViewModel>();
-            SplatRegistrations.RegisterLazySingleton<IAnimeFavoriteModuleViewModel, AnimeFavoriteModuleViewModel>();
-            SplatRegistrations.RegisterLazySingleton<ICinemaFavoriteModuleViewModel, CinemaFavoriteModuleViewModel>();
-            SplatRegistrations.RegisterLazySingleton<IArticleFavoriteModuleViewModel, ArticleFavoriteModuleViewModel>();
-            SplatRegistrations.RegisterLazySingleton<IUserSpaceViewModel, UserSpaceViewModel>();
-            SplatRegistrations.RegisterLazySingleton<IAvBvConverterViewModel, AvBvConverterViewModel>();
-            SplatRegistrations.RegisterLazySingleton<ICoverDownloaderViewModel, CoverDownloaderViewModel>();
-            SplatRegistrations.RegisterLazySingleton<IDynamicAllModuleViewModel, DynamicAllModuleViewModel>();
-            SplatRegistrations.RegisterLazySingleton<IDynamicVideoModuleViewModel, DynamicVideoModuleViewModel>();
+                .RegisterSingleton<ICallerViewModel, CallerViewModel>()
+                .RegisterSingleton<IRecordViewModel, RecordViewModel>()
+                .RegisterSingleton<IAppViewModel, AppViewModel>()
+                .RegisterSingleton<INavigationViewModel, NavigationViewModel>()
+                .RegisterSingleton<IAccountViewModel, AccountViewModel>()
+                .RegisterSingleton<IVideoFavoriteModuleViewModel, VideoFavoriteModuleViewModel>()
+                .RegisterSingleton<IVideoFavoriteFolderDetailViewModel, VideoFavoriteFolderDetailViewModel>()
+                .RegisterSingleton<IAnimeFavoriteModuleViewModel, AnimeFavoriteModuleViewModel>()
+                .RegisterSingleton<ICinemaFavoriteModuleViewModel, CinemaFavoriteModuleViewModel>()
+                .RegisterSingleton<IArticleFavoriteModuleViewModel, ArticleFavoriteModuleViewModel>()
+                .RegisterSingleton<IUserSpaceViewModel, UserSpaceViewModel>()
+                .RegisterSingleton<IAvBvConverterViewModel, AvBvConverterViewModel>()
+                .RegisterSingleton<ICoverDownloaderViewModel, CoverDownloaderViewModel>()
+                .RegisterSingleton<IDynamicAllModuleViewModel, DynamicAllModuleViewModel>()
+                .RegisterSingleton<IDynamicVideoModuleViewModel, DynamicVideoModuleViewModel>()
 
-            SplatRegistrations.RegisterLazySingleton<IFavoritePageViewModel, FavoritePageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<IRecommendPageViewModel, RecommendPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<IPopularPageViewModel, PopularPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<IRankPageViewModel, RankPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<IToolboxPageViewModel, ToolboxPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<ISettingsPageViewModel, SettingsPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<IHelpPageViewModel, HelpPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<IVideoPartitionPageViewModel, VideoPartitionPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<IVideoPartitionDetailPageViewModel, VideoPartitionDetailPageViewModel>();
+                .RegisterSingleton<IFavoritePageViewModel, FavoritePageViewModel>()
+                .RegisterSingleton<IRecommendPageViewModel, RecommendPageViewModel>()
+                .RegisterSingleton<IPopularPageViewModel, PopularPageViewModel>()
+                .RegisterSingleton<IRankPageViewModel, RankPageViewModel>()
+                .RegisterSingleton<IToolboxPageViewModel, ToolboxPageViewModel>()
+                .RegisterSingleton<ISettingsPageViewModel, SettingsPageViewModel>()
+                .RegisterSingleton<IHelpPageViewModel, HelpPageViewModel>()
+                .RegisterSingleton<IVideoPartitionPageViewModel, VideoPartitionPageViewModel>()
+                .RegisterSingleton<IVideoPartitionDetailPageViewModel, VideoPartitionDetailPageViewModel>()
 
-            SplatRegistrations.RegisterLazySingleton<IIndexPageViewModel, IndexPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<IBangumiPageViewModel, BangumiPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<IDomesticPageViewModel, DomesticPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<IMoviePageViewModel, MoviePageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<ITvPageViewModel, TvPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<IDocumentaryPageViewModel, DocumentaryPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<ITimelinePageViewModel, TimelinePageViewModel>();
+                .RegisterSingleton<IIndexPageViewModel, IndexPageViewModel>()
+                .RegisterSingleton<IBangumiPageViewModel, BangumiPageViewModel>()
+                .RegisterSingleton<IDomesticPageViewModel, DomesticPageViewModel>()
+                .RegisterSingleton<IMoviePageViewModel, MoviePageViewModel>()
+                .RegisterSingleton<ITvPageViewModel, TvPageViewModel>()
+                .RegisterSingleton<IDocumentaryPageViewModel, DocumentaryPageViewModel>()
+                .RegisterSingleton<ITimelinePageViewModel, TimelinePageViewModel>()
 
-            SplatRegistrations.RegisterLazySingleton<IViewLaterPageViewModel, ViewLaterPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<IHistoryPageViewModel, HistoryPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<IMyFollowsPageViewModel, MyFollowsPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<IXboxAccountPageViewModel, XboxAccountPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<IArticlePartitionPageViewModel, ArticlePartitionPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<IFollowsPageViewModel, FollowsPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<IFansPageViewModel, FansPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<IMessagePageViewModel, MessagePageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<IDynamicPageViewModel, DynamicPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<ICommentMainModuleViewModel, CommentMainModuleViewModel>();
-            SplatRegistrations.RegisterLazySingleton<ICommentDetailModuleViewModel, CommentDetailModuleViewModel>();
-            SplatRegistrations.RegisterLazySingleton<ICommentPageViewModel, CommentPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<ILiveFeedPageViewModel, LiveFeedPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<ILivePartitionPageViewModel, LivePartitionPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<ILivePartitionDetailPageViewModel, LivePartitionDetailPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<ISearchBoxViewModel, SearchBoxViewModel>();
-            SplatRegistrations.RegisterLazySingleton<ISearchPageViewModel, SearchPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<IVideoPlayerPageViewModel, VideoPlayerPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<IPgcPlayerPageViewModel, PgcPlayerPageViewModel>();
-            SplatRegistrations.RegisterLazySingleton<ILivePlayerPageViewModel, LivePlayerPageViewModel>();
-
-            SplatRegistrations.SetupIOC();
+                .RegisterSingleton<IViewLaterPageViewModel, ViewLaterPageViewModel>()
+                .RegisterSingleton<IHistoryPageViewModel, HistoryPageViewModel>()
+                .RegisterSingleton<IMyFollowsPageViewModel, MyFollowsPageViewModel>()
+                .RegisterSingleton<IXboxAccountPageViewModel, XboxAccountPageViewModel>()
+                .RegisterSingleton<IArticlePartitionPageViewModel, ArticlePartitionPageViewModel>()
+                .RegisterSingleton<IFollowsPageViewModel, FollowsPageViewModel>()
+                .RegisterSingleton<IFansPageViewModel, FansPageViewModel>()
+                .RegisterSingleton<IMessagePageViewModel, MessagePageViewModel>()
+                .RegisterSingleton<IDynamicPageViewModel, DynamicPageViewModel>()
+                .RegisterSingleton<ICommentMainModuleViewModel, CommentMainModuleViewModel>()
+                .RegisterSingleton<ICommentDetailModuleViewModel, CommentDetailModuleViewModel>()
+                .RegisterSingleton<ICommentPageViewModel, CommentPageViewModel>()
+                .RegisterSingleton<ILiveFeedPageViewModel, LiveFeedPageViewModel>()
+                .RegisterSingleton<ILivePartitionPageViewModel, LivePartitionPageViewModel>()
+                .RegisterSingleton<ILivePartitionDetailPageViewModel, LivePartitionDetailPageViewModel>()
+                .RegisterSingleton<ISearchBoxViewModel, SearchBoxViewModel>()
+                .RegisterSingleton<ISearchPageViewModel, SearchPageViewModel>()
+                .RegisterSingleton<IVideoPlayerPageViewModel, VideoPlayerPageViewModel>()
+                .RegisterSingleton<IPgcPlayerPageViewModel, PgcPlayerPageViewModel>()
+                .RegisterSingleton<ILivePlayerPageViewModel, LivePlayerPageViewModel>()
+                .Build();
         }
 
         /// <summary>
@@ -186,8 +185,8 @@ namespace Bili.DI.App
         /// </summary>
         public static void RegisterAppRequiredConstants()
         {
-            SplatRegistrations.RegisterConstant(Window.Current.CoreWindow.Dispatcher);
-            SplatRegistrations.SetupIOC();
+            Container.Locator.Instance.RegisterSingleton(Window.Current.CoreWindow.Dispatcher)
+                .Build();
         }
     }
 }

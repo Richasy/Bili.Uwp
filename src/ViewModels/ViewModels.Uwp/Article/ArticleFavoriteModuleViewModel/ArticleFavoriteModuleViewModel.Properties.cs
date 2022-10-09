@@ -2,7 +2,7 @@
 
 using Bili.Lib.Interfaces;
 using Bili.Toolkit.Interfaces;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Bili.ViewModels.Uwp.Article
 {
@@ -15,10 +15,7 @@ namespace Bili.ViewModels.Uwp.Article
         private readonly IResourceToolkit _resourceToolkit;
         private bool _isEnd;
 
-        /// <summary>
-        /// 是否显示空白.
-        /// </summary>
-        [Reactive]
-        public bool IsEmpty { get; set; }
+        [ObservableProperty]
+        private bool _isEmpty;
     }
 }

@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Bili.DI.Container;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Community;
 using Bili.Models.Data.Live;
@@ -13,8 +13,7 @@ using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Live;
 using Bili.ViewModels.Uwp.Base;
-using ReactiveUI;
-using Splat;
+using CommunityToolkit.Mvvm.Input;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Live
@@ -45,8 +44,8 @@ namespace Bili.ViewModels.Uwp.Live
 
             Tags = new ObservableCollection<LiveTag>();
 
-            SelectTagCommand = ReactiveCommand.CreateFromTask<LiveTag>(SelectTagAsync);
-            SeeAllPartitionsCommand = ReactiveCommand.Create(SeeAllPartitions);
+            SelectTagCommand = new AsyncRelayCommand<LiveTag>(SelectTagAsync);
+            SeeAllPartitionsCommand = new RelayCommand(SeeAllPartitions);
         }
 
         /// <inheritdoc/>
@@ -97,7 +96,7 @@ namespace Bili.ViewModels.Uwp.Live
             {
                 foreach (var live in data.Lives)
                 {
-                    var liveVM = Splat.Locator.Current.GetService<ILiveItemViewModel>();
+                    var liveVM = Locator.Instance.GetService<ILiveItemViewModel>();
                     liveVM.InjectData(live);
                     Items.Add(liveVM);
                 }
@@ -129,14 +128,14 @@ namespace Bili.ViewModels.Uwp.Live
                 var data = _caches[tag];
                 foreach (var live in data)
                 {
-                    var liveVM = Locator.Current.GetService<ILiveItemViewModel>();
+                    var liveVM = Locator.Instance.GetService<ILiveItemViewModel>();
                     liveVM.InjectData(live);
                     Items.Add(liveVM);
                 }
             }
             else
             {
-                InitializeCommand.Execute().Subscribe();
+                _ = InitializeCommand.ExecuteAsync(null);
             }
         }
 

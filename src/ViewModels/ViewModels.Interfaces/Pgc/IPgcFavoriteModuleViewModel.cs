@@ -1,8 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
-using System.Reactive;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Interfaces.Pgc
 {
@@ -19,7 +18,7 @@ namespace Bili.ViewModels.Interfaces.Pgc
         /// <summary>
         /// 选中状态命令.
         /// </summary>
-        ReactiveCommand<int, Unit> SetStatusCommand { get; }
+        IRelayCommand<int> SetStatusCommand { get; }
 
         /// <summary>
         /// 状态.

@@ -1,8 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using Bili.DI.Container;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Interfaces.Core;
-using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -65,7 +64,7 @@ namespace Bili.App.Controls
         public HorizontalRepeaterView()
         {
             InitializeComponent();
-            _resourceToolkit = Locator.Current.GetService<IResourceToolkit>();
+            _resourceToolkit = Locator.Instance.GetService<IResourceToolkit>();
             SizeChanged += OnSizeChanged;
             Loaded += OnLoaded;
         }
