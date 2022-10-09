@@ -1,14 +1,13 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using System.Linq;
+using Bili.DI.Container;
 using Bili.Models.App.Other;
 using Bili.Models.Enums;
 using Bili.Models.Enums.Bili;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Video;
 using Humanizer;
-using Splat;
 
 namespace Bili.ViewModels.Uwp.Video
 {
@@ -24,7 +23,7 @@ namespace Bili.ViewModels.Uwp.Video
             {
                 foreach (var profile in View.Information.Collaborators)
                 {
-                    var userVM = Splat.Locator.Current.GetService<IUserItemViewModel>();
+                    var userVM = Locator.Instance.GetService<IUserItemViewModel>();
                     userVM.SetProfile(profile);
                     Collaborators.Add(userVM);
                 }
@@ -32,7 +31,7 @@ namespace Bili.ViewModels.Uwp.Video
             else
             {
                 var myId = _authorizeProvider.CurrentUserId;
-                var userVM = Splat.Locator.Current.GetService<IUserItemViewModel>();
+                var userVM = Locator.Instance.GetService<IUserItemViewModel>();
                 userVM.SetProfile(View.Information.Publisher);
                 userVM.Relation = View.PublisherCommunityInformation.Relation;
                 userVM.IsRelationButtonShown = !string.IsNullOrEmpty(myId)
@@ -106,7 +105,7 @@ namespace Bili.ViewModels.Uwp.Video
                 for (var i = 0; i < subVideos.Count; i++)
                 {
                     var item = subVideos[i];
-                    var vm = Locator.Current.GetService<IVideoIdentifierSelectableViewModel>();
+                    var vm = Locator.Instance.GetService<IVideoIdentifierSelectableViewModel>();
                     vm.InjectData(item);
                     vm.Index = i + 1;
                     vm.IsSelected = item.Equals(CurrentVideoPart);
@@ -148,7 +147,7 @@ namespace Bili.ViewModels.Uwp.Video
             _commentPageViewModel.SetData(View.Information.Identifier.Id, CommentType.Video);
 
             CurrentSection = Sections.First();
-            RequestOnlineCountCommand.Execute().Subscribe();
+            RequestOnlineCountCommand.ExecuteAsync(null);
         }
     }
 }

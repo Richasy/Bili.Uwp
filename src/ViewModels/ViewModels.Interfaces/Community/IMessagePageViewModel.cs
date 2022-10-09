@@ -13,7 +13,7 @@ namespace Bili.ViewModels.Interfaces.Community
         /// <summary>
         /// 选择消息类型命令.
         /// </summary>
-        IRelayCommand<IMessageHeaderViewModel> SelectTypeCommand { get; }
+        IAsyncRelayCommand<IMessageHeaderViewModel> SelectTypeCommand { get; }
 
         /// <summary>
         /// 消息类型集合.

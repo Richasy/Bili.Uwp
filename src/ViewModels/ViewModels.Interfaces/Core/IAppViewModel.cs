@@ -15,12 +15,12 @@ namespace Bili.ViewModels.Interfaces.Core
         /// <summary>
         /// 检查应用更新命令.
         /// </summary>
-        IRelayCommand CheckUpdateCommand { get; }
+        IAsyncRelayCommand CheckUpdateCommand { get; }
 
         /// <summary>
         /// 检查新动态通知的命令.
         /// </summary>
-        IRelayCommand CheckNewDynamicRegistrationCommand { get; }
+        IAsyncRelayCommand CheckNewDynamicRegistrationCommand { get; }
 
         /// <summary>
         /// 导航面板是否已展开.

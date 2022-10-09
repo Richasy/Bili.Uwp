@@ -14,27 +14,27 @@ namespace Bili.ViewModels.Interfaces.Video
         /// <summary>
         /// 添加到稍后再看的命令.
         /// </summary>
-        public IRelayCommand AddToViewLaterCommand { get; }
+        public IAsyncRelayCommand AddToViewLaterCommand { get; }
 
         /// <summary>
         /// 从稍后再看中移除的命令.
         /// </summary>
-        public IRelayCommand RemoveFromViewLaterCommand { get; }
+        public IAsyncRelayCommand RemoveFromViewLaterCommand { get; }
 
         /// <summary>
         /// 从历史记录中移除的命令.
         /// </summary>
-        public IRelayCommand RemoveFromHistoryCommand { get; }
+        public IAsyncRelayCommand RemoveFromHistoryCommand { get; }
 
         /// <summary>
         /// 从指定收藏夹中移除的命令.
         /// </summary>
-        public IRelayCommand RemoveFromFavoriteCommand { get; }
+        public IAsyncRelayCommand RemoveFromFavoriteCommand { get; }
 
         /// <summary>
         /// 在网页中打开的命令.
         /// </summary>
-        public IRelayCommand OpenInBroswerCommand { get; }
+        public IAsyncRelayCommand OpenInBroswerCommand { get; }
 
         /// <summary>
         /// 播放命令.

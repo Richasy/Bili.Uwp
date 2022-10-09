@@ -2,7 +2,7 @@
 
 using Bili.Lib.Interfaces;
 using Bili.Toolkit.Interfaces;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Bili.ViewModels.Uwp.Base
 {
@@ -22,6 +22,6 @@ namespace Bili.ViewModels.Uwp.Base
         /// 动态是否为空.
         /// </summary>
         [ObservableProperty]
-        public bool IsEmpty { get; set; }
+        private bool _isEmpty;
     }
 }

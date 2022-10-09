@@ -1,12 +1,12 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Threading.Tasks;
+using Bili.DI.Container;
 using Bili.Lib.Interfaces;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Article;
 using Bili.ViewModels.Uwp.Base;
-using Splat;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Article
@@ -53,7 +53,7 @@ namespace Bili.ViewModels.Uwp.Article
             var data = await _favoriteProvider.GetFavortieArticleListAsync();
             foreach (var item in data.Items)
             {
-                var articleVM = Locator.Current.GetService<IArticleItemViewModel>();
+                var articleVM = Locator.Instance.GetService<IArticleItemViewModel>();
                 articleVM.InjectData(item);
                 articleVM.InjectAction(vm => RemoveItem(vm));
                 Items.Add(articleVM);

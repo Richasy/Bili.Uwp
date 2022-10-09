@@ -38,11 +38,11 @@ namespace Bili.ViewModels.Interfaces.Toolbox
         /// <summary>
         /// 加载预览命令.
         /// </summary>
-        IRelayCommand LoadPreviewCommand { get; }
+        IAsyncRelayCommand LoadPreviewCommand { get; }
 
         /// <summary>
         /// 下载命令.
         /// </summary>
-        IRelayCommand DownloadCommand { get; }
+        IAsyncRelayCommand DownloadCommand { get; }
     }
 }

@@ -2,19 +2,19 @@
 
 using Bili.Models.Data.Video;
 using Bili.ViewModels.Interfaces.Video;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Bili.ViewModels.Uwp.Video
 {
     /// <summary>
     /// 可选择的视频标识符视图模型.
     /// </summary>
-    public sealed class VideoIdentifierSelectableViewModel : SelectableViewModelBase<VideoIdentifier>, IVideoIdentifierSelectableViewModel
+    public sealed partial class VideoIdentifierSelectableViewModel : SelectableViewModelBase<VideoIdentifier>, IVideoIdentifierSelectableViewModel
     {
         /// <summary>
         /// 索引.
         /// </summary>
         [ObservableProperty]
-        public int Index { get; set; }
+        private int _index;
     }
 }

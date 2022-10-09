@@ -18,12 +18,12 @@ namespace Bili.ViewModels.Interfaces.Search
         /// <summary>
         /// 重载搜索模块命令.
         /// </summary>
-        IRelayCommand ReloadModuleCommand { get; }
+        IAsyncRelayCommand ReloadModuleCommand { get; }
 
         /// <summary>
         /// 选中模块命令.
         /// </summary>
-        IRelayCommand<ISearchModuleItemViewModel> SelectModuleCommand { get; }
+        IAsyncRelayCommand<ISearchModuleItemViewModel> SelectModuleCommand { get; }
 
         /// <summary>
         /// 视频集合.

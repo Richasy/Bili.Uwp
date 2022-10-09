@@ -1,12 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
-using System.Reactive;
 using Bili.Models.Data.Local;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Core
 {
@@ -19,14 +18,17 @@ namespace Bili.ViewModels.Uwp.Core
         private readonly ISettingsToolkit _settingsToolkit;
         private readonly ICallerViewModel _callerViewModel;
 
+        [ObservableProperty]
+        private bool _isShowPlayRecordButton;
+
         /// <inheritdoc/>
         public IRelayCommand CheckContinuePlayCommand { get; }
 
         /// <inheritdoc/>
-        public IRelayCommand<PlaySnapshot> AddLastPlayItemCommand { get; }
+        public IAsyncRelayCommand<PlaySnapshot> AddLastPlayItemCommand { get; }
 
         /// <inheritdoc/>
-        public IRelayCommand DeleteLastPlayItemCommand { get; }
+        public IAsyncRelayCommand DeleteLastPlayItemCommand { get; }
 
         /// <inheritdoc/>
         public IRelayCommand<PlayRecord> AddPlayRecordCommand { get; }
@@ -39,9 +41,5 @@ namespace Bili.ViewModels.Uwp.Core
 
         /// <inheritdoc/>
         public ObservableCollection<PlayRecord> PlayRecords { get; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsShowPlayRecordButton { get; set; }
     }
 }

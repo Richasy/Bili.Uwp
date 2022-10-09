@@ -2,14 +2,13 @@
 
 using System;
 using System.Collections.Generic;
-using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Pgc;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Pgc;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Pgc
 {
@@ -23,33 +22,29 @@ namespace Bili.ViewModels.Uwp.Pgc
         private readonly INavigationViewModel _navigationViewModel;
         private Action<ISeasonItemViewModel> _additionalAction;
 
+        [ObservableProperty]
+        private SeasonInformation _data;
+
+        [ObservableProperty]
+        private bool _isSelected;
+
+        [ObservableProperty]
+        private bool _isShowRating;
+
+        [ObservableProperty]
+        private string _trackCountText;
+
         /// <inheritdoc/>
-        public IRelayCommand OpenInBroswerCommand { get; }
+        public IAsyncRelayCommand OpenInBroswerCommand { get; }
 
         /// <inheritdoc/>
         public IRelayCommand PlayCommand { get; }
 
         /// <inheritdoc/>
-        public IRelayCommand UnfollowCommand { get; }
+        public IAsyncRelayCommand UnfollowCommand { get; }
 
         /// <inheritdoc/>
-        public IRelayCommand<int> ChangeFavoriteStatusCommand { get; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public SeasonInformation Data { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsSelected { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsShowRating { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public string TrackCountText { get; set; }
+        public IAsyncRelayCommand<int> ChangeFavoriteStatusCommand { get; }
 
         /// <inheritdoc/>
         public override bool Equals(object obj) => obj is SeasonItemViewModel model && EqualityComparer<SeasonInformation>.Default.Equals(Data, model.Data);

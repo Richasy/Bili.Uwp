@@ -8,8 +8,8 @@ using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Community;
 using Bili.ViewModels.Interfaces.Core;
+using CommunityToolkit.Mvvm.Input;
 using Humanizer;
-using ReactiveUI;
 
 namespace Bili.ViewModels.Uwp.Community
 {

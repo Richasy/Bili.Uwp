@@ -25,7 +25,7 @@ namespace Bili.ViewModels.Interfaces.Live
         /// <summary>
         /// 选择分区命令.
         /// </summary>
-        public IRelayCommand<Partition> SelectPartitionCommand { get; }
+        public IAsyncRelayCommand<Partition> SelectPartitionCommand { get; }
 
         /// <summary>
         /// 当前选中的父分区.

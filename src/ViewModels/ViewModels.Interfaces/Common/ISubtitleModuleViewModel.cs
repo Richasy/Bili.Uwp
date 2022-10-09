@@ -21,7 +21,7 @@ namespace Bili.ViewModels.Interfaces.Common
         /// <summary>
         /// 更换字幕的命令.
         /// </summary>
-        IRelayCommand<SubtitleMeta> ChangeMetaCommand { get; }
+        IAsyncRelayCommand<SubtitleMeta> ChangeMetaCommand { get; }
 
         /// <summary>
         /// 字幕元数据集合.

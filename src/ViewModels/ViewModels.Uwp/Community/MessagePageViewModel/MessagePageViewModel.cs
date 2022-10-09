@@ -3,9 +3,10 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
-using System.Reactive.Linq;
 using System.Threading.Tasks;
+using Bili.DI.Container;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Community;
 using Bili.Models.Enums.App;
@@ -13,8 +14,7 @@ using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Community;
 using Bili.ViewModels.Uwp.Base;
-using ReactiveUI;
-using Splat;
+using CommunityToolkit.Mvvm.Input;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Community
@@ -48,11 +48,8 @@ namespace Bili.ViewModels.Uwp.Community
 
             InitializeMessageCount();
 
-            this.WhenAnyValue(x => x._accountViewModel.UnreadInformation)
-                .ObserveOn(RxApp.MainThreadScheduler)
-                .Subscribe(_ => InitializeMessageCount());
-
             SelectTypeCommand = new AsyncRelayCommand<IMessageHeaderViewModel>(SelectTypeAsync);
+            _accountViewModel.PropertyChanged += OnAccountViewModelPropertyChanged;
         }
 
         /// <inheritdoc/>
@@ -87,7 +84,7 @@ namespace Bili.ViewModels.Uwp.Community
             _isEnd = view.IsFinished;
             foreach (var item in view.Messages)
             {
-                var messageVM = Splat.Locator.Current.GetService<IMessageItemViewModel>();
+                var messageVM = Locator.Instance.GetService<IMessageItemViewModel>();
                 messageVM.InjectData(item);
                 Items.Add(messageVM);
             }
@@ -95,7 +92,7 @@ namespace Bili.ViewModels.Uwp.Community
             _caches.Remove(CurrentType.Type);
             _caches.Add(CurrentType.Type, new(Items.Select(p => p.Data).ToList(), _isEnd));
             IsEmpty = Items.Count == 0;
-            _accountViewModel.InitializeUnreadCommand.Execute().Subscribe();
+            _ = _accountViewModel.InitializeUnreadCommand.ExecuteAsync(null);
         }
 
         /// <inheritdoc/>
@@ -112,7 +109,7 @@ namespace Bili.ViewModels.Uwp.Community
             {
                 foreach (var item in data.Items)
                 {
-                    var messageVM = Locator.Current.GetService<IMessageItemViewModel>();
+                    var messageVM = Locator.Instance.GetService<IMessageItemViewModel>();
                     messageVM.InjectData(item);
                     Items.Add(messageVM);
                 }
@@ -123,7 +120,7 @@ namespace Bili.ViewModels.Uwp.Community
             else
             {
                 _shouldClearCache = false;
-                InitializeCommand.Execute().Subscribe();
+                _ = InitializeCommand.ExecuteAsync(null);
             }
         }
 
@@ -147,9 +144,17 @@ namespace Bili.ViewModels.Uwp.Community
 
         private IMessageHeaderViewModel GetMessageHeader(MessageType type)
         {
-            var vm = Locator.Current.GetService<IMessageHeaderViewModel>();
+            var vm = Locator.Instance.GetService<IMessageHeaderViewModel>();
             vm.SetData(type);
             return vm;
+        }
+
+        private void OnAccountViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(_accountViewModel.UnreadInformation))
+            {
+                InitializeMessageCount();
+            }
         }
     }
 }

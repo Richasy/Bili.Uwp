@@ -1,9 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.App.Other;
@@ -18,8 +16,7 @@ using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Pgc;
 using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Pgc
 {
@@ -89,16 +86,11 @@ namespace Bili.ViewModels.Uwp.Pgc
             TrackSeasonCommand = new AsyncRelayCommand(TrackAsync);
             ClearCommand = new RelayCommand(Reset);
 
-            ReloadCommand.IsExecuting.ToPropertyEx(this, x => x.IsReloading);
-            RequestFavoriteFoldersCommand.IsExecuting.ToPropertyEx(this, x => x.IsFavoriteFolderRequesting);
+            AttachIsRunningToAsyncCommand(p => IsReloading = p, ReloadCommand);
+            AttachIsRunningToAsyncCommand(p => IsFavoriteFolderRequesting = p, RequestFavoriteFoldersCommand);
 
-            ReloadCommand.ThrownExceptions.Subscribe(DisplayException);
-            RequestFavoriteFoldersCommand.ThrownExceptions.Subscribe(DisplayFavoriteFoldersException);
-
-            this.WhenAnyValue(p => p.CurrentSection)
-                .WhereNotNull()
-                .ObserveOn(RxApp.MainThreadScheduler)
-                .Subscribe(_ => CheckSectionVisibility());
+            AttachExceptionHandlerToAsyncCommand(DisplayException, ReloadCommand);
+            AttachExceptionHandlerToAsyncCommand(DisplayFavoriteFoldersException, RequestFavoriteFoldersCommand);
 
             PropertyChanged += OnPropertyChanged;
         }
@@ -116,13 +108,13 @@ namespace Bili.ViewModels.Uwp.Pgc
             _needBiliPlus = snapshot.NeedBiliPlus;
             var defaultPlayMode = _settingsToolkit.ReadLocalSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
             MediaPlayerViewModel.DisplayMode = snapshot.DisplayMode ?? defaultPlayMode;
-            ReloadCommand.Execute().Subscribe();
+            ReloadCommand.ExecuteAsync(null);
         }
 
         private void Reset()
         {
             View = null;
-            MediaPlayerViewModel.ClearCommand.Execute().Subscribe();
+            MediaPlayerViewModel.ClearCommand.Execute(null);
             ResetOverview();
             ResetOperation();
             ResetCommunityInformation();
@@ -152,8 +144,8 @@ namespace Bili.ViewModels.Uwp.Pgc
             {
                 Title = View.Information.Identifier.Title,
             };
-            _recordViewModel.AddLastPlayItemCommand.Execute(snapshot).Subscribe();
-            _recordViewModel.AddPlayRecordCommand.Execute(new PlayRecord(View.Information.Identifier, snapshot)).Subscribe();
+            _ = _recordViewModel.AddLastPlayItemCommand.ExecuteAsync(snapshot);
+            _recordViewModel.AddPlayRecordCommand.Execute(new PlayRecord(View.Information.Identifier, snapshot));
             InitializeOverview();
             InitializeOperation();
             InitializeCommunityInformation();
@@ -161,6 +153,14 @@ namespace Bili.ViewModels.Uwp.Pgc
             InitializeInterop();
 
             MediaPlayerViewModel.SetPgcData(View, CurrentEpisode);
+        }
+
+        partial void OnCurrentSectionChanged(PlayerSectionHeader value)
+        {
+            if (value != null)
+            {
+                CheckSectionVisibility();
+            }
         }
     }
 }

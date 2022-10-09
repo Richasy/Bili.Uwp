@@ -13,7 +13,7 @@ namespace Bili.ViewModels.Interfaces.Toolbox
         /// <summary>
         /// 转换命令.
         /// </summary>
-        IRelayCommand ConvertCommand { get; }
+        IAsyncRelayCommand ConvertCommand { get; }
 
         /// <summary>
         /// 输入的Id.

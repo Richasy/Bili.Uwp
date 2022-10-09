@@ -13,7 +13,7 @@ namespace Bili.ViewModels.Interfaces.Pgc
         /// <summary>
         /// 在网页中打开的命令.
         /// </summary>
-        IRelayCommand OpenInBroswerCommand { get; }
+        IAsyncRelayCommand OpenInBroswerCommand { get; }
 
         /// <summary>
         /// 播放命令.
@@ -23,12 +23,12 @@ namespace Bili.ViewModels.Interfaces.Pgc
         /// <summary>
         /// 取消关注命令.
         /// </summary>
-        IRelayCommand UnfollowCommand { get; }
+        IAsyncRelayCommand UnfollowCommand { get; }
 
         /// <summary>
         /// 改变收藏状态命令.
         /// </summary>
-        IRelayCommand<int> ChangeFavoriteStatusCommand { get; }
+        IAsyncRelayCommand<int> ChangeFavoriteStatusCommand { get; }
 
         /// <summary>
         /// 是否显示评分.

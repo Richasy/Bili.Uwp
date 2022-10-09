@@ -15,7 +15,7 @@ namespace Bili.ViewModels.Interfaces.Article
         /// <summary>
         /// 在网页中打开的命令.
         /// </summary>
-        IRelayCommand OpenInBroswerCommand { get; }
+        IAsyncRelayCommand OpenInBroswerCommand { get; }
 
         /// <summary>
         /// 阅读命令.
@@ -25,7 +25,7 @@ namespace Bili.ViewModels.Interfaces.Article
         /// <summary>
         /// 取消收藏命令.
         /// </summary>
-        IRelayCommand UnfavoriteCommand { get; }
+        IAsyncRelayCommand UnfavoriteCommand { get; }
 
         /// <summary>
         /// 阅读次数的可读文本.

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Bili.Models.Data.Player;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
+using CommunityToolkit.Mvvm.Input;
 using FFmpegInteropX;
 using Microsoft.Graphics.Canvas;
-using ReactiveUI;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Core

@@ -1,13 +1,12 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.Generic;
-using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Video;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Video;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Video
 {
@@ -22,23 +21,20 @@ namespace Bili.ViewModels.Uwp.Video
 
         private IVideoFavoriteFolderGroupViewModel _groupViewModel;
 
+        [ObservableProperty]
+        private VideoFavoriteFolder _folder;
+
+        [ObservableProperty]
+        private bool _isMine;
+
+        [ObservableProperty]
+        private bool _isRemoving;
+
         /// <inheritdoc/>
-        public IRelayCommand RemoveCommand { get; }
+        public IAsyncRelayCommand RemoveCommand { get; }
 
         /// <inheritdoc/>
         public IRelayCommand ShowDetailCommand { get; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public VideoFavoriteFolder Folder { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsMine { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableAsProperty]
-        public bool IsRemoving { get; set; }
 
         /// <inheritdoc/>
         public override bool Equals(object obj) => obj is VideoFavoriteFolderViewModel model && EqualityComparer<VideoFavoriteFolder>.Default.Equals(Folder, model.Folder);

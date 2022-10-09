@@ -9,8 +9,8 @@ using Bili.Models.App.Other;
 using Bili.Models.Data.Local;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Home;
+using CommunityToolkit.Mvvm.Input;
 using Newtonsoft.Json;
-using ReactiveUI;
 using Windows.System;
 
 namespace Bili.ViewModels.Uwp.Home

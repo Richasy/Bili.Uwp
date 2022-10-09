@@ -16,7 +16,7 @@ namespace Bili.ViewModels.Interfaces.Home
         /// <summary>
         /// 选择分区命令.
         /// </summary>
-        IRelayCommand<Partition> SelectPartitionCommand { get; }
+        IAsyncRelayCommand<Partition> SelectPartitionCommand { get; }
 
         /// <summary>
         /// 当前的分区.

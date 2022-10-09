@@ -2,6 +2,7 @@
 
 using System.Linq;
 using System.Threading.Tasks;
+using Bili.DI.Container;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Pgc;
 using Bili.Models.Data.Video;
@@ -11,7 +12,6 @@ using Bili.ViewModels.Interfaces.Home;
 using Bili.ViewModels.Interfaces.Pgc;
 using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
-using Splat;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Home
@@ -49,13 +49,13 @@ namespace Bili.ViewModels.Uwp.Home
                     IVideoBaseViewModel vm = null;
                     if (item is VideoInformation videoInfo)
                     {
-                        var videoVM = Locator.Current.GetService<IVideoItemViewModel>();
+                        var videoVM = Locator.Instance.GetService<IVideoItemViewModel>();
                         videoVM.InjectData(videoInfo);
                         vm = videoVM;
                     }
                     else if (item is EpisodeInformation episodeInfo)
                     {
-                        var episodeVM = Locator.Current.GetService<IEpisodeItemViewModel>();
+                        var episodeVM = Locator.Instance.GetService<IEpisodeItemViewModel>();
                         episodeVM.InjectData(episodeInfo);
                         vm = episodeVM;
                     }

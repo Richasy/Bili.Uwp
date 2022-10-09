@@ -1,12 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.Generic;
-using System.Reactive;
 using Bili.Models.Data.Live;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Live
 {
@@ -18,27 +17,21 @@ namespace Bili.ViewModels.Uwp.Live
         private readonly INumberToolkit _numberToolkit;
         private readonly INavigationViewModel _navigationViewModel;
 
+        [ObservableProperty]
+        private LiveInformation _data;
+
+        [ObservableProperty]
+        private string _viewerCountText;
+
         /// <summary>
         /// 在网页中打开的命令.
         /// </summary>
-        public IRelayCommand OpenInBroswerCommand { get; }
+        public IAsyncRelayCommand OpenInBroswerCommand { get; }
 
         /// <summary>
         /// 播放命令.
         /// </summary>
         public IRelayCommand PlayCommand { get; }
-
-        /// <summary>
-        /// 视频信息.
-        /// </summary>
-        [ObservableProperty]
-        public LiveInformation Data { get; set; }
-
-        /// <summary>
-        /// 观看人数的可读文本.
-        /// </summary>
-        [ObservableProperty]
-        public string ViewerCountText { get; set; }
 
         /// <inheritdoc/>
         public override bool Equals(object obj) => obj is LiveItemViewModel model && EqualityComparer<LiveInformation>.Default.Equals(Data, model.Data);

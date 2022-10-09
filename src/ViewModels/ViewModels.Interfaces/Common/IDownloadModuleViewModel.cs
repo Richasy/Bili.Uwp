@@ -15,12 +15,12 @@ namespace Bili.ViewModels.Interfaces.Common
         /// <summary>
         /// 改变保存位置的命令.
         /// </summary>
-        IRelayCommand ChangeSaveLocationCommand { get; }
+        IAsyncRelayCommand ChangeSaveLocationCommand { get; }
 
         /// <summary>
         /// 保存下载命令到剪切板.
         /// </summary>
-        IRelayCommand SaveDownloadTextCommand { get; }
+        IAsyncRelayCommand SaveDownloadTextCommand { get; }
 
         /// <summary>
         /// 全部分P集合.

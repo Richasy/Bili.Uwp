@@ -57,7 +57,7 @@ namespace Bili.ViewModels.Interfaces.Pgc
         /// <summary>
         /// 选择分区命令.
         /// </summary>
-        IRelayCommand<Partition> SelectPartitionCommand { get; }
+        IAsyncRelayCommand<Partition> SelectPartitionCommand { get; }
 
         /// <summary>
         /// 当前选中标签.

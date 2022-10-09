@@ -2,7 +2,6 @@
 
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
@@ -13,8 +12,8 @@ using Bili.ViewModels.Interfaces.Live;
 using Bili.ViewModels.Interfaces.Pgc;
 using Bili.ViewModels.Interfaces.Search;
 using Bili.ViewModels.Interfaces.Video;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Search
 {
@@ -32,11 +31,44 @@ namespace Bili.ViewModels.Uwp.Search
         private readonly Dictionary<SearchModuleType, bool> _requestStatusCache;
         private readonly Dictionary<SearchModuleType, IEnumerable<ISearchFilterViewModel>> _filters;
 
-        /// <inheritdoc/>
-        public IRelayCommand ReloadModuleCommand { get; }
+        [ObservableProperty]
+        private ISearchModuleItemViewModel _currentModule;
+
+        [ObservableProperty]
+        private bool _isCurrentContentEmpty;
+
+        [ObservableProperty]
+        private bool _isCurrentFilterEmpty;
+
+        [ObservableProperty]
+        private bool _isVideoModuleShown;
+
+        [ObservableProperty]
+        private bool _isAnimeModuleShown;
+
+        [ObservableProperty]
+        private bool _isMovieModuleShown;
+
+        [ObservableProperty]
+        private bool _isArticleModuleShown;
+
+        [ObservableProperty]
+        private bool _isLiveModuleShown;
+
+        [ObservableProperty]
+        private bool _isUserModuleShown;
+
+        [ObservableProperty]
+        private string _keyword;
+
+        [ObservableProperty]
+        private bool _isReloadingModule;
 
         /// <inheritdoc/>
-        public IRelayCommand<ISearchModuleItemViewModel> SelectModuleCommand { get; }
+        public IAsyncRelayCommand ReloadModuleCommand { get; }
+
+        /// <inheritdoc/>
+        public IAsyncRelayCommand<ISearchModuleItemViewModel> SelectModuleCommand { get; }
 
         /// <inheritdoc/>
         public ObservableCollection<IVideoItemViewModel> Videos { get; }
@@ -58,49 +90,5 @@ namespace Bili.ViewModels.Uwp.Search
 
         /// <inheritdoc/>
         public ObservableCollection<ISearchFilterViewModel> CurrentFilters { get; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public ISearchModuleItemViewModel CurrentModule { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsCurrentContentEmpty { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsCurrentFilterEmpty { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsVideoModuleShown { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsAnimeModuleShown { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsMovieModuleShown { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsArticleModuleShown { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsLiveModuleShown { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsUserModuleShown { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public string Keyword { get; internal set; }
-
-        /// <inheritdoc/>
-        [ObservableAsProperty]
-        public bool IsReloadingModule { get; set; }
     }
 }

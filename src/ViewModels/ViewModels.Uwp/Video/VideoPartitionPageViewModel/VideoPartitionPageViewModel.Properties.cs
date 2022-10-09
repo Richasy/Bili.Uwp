@@ -1,11 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
-using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Community;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Video
 {
@@ -16,14 +15,13 @@ namespace Bili.ViewModels.Uwp.Video
     {
         private readonly IHomeProvider _homeProvider;
 
+        [ObservableProperty]
+        private bool _isInitializing;
+
         /// <inheritdoc/>
         public ObservableCollection<Partition> Partitions { get; }
 
         /// <inheritdoc/>
-        public IRelayCommand InitializeCommand { get; }
-
-        /// <inheritdoc/>
-        [ObservableAsProperty]
-        public bool IsInitializing { get; set; }
+        public IAsyncRelayCommand InitializeCommand { get; }
     }
 }

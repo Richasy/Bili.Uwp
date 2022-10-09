@@ -1,15 +1,14 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
-using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Community;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Common;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Live;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Live
 {
@@ -23,6 +22,12 @@ namespace Bili.ViewModels.Uwp.Live
         private readonly IResourceToolkit _resourceToolkit;
         private readonly INavigationViewModel _navigationViewModel;
 
+        [ObservableProperty]
+        private bool _isLoggedIn;
+
+        [ObservableProperty]
+        private bool _isFollowsEmpty;
+
         /// <inheritdoc/>
         public ObservableCollection<IBannerViewModel> Banners { get; }
 
@@ -34,13 +39,5 @@ namespace Bili.ViewModels.Uwp.Live
 
         /// <inheritdoc/>
         public IRelayCommand SeeAllPartitionsCommand { get; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsLoggedIn { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsFollowsEmpty { get; set; }
     }
 }

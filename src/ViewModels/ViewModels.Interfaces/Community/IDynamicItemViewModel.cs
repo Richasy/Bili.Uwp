@@ -44,7 +44,7 @@ namespace Bili.ViewModels.Interfaces.Community
         /// <summary>
         /// 点赞动态的命令.
         /// </summary>
-        IRelayCommand ToggleLikeCommand { get; }
+        IAsyncRelayCommand ToggleLikeCommand { get; }
 
         /// <summary>
         /// 点击动态的命令.

@@ -321,7 +321,7 @@ namespace Bili.ViewModels.Uwp.Core
                 rate = MaxPlaybackRate;
             }
 
-            ChangePlayRateCommand.Execute(rate).Subscribe();
+            ChangePlayRateCommand.ExecuteAsync(rate);
             RequestShowTempMessage?.Invoke(this, $"{_resourceToolkit.GetLocaleString(LanguageNames.CurrentPlaybackRate)}: {rate}x");
         }
 
@@ -338,7 +338,7 @@ namespace Bili.ViewModels.Uwp.Core
                 rate = 0.5;
             }
 
-            ChangePlayRateCommand.Execute(rate).Subscribe();
+            ChangePlayRateCommand.ExecuteAsync(rate);
             RequestShowTempMessage?.Invoke(this, $"{_resourceToolkit.GetLocaleString(LanguageNames.CurrentPlaybackRate)}: {rate}x");
         }
 
@@ -350,7 +350,7 @@ namespace Bili.ViewModels.Uwp.Core
                 volume = 100;
             }
 
-            ChangeVolumeCommand.Execute(volume).Subscribe();
+            ChangeVolumeCommand.Execute(volume);
         }
 
         private void DecreaseVolume()
@@ -361,22 +361,22 @@ namespace Bili.ViewModels.Uwp.Core
                 volume = 0;
             }
 
-            ChangeVolumeCommand.Execute(volume).Subscribe();
+            ChangeVolumeCommand.Execute(volume);
         }
 
         private void BackToDefaultMode()
         {
             if (DisplayMode == PlayerDisplayMode.FullWindow)
             {
-                ToggleFullWindowCommand.Execute().Subscribe();
+                ToggleFullWindowCommand.Execute(null);
             }
             else if (DisplayMode == PlayerDisplayMode.FullScreen)
             {
-                ToggleFullScreenCommand.Execute().Subscribe();
+                ToggleFullScreenCommand.Execute(null);
             }
             else if (DisplayMode == PlayerDisplayMode.CompactOverlay)
             {
-                ToggleCompactOverlayCommand.Execute().Subscribe();
+                ToggleCompactOverlayCommand.Execute(null);
             }
         }
     }

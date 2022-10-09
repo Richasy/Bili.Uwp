@@ -5,8 +5,7 @@ using Bili.Lib.Interfaces;
 using Bili.Models.Data.Video;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Video;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Video
 {
@@ -29,7 +28,8 @@ namespace Bili.ViewModels.Uwp.Video
 
             RemoveCommand = new AsyncRelayCommand(RemoveAsync);
             ShowDetailCommand = new RelayCommand(ShowDetail);
-            RemoveCommand.IsExecuting.ToPropertyEx(this, x => x.IsRemoving);
+
+            AttachIsRunningToAsyncCommand(p => IsRemoving = p, RemoveCommand);
         }
 
         /// <inheritdoc/>

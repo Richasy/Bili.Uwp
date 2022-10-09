@@ -3,10 +3,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Bili.DI.Container;
 using Bili.Models.Data.Appearance;
 using Bili.Models.Enums;
 using Bili.ViewModels.Interfaces.Search;
-using Splat;
 using static Bili.Models.App.Constants.ServiceConstants.Search;
 
 namespace Bili.ViewModels.Uwp.Search
@@ -18,7 +18,7 @@ namespace Bili.ViewModels.Uwp.Search
     {
         private async Task InitializeFiltersAsync(SearchModuleType type)
         {
-            _filters.Remove(type);
+            _ = _filters.Remove(type);
             if (type == SearchModuleType.Video)
             {
                 await InitializeVideoFiltersAsync();
@@ -117,7 +117,7 @@ namespace Bili.ViewModels.Uwp.Search
 
         private ISearchFilterViewModel GetFilterViewModel(Filter filter, Condition condition = null)
         {
-            var vm = Locator.Current.GetService<ISearchFilterViewModel>();
+            var vm = Locator.Instance.GetService<ISearchFilterViewModel>();
             vm.SetData(filter, condition);
             return vm;
         }

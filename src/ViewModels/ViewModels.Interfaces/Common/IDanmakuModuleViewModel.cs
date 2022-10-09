@@ -61,12 +61,12 @@ namespace Bili.ViewModels.Interfaces.Common
         /// <summary>
         /// 发送弹幕命令.
         /// </summary>
-        IRelayCommand<string> SendDanmakuCommand { get; }
+        IAsyncRelayCommand<string> SendDanmakuCommand { get; }
 
         /// <summary>
         /// 获取分片弹幕命令.
         /// </summary>
-        IRelayCommand<int> LoadSegmentDanmakuCommand { get; }
+        IAsyncRelayCommand<int> LoadSegmentDanmakuCommand { get; }
 
         /// <summary>
         /// 重新定位命令.

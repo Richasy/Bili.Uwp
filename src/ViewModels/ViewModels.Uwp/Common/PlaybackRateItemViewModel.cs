@@ -1,23 +1,21 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using System.Reactive;
 using Bili.ViewModels.Interfaces.Common;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Common
 {
     /// <summary>
     /// 播放速率条目视图模型.
     /// </summary>
-    public sealed class PlaybackRateItemViewModel : SelectableViewModelBase<double>, IPlaybackRateItemViewModel
+    public sealed partial class PlaybackRateItemViewModel : SelectableViewModelBase<double>, IPlaybackRateItemViewModel
     {
         private Action<double> _action;
 
-        /// <inheritdoc/>
         [ObservableProperty]
-        public IRelayCommand ActiveCommand { get; set; }
+        private IRelayCommand _activeCommand;
 
         /// <inheritdoc/>
         public void InjectAction(Action<double> action)

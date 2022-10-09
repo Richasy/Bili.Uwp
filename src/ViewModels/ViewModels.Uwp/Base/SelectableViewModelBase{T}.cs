@@ -2,7 +2,7 @@
 
 using System.Collections.Generic;
 using Bili.ViewModels.Interfaces;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Bili.ViewModels.Uwp
 {
@@ -10,15 +10,13 @@ namespace Bili.ViewModels.Uwp
     /// 可选择的视图模型.
     /// </summary>
     /// <typeparam name="T">数据类型.</typeparam>
-    public class SelectableViewModelBase<T> : ViewModelBase, ISelectableViewModel<T>
+    public partial class SelectableViewModelBase<T> : ViewModelBase, ISelectableViewModel<T>
     {
-        /// <inheritdoc/>
         [ObservableProperty]
-        public T Data { get; set; }
+        private T _data;
 
-        /// <inheritdoc/>
         [ObservableProperty]
-        public bool IsSelected { get; set; }
+        private bool _isSelected;
 
         /// <inheritdoc/>
         public void InjectData(T data)

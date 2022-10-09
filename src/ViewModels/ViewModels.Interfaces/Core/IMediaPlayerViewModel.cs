@@ -41,7 +41,7 @@ namespace Bili.ViewModels.Interfaces.Core
         /// <summary>
         /// 改变分P的命令.
         /// </summary>
-        IRelayCommand<VideoIdentifier> ChangePartCommand { get; }
+        IAsyncRelayCommand<VideoIdentifier> ChangePartCommand { get; }
 
         /// <summary>
         /// 重置播放历史的命令.
@@ -51,32 +51,32 @@ namespace Bili.ViewModels.Interfaces.Core
         /// <summary>
         /// 改变直播源是否仅有音频的命令.
         /// </summary>
-        IRelayCommand<bool> ChangeLiveAudioOnlyCommand { get; }
+        IAsyncRelayCommand<bool> ChangeLiveAudioOnlyCommand { get; }
 
         /// <summary>
         /// 改变清晰度/视频格式命令.
         /// </summary>
-        IRelayCommand<FormatInformation> ChangeFormatCommand { get; }
+        IAsyncRelayCommand<FormatInformation> ChangeFormatCommand { get; }
 
         /// <summary>
         /// 播放/暂停命令.
         /// </summary>
-        IRelayCommand PlayPauseCommand { get; }
+        IAsyncRelayCommand PlayPauseCommand { get; }
 
         /// <summary>
         /// 跳进命令.
         /// </summary>
-        IRelayCommand ForwardSkipCommand { get; }
+        IAsyncRelayCommand ForwardSkipCommand { get; }
 
         /// <summary>
         /// 后退命令.
         /// </summary>
-        IRelayCommand BackwardSkipCommand { get; }
+        IAsyncRelayCommand BackwardSkipCommand { get; }
 
         /// <summary>
         /// 改变播放速率的命令.
         /// </summary>
-        IRelayCommand<double> ChangePlayRateCommand { get; }
+        IAsyncRelayCommand<double> ChangePlayRateCommand { get; }
 
         /// <summary>
         /// 改变音量的命令.
@@ -101,7 +101,7 @@ namespace Bili.ViewModels.Interfaces.Core
         /// <summary>
         /// 截图命令.
         /// </summary>
-        IRelayCommand ScreenShotCommand { get; }
+        IAsyncRelayCommand ScreenShotCommand { get; }
 
         /// <summary>
         /// 改变进度的命令.
@@ -111,12 +111,12 @@ namespace Bili.ViewModels.Interfaces.Core
         /// <summary>
         /// 开始临时倍速播放.
         /// </summary>
-        IRelayCommand StartTempQuickPlayCommand { get; }
+        IAsyncRelayCommand StartTempQuickPlayCommand { get; }
 
         /// <summary>
         /// 停止临时倍速播放.
         /// </summary>
-        IRelayCommand StopTempQuickPlayCommand { get; }
+        IAsyncRelayCommand StopTempQuickPlayCommand { get; }
 
         /// <summary>
         /// 跳转到上次观看进度的命令.
@@ -131,7 +131,7 @@ namespace Bili.ViewModels.Interfaces.Core
         /// <summary>
         /// 报告观看进度的命令.
         /// </summary>
-        IRelayCommand ReportViewProgressCommand { get; }
+        IAsyncRelayCommand ReportViewProgressCommand { get; }
 
         /// <summary>
         /// 显示播放下一个视频的提示.

@@ -1,12 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.Generic;
-using System.Reactive;
 using Bili.Models.Data.Community;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Community
 {
@@ -18,16 +17,14 @@ namespace Bili.ViewModels.Uwp.Community
         private readonly ICallerViewModel _callerViewModel;
         private readonly IResourceToolkit _resourceToolkit;
 
-        /// <inheritdoc/>
         [ObservableProperty]
-        public MessageInformation Data { get; set; }
+        private MessageInformation _data;
+
+        [ObservableProperty]
+        private string _publishTime;
 
         /// <inheritdoc/>
-        [ObservableProperty]
-        public string PublishTime { get; set; }
-
-        /// <inheritdoc/>
-        public IRelayCommand ActiveCommand { get; }
+        public IAsyncRelayCommand ActiveCommand { get; }
 
         /// <inheritdoc/>
         public override bool Equals(object obj) => obj is MessageItemViewModel model && EqualityComparer<MessageInformation>.Default.Equals(Data, model.Data);

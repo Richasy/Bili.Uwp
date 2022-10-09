@@ -6,7 +6,7 @@ using Bili.Models.Data.Live;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Live;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 using Windows.System;
 
 namespace Bili.ViewModels.Uwp.Live

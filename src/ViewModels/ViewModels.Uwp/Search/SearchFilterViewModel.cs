@@ -4,26 +4,26 @@ using System.Collections.Generic;
 using System.Linq;
 using Bili.Models.Data.Appearance;
 using Bili.ViewModels.Interfaces.Search;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Bili.ViewModels.Uwp.Search
 {
     /// <summary>
     /// 搜索过滤视图模型.
     /// </summary>
-    public sealed class SearchFilterViewModel : ViewModelBase, ISearchFilterViewModel
+    public sealed partial class SearchFilterViewModel : ViewModelBase, ISearchFilterViewModel
     {
         /// <summary>
         /// 筛选器.
         /// </summary>
         [ObservableProperty]
-        public Filter Filter { get; set; }
+        private Filter _filter;
 
         /// <summary>
         /// 当前值.
         /// </summary>
         [ObservableProperty]
-        public Condition CurrentCondition { get; set; }
+        private Condition _currentCondition;
 
         /// <inheritdoc/>
         public void SetData(Filter filter, Condition currentCondition = null)

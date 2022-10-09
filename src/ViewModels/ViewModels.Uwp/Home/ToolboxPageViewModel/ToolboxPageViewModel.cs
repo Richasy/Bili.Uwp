@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
+using Bili.DI.Container;
 using Bili.Models.Enums;
 using Bili.ViewModels.Interfaces.Home;
 using Bili.ViewModels.Interfaces.Toolbox;
-using Splat;
 
 namespace Bili.ViewModels.Uwp.Home
 {
@@ -27,7 +27,7 @@ namespace Bili.ViewModels.Uwp.Home
 
         private IToolboxItemViewModel GetItemViewModel(ToolboxItemType type)
         {
-            var vm = Locator.Current.GetService<IToolboxItemViewModel>();
+            var vm = Locator.Instance.GetService<IToolboxItemViewModel>();
             vm.SetType(type);
             return vm;
         }

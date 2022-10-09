@@ -1,13 +1,12 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Dynamic;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Core;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Community
 {
@@ -22,36 +21,29 @@ namespace Bili.ViewModels.Uwp.Community
         private readonly ICallerViewModel _callerViewModel;
         private readonly INavigationViewModel _navigationViewModel;
 
-        /// <inheritdoc/>
         [ObservableProperty]
-        public IUserItemViewModel Publisher { get; set; }
+        private IUserItemViewModel _publisher;
+
+        [ObservableProperty]
+        private DynamicInformation _data;
+
+        [ObservableProperty]
+        private bool _isLiked;
+
+        [ObservableProperty]
+        private string _likeCountText;
+
+        [ObservableProperty]
+        private string _commentCountText;
+
+        [ObservableProperty]
+        private bool _isShowCommunity;
+
+        [ObservableProperty]
+        private bool _canAddViewLater;
 
         /// <inheritdoc/>
-        [ObservableProperty]
-        public DynamicInformation Data { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsLiked { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public string LikeCountText { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public string CommentCountText { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsShowCommunity { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool CanAddViewLater { get; set; }
-
-        /// <inheritdoc/>
-        public IRelayCommand ToggleLikeCommand { get; }
+        public IAsyncRelayCommand ToggleLikeCommand { get; }
 
         /// <inheritdoc/>
         public IRelayCommand ActiveCommand { get; }

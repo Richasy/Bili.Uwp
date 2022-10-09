@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Live;
 using Bili.Models.Data.Local;
@@ -12,8 +11,8 @@ using Bili.Models.Enums;
 using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Common
 {
@@ -34,6 +33,54 @@ namespace Bili.ViewModels.Uwp.Common
         private int _segmentIndex;
         private double _currentSeconds;
         private VideoType _videoType;
+
+        [ObservableProperty]
+        private bool _isShowDanmaku;
+
+        [ObservableProperty]
+        private bool _canShowDanmaku;
+
+        [ObservableProperty]
+        private double _danmakuOpacity;
+
+        [ObservableProperty]
+        private double _danmakuFontSize;
+
+        [ObservableProperty]
+        private double _danmakuArea;
+
+        [ObservableProperty]
+        private double _danmakuSpeed;
+
+        [ObservableProperty]
+        private string _danmakuFont;
+
+        [ObservableProperty]
+        private bool _isDanmakuLimit;
+
+        [ObservableProperty]
+        private bool _isDanmakuMerge;
+
+        [ObservableProperty]
+        private bool _isDanmakuBold;
+
+        [ObservableProperty]
+        private bool _useCloudShieldSettings;
+
+        [ObservableProperty]
+        private bool _isStandardSize;
+
+        [ObservableProperty]
+        private DanmakuLocation _location;
+
+        [ObservableProperty]
+        private string _color;
+
+        [ObservableProperty]
+        private bool _isReloading;
+
+        [ObservableProperty]
+        private bool _isDanmakuLoading;
 
         /// <inheritdoc/>
         public event EventHandler<IEnumerable<DanmakuInformation>> DanmakuListAdded;
@@ -57,85 +104,21 @@ namespace Bili.ViewModels.Uwp.Common
         public ObservableCollection<string> FontCollection { get; }
 
         /// <inheritdoc/>
-        public IRelayCommand ReloadCommand { get; }
+        public IAsyncRelayCommand ReloadCommand { get; }
 
         /// <inheritdoc/>
         public IRelayCommand ResetCommand { get; }
 
         /// <inheritdoc/>
-        public IRelayCommand<string, bool> SendDanmakuCommand { get; }
+        public IAsyncRelayCommand<string> SendDanmakuCommand { get; }
 
         /// <inheritdoc/>
-        public IRelayCommand<int> LoadSegmentDanmakuCommand { get; }
+        public IAsyncRelayCommand<int> LoadSegmentDanmakuCommand { get; }
 
         /// <inheritdoc/>
         public IRelayCommand<double> SeekCommand { get; }
 
         /// <inheritdoc/>
         public IRelayCommand<LiveDanmakuInformation> AddLiveDanmakuCommand { get; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsShowDanmaku { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool CanShowDanmaku { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public double DanmakuOpacity { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public double DanmakuFontSize { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public double DanmakuArea { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public double DanmakuSpeed { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public string DanmakuFont { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsDanmakuLimit { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsDanmakuMerge { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsDanmakuBold { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool UseCloudShieldSettings { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsStandardSize { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public DanmakuLocation Location { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public string Color { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableAsProperty]
-        public bool IsReloading { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableAsProperty]
-        public bool IsDanmakuLoading { get; set; }
     }
 }

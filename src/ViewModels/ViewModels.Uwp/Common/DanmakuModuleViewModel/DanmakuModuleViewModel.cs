@@ -2,7 +2,6 @@
 
 using System;
 using System.Collections.ObjectModel;
-using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Live;
@@ -11,8 +10,7 @@ using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Common;
 using Bili.ViewModels.Interfaces.Core;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Common
 {
@@ -44,19 +42,20 @@ namespace Bili.ViewModels.Uwp.Common
             ColorCollection = new ObservableCollection<KeyValue<string>>();
 
             ResetCommand = new RelayCommand(Reset);
-            SendDanmakuCommand = new AsyncRelayCommand<string, bool>(SendDanmakuAsync);
+            SendDanmakuCommand = new AsyncRelayCommand<string>(SendDanmakuAsync);
             ReloadCommand = new AsyncRelayCommand(ReloadAsync);
             LoadSegmentDanmakuCommand = new AsyncRelayCommand<int>(LoadSegmentDanmakuAsync);
             SeekCommand = new RelayCommand<double>(Seek);
             AddLiveDanmakuCommand = new RelayCommand<LiveDanmakuInformation>(AddLiveDanmaku);
 
-            ReloadCommand.IsExecuting.ToPropertyEx(this, x => x.IsReloading);
-            LoadSegmentDanmakuCommand.IsExecuting.ToPropertyEx(this, x => x.IsDanmakuLoading);
+            AttachIsRunningToAsyncCommand(p => IsReloading = p, ReloadCommand);
+            AttachIsRunningToAsyncCommand(p => IsDanmakuLoading = p, LoadSegmentDanmakuCommand);
 
-            SendDanmakuCommand.ThrownExceptions
-                .Merge(ReloadCommand.ThrownExceptions)
-                .Merge(LoadSegmentDanmakuCommand.ThrownExceptions)
-                .Subscribe(LogException);
+            AttachExceptionHandlerToAsyncCommand(
+                LogException,
+                SendDanmakuCommand,
+                ReloadCommand,
+                LoadSegmentDanmakuCommand);
 
             Initialize();
         }
@@ -68,7 +67,7 @@ namespace Bili.ViewModels.Uwp.Common
             _partId = partId;
             _videoType = type;
 
-            ReloadCommand.Execute().Subscribe();
+            ReloadCommand.ExecuteAsync(null);
         }
 
         /// <summary>

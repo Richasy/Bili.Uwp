@@ -1,11 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reactive.Linq;
 using System.Threading.Tasks;
+using Bili.DI.Container;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Article;
 using Bili.Models.Data.Community;
@@ -14,9 +13,7 @@ using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Article;
 using Bili.ViewModels.Interfaces.Common;
 using Bili.ViewModels.Uwp.Base;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
-using Splat;
+using CommunityToolkit.Mvvm.Input;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Article
@@ -56,16 +53,6 @@ namespace Bili.ViewModels.Uwp.Article
             };
 
             SortType = ArticleSortType.Default;
-
-            var isRecommend = this.WhenAnyValue(
-                x => x.CurrentPartition,
-                partition => partition?.Id == "0");
-
-            isRecommend.Merge(this.WhenAnyValue(x => x.Banners.Count, count => count > 0))
-                .ToPropertyEx(this, x => x.IsShowBanner);
-
-            isRecommend.ToPropertyEx(this, x => x.IsRecommendPartition);
-
             SelectPartitionCommand = new RelayCommand<Partition>(SelectPartition);
         }
 
@@ -102,7 +89,7 @@ namespace Bili.ViewModels.Uwp.Article
                 {
                     if (!Banners.Any(p => p.Uri == item.Uri))
                     {
-                        var vm = Locator.Current.GetService<IBannerViewModel>();
+                        var vm = Locator.Instance.GetService<IBannerViewModel>();
                         vm.InjectData(item);
                         Banners.Add(vm);
                     }
@@ -115,7 +102,7 @@ namespace Bili.ViewModels.Uwp.Article
                 {
                     if (!Ranks.Any(p => p.Data.Equals(article)))
                     {
-                        var articleVM = Locator.Current.GetService<IArticleItemViewModel>();
+                        var articleVM = Locator.Instance.GetService<IArticleItemViewModel>();
                         articleVM.InjectData(article);
                         Ranks.Add(articleVM);
                     }
@@ -131,7 +118,7 @@ namespace Bili.ViewModels.Uwp.Article
                         continue;
                     }
 
-                    var articleVM = Locator.Current.GetService<IArticleItemViewModel>();
+                    var articleVM = Locator.Instance.GetService<IArticleItemViewModel>();
                     articleVM.InjectData(article);
                     Items.Add(articleVM);
                 }
@@ -160,15 +147,21 @@ namespace Bili.ViewModels.Uwp.Article
                 var items = _caches[partition];
                 foreach (var data in items)
                 {
-                    var articleVM = Locator.Current.GetService<IArticleItemViewModel>();
+                    var articleVM = Locator.Instance.GetService<IArticleItemViewModel>();
                     articleVM.InjectData(data);
                     Items.Add(articleVM);
                 }
             }
             else
             {
-                InitializeCommand.Execute().Subscribe();
+                InitializeCommand.ExecuteAsync(null);
             }
+        }
+
+        partial void OnCurrentPartitionChanged(Partition value)
+        {
+            IsRecommendPartition = value?.Id == "0";
+            IsShowBanner = IsRecommendPartition && Banners.Count > 0;
         }
     }
 }

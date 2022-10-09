@@ -1,14 +1,13 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
-using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Pgc;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Pgc;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Pgc
 {
@@ -18,43 +17,37 @@ namespace Bili.ViewModels.Uwp.Pgc
     public sealed partial class PgcPlaylistViewModel
     {
         private readonly ICallerViewModel _callerViewModel;
-        private readonly ObservableAsPropertyHelper<bool> _isReloading;
         private readonly IPgcProvider _pgcProvider;
         private readonly IResourceToolkit _resourceToolkit;
+
+        [ObservableProperty]
+        private PgcPlaylist _data;
+
+        [ObservableProperty]
+        private string _subtitle;
+
+        [ObservableProperty]
+        private bool _isShowDetailButton;
+
+        [ObservableProperty]
+        private bool _isError;
+
+        [ObservableProperty]
+        private string _errorText;
+
+        [ObservableProperty]
+        private bool _isReloading;
 
         /// <inheritdoc/>
         public IRelayCommand ShowMoreCommand { get; }
 
         /// <inheritdoc/>
-        public IRelayCommand InitializeCommand { get; }
+        public IAsyncRelayCommand InitializeCommand { get; }
 
         /// <inheritdoc/>
-        public IRelayCommand ReloadCommand { get; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public PgcPlaylist Data { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public string Subtitle { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsShowDetailButton { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsError { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public string ErrorText { get; set; }
+        public IAsyncRelayCommand ReloadCommand { get; }
 
         /// <inheritdoc/>
         public ObservableCollection<ISeasonItemViewModel> Seasons { get; }
-
-        /// <inheritdoc/>
-        public bool IsReloading => _isReloading.Value;
     }
 }

@@ -2,8 +2,8 @@
 
 using System;
 using System.Collections.ObjectModel;
-using System.Reactive.Linq;
 using System.Threading.Tasks;
+using Bili.DI.Container;
 using Bili.Lib.Interfaces;
 using Bili.Models.App.Other;
 using Bili.Models.Data.Pgc;
@@ -11,8 +11,7 @@ using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Pgc;
-using ReactiveUI;
-using Splat;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Pgc
 {
@@ -39,8 +38,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             InitializeCommand = new AsyncRelayCommand(InitializeAsync);
             ReloadCommand = new AsyncRelayCommand(ReloadAsync);
 
-            _isReloading = InitializeCommand.IsExecuting.Merge(ReloadCommand.IsExecuting)
-                .ToProperty(this, x => x.IsReloading);
+            AttachIsRunningToAsyncCommand(p => IsReloading = p, InitializeCommand, ReloadCommand);
         }
 
         /// <summary>
@@ -88,7 +86,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             Subtitle = list.Subtitle;
             foreach (var item in list.Seasons)
             {
-                var seasonVM = Locator.Current.GetService<ISeasonItemViewModel>();
+                var seasonVM = Locator.Instance.GetService<ISeasonItemViewModel>();
                 seasonVM.InjectData(item);
                 Seasons.Add(seasonVM);
             }

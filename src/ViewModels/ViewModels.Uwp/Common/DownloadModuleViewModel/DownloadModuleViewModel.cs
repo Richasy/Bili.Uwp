@@ -5,14 +5,14 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Bili.DI.Container;
 using Bili.Lib.Interfaces;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Common;
 using Bili.ViewModels.Interfaces.Core;
-using ReactiveUI;
-using Splat;
+using CommunityToolkit.Mvvm.Input;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage.Pickers;
 
@@ -56,33 +56,6 @@ namespace Bili.ViewModels.Uwp.Common
             DownloadDanmaku = ReadSetting(SettingNames.Download_DownloadDanmaku, false);
             DownloadFolder = ReadSetting(SettingNames.Download_DownloadFolder, string.Empty);
             UseInteractionQuality = ReadSetting(SettingNames.Download_UseInteractionQuality, false);
-
-            this.WhenAnyValue(x => x.UseMp4Box)
-                .Subscribe(x => WriteSetting(SettingNames.Download_UseMp4Box, x));
-            this.WhenAnyValue(x => x.OnlyVideo)
-                .Subscribe(x => WriteSetting(SettingNames.Download_OnlyVideo, x));
-            this.WhenAnyValue(x => x.OnlyAudio)
-                .Subscribe(x => WriteSetting(SettingNames.Download_OnlyAudio, x));
-            this.WhenAnyValue(x => x.OnlyAvc)
-                .Subscribe(x => WriteSetting(SettingNames.Download_OnlyAvc, x));
-            this.WhenAnyValue(x => x.OnlyHevc)
-                .Subscribe(x => WriteSetting(SettingNames.Download_OnlyHevc, x));
-            this.WhenAnyValue(x => x.OnlySubtitle)
-                .Subscribe(x => WriteSetting(SettingNames.Download_OnlySubtitle, x));
-            this.WhenAnyValue(x => x.UseAppInterface)
-                .Subscribe(x => WriteSetting(SettingNames.Download_UseAppInterface, x));
-            this.WhenAnyValue(x => x.UseInternationalInterface)
-                .Subscribe(x => WriteSetting(SettingNames.Download_UseInternationalInterface, x));
-            this.WhenAnyValue(x => x.UseMultiThread)
-                .Subscribe(x => WriteSetting(SettingNames.Download_UseMultiThread, x));
-            this.WhenAnyValue(x => x.UseTvInterface)
-                .Subscribe(x => WriteSetting(SettingNames.Download_UseTvInterface, x));
-            this.WhenAnyValue(x => x.DownloadDanmaku)
-                .Subscribe(x => WriteSetting(SettingNames.Download_DownloadDanmaku, x));
-            this.WhenAnyValue(x => x.DownloadFolder)
-                .Subscribe(x => WriteSetting(SettingNames.Download_DownloadFolder, x));
-            this.WhenAnyValue(x => x.UseInteractionQuality)
-                .Subscribe(x => WriteSetting(SettingNames.Download_UseInteractionQuality, x));
         }
 
         /// <inheritdoc/>
@@ -92,7 +65,7 @@ namespace Bili.ViewModels.Uwp.Common
             TryClear(TotalPartCollection);
             foreach (var item in partList)
             {
-                var vm = Locator.Current.GetService<INumberPartViewModel>();
+                var vm = Locator.Instance.GetService<INumberPartViewModel>();
                 vm.InjectData(item);
                 vm.IsSelected = true;
                 TotalPartCollection.Add(vm);
@@ -239,5 +212,44 @@ namespace Bili.ViewModels.Uwp.Common
 
         private T ReadSetting<T>(SettingNames name, T defaultValue)
             => _settingsToolkit.ReadLocalSetting(name, defaultValue);
+
+        partial void OnUseMp4BoxChanged(bool value)
+         => WriteSetting(SettingNames.Download_UseMp4Box, value);
+
+        partial void OnOnlyVideoChanged(bool value)
+            => WriteSetting(SettingNames.Download_OnlyVideo, value);
+
+        partial void OnOnlyAudioChanged(bool value)
+            => WriteSetting(SettingNames.Download_OnlyAudio, value);
+
+        partial void OnOnlyAvcChanged(bool value)
+            => WriteSetting(SettingNames.Download_OnlyAvc, value);
+
+        partial void OnOnlyHevcChanged(bool value)
+            => WriteSetting(SettingNames.Download_OnlyHevc, value);
+
+        partial void OnOnlySubtitleChanged(bool value)
+            => WriteSetting(SettingNames.Download_OnlySubtitle, value);
+
+        partial void OnUseAppInterfaceChanged(bool value)
+            => WriteSetting(SettingNames.Download_UseAppInterface, value);
+
+        partial void OnUseInternationalInterfaceChanged(bool value)
+            => WriteSetting(SettingNames.Download_UseInternationalInterface, value);
+
+        partial void OnUseMultiThreadChanged(bool value)
+            => WriteSetting(SettingNames.Download_UseMultiThread, value);
+
+        partial void OnUseTvInterfaceChanged(bool value)
+            => WriteSetting(SettingNames.Download_UseTvInterface, value);
+
+        partial void OnDownloadDanmakuChanged(bool value)
+            => WriteSetting(SettingNames.Download_DownloadDanmaku, value);
+
+        partial void OnDownloadFolderChanged(string value)
+            => WriteSetting(SettingNames.Download_DownloadFolder, value);
+
+        partial void OnUseInteractionQualityChanged(bool value)
+            => WriteSetting(SettingNames.Download_UseInteractionQuality, value);
     }
 }

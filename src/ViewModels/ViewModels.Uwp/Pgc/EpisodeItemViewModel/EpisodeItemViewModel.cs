@@ -6,7 +6,7 @@ using Bili.Models.Data.Pgc;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Pgc;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 using Windows.System;
 
 namespace Bili.ViewModels.Uwp.Pgc

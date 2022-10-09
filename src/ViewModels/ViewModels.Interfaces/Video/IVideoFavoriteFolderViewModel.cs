@@ -14,7 +14,7 @@ namespace Bili.ViewModels.Interfaces.Video
         /// <summary>
         /// 移除收藏夹命令.
         /// </summary>
-        IRelayCommand RemoveCommand { get; }
+        IAsyncRelayCommand RemoveCommand { get; }
 
         /// <summary>
         /// 显示收藏夹详情命令.

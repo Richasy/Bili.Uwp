@@ -1,12 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
-using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Community;
 using Bili.Toolkit.Interfaces;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Live
@@ -20,6 +19,18 @@ namespace Bili.ViewModels.Uwp.Live
         private readonly IResourceToolkit _resourceToolkit;
         private readonly CoreDispatcher _dispatcher;
 
+        [ObservableProperty]
+        private Partition _currentParentPartition;
+
+        [ObservableProperty]
+        private string _errorText;
+
+        [ObservableProperty]
+        private bool _isError;
+
+        [ObservableProperty]
+        private bool _isReloading;
+
         /// <inheritdoc/>
         public ObservableCollection<Partition> ParentPartitions { get; }
 
@@ -27,28 +38,12 @@ namespace Bili.ViewModels.Uwp.Live
         public ObservableCollection<Partition> DisplayPartitions { get; }
 
         /// <inheritdoc/>
-        public IRelayCommand InitializeCommand { get; }
+        public IAsyncRelayCommand InitializeCommand { get; }
 
         /// <inheritdoc/>
-        public IRelayCommand ReloadCommand { get; }
+        public IAsyncRelayCommand ReloadCommand { get; }
 
         /// <inheritdoc/>
-        public IRelayCommand<Partition> SelectPartitionCommand { get; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public Partition CurrentParentPartition { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public string ErrorText { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsError { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableAsProperty]
-        public bool IsReloading { get; set; }
+        public IAsyncRelayCommand<Partition> SelectPartitionCommand { get; }
     }
 }

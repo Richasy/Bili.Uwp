@@ -1,13 +1,12 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
-using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Pgc;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Pgc
 {
@@ -20,33 +19,28 @@ namespace Bili.ViewModels.Uwp.Pgc
         private readonly IResourceToolkit _resourceToolkit;
         private PgcType _type;
 
+        [ObservableProperty]
+        private string _title;
+
+        [ObservableProperty]
+        private string _description;
+
+        [ObservableProperty]
+        private bool _isError;
+
+        [ObservableProperty]
+        private string _errorText;
+
+        [ObservableProperty]
+        private bool _isReloading;
+
         /// <inheritdoc/>
         public ObservableCollection<TimelineInformation> Timelines { get; }
 
         /// <inheritdoc/>
-        public IRelayCommand InitializeCommand { get; }
+        public IAsyncRelayCommand InitializeCommand { get; }
 
         /// <inheritdoc/>
-        public IRelayCommand ReloadCommand { get; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public string Title { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public string Description { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsError { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public string ErrorText { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableAsProperty]
-        public bool IsReloading { get; set; }
+        public IAsyncRelayCommand ReloadCommand { get; }
     }
 }

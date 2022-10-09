@@ -1,13 +1,12 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
-using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.App.Other;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Community;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Community
 {
@@ -18,6 +17,18 @@ namespace Bili.ViewModels.Uwp.Community
     {
         private readonly IResourceToolkit _resourceToolkit;
         private readonly IAuthorizeProvider _authorizeProvider;
+
+        [ObservableProperty]
+        private DynamicHeader _currentHeader;
+
+        [ObservableProperty]
+        private bool _isShowVideo;
+
+        [ObservableProperty]
+        private bool _isShowAll;
+
+        [ObservableProperty]
+        private bool _needSignIn;
 
         /// <inheritdoc/>
         public IRelayCommand RefreshModuleCommand { get; }
@@ -33,21 +44,5 @@ namespace Bili.ViewModels.Uwp.Community
 
         /// <inheritdoc/>
         public IDynamicAllModuleViewModel AllModule { get; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public DynamicHeader CurrentHeader { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsShowVideo { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsShowAll { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool NeedSignIn { get; set; }
     }
 }

@@ -56,7 +56,7 @@ namespace Bili.ViewModels.Uwp.Pgc
                 }
             }
 
-            ReloadCommunityInformationCommand.Execute().Subscribe();
+            ReloadCommunityInformationCommand.ExecuteAsync(null);
             MediaPlayerViewModel.SetPgcData(View, CurrentEpisode);
             _commentPageViewModel.SetData(CurrentEpisode.VideoId, CommentType.Video);
             CreatePlayNextAction();
@@ -124,16 +124,16 @@ namespace Bili.ViewModels.Uwp.Pgc
 
             if (IsVideoFixed)
             {
-                _accountViewModel.RemoveFixedItemCommand.Execute(View.Information.Identifier.Id).Subscribe();
+                _accountViewModel.RemoveFixedItemCommand.ExecuteAsync(View.Information.Identifier.Id);
                 IsVideoFixed = false;
             }
             else
             {
-                _accountViewModel.AddFixedItemCommand.Execute(new FixedItem(
+                _accountViewModel.AddFixedItemCommand.ExecuteAsync(new FixedItem(
                     View.Information.Identifier.Cover.Uri,
                     View.Information.Identifier.Title,
                     View.Information.Identifier.Id,
-                    Models.Enums.App.FixedType.Pgc)).Subscribe();
+                    Models.Enums.App.FixedType.Pgc));
                 IsVideoFixed = true;
             }
         }
@@ -170,7 +170,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             }
             else
             {
-                MediaPlayerViewModel.ShowNextVideoTipCommand.Execute().Subscribe();
+                MediaPlayerViewModel.ShowNextVideoTipCommand.Execute(null);
             }
         }
 
@@ -187,7 +187,7 @@ namespace Bili.ViewModels.Uwp.Pgc
                 return;
             }
 
-            ChangeEpisodeCommand.Execute(episode.Data).Subscribe();
+            ChangeEpisodeCommand.Execute(episode.Data);
         }
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)

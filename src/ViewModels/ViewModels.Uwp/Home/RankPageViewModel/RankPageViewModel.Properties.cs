@@ -2,14 +2,13 @@
 
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Community;
 using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Video;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Home
@@ -24,35 +23,31 @@ namespace Bili.ViewModels.Uwp.Home
         private readonly CoreDispatcher _dispatcher;
         private readonly Dictionary<Partition, IEnumerable<VideoInformation>> _caches;
 
-        /// <inheritdoc/>
-        public IRelayCommand InitializeCommand { get; }
-
-        /// <inheritdoc/>
-        public IRelayCommand ReloadCommand { get; }
-
-        /// <inheritdoc/>
-        public IRelayCommand<Partition> SelectPartitionCommand { get; }
-
-        /// <inheritdoc/>
         [ObservableProperty]
-        public Partition CurrentPartition { get; set; }
+        private Partition _currentPartition;
+
+        [ObservableProperty]
+        private string _errorText;
+
+        [ObservableProperty]
+        private bool _isError;
+
+        [ObservableProperty]
+        private bool _isReloading;
 
         /// <inheritdoc/>
-        [ObservableProperty]
-        public string ErrorText { get; set; }
+        public IAsyncRelayCommand InitializeCommand { get; }
 
         /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsError { get; set; }
+        public IAsyncRelayCommand ReloadCommand { get; }
+
+        /// <inheritdoc/>
+        public IAsyncRelayCommand<Partition> SelectPartitionCommand { get; }
 
         /// <inheritdoc/>
         public ObservableCollection<Partition> Partitions { get; }
 
         /// <inheritdoc/>
         public ObservableCollection<IVideoItemViewModel> Videos { get; }
-
-        /// <inheritdoc/>
-        [ObservableAsProperty]
-        public bool IsReloading { get; set; }
     }
 }

@@ -1,12 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
-using System.Reactive;
 using Bili.Models.App.Other;
 using Bili.Models.Data.Local;
 using Bili.Toolkit.Interfaces;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Home
 {
@@ -18,6 +17,9 @@ namespace Bili.ViewModels.Uwp.Home
         private readonly IFileToolkit _fileToolkit;
         private readonly IAppToolkit _appToolkit;
 
+        [ObservableProperty]
+        private QuestionModule _currentQuestionModule;
+
         /// <inheritdoc/>
         public ObservableCollection<KeyValue<string>> LinkCollection { get; }
 
@@ -25,19 +27,15 @@ namespace Bili.ViewModels.Uwp.Home
         public ObservableCollection<QuestionModule> QuestionCollection { get; }
 
         /// <inheritdoc/>
-        [ObservableProperty]
-        public QuestionModule CurrentQuestionModule { get; set; }
+        public IAsyncRelayCommand AskIssueCommand { get; }
 
         /// <inheritdoc/>
-        public IRelayCommand AskIssueCommand { get; }
+        public IAsyncRelayCommand GotoProjectHomeCommand { get; }
 
         /// <inheritdoc/>
-        public IRelayCommand GotoProjectHomeCommand { get; }
+        public IAsyncRelayCommand GotoDeveloperBiliBiliHomePageCommand { get; }
 
         /// <inheritdoc/>
-        public IRelayCommand GotoDeveloperBiliBiliHomePageCommand { get; }
-
-        /// <inheritdoc/>
-        public IRelayCommand InitializeCommand { get; }
+        public IAsyncRelayCommand InitializeCommand { get; }
     }
 }

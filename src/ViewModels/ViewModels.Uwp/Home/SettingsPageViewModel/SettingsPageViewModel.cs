@@ -3,6 +3,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using Bili.Models.App.Constants;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
@@ -10,7 +11,7 @@ using Bili.Models.Enums.Player;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Home;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Background;
 
@@ -31,7 +32,6 @@ namespace Bili.ViewModels.Uwp.Home
             IResourceToolkit resourceToolkit,
             IAppToolkit appToolkit)
         {
-            _callerViewModel = callerViewModel;
             _appViewModel = appViewModel;
             _settingsToolkit = settingsToolkit;
             _resourceToolkit = resourceToolkit;
@@ -43,7 +43,11 @@ namespace Bili.ViewModels.Uwp.Home
             PlayerTypeCollection = new ObservableCollection<PlayerType>();
             PreferQualities = new ObservableCollection<PreferQuality>();
 
-            InitializeCommand = new RelayCommand(InitializeSettings);
+            InitializeCommand = new AsyncRelayCommand(() =>
+            {
+                InitializeSettings();
+                return Task.CompletedTask;
+            });
 
             InitializeSettings();
         }
@@ -149,7 +153,7 @@ namespace Bili.ViewModels.Uwp.Home
                     break;
                 case nameof(IsOpenDynamicNotification):
                     WriteSetting(SettingNames.IsOpenNewDynamicNotify, IsOpenDynamicNotification);
-                    _appViewModel.CheckNewDynamicRegistrationCommand.Execute().Subscribe();
+                    _ = _appViewModel.CheckNewDynamicRegistrationCommand.ExecuteAsync(null);
                     break;
                 case nameof(IsFullTraditionalChinese):
                     WriteSetting(SettingNames.IsFullTraditionalChinese, IsFullTraditionalChinese);

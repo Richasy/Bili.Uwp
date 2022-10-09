@@ -20,12 +20,12 @@ namespace Bili.ViewModels.Interfaces.Video
         /// <summary>
         /// 请求用户已有的收藏夹列表的命令.
         /// </summary>
-        IRelayCommand RequestFavoriteFoldersCommand { get; }
+        IAsyncRelayCommand RequestFavoriteFoldersCommand { get; }
 
         /// <summary>
         /// 请求获取实时在线观看人数的命令.
         /// </summary>
-        IRelayCommand RequestOnlineCountCommand { get; }
+        IAsyncRelayCommand RequestOnlineCountCommand { get; }
 
         /// <summary>
         /// 改变视频分P的命令.
@@ -45,27 +45,27 @@ namespace Bili.ViewModels.Interfaces.Video
         /// <summary>
         /// 收藏视频命令.
         /// </summary>
-        IRelayCommand FavoriteVideoCommand { get; }
+        IAsyncRelayCommand FavoriteVideoCommand { get; }
 
         /// <summary>
         /// 投币命令.
         /// </summary>
-        IRelayCommand<int> CoinCommand { get; }
+        IAsyncRelayCommand<int> CoinCommand { get; }
 
         /// <summary>
         /// 点赞/取消点赞命令.
         /// </summary>
-        IRelayCommand LikeCommand { get; }
+        IAsyncRelayCommand LikeCommand { get; }
 
         /// <summary>
         /// 一键三连命令.
         /// </summary>
-        IRelayCommand TripleCommand { get; }
+        IAsyncRelayCommand TripleCommand { get; }
 
         /// <summary>
         /// 重置社区信息命令.
         /// </summary>
-        IRelayCommand ReloadCommunityInformationCommand { get; }
+        IAsyncRelayCommand ReloadCommunityInformationCommand { get; }
 
         /// <summary>
         /// 分享命令.

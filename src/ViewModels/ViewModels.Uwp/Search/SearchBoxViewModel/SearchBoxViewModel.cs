@@ -9,7 +9,7 @@ using Bili.Lib.Interfaces;
 using Bili.Models.Data.Search;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Search;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 
@@ -45,10 +45,7 @@ namespace Bili.ViewModels.Uwp.Search
             };
             _suggestionTimer.Tick += OnSuggestionTimerTickAsync;
 
-            this.WhenAnyValue(x => x.Keyword)
-                .Subscribe(x => HandleKeywordChanged(x));
-
-            InitializeCommand.ThrownExceptions.Subscribe(LogException);
+            AttachExceptionHandlerToAsyncCommand(LogException, InitializeCommand);
         }
 
         private void Search(SearchSuggest suggest)
@@ -150,5 +147,8 @@ namespace Bili.ViewModels.Uwp.Search
                 await LoadSearchSuggestionAsync();
             }
         }
+
+        partial void OnKeywordChanged(string value)
+            => HandleKeywordChanged(value);
     }
 }

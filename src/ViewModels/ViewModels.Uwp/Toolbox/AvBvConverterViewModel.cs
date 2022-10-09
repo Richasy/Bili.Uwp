@@ -1,14 +1,13 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using System.Reactive;
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Toolbox;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Toolbox
@@ -16,13 +15,28 @@ namespace Bili.ViewModels.Uwp.Toolbox
     /// <summary>
     /// AV/BV互转视图模型.
     /// </summary>
-    public sealed class AvBvConverterViewModel : ViewModelBase, IAvBvConverterViewModel
+    public sealed partial class AvBvConverterViewModel : ViewModelBase, IAvBvConverterViewModel
     {
         private readonly IPlayerProvider _playerProvider;
         private readonly IResourceToolkit _resourceToolkit;
         private readonly IVideoToolkit _videoToolkit;
         private readonly IAppViewModel _appViewModel;
         private readonly CoreDispatcher _dispatcher;
+
+        [ObservableProperty]
+        private string _inputId;
+
+        [ObservableProperty]
+        private string _outputId;
+
+        [ObservableProperty]
+        private bool _isError;
+
+        [ObservableProperty]
+        private string _errorMessage;
+
+        [ObservableProperty]
+        private bool _isConverting;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AvBvConverterViewModel"/> class.
@@ -39,34 +53,14 @@ namespace Bili.ViewModels.Uwp.Toolbox
             _appViewModel = appViewModel;
             _playerProvider = playerProvider;
             ConvertCommand = new AsyncRelayCommand(ConvertAsync);
-            ConvertCommand.IsExecuting.ToPropertyEx(this, x => x.IsConverting);
 
-            ConvertCommand.ThrownExceptions.Subscribe(DisplayExAsync);
+            AttachIsRunningToAsyncCommand(p => IsConverting = p, ConvertCommand);
+            AttachExceptionHandlerToAsyncCommand(DisplayExAsync, ConvertCommand);
             _dispatcher = dispatcher;
         }
 
         /// <inheritdoc/>
-        public IRelayCommand ConvertCommand { get; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public string InputId { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public string OutputId { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsError { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public string ErrorMessage { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableAsProperty]
-        public bool IsConverting { get; set; }
+        public IAsyncRelayCommand ConvertCommand { get; }
 
         /// <summary>
         /// 转换.

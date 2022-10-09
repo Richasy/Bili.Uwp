@@ -1,11 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reactive.Linq;
 using System.Threading.Tasks;
+using Bili.DI.Container;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Community;
 using Bili.Models.Data.Video;
@@ -14,9 +13,7 @@ using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Common;
 using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
-using Splat;
+using CommunityToolkit.Mvvm.Input;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Community
@@ -50,15 +47,6 @@ namespace Bili.ViewModels.Uwp.Community
                 VideoSortType.Danmaku,
                 VideoSortType.Favorite,
             };
-
-            var isRecommend = this.WhenAnyValue(
-                x => x.CurrentSubPartition,
-                partition => partition?.Id == OriginPartition?.Id);
-
-            isRecommend.Merge(this.WhenAnyValue(x => x.Banners.Count, count => count > 0))
-                .ToPropertyEx(this, x => x.IsShowBanner);
-
-            isRecommend.ToPropertyEx(this, x => x.IsRecommendPartition);
 
             SelectPartitionCommand = new RelayCommand<Partition>(SelectSubPartition);
         }
@@ -99,7 +87,7 @@ namespace Bili.ViewModels.Uwp.Community
                 {
                     if (!Banners.Any(p => p.Uri == item.Uri))
                     {
-                        var vm = Locator.Current.GetService<IBannerViewModel>();
+                        var vm = Locator.Instance.GetService<IBannerViewModel>();
                         vm.InjectData(item);
                         Banners.Add(vm);
                     }
@@ -110,7 +98,7 @@ namespace Bili.ViewModels.Uwp.Community
             {
                 foreach (var video in data.Videos)
                 {
-                    var videoVM = Locator.Current.GetService<IVideoItemViewModel>();
+                    var videoVM = Locator.Instance.GetService<IVideoItemViewModel>();
                     videoVM.InjectData(video);
                     Items.Add(videoVM);
                 }
@@ -139,15 +127,21 @@ namespace Bili.ViewModels.Uwp.Community
                 var data = _caches[subPartition];
                 foreach (var video in data)
                 {
-                    var videoVM = Splat.Locator.Current.GetService<IVideoItemViewModel>();
+                    var videoVM = Locator.Instance.GetService<IVideoItemViewModel>();
                     videoVM.InjectData(video);
                     Items.Add(videoVM);
                 }
             }
             else
             {
-                InitializeCommand.Execute().Subscribe();
+                InitializeCommand.ExecuteAsync(null);
             }
+        }
+
+        partial void OnCurrentSubPartitionChanged(Partition value)
+        {
+            IsRecommendPartition = value?.Id == OriginPartition?.Id;
+            IsShowBanner = Banners.Count > 0 && IsRecommendPartition;
         }
     }
 }

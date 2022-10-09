@@ -10,8 +10,8 @@ using Bili.Models.Enums.Bili;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Community;
 using Bili.ViewModels.Interfaces.Core;
+using CommunityToolkit.Mvvm.Input;
 using Humanizer;
-using ReactiveUI;
 using Windows.System;
 
 namespace Bili.ViewModels.Uwp.Community

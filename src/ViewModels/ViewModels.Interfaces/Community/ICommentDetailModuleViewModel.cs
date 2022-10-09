@@ -23,7 +23,7 @@ namespace Bili.ViewModels.Interfaces.Community
         /// <summary>
         /// 发送评论命令.
         /// </summary>
-        IRelayCommand SendCommentCommand { get; }
+        IAsyncRelayCommand SendCommentCommand { get; }
 
         /// <summary>
         /// 返回到上一层（主视图）的命令.

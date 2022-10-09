@@ -3,8 +3,8 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Bili.DI.Container;
 using Bili.ViewModels.Interfaces.Video;
-using Splat;
 
 namespace Bili.ViewModels.Uwp.Video
 {
@@ -28,7 +28,7 @@ namespace Bili.ViewModels.Uwp.Video
             foreach (var item in data.Item1.Items)
             {
                 var isSelected = selectIds != null && selectIds.Contains(item.Id);
-                var vm = Locator.Current.GetService<IVideoFavoriteFolderSelectableViewModel>();
+                var vm = Locator.Instance.GetService<IVideoFavoriteFolderSelectableViewModel>();
                 vm.InjectData(item);
                 vm.IsSelected = isSelected;
                 FavoriteFolders.Add(vm);
@@ -52,7 +52,7 @@ namespace Bili.ViewModels.Uwp.Video
             if (result == Models.Enums.Bili.FavoriteResult.Success || result == Models.Enums.Bili.FavoriteResult.InsufficientAccess)
             {
                 IsFavorited = selectedFolders.Count > 0;
-                ReloadCommunityInformationCommand.Execute().Subscribe();
+                _ = ReloadCommunityInformationCommand.ExecuteAsync(null);
             }
             else
             {
@@ -71,7 +71,7 @@ namespace Bili.ViewModels.Uwp.Video
                     IsLiked = true;
                 }
 
-                ReloadCommunityInformationCommand.Execute().Subscribe();
+                _ = ReloadCommunityInformationCommand.ExecuteAsync(null);
             }
             else
             {
@@ -86,7 +86,7 @@ namespace Bili.ViewModels.Uwp.Video
             if (isSuccess)
             {
                 IsLiked = isLike;
-                ReloadCommunityInformationCommand.Execute().Subscribe();
+                _ = ReloadCommunityInformationCommand.ExecuteAsync(null);
             }
             else
             {
@@ -100,7 +100,7 @@ namespace Bili.ViewModels.Uwp.Video
             IsLiked = info.IsLiked;
             IsFavorited = info.IsFavorited;
             IsCoined = info.IsCoined;
-            ReloadCommunityInformationCommand.Execute().Subscribe();
+            _ = ReloadCommunityInformationCommand.ExecuteAsync(null);
         }
 
         private async Task ReloadCommunityInformationAsync()

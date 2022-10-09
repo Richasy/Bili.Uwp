@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Reactive.Linq;
 using System.Threading.Tasks;
+using Bili.DI.Container;
 using Bili.Lib.Interfaces;
+using Bili.Models.App.Other;
 using Bili.Models.Data.Community;
 using Bili.Models.Data.Local;
 using Bili.Models.Data.Video;
@@ -17,9 +17,7 @@ using Bili.ViewModels.Interfaces.Community;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
-using Splat;
+using CommunityToolkit.Mvvm.Input;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Video
@@ -91,20 +89,11 @@ namespace Bili.ViewModels.Uwp.Video
             ClearPlaylistCommand = new RelayCommand(ClearPlaylist);
             ClearCommand = new RelayCommand(Clear);
 
-            ReloadCommand.IsExecuting.ToPropertyEx(this, x => x.IsReloading);
-            RequestFavoriteFoldersCommand.IsExecuting.ToPropertyEx(this, x => x.IsFavoriteFolderRequesting);
+            AttachIsRunningToAsyncCommand(p => IsReloading = p, ReloadCommand);
+            AttachIsRunningToAsyncCommand(p => IsFavoriteFolderRequesting = p, RequestFavoriteFoldersCommand);
 
-            ReloadCommand.ThrownExceptions.Subscribe(DisplayException);
-            RequestFavoriteFoldersCommand.ThrownExceptions.Subscribe(DisplayFavoriteFoldersException);
-
-            this.WhenAnyValue(p => p.CurrentSection)
-                .WhereNotNull()
-                .ObserveOn(RxApp.MainThreadScheduler)
-                .Subscribe(_ => CheckSectionVisibility());
-
-            this.WhenAnyValue(p => p.IsOnlyShowIndex)
-                .ObserveOn(RxApp.MainThreadScheduler)
-                .Subscribe(isShow => _settingsToolkit.WriteLocalSetting(SettingNames.IsOnlyShowIndex, isShow));
+            AttachExceptionHandlerToAsyncCommand(DisplayException, ReloadCommand);
+            AttachExceptionHandlerToAsyncCommand(DisplayFavoriteFoldersException, RequestFavoriteFoldersCommand);
         }
 
         /// <inheritdoc/>
@@ -114,7 +103,7 @@ namespace Bili.ViewModels.Uwp.Video
             _presetVideoId = snapshot.VideoId;
             var defaultPlayMode = _settingsToolkit.ReadLocalSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
             MediaPlayerViewModel.DisplayMode = snapshot.DisplayMode ?? defaultPlayMode;
-            ReloadCommand.Execute().Subscribe();
+            ReloadCommand.ExecuteAsync(null);
         }
 
         /// <inheritdoc/>
@@ -152,8 +141,8 @@ namespace Bili.ViewModels.Uwp.Video
                 Title = View.Information.Identifier.Title,
             };
 
-            _recordViewModel.AddLastPlayItemCommand.Execute(snapshot).Subscribe();
-            _recordViewModel.AddPlayRecordCommand.Execute(new PlayRecord(View.Information.Identifier, snapshot)).Subscribe();
+            _ = _recordViewModel.AddLastPlayItemCommand.ExecuteAsync(snapshot);
+            _recordViewModel.AddPlayRecordCommand.Execute(new PlayRecord(View.Information.Identifier, snapshot));
             InitializePublisher();
             InitializeOverview();
             InitializeOperation();
@@ -171,7 +160,7 @@ namespace Bili.ViewModels.Uwp.Video
             {
                 MediaPlayerViewModel.MediaEnded -= OnMediaEnded;
                 MediaPlayerViewModel.InternalPartChanged -= OnInternalPartChanged;
-                MediaPlayerViewModel.ClearCommand.Execute().Subscribe();
+                MediaPlayerViewModel.ClearCommand.Execute(null);
                 MediaPlayerViewModel = null;
             }
         }
@@ -183,9 +172,20 @@ namespace Bili.ViewModels.Uwp.Video
                 return;
             }
 
-            MediaPlayerViewModel = Locator.Current.GetService<IMediaPlayerViewModel>();
+            MediaPlayerViewModel = Locator.Instance.GetService<IMediaPlayerViewModel>();
             MediaPlayerViewModel.MediaEnded += OnMediaEnded;
             MediaPlayerViewModel.InternalPartChanged += OnInternalPartChanged;
         }
+
+        partial void OnCurrentSectionChanged(PlayerSectionHeader value)
+        {
+            if (value != null)
+            {
+                CheckSectionVisibility();
+            }
+        }
+
+        partial void OnIsOnlyShowIndexChanged(bool value)
+            => _settingsToolkit.WriteLocalSetting(SettingNames.IsOnlyShowIndex, value);
     }
 }

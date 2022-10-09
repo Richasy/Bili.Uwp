@@ -14,7 +14,7 @@ namespace Bili.ViewModels.Interfaces.Community
         /// <summary>
         /// 点赞或取消点赞的命令.
         /// </summary>
-        IRelayCommand ToggleLikeCommand { get; }
+        IAsyncRelayCommand ToggleLikeCommand { get; }
 
         /// <summary>
         /// 显示评论详情的命令.

@@ -2,7 +2,6 @@
 
 using System;
 using System.Collections.ObjectModel;
-using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.App.Other;
 using Bili.Models.Data.Pgc;
@@ -13,9 +12,8 @@ using Bili.ViewModels.Interfaces.Community;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Pgc;
 using Bili.ViewModels.Interfaces.Video;
-using Bili.ViewModels.Uwp.Community;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Pgc
 {
@@ -43,19 +41,101 @@ namespace Bili.ViewModels.Uwp.Pgc
         private bool _needBiliPlus;
         private Action _playNextEpisodeAction;
 
-        /// <inheritdoc/>
-        [ObservableAsProperty]
-        public bool IsReloading { get; set; }
+        [ObservableProperty]
+        private bool _isReloading;
+
+        [ObservableProperty]
+        private bool _isFavoriteFolderRequesting;
+
+        [ObservableProperty]
+        private PgcPlayerView _view;
+
+        [ObservableProperty]
+        private bool _isSignedIn;
+
+        [ObservableProperty]
+        private string _playCountText;
+
+        [ObservableProperty]
+        private string _danmakuCountText;
+
+        [ObservableProperty]
+        private string _commentCountText;
+
+        [ObservableProperty]
+        private string _likeCountText;
+
+        [ObservableProperty]
+        private string _coinCountText;
+
+        [ObservableProperty]
+        private string _favoriteCountText;
+
+        [ObservableProperty]
+        private string _ratingCountText;
+
+        [ObservableProperty]
+        private bool _isLiked;
+
+        [ObservableProperty]
+        private bool _isCoined;
+
+        [ObservableProperty]
+        private bool _isFavorited;
+
+        [ObservableProperty]
+        private bool _isTracking;
+
+        [ObservableProperty]
+        private bool _isCoinWithLiked;
+
+        [ObservableProperty]
+        private bool _isError;
+
+        [ObservableProperty]
+        private string _errorText;
+
+        [ObservableProperty]
+        private bool _isFavoriteFoldersError;
+
+        [ObservableProperty]
+        private string _favoriteFoldersErrorText;
+
+        [ObservableProperty]
+        private bool _isVideoFixed;
+
+        [ObservableProperty]
+        private bool _isOnlyShowIndex;
+
+        [ObservableProperty]
+        private bool _isShowCelebrities;
+
+        [ObservableProperty]
+        private PlayerSectionHeader _currentSection;
+
+        [ObservableProperty]
+        private EpisodeInformation _currentEpisode;
+
+        [ObservableProperty]
+        private bool _isShowSeasons;
+
+        [ObservableProperty]
+        private bool _isShowEpisodes;
+
+        [ObservableProperty]
+        private bool _isShowComments;
+
+        [ObservableProperty]
+        private bool _isShowExtras;
+
+        [ObservableProperty]
+        private bool _isSectionsEmpty;
 
         /// <inheritdoc/>
-        [ObservableAsProperty]
-        public bool IsFavoriteFolderRequesting { get; set; }
+        public IAsyncRelayCommand ReloadCommand { get; }
 
         /// <inheritdoc/>
-        public IRelayCommand ReloadCommand { get; }
-
-        /// <inheritdoc/>
-        public IRelayCommand RequestFavoriteFoldersCommand { get; }
+        public IAsyncRelayCommand RequestFavoriteFoldersCommand { get; }
 
         /// <inheritdoc/>
         public IRelayCommand<EpisodeInformation> ChangeEpisodeCommand { get; }
@@ -64,22 +144,22 @@ namespace Bili.ViewModels.Uwp.Pgc
         public IRelayCommand<SeasonInformation> ChangeSeasonCommand { get; }
 
         /// <inheritdoc/>
-        public IRelayCommand FavoriteEpisodeCommand { get; }
+        public IAsyncRelayCommand FavoriteEpisodeCommand { get; }
 
         /// <inheritdoc/>
-        public IRelayCommand TrackSeasonCommand { get; }
+        public IAsyncRelayCommand TrackSeasonCommand { get; }
 
         /// <inheritdoc/>
-        public IRelayCommand<int> CoinCommand { get; }
+        public IAsyncRelayCommand<int> CoinCommand { get; }
 
         /// <inheritdoc/>
-        public IRelayCommand LikeCommand { get; }
+        public IAsyncRelayCommand LikeCommand { get; }
 
         /// <inheritdoc/>
-        public IRelayCommand TripleCommand { get; }
+        public IAsyncRelayCommand TripleCommand { get; }
 
         /// <inheritdoc/>
-        public IRelayCommand ReloadCommunityInformationCommand { get; }
+        public IAsyncRelayCommand ReloadCommunityInformationCommand { get; }
 
         /// <inheritdoc/>
         public IRelayCommand ShareCommand { get; }
@@ -113,117 +193,5 @@ namespace Bili.ViewModels.Uwp.Pgc
 
         /// <inheritdoc/>
         public IDownloadModuleViewModel DownloadViewModel { get; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public PgcPlayerView View { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsSignedIn { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public string PlayCountText { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public string DanmakuCountText { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public string CommentCountText { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public string LikeCountText { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public string CoinCountText { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public string FavoriteCountText { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public string RatingCountText { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsLiked { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsCoined { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsFavorited { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsTracking { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsCoinWithLiked { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsError { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public string ErrorText { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsFavoriteFoldersError { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public string FavoriteFoldersErrorText { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsVideoFixed { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsOnlyShowIndex { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsShowCelebrities { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public PlayerSectionHeader CurrentSection { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public EpisodeInformation CurrentEpisode { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsShowSeasons { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsShowEpisodes { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsShowComments { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsShowExtras { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsSectionsEmpty { get; set; }
     }
 }

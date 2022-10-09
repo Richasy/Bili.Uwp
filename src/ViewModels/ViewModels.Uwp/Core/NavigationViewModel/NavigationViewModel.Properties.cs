@@ -2,12 +2,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.Reactive;
 using Bili.Models.App.Args;
 using Bili.Models.Enums;
 using Bili.ViewModels.Interfaces.Core;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Core
 {
@@ -19,6 +18,21 @@ namespace Bili.ViewModels.Uwp.Core
         private readonly IRecordViewModel _recordViewModel;
         private readonly List<AppBackEventArgs> _backStack;
 
+        [ObservableProperty]
+        private bool _isMainViewShown;
+
+        [ObservableProperty]
+        private bool _isSecondaryViewShown;
+
+        [ObservableProperty]
+        private bool _isPlayViewShown;
+
+        [ObservableProperty]
+        private bool _canBack;
+
+        [ObservableProperty]
+        private bool _isBackButtonEnabled;
+
         /// <inheritdoc/>
         public event EventHandler<AppNavigationEventArgs> Navigating;
 
@@ -27,26 +41,6 @@ namespace Bili.ViewModels.Uwp.Core
 
         /// <inheritdoc/>
         public IRelayCommand BackCommand { get; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsMainViewShown { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsSecondaryViewShown { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsPlayViewShown { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool CanBack { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsBackButtonEnabled { get; set; }
 
         /// <inheritdoc/>
         public PageIds MainViewId { get; set; }

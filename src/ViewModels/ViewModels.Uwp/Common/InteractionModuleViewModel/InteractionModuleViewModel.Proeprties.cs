@@ -2,11 +2,10 @@
 
 using System;
 using System.Collections.ObjectModel;
-using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Player;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Common
 {
@@ -21,17 +20,16 @@ namespace Bili.ViewModels.Uwp.Common
         private string _choiceId;
         private string _graphVersion;
 
+        [ObservableProperty]
+        private bool _isReloading;
+
         /// <inheritdoc/>
         public event EventHandler NoMoreChoices;
 
         /// <inheritdoc/>
-        public IRelayCommand ReloadCommand { get; }
+        public IAsyncRelayCommand ReloadCommand { get; }
 
         /// <inheritdoc/>
         public ObservableCollection<InteractionInformation> Choices { get; }
-
-        /// <inheritdoc/>
-        [ObservableAsProperty]
-        public bool IsReloading { get; set; }
     }
 }

@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Bili.DI.Container;
 using Bili.Lib.Interfaces;
 using Bili.Models.App.Args;
 using Bili.Models.Data.Appearance;
@@ -19,8 +20,7 @@ using Bili.ViewModels.Interfaces.Article;
 using Bili.ViewModels.Interfaces.Community;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Video;
-using ReactiveUI;
-using Splat;
+using CommunityToolkit.Mvvm.Input;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage.Streams;
 
@@ -77,7 +77,7 @@ namespace Bili.ViewModels.Uwp.Community
 
             if (Data.User != null)
             {
-                var userVM = Splat.Locator.Current.GetService<IUserItemViewModel>();
+                var userVM = Locator.Instance.GetService<IUserItemViewModel>();
                 userVM.SetProfile(Data.User);
                 Publisher = userVM;
             }
@@ -140,7 +140,7 @@ namespace Bili.ViewModels.Uwp.Community
             }
             else if (data is ArticleInformation article)
             {
-                var articleVM = Splat.Locator.Current.GetService<IArticleItemViewModel>();
+                var articleVM = Locator.Instance.GetService<IArticleItemViewModel>();
                 articleVM.InjectData(article);
                 _callerViewModel.ShowArticleReader(articleVM);
             }
@@ -154,9 +154,9 @@ namespace Bili.ViewModels.Uwp.Community
         {
             if (Data.Data is VideoInformation videoInfo)
             {
-                var videoVM = Splat.Locator.Current.GetService<IVideoItemViewModel>();
+                var videoVM = Locator.Instance.GetService<IVideoItemViewModel>();
                 videoVM.InjectData(videoInfo);
-                videoVM.AddToViewLaterCommand.Execute().Subscribe();
+                videoVM.AddToViewLaterCommand.Execute(null);
             }
         }
 

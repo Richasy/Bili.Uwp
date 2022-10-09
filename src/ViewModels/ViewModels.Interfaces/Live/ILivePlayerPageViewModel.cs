@@ -38,7 +38,7 @@ namespace Bili.ViewModels.Interfaces.Live
         /// <summary>
         /// 在网页中打开的命令.
         /// </summary>
-        public IRelayCommand OpenInBroswerCommand { get; }
+        public IAsyncRelayCommand OpenInBroswerCommand { get; }
 
         /// <summary>
         /// 弹幕池.

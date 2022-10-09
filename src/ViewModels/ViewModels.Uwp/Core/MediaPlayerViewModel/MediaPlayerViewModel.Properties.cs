@@ -13,8 +13,7 @@ using Bili.ViewModels.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Common;
 using Bili.ViewModels.Interfaces.Core;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Windows.Media;
 using Windows.System.Display;
 using Windows.UI.Core;
@@ -38,7 +37,6 @@ namespace Bili.ViewModels.Uwp.Core
         private readonly ICallerViewModel _callerViewModel;
         private readonly IAppViewModel _appViewModel;
         private readonly CoreDispatcher _dispatcher;
-        private readonly ObservableAsPropertyHelper<bool> _isReloading;
 
         private IPlayerViewModel _player;
         private VideoType _videoType;
@@ -63,6 +61,108 @@ namespace Bili.ViewModels.Uwp.Core
         private double _originalDanmakuSpeed;
         private double _presetVolumeHoldTime;
 
+        [ObservableProperty]
+        private bool _isReloading;
+
+        [ObservableProperty]
+        private PlayerStatus _status;
+
+        [ObservableProperty]
+        private PlayerDisplayMode _displayMode;
+
+        [ObservableProperty]
+        private FormatInformation _currentFormat;
+
+        [ObservableProperty]
+        private double _volume;
+
+        [ObservableProperty]
+        private double _playbackRate;
+
+        [ObservableProperty]
+        private double _maxPlaybackRate;
+
+        [ObservableProperty]
+        private double _playbackRateStep;
+
+        [ObservableProperty]
+        private double _durationSeconds;
+
+        [ObservableProperty]
+        private double _progressSeconds;
+
+        [ObservableProperty]
+        private string _progressText;
+
+        [ObservableProperty]
+        private string _durationText;
+
+        [ObservableProperty]
+        private bool _isLoop;
+
+        [ObservableProperty]
+        private bool _isError;
+
+        [ObservableProperty]
+        private string _errorText;
+
+        [ObservableProperty]
+        private bool _isShowProgressTip;
+
+        [ObservableProperty]
+        private string _progressTip;
+
+        [ObservableProperty]
+        private bool _isLiveAudioOnly;
+
+        [ObservableProperty]
+        private string _fullScreenText;
+
+        [ObservableProperty]
+        private string _fullWindowText;
+
+        [ObservableProperty]
+        private string _compactOverlayText;
+
+        [ObservableProperty]
+        private bool _isShowMediaTransport;
+
+        [ObservableProperty]
+        private string _nextVideoTipText;
+
+        [ObservableProperty]
+        private bool _isShowNextVideoTip;
+
+        [ObservableProperty]
+        private double _nextVideoCountdown;
+
+        [ObservableProperty]
+        private double _progressTipCountdown;
+
+        [ObservableProperty]
+        private bool _isInteractionVideo;
+
+        [ObservableProperty]
+        private bool _isShowInteractionChoices;
+
+        [ObservableProperty]
+        private bool _isInteractionEnd;
+
+        [ObservableProperty]
+        private bool _isBuffering;
+
+        [ObservableProperty]
+        private bool _isMediaPause;
+
+        [ObservableProperty]
+        private string _cover;
+
+        [ObservableProperty]
+        private bool _canPlayNextPart;
+
+        [ObservableProperty]
+        private bool _isShowExitFullPlayerButton;
+
         /// <inheritdoc/>
         public event EventHandler<object> MediaPlayerChanged;
 
@@ -74,9 +174,6 @@ namespace Bili.ViewModels.Uwp.Core
 
         /// <inheritdoc/>
         public event EventHandler<VideoIdentifier> InternalPartChanged;
-
-        /// <inheritdoc/>
-        public bool IsReloading => _isReloading.Value;
 
         /// <inheritdoc/>
         public ObservableCollection<FormatInformation> Formats { get; }
@@ -92,137 +189,5 @@ namespace Bili.ViewModels.Uwp.Core
 
         /// <inheritdoc/>
         public IInteractionModuleViewModel InteractionViewModel { get; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public PlayerStatus Status { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public PlayerDisplayMode DisplayMode { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public FormatInformation CurrentFormat { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public double Volume { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public double PlaybackRate { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public double MaxPlaybackRate { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public double PlaybackRateStep { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public double DurationSeconds { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public double ProgressSeconds { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public string ProgressText { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public string DurationText { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsLoop { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsError { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public string ErrorText { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsShowProgressTip { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public string ProgressTip { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsLiveAudioOnly { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public string FullScreenText { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public string FullWindowText { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public string CompactOverlayText { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsShowMediaTransport { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public string NextVideoTipText { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsShowNextVideoTip { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public double NextVideoCountdown { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public double ProgressTipCountdown { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsInteractionVideo { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsShowInteractionChoices { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsInteractionEnd { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsBuffering { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsMediaPause { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public string Cover { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool CanPlayNextPart { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public bool IsShowExitFullPlayerButton { get; set; }
     }
 }

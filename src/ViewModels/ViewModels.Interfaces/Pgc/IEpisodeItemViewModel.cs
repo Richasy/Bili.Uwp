@@ -13,7 +13,7 @@ namespace Bili.ViewModels.Interfaces.Pgc
         /// <summary>
         /// 在网页中打开的命令.
         /// </summary>
-        IRelayCommand OpenInBroswerCommand { get; }
+        IAsyncRelayCommand OpenInBroswerCommand { get; }
 
         /// <summary>
         /// 播放命令.

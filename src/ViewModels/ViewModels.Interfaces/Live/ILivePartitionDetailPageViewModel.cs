@@ -20,7 +20,7 @@ namespace Bili.ViewModels.Interfaces.Live
         /// <summary>
         /// 选中标签命令.
         /// </summary>
-        public IRelayCommand<LiveTag> SelectTagCommand { get; }
+        public IAsyncRelayCommand<LiveTag> SelectTagCommand { get; }
 
         /// <summary>
         /// 查看全部分区命令.

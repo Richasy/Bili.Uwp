@@ -5,13 +5,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Bili.DI.Container;
 using Bili.Models.App.Args;
 using Bili.Models.Data.Pgc;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Bili.Models.Enums.Player;
 using Bili.ViewModels.Interfaces.Common;
-using Splat;
 using Windows.Media;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -45,7 +45,7 @@ namespace Bili.ViewModels.Uwp.Core
             IsInteractionEnd = false;
             IsInteractionVideo = false;
             IsShowInteractionChoices = false;
-            DanmakuViewModel.ResetCommand.Execute().Subscribe();
+            DanmakuViewModel.ResetCommand.Execute(null);
 
             if (_systemMediaTransportControls != null)
             {
@@ -68,9 +68,9 @@ namespace Bili.ViewModels.Uwp.Core
 
             defaultList.ForEach(p =>
             {
-                var vm = Locator.Current.GetService<IPlaybackRateItemViewModel>();
+                var vm = Locator.Instance.GetService<IPlaybackRateItemViewModel>();
                 vm.InjectData(p);
-                vm.InjectAction(rate => ChangePlayRateCommand.Execute(rate).Subscribe());
+                vm.InjectAction(rate => ChangePlayRateCommand.ExecuteAsync(rate));
                 vm.IsSelected = p == PlaybackRate;
                 PlaybackRates.Add(vm);
             });
@@ -91,7 +91,7 @@ namespace Bili.ViewModels.Uwp.Core
 
             if (_player != null)
             {
-                _player.ClearCommand.Execute().Subscribe();
+                _player.ClearCommand.Execute(null);
                 _player = null;
             }
 
@@ -320,7 +320,7 @@ namespace Bili.ViewModels.Uwp.Core
 
             if (SubtitleViewModel.HasSubtitles)
             {
-                SubtitleViewModel.SeekCommand.Execute(ProgressSeconds).Subscribe();
+                SubtitleViewModel.SeekCommand.Execute(ProgressSeconds);
             }
 
             var segmentIndex = Convert.ToInt32(Math.Ceiling(ProgressSeconds / 360d));
@@ -329,8 +329,8 @@ namespace Bili.ViewModels.Uwp.Core
                 segmentIndex = 1;
             }
 
-            DanmakuViewModel.LoadSegmentDanmakuCommand.Execute(segmentIndex).Subscribe();
-            DanmakuViewModel.SeekCommand.Execute(ProgressSeconds).Subscribe();
+            DanmakuViewModel.LoadSegmentDanmakuCommand.ExecuteAsync(segmentIndex);
+            DanmakuViewModel.SeekCommand.Execute(ProgressSeconds);
         }
 
         private void OnMediaPlayerChanged(object sender, object e)
@@ -338,8 +338,8 @@ namespace Bili.ViewModels.Uwp.Core
 
         private void OnMediaOpened(object sender, EventArgs e)
         {
-            ChangePlayRateCommand.Execute(PlaybackRate).Subscribe();
-            ChangeVolumeCommand.Execute(Volume).Subscribe();
+            ChangePlayRateCommand.ExecuteAsync(PlaybackRate);
+            ChangeVolumeCommand.Execute(Volume);
             InitializeDisplayInformation();
 
             var autoPlay = _settingsToolkit.ReadLocalSetting(SettingNames.IsAutoPlayWhenLoaded, true);
@@ -371,7 +371,7 @@ namespace Bili.ViewModels.Uwp.Core
         }
 
         private void OnProgressTimerTick(object sender, object e)
-            => ReportViewProgressCommand.Execute().Subscribe();
+            => ReportViewProgressCommand.ExecuteAsync(null);
 
         private async void OnUnitTimerTickAsync(object sender, object e)
         {
@@ -430,7 +430,7 @@ namespace Bili.ViewModels.Uwp.Core
         {
             if (e.PropertyName == nameof(ProgressSeconds))
             {
-                ChangeProgressCommand.Execute(ProgressSeconds).Subscribe();
+                ChangeProgressCommand.Execute(ProgressSeconds);
             }
         }
 

@@ -2,15 +2,14 @@
 
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Reactive;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Community;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Common;
-using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Community
 {
@@ -23,6 +22,21 @@ namespace Bili.ViewModels.Uwp.Community
         private readonly IResourceToolkit _resourceToolkit;
         private readonly Dictionary<Partition, IEnumerable<VideoInformation>> _caches;
 
+        [ObservableProperty]
+        private Partition _originPartition;
+
+        [ObservableProperty]
+        private Partition _currentSubPartition;
+
+        [ObservableProperty]
+        private VideoSortType _sortType;
+
+        [ObservableProperty]
+        private bool _isRecommendPartition;
+
+        [ObservableProperty]
+        private bool _isShowBanner;
+
         /// <inheritdoc/>
         public IRelayCommand<Partition> SelectPartitionCommand { get; }
 
@@ -34,25 +48,5 @@ namespace Bili.ViewModels.Uwp.Community
 
         /// <inheritdoc/>
         public ObservableCollection<VideoSortType> SortTypes { get; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public Partition OriginPartition { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public Partition CurrentSubPartition { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableProperty]
-        public VideoSortType SortType { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableAsProperty]
-        public bool IsRecommendPartition { get; set; }
-
-        /// <inheritdoc/>
-        [ObservableAsProperty]
-        public bool IsShowBanner { get; set; }
     }
 }

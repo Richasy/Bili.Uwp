@@ -16,17 +16,17 @@ namespace Bili.ViewModels.Interfaces.Home
         /// <summary>
         /// 报告问题命令.
         /// </summary>
-        IRelayCommand AskIssueCommand { get; }
+        IAsyncRelayCommand AskIssueCommand { get; }
 
         /// <summary>
         /// 打开项目主页命令.
         /// </summary>
-        IRelayCommand GotoProjectHomeCommand { get; }
+        IAsyncRelayCommand GotoProjectHomeCommand { get; }
 
         /// <summary>
         /// 打开开发者B站账户页面命令.
         /// </summary>
-        IRelayCommand GotoDeveloperBiliBiliHomePageCommand { get; }
+        IAsyncRelayCommand GotoDeveloperBiliBiliHomePageCommand { get; }
 
         /// <summary>
         /// 关联链接集合.

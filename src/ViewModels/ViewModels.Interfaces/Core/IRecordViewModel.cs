@@ -19,12 +19,12 @@ namespace Bili.ViewModels.Interfaces.Core
         /// <summary>
         /// 添加继续播放视图模型的命令.
         /// </summary>
-        IRelayCommand<PlaySnapshot> AddLastPlayItemCommand { get; }
+        IAsyncRelayCommand<PlaySnapshot> AddLastPlayItemCommand { get; }
 
         /// <summary>
         /// 清除本地的继续播放视图模型的命令.
         /// </summary>
-        IRelayCommand DeleteLastPlayItemCommand { get; }
+        IAsyncRelayCommand DeleteLastPlayItemCommand { get; }
 
         /// <summary>
         /// 添加本地播放历史条目的命令.

@@ -2,9 +2,8 @@
 
 using System;
 using System.Linq;
+using Bili.DI.Container;
 using Bili.ViewModels.Interfaces.Account;
-using Bili.ViewModels.Uwp.Account;
-using Splat;
 using Windows.UI.Xaml;
 
 namespace Bili.ViewModels.Uwp.Live
@@ -27,10 +26,10 @@ namespace Bili.ViewModels.Uwp.Live
         private void InitializePublisher()
         {
             var profile = View.Information.User;
-            var vm = Splat.Locator.Current.GetService<IUserItemViewModel>();
+            var vm = Locator.Instance.GetService<IUserItemViewModel>();
             vm.SetProfile(profile);
             User = vm;
-            User.InitializeRelationCommand.Execute().Subscribe();
+            User.InitializeRelationCommand.ExecuteAsync(null);
         }
 
         private void InitializeOverview()

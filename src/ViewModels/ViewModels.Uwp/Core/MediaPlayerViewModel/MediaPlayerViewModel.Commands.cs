@@ -1,9 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System.Reactive;
 using Bili.Models.Data.Player;
 using Bili.Models.Data.Video;
-using ReactiveUI;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Core
 {
@@ -13,31 +12,31 @@ namespace Bili.ViewModels.Uwp.Core
     public sealed partial class MediaPlayerViewModel
     {
         /// <inheritdoc/>
-        public IRelayCommand ReloadCommand { get; }
+        public IAsyncRelayCommand ReloadCommand { get; }
 
         /// <inheritdoc/>
-        public IRelayCommand<VideoIdentifier> ChangePartCommand { get; }
+        public IAsyncRelayCommand<VideoIdentifier> ChangePartCommand { get; }
 
         /// <inheritdoc/>
         public IRelayCommand ResetProgressHistoryCommand { get; }
 
         /// <inheritdoc/>
-        public IRelayCommand<bool> ChangeLiveAudioOnlyCommand { get; }
+        public IAsyncRelayCommand<bool> ChangeLiveAudioOnlyCommand { get; }
 
         /// <inheritdoc/>
-        public IRelayCommand<FormatInformation> ChangeFormatCommand { get; }
+        public IAsyncRelayCommand<FormatInformation> ChangeFormatCommand { get; }
 
         /// <inheritdoc/>
-        public IRelayCommand PlayPauseCommand { get; }
+        public IAsyncRelayCommand PlayPauseCommand { get; }
 
         /// <inheritdoc/>
-        public IRelayCommand ForwardSkipCommand { get; }
+        public IAsyncRelayCommand ForwardSkipCommand { get; }
 
         /// <inheritdoc/>
-        public IRelayCommand BackwardSkipCommand { get; }
+        public IAsyncRelayCommand BackwardSkipCommand { get; }
 
         /// <inheritdoc/>
-        public IRelayCommand<double> ChangePlayRateCommand { get; }
+        public IAsyncRelayCommand<double> ChangePlayRateCommand { get; }
 
         /// <inheritdoc/>
         public IRelayCommand<double> ChangeVolumeCommand { get; }
@@ -52,16 +51,16 @@ namespace Bili.ViewModels.Uwp.Core
         public IRelayCommand ToggleCompactOverlayCommand { get; }
 
         /// <inheritdoc/>
-        public IRelayCommand ScreenShotCommand { get; }
+        public IAsyncRelayCommand ScreenShotCommand { get; }
 
         /// <inheritdoc/>
         public IRelayCommand<double> ChangeProgressCommand { get; }
 
         /// <inheritdoc/>
-        public IRelayCommand StartTempQuickPlayCommand { get; }
+        public IAsyncRelayCommand StartTempQuickPlayCommand { get; }
 
         /// <inheritdoc/>
-        public IRelayCommand StopTempQuickPlayCommand { get; }
+        public IAsyncRelayCommand StopTempQuickPlayCommand { get; }
 
         /// <inheritdoc/>
         public IRelayCommand JumpToLastProgressCommand { get; }
@@ -70,7 +69,7 @@ namespace Bili.ViewModels.Uwp.Core
         public IRelayCommand ClearSourceProgressCommand { get; }
 
         /// <inheritdoc/>
-        public IRelayCommand ReportViewProgressCommand { get; }
+        public IAsyncRelayCommand ReportViewProgressCommand { get; }
 
         /// <inheritdoc/>
         public IRelayCommand ShowNextVideoTipCommand { get; }

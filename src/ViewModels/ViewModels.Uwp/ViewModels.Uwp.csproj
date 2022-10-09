@@ -59,7 +59,6 @@
     <Compile Include="Live\LivePlayerPageViewModel\LivePlayerPageViewModel.Initialize.cs" />
     <Compile Include="Live\LivePlayerPageViewModel\LivePlayerPageViewModel.Methods.cs" />
     <Compile Include="Live\LivePlayerPageViewModel\LivePlayerPageViewModel.Properties.cs" />
-    <Compile Include="Live\LivePlayerPageViewModel\LivePlayerPageViewModel.Request.cs" />
     <Compile Include="Live\LivePlayerPageViewModel\LivePlayerPageViewModel.Reset.cs" />
     <Compile Include="Live\LivePlayerPageViewModel\LivePlayerPageViewModel.cs" />
     <Compile Include="Pgc\AnimeFavoriteModuleViewModel.cs" />
@@ -224,6 +223,9 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.Connectivity">
       <Version>7.1.2</Version>
+    </PackageReference>
+    <PackageReference Include="NLog">
+      <Version>5.0.4</Version>
     </PackageReference>
     <PackageReference Include="QueryString.NET">
       <Version>1.0.0</Version>

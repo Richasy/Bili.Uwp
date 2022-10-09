@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
-using ReactiveUI.Fody.Helpers;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Bili.ViewModels.Uwp.Video
 {
@@ -17,17 +17,14 @@ namespace Bili.ViewModels.Uwp.Video
         private readonly IResourceToolkit _resourceToolkit;
         private readonly IAccountProvider _accountProvider;
 
-        /// <inheritdoc/>
         [ObservableProperty]
-        public VideoFavoriteFolderGroup Data { get; set; }
+        private VideoFavoriteFolderGroup _data;
 
-        /// <inheritdoc/>
         [ObservableProperty]
-        public bool IsEmpty { get; set; }
+        private bool _isEmpty;
 
-        /// <inheritdoc/>
         [ObservableProperty]
-        public bool HasMore { get; set; }
+        private bool _hasMore;
 
         /// <inheritdoc/>
         public override bool Equals(object obj) => obj is VideoFavoriteFolderGroupViewModel model && EqualityComparer<VideoFavoriteFolderGroup>.Default.Equals(Data, model.Data);

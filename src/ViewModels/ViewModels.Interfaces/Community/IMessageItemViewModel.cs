@@ -18,6 +18,6 @@ namespace Bili.ViewModels.Interfaces.Community
         /// <summary>
         /// 激活命令.
         /// </summary>
-        IRelayCommand ActiveCommand { get; }
+        IAsyncRelayCommand ActiveCommand { get; }
     }
 }

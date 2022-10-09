@@ -1,12 +1,12 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Threading.Tasks;
+using Bili.DI.Container;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Video;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
-using Splat;
 using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Video
@@ -62,7 +62,7 @@ namespace Bili.ViewModels.Uwp.Video
         {
             foreach (var item in set.Items)
             {
-                var folderVM = Splat.Locator.Current.GetService<IVideoFavoriteFolderViewModel>();
+                var folderVM = Locator.Instance.GetService<IVideoFavoriteFolderViewModel>();
                 folderVM.SetFolder(item, this);
                 Items.Add(folderVM);
             }
