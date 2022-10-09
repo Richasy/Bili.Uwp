@@ -38,7 +38,7 @@ namespace Bili.App.Pages.Desktop.Overlay
                 ViewModel.SetUserProfile(profile);
             }
 
-            ViewModel.ReloadCommand.Execute().Subscribe();
+            ViewModel.ReloadCommand.ExecuteAsync(null);
         }
 
         private void OnSearchBoxQuerySubmitted(Windows.UI.Xaml.Controls.AutoSuggestBox sender, Windows.UI.Xaml.Controls.AutoSuggestBoxQuerySubmittedEventArgs args)
@@ -48,7 +48,7 @@ namespace Bili.App.Pages.Desktop.Overlay
                 return;
             }
 
-            ViewModel.SearchCommand.Execute().Subscribe();
+            ViewModel.SearchCommand.ExecuteAsync(null);
         }
     }
 }

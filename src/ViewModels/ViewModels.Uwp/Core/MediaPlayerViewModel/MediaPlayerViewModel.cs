@@ -298,7 +298,7 @@ namespace Bili.ViewModels.Uwp.Core
         }
 
         partial void OnPlaybackRateChanged(double value)
-            => ChangePlayRateCommand.ExecuteAsync(value);
+            => ChangePlayRateCommand?.ExecuteAsync(value);
 
         partial void OnDisplayModeChanged(PlayerDisplayMode value)
         {

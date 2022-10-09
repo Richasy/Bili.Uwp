@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using Bili.DI.Container;
 using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
-using Splat;
 using Windows.Storage;
 
 namespace Bili.App.Controls
@@ -26,7 +26,7 @@ namespace Bili.App.Controls
             var cacheFolder = ApplicationData.Current.LocalCacheFolder;
             LoadingRing.Visibility = Windows.UI.Xaml.Visibility.Visible;
             ClearButton.IsEnabled = false;
-            var resourceToolkit = Locator.Current.GetService<IResourceToolkit>();
+            var resourceToolkit = Locator.Instance.GetService<IResourceToolkit>();
 
             try
             {
@@ -43,7 +43,7 @@ namespace Bili.App.Controls
                     }
                 }
 
-                Locator.Current.GetService<ICallerViewModel>().ShowTip(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.CacheCleared), InfoType.Success);
+                Locator.Instance.GetService<ICallerViewModel>().ShowTip(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.CacheCleared), InfoType.Success);
             }
             catch
             {

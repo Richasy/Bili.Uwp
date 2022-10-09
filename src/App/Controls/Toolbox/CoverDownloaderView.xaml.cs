@@ -1,8 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
+using Bili.DI.Container;
 using Bili.ViewModels.Interfaces.Toolbox;
-using Splat;
 
 namespace Bili.App.Controls
 {
@@ -11,7 +10,7 @@ namespace Bili.App.Controls
     /// </summary>
     public sealed partial class CoverDownloaderView : CenterPopup
     {
-        private readonly ICoverDownloaderViewModel _viewModel = Locator.Current.GetService<ICoverDownloaderViewModel>();
+        private readonly ICoverDownloaderViewModel _viewModel = Locator.Instance.GetService<ICoverDownloaderViewModel>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CoverDownloaderView"/> class.
@@ -19,6 +18,6 @@ namespace Bili.App.Controls
         public CoverDownloaderView() => InitializeComponent();
 
         private void OnIdQuerySubmitted(Windows.UI.Xaml.Controls.AutoSuggestBox sender, Windows.UI.Xaml.Controls.AutoSuggestBoxQuerySubmittedEventArgs args)
-            => _viewModel.LoadPreviewCommand.Execute().Subscribe();
+            => _viewModel.LoadPreviewCommand.ExecuteAsync(null);
     }
 }

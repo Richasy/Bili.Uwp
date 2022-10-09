@@ -33,7 +33,7 @@ namespace Bili.App.Behaviors
         {
             if (AssociatedObject.DataContext is IIncrementalViewModel vm)
             {
-                vm.IncrementalCommand.Execute().Subscribe();
+                vm.IncrementalCommand.ExecuteAsync(null);
             }
         }
     }

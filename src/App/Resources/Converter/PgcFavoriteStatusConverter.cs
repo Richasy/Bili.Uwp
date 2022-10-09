@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using Bili.DI.Container;
 using Bili.Toolkit.Interfaces;
-using Splat;
 using Windows.UI.Xaml.Data;
 
 namespace Bili.App.Resources.Converter
@@ -16,7 +16,7 @@ namespace Bili.App.Resources.Converter
         {
             if (value is int status)
             {
-                var resourceToolkit = Locator.Current.GetService<IResourceToolkit>();
+                var resourceToolkit = Locator.Instance.GetService<IResourceToolkit>();
                 switch (status)
                 {
                     case 1:

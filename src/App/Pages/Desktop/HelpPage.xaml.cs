@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using Bili.DI.Container;
 using Bili.Models.App.Constants;
 using Bili.Models.Data.Local;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Home;
-using Splat;
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -25,7 +25,7 @@ namespace Bili.App.Pages.Desktop
         public HelpPage()
         {
             InitializeComponent();
-            _resourceToolkit = Locator.Current.GetService<IResourceToolkit>();
+            _resourceToolkit = Locator.Instance.GetService<IResourceToolkit>();
         }
 
         /// <inheritdoc/>

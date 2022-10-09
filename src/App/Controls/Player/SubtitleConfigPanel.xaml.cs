@@ -38,7 +38,7 @@ namespace Bili.App.Controls.Player
             var data = e.ClickedItem as SubtitleMeta;
             if (ViewModel.CurrentMeta != data)
             {
-                ViewModel.ChangeMetaCommand.Execute(data).Subscribe();
+                ViewModel.ChangeMetaCommand.Execute(data);
             }
         }
     }

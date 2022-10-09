@@ -55,6 +55,7 @@ namespace Bili.DI.App
                 .RegisterSingleton<NLog.ILogger>(logger)
                 .RegisterSingleton<IResourceToolkit, ResourceToolkit>()
                 .RegisterSingleton<INumberToolkit, NumberToolkit>()
+                .RegisterSingleton<ISettingsToolkit, SettingsToolkit>()
                 .RegisterSingleton<IAppToolkit, AppToolkit>()
                 .RegisterSingleton<IFileToolkit, FileToolkit>()
                 .RegisterSingleton<IMD5Toolkit, MD5Toolkit>()
@@ -176,8 +177,6 @@ namespace Bili.DI.App
                 .RegisterSingleton<IVideoPlayerPageViewModel, VideoPlayerPageViewModel>()
                 .RegisterSingleton<IPgcPlayerPageViewModel, PgcPlayerPageViewModel>()
                 .RegisterSingleton<ILivePlayerPageViewModel, LivePlayerPageViewModel>()
-
-                .RegisterSingleton(Window.Current.CoreWindow.Dispatcher)
                 .Build();
         }
 

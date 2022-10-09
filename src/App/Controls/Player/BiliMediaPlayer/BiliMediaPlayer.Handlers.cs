@@ -103,7 +103,7 @@ namespace Bili.App.Controls.Player
             if (e.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
             {
                 _isTouch = false;
-                ViewModel.PlayPauseCommand.Execute().Subscribe();
+                ViewModel.PlayPauseCommand.ExecuteAsync(null);
             }
             else
             {
@@ -121,18 +121,15 @@ namespace Bili.App.Controls.Player
             {
                 if (e.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
                 {
-                    ViewModel.ToggleFullScreenCommand.Execute().Subscribe(
-                        _ =>
-                        {
-                            if (ViewModel.IsMediaPause)
-                            {
-                                ViewModel.PlayPauseCommand.Execute().Subscribe();
-                            }
-                        });
+                    ViewModel.ToggleFullScreenCommand.Execute(null);
+                    if (ViewModel.IsMediaPause)
+                    {
+                        ViewModel.PlayPauseCommand.ExecuteAsync(null);
+                    }
                 }
                 else
                 {
-                    ViewModel.PlayPauseCommand.Execute().Subscribe();
+                    ViewModel.PlayPauseCommand.ExecuteAsync(null);
                 }
             }
         }
@@ -147,7 +144,7 @@ namespace Bili.App.Controls.Player
 
             if (_manipulationBeforeIsPlay)
             {
-                ViewModel.PlayPauseCommand.Execute().Subscribe();
+                ViewModel.PlayPauseCommand.ExecuteAsync(null);
             }
 
             _manipulationBeforeIsPlay = false;
@@ -160,11 +157,11 @@ namespace Bili.App.Controls.Player
                 _isHolding = true;
                 if (args.HoldingState == HoldingState.Started)
                 {
-                    ViewModel.StartTempQuickPlayCommand.Execute().Subscribe();
+                    ViewModel.StartTempQuickPlayCommand.ExecuteAsync(null);
                 }
                 else
                 {
-                    ViewModel.StopTempQuickPlayCommand.Execute().Subscribe();
+                    ViewModel.StopTempQuickPlayCommand.ExecuteAsync(null);
                 }
             }
         }
@@ -199,7 +196,7 @@ namespace Bili.App.Controls.Player
                         volume = 0;
                     }
 
-                    ViewModel.ChangeVolumeCommand.Execute(volume).Subscribe();
+                    ViewModel.ChangeVolumeCommand.Execute(volume);
                 }
                 else
                 {
@@ -213,7 +210,7 @@ namespace Bili.App.Controls.Player
                         progress = 0;
                     }
 
-                    ViewModel.ChangeProgressCommand.Execute(progress).Subscribe();
+                    ViewModel.ChangeProgressCommand.Execute(progress);
                 }
             }
         }

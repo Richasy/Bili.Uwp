@@ -32,7 +32,7 @@ namespace Bili.App.Pages.Desktop
                  && ViewModel.SortType != type)
             {
                 ViewModel.SortType = type;
-                ViewModel.ReloadCommand.Execute().Subscribe();
+                ViewModel.ReloadCommand.ExecuteAsync(null);
             }
         }
 
@@ -40,7 +40,7 @@ namespace Bili.App.Pages.Desktop
         {
             var data = args.InvokedItem as Partition;
             ContentScrollViewer.ChangeView(0, 0, 1);
-            ViewModel.SelectPartitionCommand.Execute(data).Subscribe();
+            ViewModel.SelectPartitionCommand.Execute(data);
         }
     }
 

@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using Bili.ViewModels.Interfaces.Core;
-using ReactiveUI;
 
 namespace Bili.App.Controls.Player.PlayerControls
 {

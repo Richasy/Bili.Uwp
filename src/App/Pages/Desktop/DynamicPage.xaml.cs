@@ -21,7 +21,7 @@ namespace Bili.App.Pages.Desktop
             var data = args.InvokedItem as DynamicHeader;
             if (data != ViewModel.CurrentHeader)
             {
-                ViewModel.SelectHeaderCommand.Execute(data).Subscribe();
+                ViewModel.SelectHeaderCommand.Execute(data);
             }
         }
     }

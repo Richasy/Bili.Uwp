@@ -39,7 +39,7 @@ namespace Bili.App.Pages.Xbox.Overlay
         {
             var data = args.InvokedItem as LiveTag;
             ContentScrollViewer.ChangeView(0, 0, 1);
-            ViewModel.SelectTagCommand.Execute(data).Subscribe();
+            ViewModel.SelectTagCommand.Execute(data);
         }
     }
 }

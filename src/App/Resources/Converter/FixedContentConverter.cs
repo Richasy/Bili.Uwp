@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using Bili.DI.Container;
 using Bili.Toolkit.Interfaces;
-using Splat;
 using Windows.UI.Xaml.Data;
 
 namespace Bili.App.Resources.Converter
@@ -16,7 +16,7 @@ namespace Bili.App.Resources.Converter
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             var isFixed = System.Convert.ToBoolean(value);
-            var resourceToolkit = Splat.Locator.Current.GetService<IResourceToolkit>();
+            var resourceToolkit = Locator.Instance.GetService<IResourceToolkit>();
             return isFixed
                 ? resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.UnfixContent)
                 : resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.FixContent);

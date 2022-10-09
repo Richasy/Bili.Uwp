@@ -27,7 +27,6 @@ namespace Bili.ViewModels.Uwp.Core
             _backStack = new List<AppBackEventArgs>();
 
             IsMainViewShown = true;
-            BackCommand = new RelayCommand(Back, () => CanBack);
         }
 
         /// <inheritdoc/>
@@ -161,6 +160,7 @@ namespace Bili.ViewModels.Uwp.Core
             CheckBackStatus();
         }
 
+        [RelayCommand]
         private void Back()
         {
             if (!CanBack)

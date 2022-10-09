@@ -88,7 +88,7 @@ namespace Bili.App.Controls.App
             }
         }
 
-        private void OnRootNavViewItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
+        private async void OnRootNavViewItemInvokedAsync(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
         {
             if (args.IsSettingsInvoked)
             {
@@ -98,14 +98,12 @@ namespace Bili.App.Controls.App
             {
                 if (args.InvokedItemContainer == SignInItem)
                 {
-                    AccountViewModel.TrySignInCommand.Execute(false).Subscribe(
-                        _ =>
-                        {
-                            if (AccountViewModel.State == AuthorizeState.SignedIn)
-                            {
-                                ViewModel.Navigate(PageIds.XboxAccount);
-                            }
-                        });
+                    await AccountViewModel.TrySignInCommand.ExecuteAsync(false);
+                    if (AccountViewModel.State == AuthorizeState.SignedIn)
+                    {
+                        ViewModel.Navigate(PageIds.XboxAccount);
+                    }
+
                     return;
                 }
 

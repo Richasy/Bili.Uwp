@@ -28,7 +28,7 @@
         <muxc:NavigationView
             x:Name="RootNavView"
             Style="{StaticResource BiliNavigationViewStyle}"
-            ItemInvoked="OnRootNavViewItemInvoked"
+            ItemInvoked="OnRootNavViewItemInvokedAsync"
             LosingFocus="OnRootNavViewLosingFocus"
             NoFocusCandidateFound="OnRootNavViewNoFocusCandidateFound"
             PaneDisplayMode="LeftCompact"

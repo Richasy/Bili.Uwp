@@ -10,6 +10,7 @@ using Bili.App.Controls.Base;
 using Bili.App.Controls.Community;
 using Bili.App.Controls.Dialogs;
 using Bili.App.Pages.Desktop.Overlay;
+using Bili.DI.Container;
 using Bili.Models.App.Args;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
@@ -17,7 +18,6 @@ using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Article;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Pgc;
-using Splat;
 using Windows.ApplicationModel.Activation;
 using Windows.UI;
 using Windows.UI.Core;
@@ -47,9 +47,9 @@ namespace Bili.App.Pages.Desktop
         {
             InitializeComponent();
             Current = this;
-            _callerViewModel = Locator.Current.GetService<ICallerViewModel>();
-            _recordViewModel = Locator.Current.GetService<IRecordViewModel>();
-            _navigationViewModel = Locator.Current.GetService<INavigationViewModel>();
+            _callerViewModel = Locator.Instance.GetService<ICallerViewModel>();
+            _recordViewModel = Locator.Instance.GetService<IRecordViewModel>();
+            _navigationViewModel = Locator.Instance.GetService<INavigationViewModel>();
 
             ViewModel.Navigating += OnNavigating;
             ViewModel.ExitPlayer += OnExitPlayer;
@@ -176,9 +176,9 @@ namespace Bili.App.Pages.Desktop
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
             CoreViewModel.InitializePadding();
-            Locator.Current.GetService<IAccountViewModel>().TrySignInCommand.Execute(true).Subscribe();
+            Locator.Instance.GetService<IAccountViewModel>().TrySignInCommand.ExecuteAsync(true);
 #if !DEBUG
-            CoreViewModel.CheckUpdateCommand.Execute().Subscribe();
+            CoreViewModel.CheckUpdateCommand.ExecuteAsync(null);
 #endif
         }
 
@@ -201,7 +201,7 @@ namespace Bili.App.Pages.Desktop
             }
             else
             {
-                _navigationViewModel.BackCommand.Execute().Subscribe();
+                _navigationViewModel.BackCommand.Execute(null);
             }
         }
 
@@ -317,7 +317,7 @@ namespace Bili.App.Pages.Desktop
         {
             if (ViewModel.CanBack)
             {
-                ViewModel.BackCommand.Execute().Subscribe();
+                ViewModel.BackCommand.Execute(null);
             }
             else if (CoreViewModel.IsXbox)
             {
@@ -340,10 +340,10 @@ namespace Bili.App.Pages.Desktop
             }
             else
             {
-                _recordViewModel.CheckContinuePlayCommand.Execute().Subscribe();
+                _recordViewModel.CheckContinuePlayCommand.Execute(null);
             }
 
-            CoreViewModel.CheckNewDynamicRegistrationCommand.Execute().Subscribe();
+            _ = CoreViewModel.CheckNewDynamicRegistrationCommand.ExecuteAsync(null);
         }
     }
 

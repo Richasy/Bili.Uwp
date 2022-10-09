@@ -36,7 +36,7 @@ namespace Bili.App.Behaviors
             var dataContext = AssociatedObject.DataContext;
             if (dataContext is IReloadViewModel reloadVM)
             {
-                reloadVM.ReloadCommand.Execute().Subscribe();
+                reloadVM.ReloadCommand.ExecuteAsync(null);
             }
         }
     }

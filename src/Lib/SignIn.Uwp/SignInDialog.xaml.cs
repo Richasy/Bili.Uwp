@@ -3,12 +3,12 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Bili.DI.Container;
 using Bili.Models.App.Other;
 using Bili.Models.BiliBili;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Microsoft.QueryStringDotNET;
-using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using static Bili.Models.App.Constants.ServiceConstants;
@@ -189,7 +189,7 @@ namespace Bili.SignIn.Uwp
         private async Task SwitchLoginTypeAsync(LoginType type)
         {
             _loginType = type;
-            var resourceToolkit = Splat.Locator.Current.GetService<IResourceToolkit>();
+            var resourceToolkit = Locator.Instance.GetService<IResourceToolkit>();
             switch (type)
             {
                 case LoginType.Password:
@@ -226,7 +226,7 @@ namespace Bili.SignIn.Uwp
 
         private void ShowError(LanguageNames name)
         {
-            var resourceToolkit = Splat.Locator.Current.GetService<IResourceToolkit>();
+            var resourceToolkit = Locator.Instance.GetService<IResourceToolkit>();
             var msg = resourceToolkit.GetLocaleString(name);
             ShowError(msg);
         }
@@ -236,7 +236,7 @@ namespace Bili.SignIn.Uwp
 
         private void ShowQRTip(LanguageNames name)
         {
-            var resourceToolkit = Splat.Locator.Current.GetService<IResourceToolkit>();
+            var resourceToolkit = Locator.Instance.GetService<IResourceToolkit>();
             var msg = resourceToolkit.GetLocaleString(name);
             QRMaskContainer.Visibility = Visibility.Visible;
             QRTipBlock.Text = msg;

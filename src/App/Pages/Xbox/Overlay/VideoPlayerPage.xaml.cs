@@ -40,8 +40,8 @@ namespace Bili.App.Pages.Xbox.Overlay
         /// <inheritdoc/>
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
-            ViewModel.ClearPlaylistCommand.Execute().Subscribe();
-            ViewModel.ClearCommand.Execute().Subscribe();
+            ViewModel.ClearPlaylistCommand.Execute(null);
+            ViewModel.ClearCommand.Execute(null);
         }
 
         /// <inheritdoc/>
@@ -50,12 +50,12 @@ namespace Bili.App.Pages.Xbox.Overlay
             if (e.Key == Windows.System.VirtualKey.GamepadLeftShoulder)
             {
                 // 后退
-                ViewModel.MediaPlayerViewModel.BackwardSkipCommand.Execute().Subscribe();
+                ViewModel.MediaPlayerViewModel.BackwardSkipCommand.ExecuteAsync(null);
             }
             else if (e.Key == Windows.System.VirtualKey.GamepadRightShoulder)
             {
                 // 跳进
-                ViewModel.MediaPlayerViewModel.ForwardSkipCommand.Execute().Subscribe();
+                ViewModel.MediaPlayerViewModel.ForwardSkipCommand.ExecuteAsync(null);
             }
             else if (e.Key == Windows.System.VirtualKey.GamepadB)
             {
@@ -85,19 +85,19 @@ namespace Bili.App.Pages.Xbox.Overlay
         }
 
         private void OnRefreshFavoriteButtonClick(object sender, RoutedEventArgs e)
-            => ViewModel.RequestFavoriteFoldersCommand.Execute().Subscribe();
+            => ViewModel.RequestFavoriteFoldersCommand.ExecuteAsync(null);
 
         private void OnGiveCoinButtonClick(object sender, RoutedEventArgs e)
         {
             var num = int.Parse((sender as FrameworkElement).Tag.ToString());
-            ViewModel.CoinCommand.Execute(num).Subscribe();
+            ViewModel.CoinCommand.Execute(num);
             CoinFlyout.Hide();
         }
 
         private void OnLikeButtonHoldingCompleted(object sender, EventArgs e)
         {
             _isLikeHoldCompleted = true;
-            ViewModel.TripleCommand.Execute().Subscribe();
+            ViewModel.TripleCommand.ExecuteAsync(null);
             CoinButton.ShowBubbles();
             FavoriteButton.ShowBubbles();
         }
@@ -116,7 +116,7 @@ namespace Bili.App.Pages.Xbox.Overlay
                 return;
             }
 
-            ViewModel.LikeCommand.Execute().Subscribe();
+            ViewModel.LikeCommand.ExecuteAsync(null);
         }
 
         private void OnCoinButtonClick(object sender, RoutedEventArgs e)
@@ -137,7 +137,7 @@ namespace Bili.App.Pages.Xbox.Overlay
 
             if (ViewModel.FavoriteFolders.Count == 0)
             {
-                ViewModel.RequestFavoriteFoldersCommand.Execute().Subscribe();
+                ViewModel.RequestFavoriteFoldersCommand.ExecuteAsync(null);
             }
 
             FavoriteFlyout.ShowAt(FavoriteButton);

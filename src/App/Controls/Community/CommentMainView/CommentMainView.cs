@@ -28,7 +28,7 @@ namespace Bili.App.Controls.Community
         {
             if ((sender as ComboBox).SelectedItem is CommentSortHeader item && item != ViewModel.CurrentSort)
             {
-                ViewModel.ChangeSortCommand.Execute(item).Subscribe();
+                ViewModel.ChangeSortCommand.Execute(item);
             }
         }
     }

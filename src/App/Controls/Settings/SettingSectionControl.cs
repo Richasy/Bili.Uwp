@@ -1,9 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using Bili.DI.Container;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Home;
-using ReactiveUI;
-using Splat;
 
 namespace Bili.App.Controls
 {
@@ -17,13 +16,13 @@ namespace Bili.App.Controls
         /// </summary>
         public SettingSectionControl()
         {
-            ViewModel = Locator.Current.GetService<ISettingsPageViewModel>();
+            ViewModel = Locator.Instance.GetService<ISettingsPageViewModel>();
             IsTabStop = false;
         }
 
         /// <summary>
         /// 核心视图模型.
         /// </summary>
-        public IAppViewModel CoreViewModel { get; } = Locator.Current.GetService<IAppViewModel>();
+        public IAppViewModel CoreViewModel { get; } = Locator.Instance.GetService<IAppViewModel>();
     }
 }

@@ -37,25 +37,16 @@ namespace Bili.App.Controls.Danmaku
         /// </summary>
         public bool IsInputFocused { get; private set; }
 
-        private void OnDanmakuInputBoxSubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        private async void OnDanmakuInputBoxSubmittedAsync(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
             if (!string.IsNullOrEmpty(args.QueryText))
             {
                 sender.IsEnabled = false;
-                ViewModel.SendDanmakuCommand.Execute(args.QueryText).Subscribe(async isSuccess =>
+                await ViewModel.SendDanmakuCommand.ExecuteAsync(args.QueryText);
+                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
                 {
-                    await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-                    {
-                        sender.IsEnabled = true;
-                        if (isSuccess)
-                        {
-                            sender.Text = string.Empty;
-                        }
-                        else
-                        {
-                            sender.Focus(FocusState.Programmatic);
-                        }
-                    });
+                    sender.IsEnabled = true;
+                    sender.Text = string.Empty;
                 });
             }
         }

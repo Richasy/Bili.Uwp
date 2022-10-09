@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using Bili.DI.Container;
 using Bili.Models.App.Args;
 using Bili.Toolkit.Interfaces;
-using Splat;
 using Windows.System;
 using Windows.UI.Xaml.Controls;
 
@@ -48,7 +48,7 @@ namespace Bili.App.Controls.Dialogs
 
         private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            var settingToolkit = Locator.Current.GetService<ISettingsToolkit>();
+            var settingToolkit = Locator.Instance.GetService<ISettingsToolkit>();
             settingToolkit.WriteLocalSetting(Models.Enums.SettingNames.IgnoreVersion, _eventArgs.Version);
         }
     }

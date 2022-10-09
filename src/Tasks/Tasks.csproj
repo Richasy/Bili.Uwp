@@ -136,6 +136,10 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Lib\DI.Container\DI.Container.csproj">
+      <Project>{81b36a8c-e9a5-46f1-b803-b4d329c6e4b4}</Project>
+      <Name>DI.Container</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Lib\DI.Task\DI.Task.csproj">
       <Project>{a87244e1-94ab-40e6-a32b-1972429fbcb2}</Project>
       <Name>DI.Task</Name>

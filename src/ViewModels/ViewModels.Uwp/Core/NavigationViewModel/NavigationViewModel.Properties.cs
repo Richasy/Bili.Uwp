@@ -6,7 +6,6 @@ using Bili.Models.App.Args;
 using Bili.Models.Enums;
 using Bili.ViewModels.Interfaces.Core;
 using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Uwp.Core
 {
@@ -38,9 +37,6 @@ namespace Bili.ViewModels.Uwp.Core
 
         /// <inheritdoc/>
         public event EventHandler ExitPlayer;
-
-        /// <inheritdoc/>
-        public IRelayCommand BackCommand { get; }
 
         /// <inheritdoc/>
         public PageIds MainViewId { get; set; }

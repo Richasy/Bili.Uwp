@@ -41,7 +41,7 @@ namespace Bili.App.Pages.Desktop.Overlay
             var item = args.InvokedItem as ISearchModuleItemViewModel;
             if (item != ViewModel.CurrentModule)
             {
-                ViewModel.SelectModuleCommand.Execute(item).Subscribe();
+                ViewModel.SelectModuleCommand.Execute(item);
             }
         }
 
@@ -58,7 +58,7 @@ namespace Bili.App.Pages.Desktop.Overlay
             {
                 // 条件变更，重载模块.
                 context.CurrentCondition = selectItem;
-                ViewModel.ReloadModuleCommand.Execute().Subscribe();
+                ViewModel.ReloadModuleCommand.ExecuteAsync(null);
             }
         }
     }

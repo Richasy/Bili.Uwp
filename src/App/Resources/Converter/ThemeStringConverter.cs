@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using Bili.DI.Container;
 using Bili.Models.App.Constants;
 using Bili.Toolkit.Interfaces;
-using Splat;
 using Windows.UI.Xaml.Data;
 
 namespace Bili.App.Resources.Converter
@@ -17,21 +17,13 @@ namespace Bili.App.Resources.Converter
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             var themeStr = value.ToString();
-            var resourceToolkit = Locator.Current.GetService<IResourceToolkit>();
-            var result = string.Empty;
-            switch (themeStr)
+            var resourceToolkit = Locator.Instance.GetService<IResourceToolkit>();
+            var result = themeStr switch
             {
-                case AppConstants.ThemeLight:
-                    result = resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.Light);
-                    break;
-                case AppConstants.ThemeDark:
-                    result = resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.Dark);
-                    break;
-                default:
-                    result = resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.FollowSystem);
-                    break;
-            }
-
+                AppConstants.ThemeLight => resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.Light),
+                AppConstants.ThemeDark => resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.Dark),
+                _ => resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.FollowSystem),
+            };
             return result;
         }
 

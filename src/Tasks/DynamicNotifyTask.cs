@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Bili.DI.Container;
 using Bili.DI.Task;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Dynamic;
@@ -11,7 +12,6 @@ using Bili.Models.Data.Video;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Microsoft.Toolkit.Uwp.Notifications;
-using Splat;
 using Windows.ApplicationModel.Background;
 
 namespace Bili.Tasks
@@ -26,9 +26,9 @@ namespace Bili.Tasks
         {
             var def = taskInstance.GetDeferral();
             new DIFactory().RegisterTaskRequiredServices();
-            var settingsToolkit = Locator.Current.GetService<ISettingsToolkit>();
-            var communityProvider = Locator.Current.GetService<ICommunityProvider>();
-            var authProvider = Locator.Current.GetService<IAuthorizeProvider>();
+            var settingsToolkit = Locator.Instance.GetService<ISettingsToolkit>();
+            var communityProvider = Locator.Instance.GetService<ICommunityProvider>();
+            var authProvider = Locator.Instance.GetService<IAuthorizeProvider>();
 
             var isSignedIn = await authProvider.IsTokenValidAsync();
             if (!isSignedIn)

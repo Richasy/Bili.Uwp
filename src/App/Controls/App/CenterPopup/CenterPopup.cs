@@ -2,8 +2,8 @@
 
 using System;
 using Bili.App.Pages.Desktop;
+using Bili.DI.Container;
 using Bili.ViewModels.Interfaces.Core;
-using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -23,7 +23,7 @@ namespace Bili.App.Controls
         public CenterPopup()
         {
             DefaultStyleKey = typeof(CenterPopup);
-            _navigationViewModel = Locator.Current.GetService<INavigationViewModel>();
+            _navigationViewModel = Locator.Instance.GetService<INavigationViewModel>();
             Loaded += OnLoaded;
         }
 
@@ -38,7 +38,7 @@ namespace Bili.App.Controls
         /// </summary>
         public void Hide()
         {
-            _navigationViewModel.BackCommand.Execute().Subscribe();
+            _navigationViewModel.BackCommand.Execute(null);
             Closed?.Invoke(this, EventArgs.Empty);
         }
 

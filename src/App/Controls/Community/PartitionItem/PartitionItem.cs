@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using Bili.DI.Container;
 using Bili.Models.Data.Community;
 using Bili.Models.Enums.App;
 using Bili.ViewModels.Interfaces.Core;
-using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls.Primitives;
 
@@ -47,7 +47,7 @@ namespace Bili.App.Controls.Community
 
         private void OnRootCardClick(object sender, RoutedEventArgs e)
         {
-            var vm = Locator.Current.GetService<INavigationViewModel>();
+            var vm = Locator.Instance.GetService<INavigationViewModel>();
             var pageId = Type == PartitionType.Video
                 ? Models.Enums.PageIds.VideoPartitionDetail
                 : Models.Enums.PageIds.LivePartitionDetail;

@@ -30,7 +30,7 @@ namespace Bili.App.Pages.Xbox.Overlay
                 ViewModel.SetUserProfile(profile);
             }
 
-            ViewModel.ReloadCommand.Execute().Subscribe();
+            ViewModel.ReloadCommand.ExecuteAsync(null);
         }
 
         /// <inheritdoc/>
@@ -48,7 +48,7 @@ namespace Bili.App.Pages.Xbox.Overlay
                 return;
             }
 
-            ViewModel.SearchCommand.Execute().Subscribe();
+            ViewModel.SearchCommand.ExecuteAsync(null);
         }
     }
 }

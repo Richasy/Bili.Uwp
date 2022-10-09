@@ -127,6 +127,7 @@
     </Compile>
     <Compile Include="Controls\Pgc\SeasonItem\SeasonItem.cs" />
     <Compile Include="Controls\ReactiveControl.cs" />
+    <Compile Include="Controls\ReactiveUserControl.cs" />
     <Compile Include="Controls\Settings\NotificationSettingSection.xaml.cs">
       <DependentUpon>NotificationSettingSection.xaml</DependentUpon>
     </Compile>
@@ -1349,6 +1350,10 @@
     <ProjectReference Include="..\Lib\DI.App\DI.App.csproj">
       <Project>{18d92f2f-046e-4a35-83fc-476b097bb8b7}</Project>
       <Name>DI.App</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lib\DI.Container\DI.Container.csproj">
+      <Project>{81b36a8c-e9a5-46f1-b803-b4d329c6e4b4}</Project>
+      <Name>DI.Container</Name>
     </ProjectReference>
     <ProjectReference Include="..\Lib\FrostMaster.Uwp\FrostMaster.Uwp.csproj">
       <Project>{b9cd5845-2de3-40fc-bc0f-27c406929551}</Project>

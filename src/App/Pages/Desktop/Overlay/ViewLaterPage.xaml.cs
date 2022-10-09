@@ -2,10 +2,10 @@
 
 using System;
 using Bili.App.Controls.Dialogs;
+using Bili.DI.Container;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
-using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -35,7 +35,7 @@ namespace Bili.App.Pages.Desktop.Overlay
             if (ViewModel.Items.Count > 0)
             {
                 // Show dialog.
-                var msg = Locator.Current
+                var msg = Locator.Instance
                     .GetService<IResourceToolkit>()
                     .GetLocaleString(LanguageNames.ClearViewLaterWarning);
                 var dialog = new ConfirmDialog(msg);
@@ -48,7 +48,7 @@ namespace Bili.App.Pages.Desktop.Overlay
 
             if (isClear)
             {
-                ViewModel.ClearCommand.Execute().Subscribe();
+                _ = ViewModel.ClearCommand.ExecuteAsync(null);
             }
         }
     }

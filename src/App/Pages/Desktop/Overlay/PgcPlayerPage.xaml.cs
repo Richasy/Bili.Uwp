@@ -32,7 +32,7 @@ namespace Bili.App.Pages.Desktop.Overlay
 
         /// <inheritdoc/>
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
-            => ViewModel.ClearCommand.Execute().Subscribe();
+            => ViewModel.ClearCommand.Execute(null);
 
         /// <inheritdoc/>
         protected override void OnPageLoaded()
@@ -51,18 +51,18 @@ namespace Bili.App.Pages.Desktop.Overlay
         }
 
         private void OnRefreshFavoriteButtonClickAsync(object sender, RoutedEventArgs e)
-            => ViewModel.RequestFavoriteFoldersCommand.Execute().Subscribe();
+            => ViewModel.RequestFavoriteFoldersCommand.ExecuteAsync(null);
 
         private void OnGiveCoinButtonClickAsync(object sender, RoutedEventArgs e)
         {
             var num = int.Parse((sender as FrameworkElement).Tag.ToString());
-            ViewModel.CoinCommand.Execute(num).Subscribe();
+            ViewModel.CoinCommand.Execute(num);
         }
 
         private void OnLikeButtonHoldingCompleted(object sender, System.EventArgs e)
         {
             _isLikeHoldCompleted = true;
-            ViewModel.TripleCommand.Execute().Subscribe();
+            ViewModel.TripleCommand.ExecuteAsync(null);
             CoinButton.ShowBubbles();
             FavoriteButton.ShowBubbles();
         }
@@ -81,7 +81,7 @@ namespace Bili.App.Pages.Desktop.Overlay
                 return;
             }
 
-            ViewModel.LikeCommand.Execute().Subscribe();
+            ViewModel.LikeCommand.ExecuteAsync(null);
         }
 
         private void OnCoinButtonClick(object sender, RoutedEventArgs e)
@@ -102,7 +102,7 @@ namespace Bili.App.Pages.Desktop.Overlay
 
             if (ViewModel.FavoriteFolders.Count == 0)
             {
-                ViewModel.RequestFavoriteFoldersCommand.Execute().Subscribe();
+                ViewModel.RequestFavoriteFoldersCommand.ExecuteAsync(null);
             }
 
             FavoriteFlyout.ShowAt(FavoriteButton);

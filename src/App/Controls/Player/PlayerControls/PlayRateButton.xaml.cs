@@ -21,7 +21,7 @@ namespace Bili.App.Controls.Player.PlayerControls
         private void OnPlaybackRatePresetButtonClick(object sender, RoutedEventArgs e)
         {
             var rate = (double)(sender as FrameworkElement).DataContext;
-            ViewModel.ChangePlayRateCommand.Execute(rate).Subscribe();
+            ViewModel.ChangePlayRateCommand.Execute(rate);
         }
     }
 }

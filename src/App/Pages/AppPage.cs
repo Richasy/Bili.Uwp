@@ -1,9 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
+using Bili.DI.Container;
 using Bili.ViewModels.Interfaces.Core;
-using ReactiveUI;
-using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -24,7 +22,7 @@ namespace Bili.App.Pages
         /// <summary>
         /// Initializes a new instance of the <see cref="AppPage"/> class.
         /// </summary>
-        public AppPage() => CoreViewModel = Locator.Current.GetService<IAppViewModel>();
+        public AppPage() => CoreViewModel = Locator.Instance.GetService<IAppViewModel>();
 
         /// <summary>
         /// 应用核心视图模型.
@@ -49,10 +47,10 @@ namespace Bili.App.Pages
                 || kind == Windows.UI.Input.PointerUpdateKind.MiddleButtonReleased)
             {
                 e.Handled = true;
-                var navigationVM = Locator.Current.GetService<INavigationViewModel>();
+                var navigationVM = Locator.Instance.GetService<INavigationViewModel>();
                 if (navigationVM.CanBack)
                 {
-                    navigationVM.BackCommand.Execute().Subscribe();
+                    navigationVM.BackCommand.Execute(null);
                 }
             }
 
@@ -64,7 +62,7 @@ namespace Bili.App.Pages
     /// 带视图模型的应用页面基类.
     /// </summary>
     /// <typeparam name="TViewModel">视图模型.</typeparam>
-    public class AppPage<TViewModel> : AppPage, IViewFor<TViewModel>
+    public class AppPage<TViewModel> : AppPage
         where TViewModel : class
     {
         /// <summary>
@@ -78,7 +76,7 @@ namespace Bili.App.Pages
         /// </summary>
         public AppPage()
         {
-            ViewModel = Locator.Current.GetService<TViewModel>();
+            ViewModel = Locator.Instance.GetService<TViewModel>();
             DataContext = ViewModel;
             Loaded += OnLoaded;
             Unloaded += OnUnloaded;
@@ -93,9 +91,6 @@ namespace Bili.App.Pages
             get { return (TViewModel)GetValue(ViewModelProperty); }
             set { SetValue(ViewModelProperty, value); }
         }
-
-        /// <inheritdoc/>
-        object IViewFor.ViewModel { get => ViewModel; set => ViewModel = (TViewModel)value; }
 
         /// <inheritdoc/>
         public override object GetViewModel() => ViewModel;

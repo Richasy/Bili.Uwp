@@ -31,7 +31,7 @@ namespace Bili.App.Pages.Desktop
 
             if (data != ViewModel.CurrentPartition)
             {
-                ViewModel.SelectPartitionCommand.Execute(data).Subscribe();
+                ViewModel.SelectPartitionCommand.Execute(data);
             }
         }
     }

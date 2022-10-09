@@ -2,9 +2,8 @@
 
 using System;
 using System.Threading.Tasks;
+using Bili.DI.Container;
 using Bili.ViewModels.Interfaces.Live;
-using ReactiveUI;
-using Splat;
 
 namespace Bili.App.Controls.Player
 {
@@ -19,7 +18,7 @@ namespace Bili.App.Controls.Player
         public LiveMessageView()
         {
             InitializeComponent();
-            ViewModel = Splat.Locator.Current.GetService<ILivePlayerPageViewModel>();
+            ViewModel = Locator.Instance.GetService<ILivePlayerPageViewModel>();
             DataContext = ViewModel;
             ViewModel.RequestDanmakusScrollToBottom += OnRequestDanmakusScrollToBottomAsync;
         }

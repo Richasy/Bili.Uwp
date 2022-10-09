@@ -8,7 +8,6 @@ using Bili.SignIn.Uwp;
 using Bili.Toolkit.Fake;
 using Bili.Toolkit.Interfaces;
 using Bili.Toolkit.Uwp;
-using Splat;
 
 namespace Bili.DI.Task
 {
@@ -22,25 +21,25 @@ namespace Bili.DI.Task
         /// </summary>
         public void RegisterTaskRequiredServices()
         {
-            SplatRegistrations.Register<IResourceToolkit, FakeResourceToolkit>();
-            SplatRegistrations.Register<ISettingsToolkit, SettingsToolkit>();
-            SplatRegistrations.Register<INumberToolkit, NumberToolkit>();
-            SplatRegistrations.Register<IMD5Toolkit, MD5Toolkit>();
-            SplatRegistrations.Register<ITextToolkit, TextToolkit>();
-
-            SplatRegistrations.Register<IImageAdapter, ImageAdapter>();
-            SplatRegistrations.Register<IUserAdapter, UserAdapter>();
-            SplatRegistrations.Register<ICommunityAdapter, CommunityAdapter>();
-            SplatRegistrations.Register<IVideoAdapter, VideoAdapter>();
-            SplatRegistrations.Register<IPgcAdapter, PgcAdapter>();
-            SplatRegistrations.Register<IDynamicAdapter, DynamicAdapter>();
-            SplatRegistrations.Register<ICommentAdapter, CommentAdapter>();
-
-            SplatRegistrations.Register<IAuthorizeProvider, AuthorizeProvider>();
-            SplatRegistrations.Register<IHttpProvider, HttpProvider>();
-            SplatRegistrations.Register<IAccountProvider, AccountProvider>();
-            SplatRegistrations.Register<ICommunityProvider, CommunityProvider>();
-            SplatRegistrations.SetupIOC();
+            Container.Locator.Instance
+                .RegisterSingleton<IResourceToolkit, FakeResourceToolkit>()
+                .RegisterSingleton<ISettingsToolkit, SettingsToolkit>()
+                .RegisterSingleton<INumberToolkit, NumberToolkit>()
+                .RegisterSingleton<IMD5Toolkit, MD5Toolkit>()
+                .RegisterSingleton<ITextToolkit, TextToolkit>()
+                .RegisterSingleton<IImageAdapter, ImageAdapter>()
+                .RegisterSingleton<IUserAdapter, UserAdapter>()
+                .RegisterSingleton<ICommunityAdapter, CommunityAdapter>()
+                .RegisterSingleton<IVideoAdapter, VideoAdapter>()
+                .RegisterSingleton<IPgcAdapter, PgcAdapter>()
+                .RegisterSingleton<IArticleAdapter, ArticleAdapter>()
+                .RegisterSingleton<IDynamicAdapter, DynamicAdapter>()
+                .RegisterSingleton<ICommentAdapter, CommentAdapter>()
+                .RegisterSingleton<IAuthorizeProvider, AuthorizeProvider>()
+                .RegisterSingleton<IHttpProvider, HttpProvider>()
+                .RegisterSingleton<IAccountProvider, AccountProvider>()
+                .RegisterSingleton<ICommunityProvider, CommunityProvider>()
+                .Build();
         }
     }
 }

@@ -1,12 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using Bili.DI.Container;
 using Bili.Models.Data.Local;
 using Bili.Models.Enums;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Core;
-using ReactiveUI;
-using Splat;
 
 namespace Bili.App.Controls.Base
 {
@@ -20,9 +19,9 @@ namespace Bili.App.Controls.Base
         /// </summary>
         public NavigationViewBase()
         {
-            ViewModel = Locator.Current.GetService<INavigationViewModel>();
-            AppViewModel = Locator.Current.GetService<IAppViewModel>();
-            AccountViewModel = Locator.Current.GetService<IAccountViewModel>();
+            ViewModel = Locator.Instance.GetService<INavigationViewModel>();
+            AppViewModel = Locator.Instance.GetService<IAppViewModel>();
+            AccountViewModel = Locator.Instance.GetService<IAccountViewModel>();
         }
 
         /// <summary>

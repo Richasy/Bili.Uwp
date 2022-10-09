@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using Bili.DI.Container;
 using Bili.Toolkit.Interfaces;
-using Splat;
 using Windows.UI.Xaml.Data;
 
 namespace Bili.App.Resources.Converter
@@ -20,7 +20,7 @@ namespace Bili.App.Resources.Converter
         /// <inheritdoc/>
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            var numToolkit = Locator.Current.GetService<INumberToolkit>();
+            var numToolkit = Locator.Instance.GetService<INumberToolkit>();
             if (value is int time)
             {
                 if (IsMilliseconds)

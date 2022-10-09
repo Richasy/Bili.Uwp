@@ -34,7 +34,7 @@
             GotFocus="OnDanmakuInputBoxGotFocus"
             LostFocus="OnDanmakuInputBoxLostFocus"
             PlaceholderText="{loc:Locale Name=DanmakuPlaceholder}"
-            QuerySubmitted="OnDanmakuInputBoxSubmitted" />
+            QuerySubmitted="OnDanmakuInputBoxSubmittedAsync" />
         <StackPanel
             Grid.Column="2"
             Orientation="Horizontal"

@@ -1,10 +1,9 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
+using Bili.DI.Container;
 using Bili.Models.Data.Local;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
-using Splat;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -25,14 +24,14 @@ namespace Bili.App.Controls.Dialogs
         public ContinuePlayDialog()
         {
             InitializeComponent();
-            _navigationViewModel = Splat.Locator.Current.GetService<INavigationViewModel>();
-            _recordViewModel = Locator.Current.GetService<IRecordViewModel>();
+            _navigationViewModel = Locator.Instance.GetService<INavigationViewModel>();
+            _recordViewModel = Locator.Instance.GetService<IRecordViewModel>();
             Loaded += OnLoadedAsync;
         }
 
         private async void OnLoadedAsync(object sender, RoutedEventArgs e)
         {
-            var settingsToolkit = Locator.Current.GetService<ISettingsToolkit>();
+            var settingsToolkit = Locator.Instance.GetService<ISettingsToolkit>();
             _snapshot = await _recordViewModel.GetLastPlayItemAsync();
             if (_snapshot == null)
             {
@@ -47,6 +46,6 @@ namespace Bili.App.Controls.Dialogs
             => _navigationViewModel.NavigateToPlayView(_snapshot);
 
         private void OnContentDialogCloseButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-            => _recordViewModel.DeleteLastPlayItemCommand.Execute().Subscribe();
+            => _recordViewModel.DeleteLastPlayItemCommand.ExecuteAsync(null);
     }
 }

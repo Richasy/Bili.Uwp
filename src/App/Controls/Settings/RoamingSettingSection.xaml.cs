@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using Bili.DI.Container;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
-using Splat;
 
 namespace Bili.App.Controls
 {
@@ -90,8 +90,8 @@ namespace Bili.App.Controls
             var type = isSuccess
                 ? Models.Enums.App.InfoType.Success
                 : Models.Enums.App.InfoType.Error;
-            var tip = Locator.Current.GetService<IResourceToolkit>().GetLocaleString(text);
-            Locator.Current.GetService<ICallerViewModel>().ShowTip(tip, type);
+            var tip = Locator.Instance.GetService<IResourceToolkit>().GetLocaleString(text);
+            Locator.Instance.GetService<ICallerViewModel>().ShowTip(tip, type);
         }
     }
 }
