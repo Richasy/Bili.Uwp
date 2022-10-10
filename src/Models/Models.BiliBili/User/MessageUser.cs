@@ -14,7 +14,7 @@ namespace Bili.Models.BiliBili
         /// 用户ID.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "mid", Required = Required.Default)]
-        public int UserId { get; set; }
+        public long UserId { get; set; }
 
         /// <summary>
         /// 是否为粉丝，0-不是，1-是.
