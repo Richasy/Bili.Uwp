@@ -113,9 +113,10 @@ namespace Bili.ViewModels.Uwp.Core
         }
 
         /// <inheritdoc/>
-        public void SetVideoData(VideoPlayerView data)
+        public void SetVideoData(VideoPlayerView data, bool isInPrivate = false)
         {
             _viewData = data;
+            _isInPrivate = isInPrivate;
             _videoType = VideoType.Video;
             ReloadCommand.ExecuteAsync(null);
         }

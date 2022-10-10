@@ -38,6 +38,7 @@ namespace Bili.ViewModels.Uwp.Video
 
         private string _presetVideoId;
         private Action _playNextVideoAction;
+        private bool _isInPrivate;
 
         [ObservableProperty]
         private VideoPlayerView _view;

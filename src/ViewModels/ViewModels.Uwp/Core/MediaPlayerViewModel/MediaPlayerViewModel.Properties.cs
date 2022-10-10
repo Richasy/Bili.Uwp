@@ -41,6 +41,7 @@ namespace Bili.ViewModels.Uwp.Core
         private IPlayerViewModel _player;
         private VideoType _videoType;
         private object _viewData;
+        private bool _isInPrivate;
         private VideoIdentifier _currentPart;
         private EpisodeInformation _currentEpisode;
         private LivePlaylineInformation _currentPlayline;

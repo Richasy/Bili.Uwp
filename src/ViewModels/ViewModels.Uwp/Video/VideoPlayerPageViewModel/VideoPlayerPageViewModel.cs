@@ -101,6 +101,7 @@ namespace Bili.ViewModels.Uwp.Video
         {
             ReloadMediaPlayer();
             _presetVideoId = snapshot.VideoId;
+            _isInPrivate = snapshot.IsInPrivate;
             var defaultPlayMode = _settingsToolkit.ReadLocalSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
             MediaPlayerViewModel.DisplayMode = snapshot.DisplayMode ?? defaultPlayMode;
             ReloadCommand.ExecuteAsync(null);
@@ -150,7 +151,7 @@ namespace Bili.ViewModels.Uwp.Video
             InitializeSections();
             InitializeInterop();
 
-            MediaPlayerViewModel.SetVideoData(View);
+            MediaPlayerViewModel.SetVideoData(View, _isInPrivate);
         }
 
         private void Clear()

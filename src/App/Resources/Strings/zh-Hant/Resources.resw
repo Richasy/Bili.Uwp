@@ -1093,6 +1093,9 @@ UGC優先級：分P &gt; 播放列表 &gt; 合集影片 &gt; 關聯影片 (如�
   <data name="PlayerTypeDescription" xml:space="preserve">
     <value>對於集顯或無顯，建議使用原生播放；獨顯或者原生播放有問題的，可以使用FFmpeg播放</value>
   </data>
+  <data name="PlayInPrivate" xml:space="preserve">
+    <value>無痕播放</value>
+  </data>
   <data name="PlayLine" xml:space="preserve">
     <value>線路</value>
   </data>
