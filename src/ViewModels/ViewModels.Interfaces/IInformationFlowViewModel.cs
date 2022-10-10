@@ -2,6 +2,7 @@
 
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Bili.ViewModels.Interfaces
 {
@@ -15,5 +16,10 @@ namespace Bili.ViewModels.Interfaces
         /// 视频集合.
         /// </summary>
         ObservableCollection<T> Items { get; }
+
+        /// <summary>
+        /// 重置状态的命令.
+        /// </summary>
+        IRelayCommand ResetStateCommand { get; }
     }
 }

@@ -8,6 +8,7 @@ using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 namespace Bili.App.Pages.Desktop.Overlay
 {
@@ -28,6 +29,10 @@ namespace Bili.App.Pages.Desktop.Overlay
         /// <inheritdoc/>
         protected override void OnPageUnloaded()
             => Bindings.StopTracking();
+
+        /// <inheritdoc/>
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+            => ViewModel.ResetStateCommand.Execute(null);
 
         private async void OnClearButtonClickAsync(object sender, RoutedEventArgs e)
         {
