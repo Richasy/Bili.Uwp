@@ -249,6 +249,7 @@
                     <controls:CardPanel
                         AutomationProperties.Name="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Title}"
                         Width="120"
+                        Height="176"
                         Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlayCommand}"
                         IsEnableCheck="False"
                         IsEnableHoverAnimation="False">
@@ -293,7 +294,7 @@
                                 <TextBlock
                                     Style="{StaticResource CaptionTextBlockStyle}"
                                     HorizontalAlignment="Center"
-                                    MaxLines="3"
+                                    MaxLines="2"
                                     Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Title}"
                                     TextAlignment="Center"
                                     TextTrimming="CharacterEllipsis" />
