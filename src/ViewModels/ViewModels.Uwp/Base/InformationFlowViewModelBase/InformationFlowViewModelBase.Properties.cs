@@ -38,6 +38,9 @@ namespace Bili.ViewModels.Uwp.Base
         public IAsyncRelayCommand IncrementalCommand { get; }
 
         /// <inheritdoc/>
+        public IRelayCommand ResetStateCommand { get; }
+
+        /// <inheritdoc/>
         public ObservableCollection<T> Items { get; }
     }
 }

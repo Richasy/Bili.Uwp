@@ -22,6 +22,7 @@ namespace Bili.ViewModels.Uwp.Base
             _dispatcher = dispatcher;
             Items = new ObservableCollection<T>();
 
+            ResetStateCommand = new RelayCommand(ResetState);
             InitializeCommand = new AsyncRelayCommand(InitializeAsync);
             ReloadCommand = new AsyncRelayCommand(ReloadAsync);
             IncrementalCommand = new AsyncRelayCommand(IncrementalAsync);
@@ -83,11 +84,16 @@ namespace Bili.ViewModels.Uwp.Base
             await ReloadAsync();
         }
 
-        private async Task ReloadAsync()
+        private void ResetState()
         {
             BeforeReload();
             TryClear(Items);
             ClearException();
+        }
+
+        private async Task ReloadAsync()
+        {
+            ResetState();
 
             var task = _dispatcher.RunAsync(
                 CoreDispatcherPriority.Normal,

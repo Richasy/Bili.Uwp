@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using Bili.App.Pages.Base;
+using Windows.UI.Xaml.Navigation;
 
 namespace Bili.App.Pages.Desktop
 {
@@ -21,5 +22,9 @@ namespace Bili.App.Pages.Desktop
         /// <inheritdoc/>
         protected override void OnPageUnloaded()
             => Bindings.StopTracking();
+
+        /// <inheritdoc/>
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+            => ViewModel.ResetStateCommand.Execute(null);
     }
 }
