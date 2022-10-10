@@ -189,7 +189,7 @@ namespace Bili.ViewModels.Uwp.Core
             var progress = _player.Position;
             if (progress != _lastReportProgress && progress > TimeSpan.Zero)
             {
-                if (_videoType == VideoType.Video)
+                if (_videoType == VideoType.Video && !_isInPrivate)
                 {
                     var view = _viewData as VideoPlayerView;
                     var aid = view.Information.Identifier.Id;

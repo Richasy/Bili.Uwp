@@ -8,6 +8,11 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
 
     <MenuFlyout x:Key="DefaultVideoItemContextFlyout">
+        <MenuFlyoutItem Command="{Binding PlayInPrivateCommand}" Text="{loc:Locale Name=PlayInPrivate}">
+            <MenuFlyoutItem.Icon>
+                <icons:RegularFluentIcon Symbol="WindowInprivate20" />
+            </MenuFlyoutItem.Icon>
+        </MenuFlyoutItem>
         <MenuFlyoutItem
             Command="{Binding Publisher.ShowDetailCommand}"
             IsEnabled="{Binding Publisher.User, Converter={StaticResource ObjectToBoolConverter}}"

@@ -63,5 +63,10 @@ namespace Bili.Models.Data.Local
         /// 是否需要借助 BiliPlus 服务获取视频对应的剧集信息.
         /// </summary>
         public bool NeedBiliPlus { get; set; }
+
+        /// <summary>
+        /// 是否以无痕模式浏览.
+        /// </summary>
+        public bool IsInPrivate { get; set; }
     }
 }

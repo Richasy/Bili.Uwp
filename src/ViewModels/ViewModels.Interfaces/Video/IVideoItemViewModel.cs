@@ -42,6 +42,11 @@ namespace Bili.ViewModels.Interfaces.Video
         public IRelayCommand PlayCommand { get; }
 
         /// <summary>
+        /// 无痕播放命令.
+        /// </summary>
+        public IRelayCommand PlayInPrivateCommand { get; }
+
+        /// <summary>
         /// 发布者.
         /// </summary>
         public IUserItemViewModel Publisher { get; }

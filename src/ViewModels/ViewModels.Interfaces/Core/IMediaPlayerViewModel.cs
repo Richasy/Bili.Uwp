@@ -372,7 +372,8 @@ namespace Bili.ViewModels.Interfaces.Core
         /// 设置视频播放数据.
         /// </summary>
         /// <param name="data">视频视图数据.</param>
-        void SetVideoData(VideoPlayerView data);
+        /// <param name="isInPrivate">是否为无痕浏览.</param>
+        void SetVideoData(VideoPlayerView data, bool isInPrivate = false);
 
         /// <summary>
         /// 设置 PGC 播放数据.
