@@ -13,7 +13,7 @@ namespace Bili.Models.BiliBili
         /// 视频发布者的Id.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "mid", Required = Required.Default)]
-        public int Mid { get; set; }
+        public long Mid { get; set; }
 
         /// <summary>
         /// 视频发布者.
