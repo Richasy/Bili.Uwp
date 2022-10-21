@@ -114,7 +114,7 @@ namespace Bili.Adapter
             var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(dynamicVideo.Title);
             var id = dynamicVideo.Avid.ToString();
             var bvid = dynamicVideo.Bvid;
-            var duration = Convert.ToInt32(dynamicVideo.Duration);
+            var duration = dynamicVideo.Duration;
             var cover = _imageAdapter.ConvertToImage(dynamicVideo.Cover, AppConstants.DynamicCoverWidth, AppConstants.DynamicCoverHeight);
             var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(dynamicVideo);
             var identifier = new VideoIdentifier(id, title, duration, cover);
@@ -154,10 +154,10 @@ namespace Bili.Adapter
         {
             var id = rankVideo.Param;
             var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(rankVideo.Title);
-            var duration = Convert.ToInt32(rankVideo.Duration);
+            var duration = rankVideo.Duration;
             var publishTime = DateTimeOffset.FromUnixTimeSeconds(rankVideo.PubDate).ToLocalTime();
 
-            var user = _userAdapter.ConvertToUserProfile(Convert.ToInt32(rankVideo.Mid), rankVideo.Name, rankVideo.Face, Models.Enums.App.AvatarSize.Size48);
+            var user = _userAdapter.ConvertToUserProfile(rankVideo.Mid, rankVideo.Name, rankVideo.Face, Models.Enums.App.AvatarSize.Size48);
             var publisher = new RoleProfile(user);
             var cover = _imageAdapter.ConvertToVideoCardCover(rankVideo.Cover);
             var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(rankVideo);
@@ -217,7 +217,7 @@ namespace Bili.Adapter
         {
             var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(relatedVideo.Title);
             var id = relatedVideo.Aid.ToString();
-            var duration = Convert.ToInt32(relatedVideo.Duration);
+            var duration = relatedVideo.Duration;
             var description = _textToolkit.ConvertToTraditionalChineseIfNeeded(relatedVideo.Desc);
             var publisher = _userAdapter.ConvertToRoleProfile(relatedVideo.Author);
             var cover = _imageAdapter.ConvertToVideoCardCover(relatedVideo.Pic);
@@ -291,7 +291,7 @@ namespace Bili.Adapter
             var id = historyVideo.Kid.ToString();
             var bvid = video.Bvid;
             var subtitle = $"{video.Name} · {TimeSpan.FromSeconds(video.Progress)}";
-            var duration = Convert.ToInt32(video.Duration);
+            var duration = video.Duration;
             var cover = _imageAdapter.ConvertToVideoCardCover(video.Cover);
 
             var identifier = new VideoIdentifier(id, title, duration, cover);
@@ -329,7 +329,7 @@ namespace Bili.Adapter
             title = _textToolkit.ConvertToTraditionalChineseIfNeeded(title);
             var id = archive.Aid.ToString();
             var publisher = _userAdapter.ConvertToRoleProfile(archive.Author);
-            var duration = Convert.ToInt32(archive.Duration);
+            var duration = archive.Duration;
             var cover = _imageAdapter.ConvertToVideoCardCover(archive.Pic);
             var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(archive.Stat);
             var publishTime = DateTimeOffset.FromUnixTimeSeconds(archive.Pubdate).DateTime;
@@ -431,7 +431,7 @@ namespace Bili.Adapter
             var id = episode.Aid.ToString();
             var cid = episode.Cid.ToString();
             var title = Regex.Replace(episode.Title, "<[^>]+>", string.Empty);
-            var duration = Convert.ToInt32(episode.Page.Duration);
+            var duration = episode.Page.Duration;
             var publisher = _userAdapter.ConvertToRoleProfile(episode.Author);
             var communityInfo = _communityAdapter.ConvertToVideoCommunityInformation(episode.Stat);
             var cover = _imageAdapter.ConvertToVideoCardCover(episode.Cover);
@@ -447,7 +447,7 @@ namespace Bili.Adapter
             var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(arc.Title);
             var id = arc.Aid.ToString();
             var bvid = videoDetail.Bvid;
-            var duration = Convert.ToInt32(arc.Duration);
+            var duration = arc.Duration;
             var cover = _imageAdapter.ConvertToImage(arc.Pic);
             var collaborators = videoDetail.Staff.Count > 0
                 ? videoDetail.Staff.Select(p => _userAdapter.ConvertToRoleProfile(p, Models.Enums.App.AvatarSize.Size32))
@@ -479,7 +479,7 @@ namespace Bili.Adapter
             {
                 var cid = page.Page.Cid.ToString();
                 var title = _textToolkit.ConvertToTraditionalChineseIfNeeded(page.Page.Part);
-                var duration = Convert.ToInt32(page.Page.Duration);
+                var duration = page.Page.Duration;
                 var identifier = new VideoIdentifier(cid, title, duration, null);
                 subVideos.Add(identifier);
             }

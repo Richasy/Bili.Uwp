@@ -17,7 +17,7 @@ namespace Bili.Models.Data.Video
         /// <param name="title">视频名称.</param>
         /// <param name="duration">视频时长.</param>
         /// <param name="cover">封面.</param>
-        public VideoIdentifier(string id, string title, int duration, Image cover)
+        public VideoIdentifier(string id, string title, long duration, Image cover)
         {
             Id = id;
             Title = title;
@@ -38,7 +38,7 @@ namespace Bili.Models.Data.Video
         /// <summary>
         /// 视频时长，以秒为单位.
         /// </summary>
-        public int Duration { get; }
+        public long Duration { get; }
 
         /// <summary>
         /// 视频 Id，属于网站的资源标识符.

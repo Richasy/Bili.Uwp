@@ -133,7 +133,7 @@ namespace Bili.Adapter
             var aid = pgc.Aid.ToString();
             var isPv = pgc.IsPreview;
             var cover = _imageAdapter.ConvertToVideoCardCover(pgc.Cover);
-            var duration = Convert.ToInt32(pgc.Duration);
+            var duration = pgc.Duration;
 
             var identifier = new VideoIdentifier(epid, title, duration, cover);
             return new EpisodeInformation(identifier, ssid, aid, isPv: isPv);
@@ -148,7 +148,7 @@ namespace Bili.Adapter
             var aid = archive.Avid.ToString();
             var isPv = archive.IsPreview;
             var cover = _imageAdapter.ConvertToVideoCardCover(archive.Cover);
-            var duration = Convert.ToInt32(archive.Duration);
+            var duration = archive.Duration;
 
             var identifier = new VideoIdentifier(epid, title, duration, cover);
             return new EpisodeInformation(identifier, ssid, aid, isPv: isPv);
