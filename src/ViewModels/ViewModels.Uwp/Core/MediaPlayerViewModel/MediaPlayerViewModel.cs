@@ -269,6 +269,7 @@ namespace Bili.ViewModels.Uwp.Core
         private void InitializePlayer()
         {
             var playerType = _settingsToolkit.ReadLocalSetting(SettingNames.PlayerType, PlayerType.Native);
+            InitializeDisplayModeText();
 
             if (_player == null)
             {
