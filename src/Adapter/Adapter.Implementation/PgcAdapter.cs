@@ -335,9 +335,17 @@ namespace Bili.Adapter
                     extras = new Dictionary<string, IEnumerable<EpisodeInformation>>();
                     foreach (var section in sectionModules)
                     {
-                        if (section.Data?.Episodes?.Any() ?? false)
+                        var title = section.Title;
+                        if (extras.ContainsKey(title))
                         {
-                            extras.Add(section.Title, section.Data.Episodes.Select(p => ConvertToEpisodeInformation(p)));
+                            var count = extras.Keys.Count(p => p.StartsWith(title)) + 1;
+                            title = title + count;
+                        }
+
+                        if (
+                            section.Data?.Episodes?.Any() ?? false)
+                        {
+                            extras.Add(title, section.Data.Episodes.Select(p => ConvertToEpisodeInformation(p)));
                         }
                     }
                 }
