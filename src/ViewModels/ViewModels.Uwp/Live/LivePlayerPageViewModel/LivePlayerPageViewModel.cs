@@ -80,8 +80,15 @@ namespace Bili.ViewModels.Uwp.Live
         {
             _presetRoomId = snapshot.VideoId;
             var defaultPlayMode = _settingsToolkit.ReadLocalSetting(SettingNames.DefaultPlayerDisplayMode, PlayerDisplayMode.Default);
-            MediaPlayerViewModel.DisplayMode = snapshot.DisplayMode ?? defaultPlayMode;
-            ReloadCommand.ExecuteAsync(null);
+            ReloadCommand.ExecuteAsync(null)
+                .ContinueWith(async _ =>
+                {
+                    await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                    {
+                        MediaPlayerViewModel.DisplayMode = snapshot.DisplayMode ?? defaultPlayMode;
+                    });
+                });
+
             _liveProvider.MessageReceived += OnMessageReceivedAsync;
         }
 
