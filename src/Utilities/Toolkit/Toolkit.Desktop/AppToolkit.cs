@@ -164,6 +164,21 @@ namespace Bili.Toolkit.Desktop
             }
         }
 
+        /// <inheritdoc/>
+        public void ResizeAndCenterWindow(double width, double height, IntPtr windowHandle)
+        {
+            var actualWidth = GetScalePixel(width, windowHandle);
+            var actualHeight = GetScalePixel(height, windowHandle);
+
+            var rect = GetMonitorRect(windowHandle);
+
+            var cx = (rect.left + rect.right) / 2;
+            var cy = (rect.bottom + rect.top) / 2;
+            var left = cx - (actualWidth / 2);
+            var top = cy - (actualHeight / 2);
+            SetWindowPos(windowHandle, SpecialWindowHandles.HWND_NOTOPMOST, left, top, actualWidth, actualHeight, SetWindowPosFlags.SWP_SHOWWINDOW);
+        }
+
         private static int GetScalePixel(double pixel, IntPtr windowHandle)
         {
             var dpi = GetDpiForWindow(windowHandle);
