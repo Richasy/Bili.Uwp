@@ -1,0 +1,120 @@
+﻿<local:SettingSectionControl
+    x:Class="Bili.Desktop.App.Controls.RoamingSettingSection"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:exp="using:Richasy.ExpanderEx.Uwp"
+    xmlns:ico="using:Richasy.FluentIcon.Uwp"
+    xmlns:loc="using:Bili.Desktop.App.Resources.Extension"
+    xmlns:local="using:Bili.Desktop.App.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+
+    <exp:ExpanderEx>
+        <exp:ExpanderEx.Header>
+            <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderHeaderStyle}">
+                <exp:ExpanderExWrapper.MainContent>
+                    <exp:ExpanderExDescriptor Title="{loc:Locale Name=ProxySetting}" Description="{loc:Locale Name=ProxySettingDescription}">
+                        <exp:ExpanderExDescriptor.Icon>
+                            <ico:RegularFluentIcon Symbol="GlobeVideo20" />
+                        </exp:ExpanderExDescriptor.Icon>
+                    </exp:ExpanderExDescriptor>
+                </exp:ExpanderExWrapper.MainContent>
+                <exp:ExpanderExWrapper.WrapContent>
+                    <ToggleSwitch Style="{StaticResource RightAlignedCompactToggleSwitchStyle}" IsOn="{x:Bind ViewModel.IsOpenRoaming, Mode=TwoWay}" />
+                </exp:ExpanderExWrapper.WrapContent>
+            </exp:ExpanderExWrapper>
+        </exp:ExpanderEx.Header>
+        <exp:ExpanderEx.Content>
+            <exp:ExpanderExMenuPanel>
+                <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
+                    <exp:ExpanderExWrapper.MainContent>
+                        <StackPanel>
+                            <TextBlock HorizontalAlignment="Left" Text="{loc:Locale Name=GlobeProxy}" />
+                            <TextBlock
+                                Style="{StaticResource CaptionTextBlockStyle}"
+                                HorizontalAlignment="Left"
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                Text="{loc:Locale Name=GlobeProxyDescription}"
+                                TextTrimming="CharacterEllipsis" />
+                        </StackPanel>
+                    </exp:ExpanderExWrapper.MainContent>
+                    <exp:ExpanderExWrapper.WrapContent>
+                        <ToggleSwitch Style="{StaticResource RightAlignedCompactToggleSwitchStyle}" IsOn="{x:Bind ViewModel.IsGlobeProxy, Mode=TwoWay}" />
+                    </exp:ExpanderExWrapper.WrapContent>
+                </exp:ExpanderExWrapper>
+                <exp:ExpanderExItemSeparator />
+                <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
+                    <exp:ExpanderExWrapper.MainContent>
+                        <StackPanel>
+                            <TextBlock HorizontalAlignment="Left" Text="{loc:Locale Name=ProxyViewAddress}" />
+                            <TextBlock FontSize="12">
+                                <Hyperlink NavigateUri="https://github.com/Richasy/Bili.Uwp/wiki/%E7%95%AA%E5%89%A7%E4%BB%A3%E7%90%86#%E8%AF%A6%E6%83%85%E4%BB%A3%E7%90%86">
+                                    <Run Text="{loc:Locale Name=FunctionIntroduce}" />
+                                </Hyperlink>
+                            </TextBlock>
+                        </StackPanel>
+                    </exp:ExpanderExWrapper.MainContent>
+                    <exp:ExpanderExWrapper.WrapContent>
+                        <AutoSuggestBox
+                            MinWidth="240"
+                            MaxWidth="300"
+                            VerticalAlignment="Center"
+                            PlaceholderText="{loc:Locale Name=EnterToEffect}"
+                            QueryIcon="Save"
+                            QuerySubmitted="OnViewAddressBoxSubmitted"
+                            Text="{x:Bind ViewModel.RoamingViewAddress, Mode=OneWay}" />
+                    </exp:ExpanderExWrapper.WrapContent>
+                </exp:ExpanderExWrapper>
+                <exp:ExpanderExItemSeparator />
+                <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
+                    <exp:ExpanderExWrapper.MainContent>
+                        <StackPanel>
+                            <TextBlock HorizontalAlignment="Left" Text="{loc:Locale Name=ProxyVideoAddress}" />
+                            <TextBlock FontSize="12">
+                                <Hyperlink NavigateUri="https://github.com/Richasy/Bili.Uwp/wiki/%E7%95%AA%E5%89%A7%E4%BB%A3%E7%90%86#%E6%92%AD%E6%94%BE%E4%BB%A3%E7%90%86">
+                                    <Run Text="{loc:Locale Name=FunctionIntroduce}" />
+                                </Hyperlink>
+                            </TextBlock>
+                        </StackPanel>
+                    </exp:ExpanderExWrapper.MainContent>
+                    <exp:ExpanderExWrapper.WrapContent>
+                        <AutoSuggestBox
+                            MinWidth="240"
+                            MaxWidth="300"
+                            VerticalAlignment="Center"
+                            PlaceholderText="{loc:Locale Name=EnterToEffect}"
+                            QueryIcon="Save"
+                            QuerySubmitted="OnVideoAddressBoxSubmitted"
+                            Text="{x:Bind ViewModel.RoamingVideoAddress, Mode=OneWay}" />
+                    </exp:ExpanderExWrapper.WrapContent>
+                </exp:ExpanderExWrapper>
+                <exp:ExpanderExItemSeparator />
+                <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
+                    <exp:ExpanderExWrapper.MainContent>
+                        <StackPanel>
+                            <TextBlock HorizontalAlignment="Left" Text="{loc:Locale Name=ProxySearchAddress}" />
+                            <TextBlock FontSize="12">
+                                <Hyperlink NavigateUri="https://github.com/Richasy/Bili.Uwp/wiki/%E7%95%AA%E5%89%A7%E4%BB%A3%E7%90%86#%E6%90%9C%E7%B4%A2%E4%BB%A3%E7%90%86">
+                                    <Run Text="{loc:Locale Name=FunctionIntroduce}" />
+                                </Hyperlink>
+                            </TextBlock>
+                        </StackPanel>
+                    </exp:ExpanderExWrapper.MainContent>
+                    <exp:ExpanderExWrapper.WrapContent>
+                        <AutoSuggestBox
+                            MinWidth="240"
+                            MaxWidth="300"
+                            VerticalAlignment="Center"
+                            PlaceholderText="{loc:Locale Name=EnterToEffect}"
+                            QueryIcon="Save"
+                            QuerySubmitted="OnSearchAddressBoxSubmitted"
+                            Text="{x:Bind ViewModel.RoamingSearchAddress, Mode=OneWay}" />
+                    </exp:ExpanderExWrapper.WrapContent>
+                </exp:ExpanderExWrapper>
+            </exp:ExpanderExMenuPanel>
+        </exp:ExpanderEx.Content>
+    </exp:ExpanderEx>
+</local:SettingSectionControl>

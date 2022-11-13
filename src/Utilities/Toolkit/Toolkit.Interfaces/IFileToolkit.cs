@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using System.Threading.Tasks;
 
 namespace Bili.Toolkit.Interfaces
@@ -37,13 +36,6 @@ namespace Bili.Toolkit.Interfaces
         /// <param name="folderName">The folder to which the file belongs.</param>
         /// <returns><see cref="Task"/>.</returns>
         Task DeleteLocalDataAsync(string fileName, string folderName = "");
-
-        /// <summary>
-        /// Open the file chooser and read the selected file.
-        /// </summary>
-        /// <param name="types">Allowed file extension.</param>
-        /// <returns><c>Item1</c> represents the content of the file, <c>Item2</c> means file extension name.</returns>
-        Task<Tuple<string, string>> OpenLocalFileAndReadAsync(params string[] types);
 
         /// <summary>
         /// Open file which in the package.

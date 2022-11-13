@@ -17,6 +17,9 @@ namespace Bili.Models.App.Constants
         public const int AppMinWidth = 500;
         public const int AppMinHeight = 500;
 
+        public const double AppLaunchWidth = 1200d;
+        public const double AppLaunchHeight = 800d;
+
         public const int VideoCardCoverWidth = 400;
         public const int VideoCardCoverHeight = 240;
 

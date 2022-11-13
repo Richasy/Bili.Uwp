@@ -1,0 +1,19 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="ms-appx:///Controls/App/CardPanel/CardPanel.xaml" />
+        <ResourceDictionary Source="ms-appx:///Controls/App/OffsetButton/OffsetButton.xaml" />
+        <ResourceDictionary Source="ms-appx:///Controls/App/BubbleView/BubbleView.xaml" />
+        <ResourceDictionary Source="ms-appx:///Controls/App/TwoLineButton/TwoLineButton.xaml" />
+        <ResourceDictionary Source="ms-appx:///Controls/App/CenterPopup/CenterPopup.xaml" />
+        <ResourceDictionary Source="ms-appx:///Controls/App/IconTextBlock/IconTextBlock.xaml" />
+        <ResourceDictionary Source="ms-appx:///Controls/App/CommonImageEx/CommonImageEx.xaml" />
+        <ResourceDictionary Source="ms-appx:///Controls/App/EmoteTextBlock/EmoteTextBlock.xaml" />
+        <ResourceDictionary Source="ms-appx:///Controls/Banner/BannerItem/BannerItem.xaml" />
+        <ResourceDictionary Source="ms-appx:///Controls/Common/VerticalRepeaterView/VerticalRepeaterView.xaml" />
+        <ResourceDictionary Source="ms-appx:///Controls/Player/PlayerTip/PlayerTip.xaml" />
+        <ResourceDictionary Source="ms-appx:///Controls/Community/CommentItem/CommentItem.xaml" />
+        <ResourceDictionary Source="ms-appx:///Controls/Community/CommentMainView/CommentMainView.xaml" />
+        <ResourceDictionary Source="ms-appx:///Controls/Community/CommentDetailView/CommentDetailView.xaml" />
+        <ResourceDictionary Source="ms-appx:///Controls/Community/CommentPageView/CommentPageView.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

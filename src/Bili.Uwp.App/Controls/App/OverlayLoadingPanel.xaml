@@ -1,0 +1,26 @@
+﻿<UserControl
+    x:Class="Bili.Uwp.App.Controls.OverlayLoadingPanel"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Bili.Uwp.App.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    IsTabStop="False"
+    mc:Ignorable="d">
+
+    <Grid>
+        <muxc:ProgressRing
+            x:Name="LoadingRing"
+            Style="{StaticResource PageProgressRingStyle}"
+            IsActive="{x:Bind IsRingActive, Mode=OneWay}" />
+
+        <muxc:ProgressBar
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Bottom"
+            IsIndeterminate="True"
+            Visibility="{x:Bind IsBarActive, Mode=OneWay}" />
+    </Grid>
+</UserControl>

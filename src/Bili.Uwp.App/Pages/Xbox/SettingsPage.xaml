@@ -1,0 +1,74 @@
+﻿<base:SettingsPageBase
+    x:Class="Bili.App.Pages.Xbox.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:app="using:Bili.App.Controls.App"
+    xmlns:base="using:Bili.App.Pages.Base"
+    xmlns:controls="using:Bili.App.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:loc="using:Bili.App.Resources.Extension"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    RequiresPointer="WhenFocused"
+    mc:Ignorable="d">
+
+    <base:SettingsPageBase.Resources>
+        <Style x:Key="TipTextStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{ThemeResource TextFillColorDisabledBrush}" />
+            <Setter Property="FontSize" Value="12" />
+        </Style>
+    </base:SettingsPageBase.Resources>
+
+    <Grid RowSpacing="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <app:PageHeader Title="{loc:Locale Name=Settings}" IsShowLogo="True" />
+        <ScrollViewer
+            x:Name="ContentScrollViewer"
+            Grid.Row="1"
+            Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
+            HorizontalScrollMode="Disabled"
+            IsTabStop="False"
+            VerticalScrollBarVisibility="Auto">
+            <StackPanel
+                x:Name="RootPanel"
+                Margin="0,0,0,24"
+                Spacing="4"
+                XYFocusKeyboardNavigation="Enabled">
+
+                <TextBlock
+                    Style="{StaticResource BodyTextBlockStyle}"
+                    Margin="0,0,0,8"
+                    FontWeight="Bold"
+                    Text="{loc:Locale Name=Generic}" />
+                <controls:LoggerSettingSection />
+                <controls:CacheSettingSection />
+                <controls:InitialCheckSection />
+                <controls:NotificationSettingSection />
+                <controls:TraditionalChineseSettingSection Visibility="{x:Bind CoreViewModel.IsTraditionalChinese, Mode=OneWay}" />
+
+                <TextBlock
+                    Style="{StaticResource BodyTextBlockStyle}"
+                    Margin="0,12,0,8"
+                    FontWeight="Bold"
+                    Text="{loc:Locale Name=Player}" />
+                <controls:PlayerModeSettingSection />
+                <controls:PlayerControlSettingSection />
+                <controls:RoamingSettingSection />
+                <StackPanel
+                    Margin="0,12,0,0"
+                    HorizontalAlignment="Left"
+                    Spacing="4">
+                    <TextBlock Style="{StaticResource TipTextStyle}" Text="{loc:Locale Name=AboutThisApp}" />
+                    <TextBlock Style="{StaticResource TipTextStyle}">
+                        <Run Text="{loc:Locale Name=AppName}" />
+                        <Run Text="{x:Bind ViewModel.Version}" />
+                    </TextBlock>
+                    <TextBlock Style="{StaticResource TipTextStyle}" Text="{loc:Locale Name=License}" />
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</base:SettingsPageBase>

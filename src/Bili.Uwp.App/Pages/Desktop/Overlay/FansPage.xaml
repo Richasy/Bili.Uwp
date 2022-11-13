@@ -1,0 +1,12 @@
+﻿<local:FansPageBase
+    x:Class="Bili.Uwp.App.Pages.Desktop.Overlay.FansPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:community="using:Bili.Uwp.App.Controls.Community"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Bili.Uwp.App.Pages.Desktop.Overlay"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <community:RelationPageView ViewModel="{x:Bind ViewModel}" />
+</local:FansPageBase>

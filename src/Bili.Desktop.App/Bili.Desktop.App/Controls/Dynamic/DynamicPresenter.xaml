@@ -1,0 +1,50 @@
+﻿<UserControl
+    x:Class="Bili.Desktop.App.Controls.Dynamic.DynamicPresenter"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:article="using:Bili.ViewModels.Interfaces.Article"
+    xmlns:article1="using:Bili.Desktop.App.Controls.Article"
+    xmlns:community="using:Bili.ViewModels.Interfaces.Community"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Bili.Desktop.App.Controls.Dynamic"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pgc="using:Bili.ViewModels.Interfaces.Pgc"
+    xmlns:pgc1="using:Bili.Desktop.App.Controls.Pgc"
+    xmlns:video="using:Bili.ViewModels.Interfaces.Video"
+    xmlns:videos="using:Bili.Desktop.App.Controls.Videos"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <DataTemplate x:Name="VideoTemplate" x:DataType="video:IVideoItemViewModel">
+            <videos:VideoItem
+                Style="{StaticResource VerticalDynamicVideoItemStyle}"
+                IsDynamic="True"
+                ViewModel="{x:Bind}" />
+        </DataTemplate>
+        <DataTemplate x:Name="EpisodeTemplate" x:DataType="pgc:IEpisodeItemViewModel">
+            <pgc1:EpisodeItem
+                Style="{StaticResource VerticalDynamicEpisodeItemStyle}"
+                IsDynamic="True"
+                ViewModel="{x:Bind}" />
+        </DataTemplate>
+        <DataTemplate x:Name="ForwardTemplate" x:DataType="community:IDynamicItemViewModel">
+            <local:DynamicItem
+                Style="{StaticResource ForwardDynamicItemStyle}"
+                Margin="-12,0"
+                ViewModel="{x:Bind}" />
+        </DataTemplate>
+        <DataTemplate x:Name="ImageTemplate">
+            <local:DynamicImageItem ItemsSource="{Binding}" />
+        </DataTemplate>
+        <DataTemplate x:Name="ArticleTemplate" x:DataType="article:IArticleItemViewModel">
+            <article1:ArticleItem Style="{StaticResource DynamicArticleItemStyle}" ViewModel="{x:Bind}" />
+        </DataTemplate>
+        <DataTemplate x:Name="NoneTemplate">
+            <local:DynamicNotSupportItem />
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <ContentPresenter x:Name="MainPresenter" />
+</UserControl>

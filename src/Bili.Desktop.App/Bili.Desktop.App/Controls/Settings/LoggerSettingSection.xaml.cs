@@ -1,0 +1,50 @@
+﻿// Copyright (c) Richasy. All rights reserved.
+
+using System;
+using Bili.DI.Container;
+using Bili.Models.App.Constants;
+using Bili.Models.Enums.App;
+using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Core;
+using Windows.Storage;
+using Windows.System;
+
+namespace Bili.Desktop.App.Controls
+{
+    /// <summary>
+    /// 日志设置区块.
+    /// </summary>
+    public sealed partial class LoggerSettingSection : SettingSectionControl
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LoggerSettingSection"/> class.
+        /// </summary>
+        public LoggerSettingSection()
+            : base()
+            => InitializeComponent();
+
+        private async void OnOpenLoggerFolderButtonClickAsync(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+        {
+            var folder = await ApplicationData.Current.LocalFolder.CreateFolderAsync(ControllerConstants.Names.LoggerFolder, CreationCollisionOption.OpenIfExists).AsTask();
+            await Launcher.LaunchFolderAsync(folder);
+        }
+
+        private async void OnCleanLoggerButtonClickAsync(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+        {
+            var folder = await ApplicationData.Current.LocalFolder.CreateFolderAsync(ControllerConstants.Names.LoggerFolder, CreationCollisionOption.OpenIfExists).AsTask();
+            var resourceToolkit = Locator.Instance.GetService<IResourceToolkit>();
+            try
+            {
+                await folder.DeleteAsync(StorageDeleteOption.PermanentDelete).AsTask();
+                await ApplicationData.Current.LocalFolder.CreateFolderAsync(ControllerConstants.Names.LoggerFolder, CreationCollisionOption.OpenIfExists).AsTask();
+            }
+            catch (Exception)
+            {
+            }
+            finally
+            {
+                Locator.Instance.GetService<ICallerViewModel>().ShowTip(resourceToolkit.GetLocaleString(Models.Enums.LanguageNames.LogEmptied), InfoType.Success);
+            }
+        }
+    }
+}

@@ -1,0 +1,103 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:icons="using:Richasy.FluentIcon.Uwp"
+    xmlns:loc="using:Bili.Desktop.App.Resources.Extension"
+    xmlns:local="using:Bili.Desktop.App.Controls">
+
+    <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Light">
+            <SolidColorBrush
+                x:Key="CenterPopupMaskBackground"
+                Opacity="0.1"
+                Color="White" />
+            <AcrylicBrush
+                x:Key="CenterPopupPresenterBackground"
+                FallbackColor="White"
+                TintColor="White"
+                TintOpacity="0.7" />
+        </ResourceDictionary>
+        <ResourceDictionary x:Key="Dark">
+            <SolidColorBrush
+                x:Key="CenterPopupMaskBackground"
+                Opacity="0.05"
+                Color="Black" />
+            <AcrylicBrush
+                x:Key="CenterPopupPresenterBackground"
+                FallbackColor="Black"
+                TintColor="Black"
+                TintOpacity="0.7" />
+        </ResourceDictionary>
+        <ResourceDictionary x:Key="HighContrast">
+            <SolidColorBrush
+                x:Key="CenterPopupMaskBackground"
+                Opacity="0.1"
+                Color="{ThemeResource SystemColorWindowColor}" />
+            <SolidColorBrush x:Key="CenterPopupPresenterBackground" Color="{ThemeResource SystemColorWindowColor}" />
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
+
+    <Style TargetType="local:CenterPopup">
+        <Setter Property="PresenterMaxWidth" Value="440" />
+        <Setter Property="PresenterVerticalAlignment" Value="Center" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:CenterPopup">
+                    <Grid x:Name="PopupContainer">
+                        <Grid Background="{ThemeResource CenterPopupMaskBackground}" />
+                        <Grid
+                            AutomationProperties.Name="{TemplateBinding Title}"
+                            MaxWidth="{TemplateBinding PresenterMaxWidth}"
+                            MaxHeight="900"
+                            Margin="20"
+                            Padding="20,16"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="{TemplateBinding PresenterVerticalAlignment}"
+                            Background="{ThemeResource CenterPopupPresenterBackground}"
+                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                            BorderThickness="1"
+                            CornerRadius="{ThemeResource OverlayCornerRadius}"
+                            RowSpacing="12"
+                            TabFocusNavigation="Local"
+                            XYFocusKeyboardNavigation="Enabled">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid XYFocusKeyboardNavigation="Enabled">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock
+                                    Style="{StaticResource SubtitleTextBlockStyle}"
+                                    HorizontalAlignment="Left"
+                                    Text="{TemplateBinding Title}"
+                                    TextTrimming="CharacterEllipsis" />
+                                <Button
+                                    x:Name="CloseButton"
+                                    AutomationProperties.Name="{loc:Locale Name=Close}"
+                                    Grid.Column="1"
+                                    VerticalAlignment="Center"
+                                    TabIndex="1"
+                                    ToolTipService.ToolTip="{loc:Locale Name=Close}">
+                                    <icons:RegularFluentIcon FontSize="12" Symbol="Dismiss16" />
+                                    <Button.KeyboardAccelerators>
+                                        <KeyboardAccelerator Key="Escape" />
+                                    </Button.KeyboardAccelerators>
+                                </Button>
+                            </Grid>
+                            <ContentPresenter
+                                Grid.Row="1"
+                                HorizontalContentAlignment="Stretch"
+                                VerticalContentAlignment="Stretch"
+                                Content="{TemplateBinding Content}"
+                                AllowFocusOnInteraction="True"
+                                XYFocusKeyboardNavigation="Enabled" />
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

@@ -61,22 +61,22 @@ namespace Bili.ViewModels.Interfaces.Core
         /// <summary>
         /// 播放/暂停命令.
         /// </summary>
-        IAsyncRelayCommand PlayPauseCommand { get; }
+        IRelayCommand PlayPauseCommand { get; }
 
         /// <summary>
         /// 跳进命令.
         /// </summary>
-        IAsyncRelayCommand ForwardSkipCommand { get; }
+        IRelayCommand ForwardSkipCommand { get; }
 
         /// <summary>
         /// 后退命令.
         /// </summary>
-        IAsyncRelayCommand BackwardSkipCommand { get; }
+        IRelayCommand BackwardSkipCommand { get; }
 
         /// <summary>
         /// 改变播放速率的命令.
         /// </summary>
-        IAsyncRelayCommand<double> ChangePlayRateCommand { get; }
+        IRelayCommand<double> ChangePlayRateCommand { get; }
 
         /// <summary>
         /// 改变音量的命令.
@@ -111,12 +111,12 @@ namespace Bili.ViewModels.Interfaces.Core
         /// <summary>
         /// 开始临时倍速播放.
         /// </summary>
-        IAsyncRelayCommand StartTempQuickPlayCommand { get; }
+        IRelayCommand StartTempQuickPlayCommand { get; }
 
         /// <summary>
         /// 停止临时倍速播放.
         /// </summary>
-        IAsyncRelayCommand StopTempQuickPlayCommand { get; }
+        IRelayCommand StopTempQuickPlayCommand { get; }
 
         /// <summary>
         /// 跳转到上次观看进度的命令.

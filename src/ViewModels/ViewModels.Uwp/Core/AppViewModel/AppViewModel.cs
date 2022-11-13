@@ -90,5 +90,9 @@ namespace Bili.ViewModels.Uwp.Core
 
             OnPropertyChanged(nameof(PageHorizontalPadding));
         }
+
+        /// <inheritdoc/>
+        public void InjectMainWindow(object mainWindow)
+            => throw new NotImplementedException();
     }
 }

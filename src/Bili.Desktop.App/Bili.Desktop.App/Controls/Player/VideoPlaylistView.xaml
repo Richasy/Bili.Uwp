@@ -1,0 +1,32 @@
+﻿<local:VideoPlaylistViewBase
+    x:Class="Bili.Desktop.App.Controls.Player.VideoPlaylistView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Bili.Desktop.App.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Bili.Desktop.App.Controls.Player"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:video="using:Bili.ViewModels.Interfaces.Video"
+    xmlns:videos="using:Bili.Desktop.App.Controls.Videos"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+
+    <ScrollViewer HorizontalScrollMode="Disabled" VerticalScrollBarVisibility="Hidden">
+        <controls:VerticalRepeaterView
+            EnableDetectParentScrollViewer="False"
+            HeaderVisibility="Collapsed"
+            ItemOrientation="Horizontal"
+            ItemsSource="{x:Bind ViewModel.VideoPlaylist}">
+            <controls:VerticalRepeaterView.ItemTemplate>
+                <DataTemplate x:DataType="video:IVideoItemViewModel">
+                    <videos:VideoItem
+                        Style="{StaticResource HorizontalRelatedVideoItemStyle}"
+                        Height="112"
+                        IsCustom="True"
+                        ViewModel="{x:Bind}" />
+                </DataTemplate>
+            </controls:VerticalRepeaterView.ItemTemplate>
+        </controls:VerticalRepeaterView>
+    </ScrollViewer>
+</local:VideoPlaylistViewBase>

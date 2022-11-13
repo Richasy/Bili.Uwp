@@ -1,0 +1,338 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Bili.Desktop.App.Controls"
+    xmlns:icons="using:Richasy.FluentIcon.Uwp"
+    xmlns:loc="using:Bili.Desktop.App.Resources.Extension"
+    xmlns:local="using:Bili.Desktop.App.Controls.Article"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
+
+    <MenuFlyout x:Key="DefaultArticleItemContextFlyout">
+        <MenuFlyoutItem
+            Command="{Binding Publisher.ShowDetailCommand}"
+            IsEnabled="{Binding Publisher.User, Converter={StaticResource ObjectToBoolConverter}}"
+            Text="{loc:Locale Name=EnterUserSpace}">
+            <MenuFlyoutItem.Icon>
+                <icons:RegularFluentIcon Symbol="Person16" />
+            </MenuFlyoutItem.Icon>
+        </MenuFlyoutItem>
+        <MenuFlyoutItem
+            x:Name="OpenInBroswerItem"
+            AutomationProperties.Name="{loc:Locale Name=OpenInBroswer}"
+            Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.OpenInBroswerCommand}"
+            Text="{loc:Locale Name=OpenInBroswer}">
+            <MenuFlyoutItem.Icon>
+                <icons:RegularFluentIcon Symbol="Globe16" />
+            </MenuFlyoutItem.Icon>
+        </MenuFlyoutItem>
+    </MenuFlyout>
+
+    <Style x:Key="VerticalArticleItemStyle" TargetType="local:ArticleItem">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:ArticleItem">
+                    <Grid>
+                        <Grid.Resources>
+                            <Style TargetType="controls:IconTextBlock">
+                                <Setter Property="Spacing" Value="4" />
+                                <Setter Property="IconFontSize" Value="12" />
+                                <Setter Property="FontSize" Value="12" />
+                            </Style>
+                        </Grid.Resources>
+                        <controls:CardPanel
+                            x:Name="RootCard"
+                            AutomationProperties.Name="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Title}"
+                            Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ReadCommand}"
+                            ContextFlyout="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ContextFlyout, TargetNullValue={StaticResource DefaultArticleItemContextFlyout}}"
+                            DataContext="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel}"
+                            IsEnableCheck="False">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition x:Name="Row1" Height="Auto" />
+                                    <RowDefinition x:Name="Row2" Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid
+                                    x:Name="CoverContainer"
+                                    Height="124"
+                                    Margin="1,1,1,0"
+                                    VerticalAlignment="Center"
+                                    CornerRadius="4,4,0,0">
+                                    <controls:CommonImageEx
+                                        x:Name="CoverImage"
+                                        VerticalAlignment="Center"
+                                        ImageUrl="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Cover.Uri}"
+                                        Stretch="UniformToFill" />
+                                </Grid>
+
+                                <Grid
+                                    x:Name="ContentContainer"
+                                    Grid.Row="1"
+                                    Padding="12,8"
+                                    RowSpacing="8">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock
+                                        x:Name="SubtitleBlock"
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        VerticalAlignment="Center"
+                                        Opacity="0.6"
+                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Subtitle}" />
+
+                                    <TextBlock
+                                        x:Name="TitleBlock"
+                                        Grid.Row="1"
+                                        VerticalAlignment="Top"
+                                        MaxLines="2"
+                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Title}"
+                                        TextTrimming="CharacterEllipsis"
+                                        TextWrapping="Wrap">
+                                        <ToolTipService.ToolTip>
+                                            <ToolTip Content="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Title}" IsEnabled="{Binding ElementName=TitleBlock, Path=IsTextTrimmed}" />
+                                        </ToolTipService.ToolTip>
+                                    </TextBlock>
+
+                                    <TextBlock
+                                        x:Name="SummaryBlock"
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        Grid.Row="2"
+                                        Margin="0,0,0,-8"
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                        MaxLines="2"
+                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Summary}"
+                                        TextTrimming="CharacterEllipsis"
+                                        TextWrapping="Wrap">
+                                        <ToolTipService.ToolTip>
+                                            <ToolTip Content="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Summary}" IsEnabled="{Binding ElementName=SummaryBlock, Path=IsTextTrimmed}" />
+                                        </ToolTipService.ToolTip>
+                                    </TextBlock>
+
+                                    <StackPanel
+                                        Grid.Row="3"
+                                        Margin="0,8,0,0"
+                                        Orientation="Horizontal"
+                                        Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowCommunity}">
+                                        <controls:IconTextBlock
+                                            Margin="0,0,12,0"
+                                            Opacity="0.6"
+                                            Symbol="EyeShow20"
+                                            Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ViewCountText}"
+                                            ToolTipService.ToolTip="{loc:Locale Name=ReadCount}"
+                                            Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ViewCountText, Converter={StaticResource ObjectToVisibilityConverter}}" />
+                                        <controls:IconTextBlock
+                                            Margin="0,0,12,0"
+                                            Opacity="0.6"
+                                            Symbol="ThumbLike16"
+                                            Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.LikeCountText}"
+                                            ToolTipService.ToolTip="{loc:Locale Name=BeLikeCount}"
+                                            Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.LikeCountText, Converter={StaticResource ObjectToVisibilityConverter}}" />
+                                        <controls:IconTextBlock
+                                            Margin="0,0,12,0"
+                                            Opacity="0.6"
+                                            Symbol="Comment16"
+                                            Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.CommentCountText}"
+                                            ToolTipService.ToolTip="{loc:Locale Name=ReplyCount}"
+                                            Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.CommentCountText, Converter={StaticResource ObjectToVisibilityConverter}}" />
+                                    </StackPanel>
+                                </Grid>
+                            </Grid>
+                        </controls:CardPanel>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="HorizontalArticleItemStyle" TargetType="local:ArticleItem">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:ArticleItem">
+                    <Grid>
+                        <Grid.Resources>
+                            <Style TargetType="controls:IconTextBlock">
+                                <Setter Property="Spacing" Value="4" />
+                                <Setter Property="IconFontSize" Value="12" />
+                                <Setter Property="FontSize" Value="12" />
+                            </Style>
+                        </Grid.Resources>
+                        <controls:CardPanel
+                            x:Name="RootCard"
+                            AutomationProperties.Name="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Title}"
+                            MaxHeight="148"
+                            Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ReadCommand}"
+                            ContextFlyout="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ContextFlyout, TargetNullValue={StaticResource DefaultArticleItemContextFlyout}}"
+                            IsEnableCheck="False"
+                            IsEnableHoverAnimation="False">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid
+                                    x:Name="CoverContainer"
+                                    Margin="8"
+                                    VerticalAlignment="Stretch"
+                                    CornerRadius="{StaticResource ControlCornerRadius}">
+                                    <controls:CommonImageEx
+                                        x:Name="CoverImage"
+                                        Width="180"
+                                        VerticalAlignment="Center"
+                                        ImageUrl="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Cover.Uri}"
+                                        Stretch="UniformToFill" />
+                                </Grid>
+                                <Grid
+                                    x:Name="ContentContainer"
+                                    Grid.Column="1"
+                                    Padding="8"
+                                    RowSpacing="4">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock
+                                        x:Name="SubtitleBlock"
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        VerticalAlignment="Center"
+                                        Opacity="0.6"
+                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Subtitle}" />
+
+                                    <TextBlock
+                                        x:Name="TitleBlock"
+                                        Grid.Row="1"
+                                        VerticalAlignment="Top"
+                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Title}"
+                                        TextTrimming="CharacterEllipsis"
+                                        TextWrapping="Wrap">
+                                        <ToolTipService.ToolTip>
+                                            <ToolTip Content="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Title}" IsEnabled="{Binding ElementName=TitleBlock, Path=IsTextTrimmed}" />
+                                        </ToolTipService.ToolTip>
+                                    </TextBlock>
+
+                                    <StackPanel
+                                        x:Name="InlineUserContainer"
+                                        Grid.Row="2"
+                                        Orientation="Horizontal"
+                                        Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Publisher, Converter={StaticResource ObjectToVisibilityConverter}}">
+                                        <controls:UserAvatar
+                                            x:Name="InlineAvatar"
+                                            Width="24"
+                                            Height="24"
+                                            Margin="0,0,8,0"
+                                            VerticalAlignment="Center"
+                                            Avatar="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Publisher.User.Avatar.Uri}"
+                                            Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Publisher.ShowDetailCommand}"
+                                            UserName="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Publisher.User.Name}" />
+                                        <TextBlock
+                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                            VerticalAlignment="Center"
+                                            Opacity="0.6"
+                                            Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Publisher.User.Name}" />
+                                    </StackPanel>
+
+                                    <TextBlock
+                                        x:Name="SummaryBlock"
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        Grid.Row="3"
+                                        Margin="0,0,0,-4"
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                        MaxLines="2"
+                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Summary}"
+                                        TextTrimming="CharacterEllipsis"
+                                        TextWrapping="Wrap">
+                                        <ToolTipService.ToolTip>
+                                            <ToolTip Content="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Summary}" IsEnabled="{Binding ElementName=TitleBlock, Path=IsTextTrimmed}" />
+                                        </ToolTipService.ToolTip>
+                                    </TextBlock>
+
+                                    <StackPanel
+                                        Grid.Row="4"
+                                        Margin="0,8,0,0"
+                                        Orientation="Horizontal"
+                                        Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowCommunity}">
+                                        <controls:IconTextBlock
+                                            Margin="0,0,12,0"
+                                            Opacity="0.6"
+                                            Symbol="EyeShow20"
+                                            Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ViewCountText}"
+                                            ToolTipService.ToolTip="{loc:Locale Name=ReadCount}"
+                                            Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ViewCountText, Converter={StaticResource ObjectToVisibilityConverter}}" />
+                                        <controls:IconTextBlock
+                                            Margin="0,0,12,0"
+                                            Opacity="0.6"
+                                            Symbol="ThumbLike16"
+                                            Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.LikeCountText}"
+                                            ToolTipService.ToolTip="{loc:Locale Name=BeLikeCount}"
+                                            Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.LikeCountText, Converter={StaticResource ObjectToVisibilityConverter}}" />
+                                        <controls:IconTextBlock
+                                            Margin="0,0,12,0"
+                                            Opacity="0.6"
+                                            Symbol="Comment16"
+                                            Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.CommentCountText}"
+                                            ToolTipService.ToolTip="{loc:Locale Name=ReplyCount}"
+                                            Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.CommentCountText, Converter={StaticResource ObjectToVisibilityConverter}}" />
+                                    </StackPanel>
+                                </Grid>
+                            </Grid>
+                        </controls:CardPanel>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="DynamicArticleItemStyle" TargetType="local:ArticleItem">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:ArticleItem">
+                    <Grid RowSpacing="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <StackPanel>
+                            <TextBlock
+                                x:Name="TitleBlock"
+                                HorizontalAlignment="Left"
+                                FontWeight="Bold"
+                                Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Title}"
+                                TextWrapping="Wrap" />
+                            <TextBlock
+                                x:Name="DescriptionBlock"
+                                Style="{StaticResource CaptionTextBlockStyle}"
+                                Margin="0,4,0,0"
+                                HorizontalAlignment="Left"
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                MaxLines="3"
+                                Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Summary}"
+                                TextWrapping="Wrap" />
+                        </StackPanel>
+
+                        <controls:CommonImageEx
+                            x:Name="CoverImage"
+                            Grid.Row="1"
+                            Height="100"
+                            CornerRadius="{StaticResource ControlCornerRadius}"
+                            ImageUrl="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Cover.Uri}" />
+
+                        <TextBlock
+                            x:Name="AdditionalBlock"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Grid.Row="2"
+                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                            Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Subtitle}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style BasedOn="{StaticResource VerticalArticleItemStyle}" TargetType="local:ArticleItem" />
+</ResourceDictionary>

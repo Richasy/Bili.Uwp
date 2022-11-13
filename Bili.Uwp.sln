@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31410.414
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App", "src\App\App.csproj", "{1C288BC0-72F3-4C4C-90AD-A05B52E937B0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bili.Uwp.App", "src\Bili.Uwp.App\Bili.Uwp.App.csproj", "{1C288BC0-72F3-4C4C-90AD-A05B52E937B0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utilities", "Utilities", "{810B7F1B-97AD-4422-93C8-562AD50CE4DB}"
 EndProject

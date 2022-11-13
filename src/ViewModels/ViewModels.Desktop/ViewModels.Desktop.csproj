@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net7.0-windows10.0.22621.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
+    <RootNamespace>Bili.ViewModels.Desktop</RootNamespace>
+    <RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
+    <UseWinUI>true</UseWinUI>
+    <Platforms>AnyCPU;x64</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+      <PackageReference Include="CommandLineParser" Version="2.9.1" />
+      <PackageReference Include="CommunityToolkit.WinUI.Connectivity" Version="7.1.2" />
+      <PackageReference Include="FFmpegInteropX" Version="1.1.0-pre38" />
+      <PackageReference Include="Humanizer.Core.zh-CN" Version="2.14.1" />
+      <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.2.221109.1" />
+      <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.755" />
+      <PackageReference Include="NLog" Version="5.0.5" />
+      <PackageReference Include="ToolGood.Words" Version="3.0.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Adapter\Adapter.Interfaces\Adapter.Interfaces.csproj" />
+    <ProjectReference Include="..\..\Lib\DI.Container\DI.Container.csproj" />
+    <ProjectReference Include="..\..\Lib\Lib.Interfaces\Lib.Interfaces.csproj" />
+    <ProjectReference Include="..\..\Models\Models.App\Models.App.csproj" />
+    <ProjectReference Include="..\..\Models\Models.Data\Models.Data.csproj" />
+    <ProjectReference Include="..\..\Models\Models.Enums\Models.Enums.csproj" />
+    <ProjectReference Include="..\..\Utilities\Toolkit\Toolkit.Interfaces\Toolkit.Interfaces.csproj" />
+    <ProjectReference Include="..\ViewModels.Interfaces\ViewModels.Interfaces.csproj" />
+  </ItemGroup>
+</Project>

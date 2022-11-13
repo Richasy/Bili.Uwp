@@ -68,6 +68,27 @@ namespace Bili.ViewModels.Interfaces.Core
         bool IsTraditionalChinese { get; }
 
         /// <summary>
+        /// 主窗口对象.
+        /// </summary>
+        object MainWindow { get; }
+
+        /// <summary>
+        /// 应用窗口对象.
+        /// </summary>
+        object AppWindow { get; }
+
+        /// <summary>
+        /// 主窗口句柄.
+        /// </summary>
+        IntPtr MainWindowHandle { get; }
+
+        /// <summary>
+        /// 注入主窗口对象并初始化（仅适用于 WinUI）.
+        /// </summary>
+        /// <param name="mainWindow">主窗口对象.</param>
+        void InjectMainWindow(object mainWindow);
+
+        /// <summary>
         /// 初始化边距设置.
         /// </summary>
         void InitializePadding();

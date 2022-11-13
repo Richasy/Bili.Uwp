@@ -1,0 +1,165 @@
+﻿<local:SettingSectionControl
+    x:Class="Bili.Uwp.App.Controls.PlayerControlSettingSection"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:app="using:Bili.Models.Enums.App"
+    xmlns:converter="using:Bili.Uwp.App.Resources.Converter"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:enums="using:Bili.Models.Enums"
+    xmlns:exp="using:Richasy.ExpanderEx.Uwp"
+    xmlns:icons="using:Richasy.FluentIcon.Uwp"
+    xmlns:loc="using:Bili.Uwp.App.Resources.Extension"
+    xmlns:local="using:Bili.Uwp.App.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:player="using:Bili.Models.Enums.Player"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+
+    <local:SettingSectionControl.Resources>
+        <converter:PreferCodecConverter x:Key="PreferCodecConverter" />
+        <converter:DecodeTypeConverter x:Key="DecodeTypeConverter" />
+        <converter:PlayerTypeConverter x:Key="PlayerTypeConverter" />
+    </local:SettingSectionControl.Resources>
+
+    <exp:ExpanderEx>
+        <exp:ExpanderEx.Header>
+            <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderHeaderStyle}">
+                <exp:ExpanderExWrapper.MainContent>
+                    <exp:ExpanderExDescriptor Title="{loc:Locale Name=PlayerControl}" Description="{loc:Locale Name=PlayerControlDescription}">
+                        <exp:ExpanderExDescriptor.Icon>
+                            <icons:RegularFluentIcon Symbol="VideoPlayPause24" />
+                        </exp:ExpanderExDescriptor.Icon>
+                    </exp:ExpanderExDescriptor>
+                </exp:ExpanderExWrapper.MainContent>
+            </exp:ExpanderExWrapper>
+        </exp:ExpanderEx.Header>
+        <exp:ExpanderEx.Content>
+            <exp:ExpanderExMenuPanel>
+
+                <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
+                    <exp:ExpanderExWrapper.MainContent>
+                        <exp:ExpanderExDescriptor
+                            Title="{loc:Locale Name=PlayerType}"
+                            Description="{loc:Locale Name=PlayerTypeDescription}"
+                            IconVisibility="Collapsed"
+                            IsAutoHideIcon="False" />
+                    </exp:ExpanderExWrapper.MainContent>
+                    <exp:ExpanderExWrapper.WrapContent>
+                        <ComboBox
+                            MinWidth="120"
+                            ItemsSource="{x:Bind ViewModel.PlayerTypeCollection, Mode=OneWay}"
+                            SelectedItem="{x:Bind ViewModel.PlayerType, Mode=TwoWay}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate x:DataType="player:PlayerType">
+                                    <TextBlock Text="{x:Bind Converter={StaticResource PlayerTypeConverter}}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </exp:ExpanderExWrapper.WrapContent>
+                </exp:ExpanderExWrapper>
+
+                <exp:ExpanderExItemSeparator />
+
+                <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}" Visibility="{x:Bind ViewModel.IsFFmpegPlayer, Mode=OneWay}">
+                    <exp:ExpanderExWrapper.MainContent>
+                        <exp:ExpanderExDescriptor
+                            Title="{loc:Locale Name=DecodeType}"
+                            Description="{loc:Locale Name=DecodeTypeDescription}"
+                            IconVisibility="Collapsed"
+                            IsAutoHideIcon="False" />
+                    </exp:ExpanderExWrapper.MainContent>
+                    <exp:ExpanderExWrapper.WrapContent>
+                        <ComboBox
+                            MinWidth="120"
+                            ItemsSource="{x:Bind ViewModel.DecodeTypeCollection, Mode=OneWay}"
+                            SelectedItem="{x:Bind ViewModel.DecodeType, Mode=TwoWay}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate x:DataType="app:DecodeType">
+                                    <TextBlock Text="{x:Bind Converter={StaticResource DecodeTypeConverter}}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </exp:ExpanderExWrapper.WrapContent>
+                </exp:ExpanderExWrapper>
+
+                <exp:ExpanderExItemSeparator Visibility="{x:Bind ViewModel.IsFFmpegPlayer, Mode=OneWay}" />
+
+                <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
+                    <exp:ExpanderExWrapper.MainContent>
+                        <exp:ExpanderExDescriptor
+                            Title="{loc:Locale Name=PreferCodec}"
+                            Description="{loc:Locale Name=PreferCodecDescription}"
+                            IconVisibility="Collapsed"
+                            IsAutoHideIcon="False" />
+                    </exp:ExpanderExWrapper.MainContent>
+                    <exp:ExpanderExWrapper.WrapContent>
+                        <ComboBox
+                            MinWidth="120"
+                            ItemsSource="{x:Bind ViewModel.PreferCodecCollection, Mode=OneWay}"
+                            SelectedItem="{x:Bind ViewModel.PreferCodec, Mode=TwoWay}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate x:DataType="enums:PreferCodec">
+                                    <TextBlock Text="{x:Bind Converter={StaticResource PreferCodecConverter}}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </exp:ExpanderExWrapper.WrapContent>
+                </exp:ExpanderExWrapper>
+
+                <exp:ExpanderExItemSeparator />
+
+                <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
+                    <exp:ExpanderExWrapper.MainContent>
+                        <exp:ExpanderExDescriptor
+                            Title="{loc:Locale Name=SingleFastForwardAndRewindSpan}"
+                            Description="{loc:Locale Name=SingleFastForwardAndRewindSpanDescription}"
+                            IconVisibility="Collapsed"
+                            IsAutoHideIcon="False" />
+                    </exp:ExpanderExWrapper.MainContent>
+                    <exp:ExpanderExWrapper.WrapContent>
+                        <muxc:NumberBox
+                            MinWidth="120"
+                            LargeChange="50"
+                            Maximum="300"
+                            Minimum="0"
+                            SmallChange="10"
+                            SpinButtonPlacementMode="Compact"
+                            Value="{x:Bind ViewModel.SingleFastForwardAndRewindSpan, Mode=TwoWay}" />
+                    </exp:ExpanderExWrapper.WrapContent>
+                </exp:ExpanderExWrapper>
+
+                <exp:ExpanderExItemSeparator />
+
+                <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
+                    <exp:ExpanderExWrapper.MainContent>
+                        <exp:ExpanderExDescriptor
+                            Title="{loc:Locale Name=PlaybackRateEnhancement}"
+                            Description="{loc:Locale Name=PlaybackRateEnhancementDescription}"
+                            IconVisibility="Collapsed"
+                            IsAutoHideIcon="False" />
+                    </exp:ExpanderExWrapper.MainContent>
+                    <exp:ExpanderExWrapper.WrapContent>
+                        <ToggleSwitch Style="{StaticResource RightAlignedCompactToggleSwitchStyle}" IsOn="{x:Bind ViewModel.PlaybackRateEnhancement, Mode=TwoWay}" />
+                    </exp:ExpanderExWrapper.WrapContent>
+                </exp:ExpanderExWrapper>
+
+                <exp:ExpanderExItemSeparator />
+
+                <exp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
+                    <exp:ExpanderExWrapper.MainContent>
+                        <exp:ExpanderExDescriptor
+                            Title="{loc:Locale Name=GlobalPlaybackRate}"
+                            Description="{loc:Locale Name=GlobalPlaybackRateDescription}"
+                            IconVisibility="Collapsed"
+                            IsAutoHideIcon="False" />
+                    </exp:ExpanderExWrapper.MainContent>
+                    <exp:ExpanderExWrapper.WrapContent>
+                        <ToggleSwitch Style="{StaticResource RightAlignedCompactToggleSwitchStyle}" IsOn="{x:Bind ViewModel.GlobalPlaybackRate, Mode=TwoWay}" />
+                    </exp:ExpanderExWrapper.WrapContent>
+                </exp:ExpanderExWrapper>
+            </exp:ExpanderExMenuPanel>
+        </exp:ExpanderEx.Content>
+    </exp:ExpanderEx>
+</local:SettingSectionControl>

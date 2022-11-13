@@ -1,0 +1,190 @@
+﻿<base:NavigationViewBase
+    x:Class="Bili.Desktop.App.Controls.App.DesktopNavigationView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:base="using:Bili.Desktop.App.Controls.Base"
+    xmlns:controls="using:Bili.Desktop.App.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:ext="using:Bili.Desktop.App.Resources.Extension"
+    xmlns:icons="using:Richasy.FluentIcon.Uwp"
+    xmlns:loc="using:Bili.Desktop.App.Resources.Extension"
+    xmlns:local="using:Bili.Models.Data.Local"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+
+    <base:NavigationViewBase.Resources>
+        <Style x:Key="BiliNavigationViewStyle" TargetType="NavigationView">
+            <Setter Property="IsPaneToggleButtonVisible" Value="False" />
+            <Setter Property="IsBackButtonVisible" Value="Collapsed" />
+            <Setter Property="OpenPaneLength" Value="240" />
+            <Setter Property="IsTitleBarAutoPaddingEnabled" Value="False" />
+        </Style>
+    </base:NavigationViewBase.Resources>
+
+    <Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="LayoutVisualGroups">
+                <VisualState x:Name="WideState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource MediumWindowThresholdWidth}" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="NarrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="MainGrid.RowSpacing" Value="4" />
+                        <Setter Target="MainGrid.CornerRadius" Value="0" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <NavigationView
+            x:Name="RootNavView"
+            Style="{StaticResource BiliNavigationViewStyle}"
+            CompactModeThresholdWidth="{StaticResource NarrowWindowThresholdWidth}"
+            DisplayModeChanged="OnDisplayModeChanged"
+            ExpandedModeThresholdWidth="{StaticResource MediumWindowThresholdWidth}"
+            IsPaneOpen="{x:Bind AppViewModel.IsNavigatePaneOpen, Mode=TwoWay}"
+            ItemInvoked="OnRootNavViewItemInvoked">
+            <NavigationView.MenuItems>
+                <NavigationViewItemHeader Content="{loc:Locale Name=Navigation}" />
+                <NavigationViewItem ext:NavigationExtension.PageId="Recommend" Content="{loc:Locale Name=Recommend}">
+                    <NavigationViewItem.Icon>
+                        <icons:RegularFluentIcon Symbol="Home16" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem ext:NavigationExtension.PageId="Popular" Content="{loc:Locale Name=Popular}">
+                    <NavigationViewItem.Icon>
+                        <icons:RegularFluentIcon Symbol="Rocket16" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem ext:NavigationExtension.PageId="Rank" Content="{loc:Locale Name=Rank}">
+                    <NavigationViewItem.Icon>
+                        <icons:RegularFluentIcon Symbol="Trophy16" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem ext:NavigationExtension.PageId="VideoPartition" Content="{loc:Locale Name=Partition}">
+                    <NavigationViewItem.Icon>
+                        <icons:RegularFluentIcon Symbol="Apps16" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem ext:NavigationExtension.PageId="Live" Content="{loc:Locale Name=Live}">
+                    <NavigationViewItem.Icon>
+                        <icons:RegularFluentIcon Symbol="Video16" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem ext:NavigationExtension.PageId="Dynamic" Content="{loc:Locale Name=DynamicFeed}">
+                    <NavigationViewItem.Icon>
+                        <icons:RegularFluentIcon Symbol="DesignIdeas16" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItemSeparator />
+
+                <NavigationViewItemHeader Content="{loc:Locale Name=Topic}" />
+                <NavigationViewItem ext:NavigationExtension.PageId="Bangumi" Content="{loc:Locale Name=Bangumi}">
+                    <NavigationViewItem.Icon>
+                        <icons:RegularFluentIcon Symbol="Cookies20" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem ext:NavigationExtension.PageId="DomesticAnime" Content="{loc:Locale Name=DomesticAnime}">
+                    <NavigationViewItem.Icon>
+                        <icons:RegularFluentIcon Symbol="FastAcceleration24" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem ext:NavigationExtension.PageId="SpecialColumn" Content="{loc:Locale Name=SpecialColumn}">
+                    <NavigationViewItem.Icon>
+                        <icons:RegularFluentIcon Symbol="DocumentBriefcase20" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem ext:NavigationExtension.PageId="Documentary" Content="{loc:Locale Name=Documentary}">
+                    <NavigationViewItem.Icon>
+                        <icons:RegularFluentIcon Symbol="LeafTwo16" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem ext:NavigationExtension.PageId="Movie" Content="{loc:Locale Name=Movie}">
+                    <NavigationViewItem.Icon>
+                        <icons:RegularFluentIcon Symbol="MoviesAndTv16" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem ext:NavigationExtension.PageId="TV" Content="{loc:Locale Name=TV}">
+                    <NavigationViewItem.Icon>
+                        <icons:RegularFluentIcon Symbol="VideoClip20" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+            </NavigationView.MenuItems>
+
+            <NavigationView.Content>
+                <Grid
+                    x:Name="MainGrid"
+                    Background="{ThemeResource LayerFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1,1,0,0"
+                    CornerRadius="8,0,0,0"
+                    RowSpacing="8">
+                    <Frame x:Name="MainFrame" Loaded="OnFrameLoaded" />
+                </Grid>
+            </NavigationView.Content>
+
+            <!-- 用于展示固定的内容 -->
+            <NavigationView.PaneCustomContent>
+                <StackPanel Spacing="4">
+                    <StackPanel Spacing="4" Visibility="{x:Bind AccountViewModel.IsShowFixedItem, Mode=OneWay}">
+                        <NavigationViewItemHeader Content="{loc:Locale Name=FixedContent}" />
+                        <ItemsRepeater ItemsSource="{x:Bind AccountViewModel.FixedItemCollection}">
+                            <ItemsRepeater.Layout>
+                                <StackLayout />
+                            </ItemsRepeater.Layout>
+                            <ItemsRepeater.ItemTemplate>
+                                <DataTemplate x:DataType="local:FixedItem">
+                                    <Button
+                                        Margin="4,0"
+                                        Padding="12,8"
+                                        HorizontalAlignment="Stretch"
+                                        HorizontalContentAlignment="Left"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Click="OnFixedItemClick"
+                                        DataContext="{x:Bind}"
+                                        ToolTipService.ToolTip="{x:Bind Title}">
+                                        <StackPanel Orientation="Horizontal" Spacing="12">
+                                            <controls:CommonImageEx
+                                                Width="20"
+                                                Height="20"
+                                                Margin="-2,0,0,0"
+                                                VerticalAlignment="Center"
+                                                CornerRadius="10"
+                                                ImageUrl="{x:Bind Cover}" />
+                                            <TextBlock
+                                                MaxWidth="180"
+                                                VerticalAlignment="Center"
+                                                Text="{x:Bind Title}"
+                                                TextTrimming="CharacterEllipsis" />
+                                        </StackPanel>
+                                    </Button>
+                                </DataTemplate>
+                            </ItemsRepeater.ItemTemplate>
+                        </ItemsRepeater>
+                    </StackPanel>
+                </StackPanel>
+            </NavigationView.PaneCustomContent>
+
+            <NavigationView.FooterMenuItems>
+                <NavigationViewItem ext:NavigationExtension.PageId="Toolbox" Content="{loc:Locale Name=Toolbox}">
+                    <NavigationViewItem.Icon>
+                        <icons:RegularFluentIcon Symbol="Toolbox24" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem ext:NavigationExtension.PageId="Help" Content="{loc:Locale Name=HelpAndSupport}">
+                    <NavigationViewItem.Icon>
+                        <icons:RegularFluentIcon Symbol="BookQuestionMark24" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+            </NavigationView.FooterMenuItems>
+        </NavigationView>
+    </Grid>
+</base:NavigationViewBase>

@@ -1,0 +1,50 @@
+﻿<local:RootPageBase
+    x:Class="Bili.Desktop.App.Pages.Desktop.RootPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Bili.Desktop.App.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Bili.Desktop.App.Pages.Desktop"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    BackdropMaterial.ApplyToRootOrPageBackground="True"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource TransparentBackground}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <ContentPresenter
+            x:Name="NavViewPresenter"
+            Grid.Row="1"
+            Visibility="{x:Bind ViewModel.IsMainViewShown, Mode=OneWay}" />
+
+        <Frame
+            x:Name="SecondaryFrame"
+            Grid.Row="1"
+            Background="{ThemeResource TransparentBackground}"
+            Visibility="{x:Bind ViewModel.IsSecondaryViewShown, Mode=OneWay}" />
+
+        <Frame
+            x:Name="PlayerFrame"
+            Grid.Row="1"
+            Background="{ThemeResource TransparentBackground}"
+            Visibility="{x:Bind ViewModel.IsPlayViewShown, Mode=OneWay}" />
+
+        <Grid
+            x:Name="HolderContainer"
+            Grid.Row="1"
+            Visibility="Collapsed" />
+
+        <Grid
+            x:Name="TipContainer"
+            Grid.Row="1"
+            Visibility="Collapsed" />
+
+        <Grid Visibility="{x:Bind CoreViewModel.IsXbox, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+            <controls:AppTitleBar x:Name="TitleBar" Canvas.ZIndex="1" />
+        </Grid>
+    </Grid>
+</local:RootPageBase>

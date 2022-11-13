@@ -1,0 +1,85 @@
+﻿<base:DynamicPageBase
+    x:Class="Bili.Uwp.App.Pages.Desktop.DynamicPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:app="using:Bili.Uwp.App.Controls.App"
+    xmlns:base="using:Bili.Uwp.App.Pages.Base"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dynamic="using:Bili.Uwp.App.Controls.Dynamic"
+    xmlns:loc="using:Bili.Uwp.App.Resources.Extension"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:other="using:Bili.Models.App.Other"
+    mc:Ignorable="d">
+
+    <Grid RowSpacing="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <app:PageHeader RefreshCommand="{x:Bind ViewModel.RefreshModuleCommand}">
+            <app:PageHeader.Title>
+                <Grid ColumnSpacing="12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock VerticalAlignment="Center" Text="{loc:Locale Name=DynamicFeed}" />
+                    <muxc:NavigationView
+                        Style="{StaticResource TopNavigationViewStyle}"
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        FontSize="14"
+                        IsEnabled="{x:Bind ViewModel.NeedSignIn, Mode=OneWay, Converter={StaticResource ObjectToBoolReverseConverter}}"
+                        ItemInvoked="OnHeaderNavItemInvoked"
+                        MenuItemsSource="{x:Bind ViewModel.Headers}"
+                        SelectedItem="{x:Bind ViewModel.CurrentHeader, Mode=OneWay}">
+                        <muxc:NavigationView.MenuItemTemplate>
+                            <DataTemplate x:DataType="other:DynamicHeader">
+                                <muxc:NavigationViewItem Content="{x:Bind}">
+                                    <muxc:NavigationViewItem.ContentTemplate>
+                                        <DataTemplate x:DataType="other:DynamicHeader">
+                                            <TextBlock Text="{x:Bind Title}" />
+                                        </DataTemplate>
+                                    </muxc:NavigationViewItem.ContentTemplate>
+                                </muxc:NavigationViewItem>
+                            </DataTemplate>
+                        </muxc:NavigationView.MenuItemTemplate>
+                    </muxc:NavigationView>
+                </Grid>
+            </app:PageHeader.Title>
+        </app:PageHeader>
+
+        <dynamic:DynamicModule
+            x:Name="VideoModule"
+            Grid.Row="1"
+            DataContext="{x:Bind ViewModel.VideoModule}"
+            ViewModel="{x:Bind ViewModel.VideoModule}"
+            Visibility="{x:Bind ViewModel.IsShowVideo, Mode=OneWay}" />
+        <dynamic:DynamicModule
+            x:Name="AllModule"
+            Grid.Row="1"
+            DataContext="{x:Bind ViewModel.AllModule}"
+            ViewModel="{x:Bind ViewModel.AllModule}"
+            Visibility="{x:Bind ViewModel.IsShowAll, Mode=OneWay}" />
+
+        <StackPanel
+            x:Name="LoginContainer"
+            Grid.Row="1"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            x:Load="{x:Bind ViewModel.NeedSignIn, Mode=OneWay}"
+            Spacing="16"
+            Visibility="{x:Bind ViewModel.NeedSignIn, Mode=OneWay}">
+            <TextBlock
+                Style="{StaticResource SubheaderTextBlockStyle}"
+                HorizontalAlignment="Center"
+                FontSize="24"
+                LineHeight="40"
+                Text="{loc:Locale Name=DynamicNeedLoginFirst}"
+                TextAlignment="Center"
+                TextWrapping="Wrap" />
+        </StackPanel>
+    </Grid>
+</base:DynamicPageBase>

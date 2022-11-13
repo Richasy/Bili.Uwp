@@ -1,0 +1,258 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:app="using:Bili.Desktop.App.Controls.App"
+    xmlns:controls="using:Bili.Desktop.App.Controls"
+    xmlns:icons="using:Richasy.FluentIcon.Uwp"
+    xmlns:loc="using:Bili.Desktop.App.Resources.Extension"
+    xmlns:local="using:Bili.Desktop.App.Controls.Dynamic">
+
+    <Style x:Key="DefaultDynamicItemStyle" TargetType="local:DynamicItem">
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:DynamicItem">
+                    <controls:CardPanel
+                        x:Name="RootCard"
+                        Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ActiveCommand}"
+                        IsEnableHoverAnimation="False">
+                        <Grid Padding="12">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <!-- 头部信息 -->
+                            <Grid
+                                x:Name="HeaderContainer"
+                                Margin="0,0,0,12"
+                                ColumnSpacing="8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <controls:UserAvatar
+                                    x:Name="UserAvatar"
+                                    Width="32"
+                                    Height="32"
+                                    VerticalAlignment="Center"
+                                    Avatar="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Publisher.User.Avatar.Uri}"
+                                    Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ShowUserDetailCommand}"
+                                    UserName="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Publisher.User.Name}" />
+                                <StackPanel Grid.Column="1" Spacing="2">
+                                    <TextBlock
+                                        x:Name="UserNameBlock"
+                                        HorizontalAlignment="Left"
+                                        FontSize="14"
+                                        FontWeight="Bold"
+                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Publisher.User.Name}"
+                                        TextTrimming="CharacterEllipsis" />
+                                    <TextBlock
+                                        x:Name="DateBlock"
+                                        HorizontalAlignment="Left"
+                                        FontSize="12"
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Tip}" />
+                                </StackPanel>
+                                <Button
+                                    x:Name="MoreButton"
+                                    Grid.Column="2"
+                                    VerticalAlignment="Top"
+                                    Background="Transparent"
+                                    BorderThickness="0">
+                                    <icons:RegularFluentIcon Symbol="MoreHorizontal16" />
+                                    <Button.Flyout>
+                                        <MenuFlyout Placement="Bottom">
+                                            <MenuFlyoutItem
+                                                x:Name="AddViewLaterButton"
+                                                Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.AddToViewLaterCommand}"
+                                                IsEnabled="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.CanAddViewLater}"
+                                                Text="{loc:Locale Name=AddToViewLater}">
+                                                <MenuFlyoutItem.Icon>
+                                                    <icons:RegularFluentIcon Symbol="Add16" />
+                                                </MenuFlyoutItem.Icon>
+                                            </MenuFlyoutItem>
+                                        </MenuFlyout>
+                                    </Button.Flyout>
+                                </Button>
+                            </Grid>
+
+                            <!-- 描述文本 -->
+                            <app:EmoteTextBlock
+                                x:Name="DescriptionBlock"
+                                Grid.Row="1"
+                                Margin="0,0,0,12"
+                                FontSize="13"
+                                MaxLines="8"
+                                Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Description}"
+                                Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Description, Converter={StaticResource ObjectToVisibilityConverter}}" />
+
+                            <!-- 主体内容，比如视频封面 -->
+                            <Grid
+                                x:Name="MainContainer"
+                                Grid.Row="2"
+                                Margin="0,0,0,12"
+                                Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Data, Converter={StaticResource ObjectToVisibilityConverter}}">
+                                <local:DynamicPresenter x:Name="Presenter" Data="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Data}" />
+                            </Grid>
+
+                            <!-- 操作 -->
+                            <Grid
+                                Grid.Row="3"
+                                ColumnSpacing="12"
+                                Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowCommunity}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <ToggleButton
+                                    x:Name="LikeButton"
+                                    Height="28"
+                                    BorderThickness="0"
+                                    Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ToggleLikeCommand}">
+                                    <StackPanel Orientation="Horizontal" Spacing="4">
+                                        <icons:RegularFluentIcon
+                                            VerticalAlignment="Center"
+                                            FontSize="12"
+                                            Symbol="ThumbLike16" />
+                                        <TextBlock
+                                            x:Name="LikeCountBlock"
+                                            VerticalAlignment="Center"
+                                            FontSize="12"
+                                            Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.LikeCountText}"
+                                            TextLineBounds="Tight" />
+                                    </StackPanel>
+                                </ToggleButton>
+                                <Button
+                                    x:Name="ReplyButton"
+                                    Grid.Column="1"
+                                    Height="28"
+                                    BorderThickness="0"
+                                    Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ShowCommentDetailCommand}">
+                                    <controls:IconTextBlock
+                                        x:Name="ReplyCountBlock"
+                                        FontSize="12"
+                                        IconFontSize="12"
+                                        Symbol="Comment16"
+                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.CommentCountText}" />
+                                </Button>
+                                <Button
+                                    x:Name="ShareButton"
+                                    Grid.Column="3"
+                                    Height="28"
+                                    BorderThickness="0"
+                                    Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ShareCommand}">
+                                    <icons:RegularFluentIcon FontSize="14" Symbol="Share20" />
+                                </Button>
+                            </Grid>
+                        </Grid>
+                    </controls:CardPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ForwardDynamicItemStyle" TargetType="local:DynamicItem">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:DynamicItem">
+                    <Grid Padding="12,8,12,12" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <HyperlinkButton
+                            x:Name="UserLink"
+                            Margin="0,0,0,8"
+                            Padding="4"
+                            HorizontalAlignment="Left"
+                            Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ShowUserDetailCommand}"
+                            Content="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Publisher.User.Name}"
+                            Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Publisher, Converter={StaticResource ObjectToVisibilityConverter}}" />
+                        <app:EmoteTextBlock
+                            x:Name="DescriptionBlock"
+                            Grid.Row="1"
+                            Margin="0,0,0,12"
+                            FontSize="13"
+                            MaxLines="8"
+                            Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Description}"
+                            Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Description, Converter={StaticResource ObjectToVisibilityConverter}}" />
+                        <Grid x:Name="MainContainer" Grid.Row="2">
+                            <local:DynamicPresenter x:Name="Presenter" Data="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Data}" />
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="XboxVideoDynamicItemStyle" TargetType="local:DynamicItem">
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:DynamicItem">
+                    <controls:CardPanel
+                        x:Name="RootCard"
+                        Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ActiveCommand}"
+                        IsEnableCheck="False"
+                        IsEnableHoverAnimation="False">
+                        <Grid Padding="12">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <!-- 头部信息 -->
+                            <Grid
+                                x:Name="HeaderContainer"
+                                Margin="0,0,0,12"
+                                ColumnSpacing="8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <controls:UserAvatar
+                                    x:Name="UserAvatar"
+                                    Width="32"
+                                    Height="32"
+                                    VerticalAlignment="Center"
+                                    Avatar="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Publisher.User.Avatar.Uri}"
+                                    Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ShowUserDetailCommand}"
+                                    UserName="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Publisher.User.Name}" />
+                                <StackPanel Grid.Column="1" Spacing="2">
+                                    <TextBlock
+                                        x:Name="UserNameBlock"
+                                        HorizontalAlignment="Left"
+                                        FontSize="14"
+                                        FontWeight="Bold"
+                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Publisher.User.Name}"
+                                        TextTrimming="CharacterEllipsis" />
+                                    <TextBlock
+                                        x:Name="DateBlock"
+                                        HorizontalAlignment="Left"
+                                        FontSize="12"
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Tip}" />
+                                </StackPanel>
+                            </Grid>
+
+                            <!-- 主体内容，比如视频封面 -->
+                            <Grid
+                                x:Name="MainContainer"
+                                Grid.Row="1"
+                                Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Data, Converter={StaticResource ObjectToVisibilityConverter}}">
+                                <local:DynamicPresenter x:Name="Presenter" Data="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Data}" />
+                            </Grid>
+                        </Grid>
+                    </controls:CardPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style BasedOn="{StaticResource DefaultDynamicItemStyle}" TargetType="local:DynamicItem" />
+</ResourceDictionary>

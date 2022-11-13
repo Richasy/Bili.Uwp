@@ -1,0 +1,34 @@
+﻿<local:SettingSectionControl
+    x:Class="Bili.Desktop.App.Controls.NotificationSettingSection"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:exp="using:Richasy.ExpanderEx.Uwp"
+    xmlns:icons="using:Richasy.FluentIcon.Uwp"
+    xmlns:loc="using:Bili.Desktop.App.Resources.Extension"
+    xmlns:local="using:Bili.Desktop.App.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+
+    <exp:ExpanderEx>
+        <exp:ExpanderEx.Header>
+            <exp:ExpanderExWrapper>
+                <exp:ExpanderExWrapper.MainContent>
+                    <exp:ExpanderExDescriptor Title="{loc:Locale Name=NotificationSetting}" Description="{loc:Locale Name=NotificationSettingDescription}">
+                        <exp:ExpanderExDescriptor.Icon>
+                            <icons:RegularFluentIcon Symbol="CommentNote24" />
+                        </exp:ExpanderExDescriptor.Icon>
+                    </exp:ExpanderExDescriptor>
+                </exp:ExpanderExWrapper.MainContent>
+                <exp:ExpanderExWrapper.WrapContent>
+                    <ToggleSwitch
+                        Style="{StaticResource RightAlignedCompactToggleSwitchStyle}"
+                        IsEnabled="{x:Bind ViewModel.IsEnableBackgroundTask, Mode=OneWay}"
+                        IsOn="{x:Bind ViewModel.IsOpenDynamicNotification, Mode=TwoWay}" />
+                </exp:ExpanderExWrapper.WrapContent>
+            </exp:ExpanderExWrapper>
+        </exp:ExpanderEx.Header>
+    </exp:ExpanderEx>
+</local:SettingSectionControl>

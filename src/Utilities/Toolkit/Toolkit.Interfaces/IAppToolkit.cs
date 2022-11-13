@@ -20,8 +20,9 @@ namespace Bili.Toolkit.Interfaces
         /// Initialize application title bar style,
         /// this method is used to rewrite default title bar style.
         /// </summary>
+        /// <param name="titleBar">If there is a title bar object to pass in (for WinUI).</param>
         /// <returns>Toolkit self.</returns>
-        IAppToolkit InitializeTitleBar();
+        IAppToolkit InitializeTitleBar(object titleBar);
 
         /// <summary>
         /// Get the current environment language code.
@@ -48,5 +49,34 @@ namespace Bili.Toolkit.Interfaces
         /// </summary>
         /// <returns>包版本.</returns>
         string GetPackageVersion();
+
+        /// <summary>
+        /// 获取窗口图标路径（对 WinUI）.
+        /// </summary>
+        /// <returns>图标路径.</returns>
+        string GetWindowIconPath();
+
+        /// <summary>
+        /// Initialize a window that is always on top.
+        /// </summary>
+        /// <param name="window">Window object.</param>
+        /// <param name="width">Window width.</param>
+        /// <param name="height">Window height.</param>
+        /// <param name="title">Window title.</param>
+        void InitializeAotWindow(object window, double width, double height, string title = "");
+
+        /// <summary>
+        /// Confirm that there is a DispatcherQueue when the application calls related methods (such as setting the Mica background),
+        /// if not, create one.
+        /// </summary>
+        void EnsureWindowsSystemDispatcherQueueController();
+
+        /// <summary>
+        /// Resize and center the window.
+        /// </summary>
+        /// <param name="width">Window width.</param>
+        /// <param name="height">Window height.</param>
+        /// <param name="windowHandle">Window handle.</param>
+        void ResizeAndCenterWindow(double width, double height, IntPtr windowHandle);
     }
 }

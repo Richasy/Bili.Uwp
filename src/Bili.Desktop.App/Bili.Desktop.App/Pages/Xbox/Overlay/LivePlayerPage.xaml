@@ -1,0 +1,137 @@
+﻿<base:LivePlayerPageBase
+    x:Class="Bili.Desktop.App.Pages.Xbox.Overlay.LivePlayerPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:base="using:Bili.Desktop.App.Pages.Base"
+    xmlns:behaviors="using:Bili.Desktop.App.Behaviors"
+    xmlns:controls="using:Bili.Desktop.App.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:ico="using:Richasy.FluentIcon.Uwp"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:loc="using:Bili.Desktop.App.Resources.Extension"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:player="using:Bili.Desktop.App.Controls.Player"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    RequiresPointer="WhenFocused"
+    mc:Ignorable="d">
+
+    <base:LivePlayerPageBase.Resources>
+        <Style TargetType="controls:IconTextBlock">
+            <Setter Property="IconFontSize" Value="14" />
+            <Setter Property="Foreground" Value="{ThemeResource TextFillColorSecondaryBrush}" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Spacing" Value="4" />
+        </Style>
+    </base:LivePlayerPageBase.Resources>
+
+    <Grid>
+        <player:PlayerPagePanel
+            Style="{StaticResource XboxPlayerPagePanelStyle}"
+            IsEnabled="{x:Bind ViewModel.IsError, Mode=OneWay, Converter={StaticResource ObjectToBoolReverseConverter}}"
+            IsTabStop="{x:Bind ViewModel.IsError, Mode=OneWay, Converter={StaticResource ObjectToBoolReverseConverter}}"
+            Opacity="{x:Bind ViewModel.IsError, Mode=OneWay, Converter={StaticResource ErrorOpacityConverter}}"
+            SectionHeaderItemsSource="{x:Bind ViewModel.Sections}"
+            SectionHeaderSelectedItem="{x:Bind ViewModel.CurrentSection, Mode=OneWay}"
+            ViewModel="{x:Bind ViewModel}"
+            Visibility="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+            <player:BiliMediaPlayer Style="{StaticResource XboxLivePlayerStyle}" ViewModel="{x:Bind ViewModel.MediaPlayerViewModel, Mode=OneWay}" />
+            <player:PlayerPagePanel.Descriptor>
+                <StackPanel Orientation="Horizontal" Spacing="20">
+                    <StackPanel
+                        HorizontalAlignment="Left"
+                        Orientation="Horizontal"
+                        Spacing="12">
+                        <controls:UserAvatar
+                            Width="36"
+                            Height="36"
+                            Avatar="{x:Bind ViewModel.User.User.Avatar.Uri, Mode=OneWay}"
+                            Command="{x:Bind ViewModel.User.ShowDetailCommand, Mode=OneWay}"
+                            UserName="{x:Bind ViewModel.User.User.Name, Mode=OneWay}" />
+                        <StackPanel Spacing="4">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                IsTextSelectionEnabled="True"
+                                Text="{x:Bind ViewModel.User.User.Name, Mode=OneWay}" />
+                            <Button
+                                Style="{x:Bind ViewModel.User.Relation, Converter={StaticResource RelationButtonStyleConverter}, Mode=OneWay}"
+                                Padding="8,2"
+                                HorizontalAlignment="Left"
+                                Command="{x:Bind ViewModel.User.ToggleRelationCommand, Mode=OneWay}"
+                                Content="{x:Bind ViewModel.User.Relation, Converter={StaticResource RelationTextConverter}, Mode=OneWay}"
+                                FontSize="10"
+                                Visibility="{x:Bind ViewModel.User.IsRelationButtonShown, Mode=OneWay}" />
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <TextBlock
+                                Style="{StaticResource CaptionTextBlockStyle}"
+                                VerticalAlignment="Center"
+                                Foreground="{ThemeResource TextFillColorTertiaryBrush}"
+                                Text="{x:Bind ViewModel.View.Partition, Mode=OneWay}" />
+                            <controls:IconTextBlock
+                                VerticalAlignment="Center"
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                Symbol="EyeShow16"
+                                Text="{x:Bind ViewModel.WatchingCountText, Mode=OneWay}"
+                                ToolTipService.ToolTip="{loc:Locale Name=Viewer}"
+                                Visibility="{x:Bind ViewModel.WatchingCountText, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}" />
+                        </StackPanel>
+                        <TextBlock
+                            x:Name="TitleBlock"
+                            Style="{StaticResource SubtitleTextBlockStyle}"
+                            HorizontalAlignment="Left"
+                            MaxLines="1"
+                            Text="{x:Bind ViewModel.View.Information.Identifier.Title, Mode=OneWay}"
+                            TextTrimming="CharacterEllipsis"
+                            TextWrapping="Wrap">
+                            <ToolTipService.ToolTip>
+                                <ToolTip Content="{x:Bind ViewModel.View.Information.Identifier.Title, Mode=OneWay}" IsEnabled="{Binding ElementName=TitleBlock, Mode=OneWay, Path=IsTextTrimmed}" />
+                            </ToolTipService.ToolTip>
+                        </TextBlock>
+                    </StackPanel>
+                </StackPanel>
+            </player:PlayerPagePanel.Descriptor>
+            <player:PlayerPagePanel.Dashboard>
+                <Grid ColumnSpacing="8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <controls:ProgressButton
+                        x:Name="OnlyAudioButton"
+                        VerticalAlignment="Center"
+                        Click="OnOnlyAudioButtonClick"
+                        Description="{loc:Locale Name=OnlyAudio}"
+                        IsChecked="{x:Bind ViewModel.MediaPlayerViewModel.IsLiveAudioOnly, Mode=OneWay}">
+                        <ico:RegularFluentIcon Symbol="MusicNote120" />
+                    </controls:ProgressButton>
+
+                    <controls:ProgressButton
+                        x:Name="OpenInBroswerButton"
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        Click="OnOpenInBroswerButtonClick"
+                        Command="{x:Bind ViewModel.OpenInBroswerCommand}"
+                        Description="{loc:Locale Name=OpenInBroswer}">
+                        <ico:RegularFluentIcon Symbol="Globe16" />
+                    </controls:ProgressButton>
+                </Grid>
+            </player:PlayerPagePanel.Dashboard>
+            <player:PlayerPagePanel.SectionContent>
+                <player:LiveMessageView x:Name="MessageView" />
+            </player:PlayerPagePanel.SectionContent>
+        </player:PlayerPagePanel>
+        <controls:ErrorPanel
+            x:Name="ErrorPanel"
+            ActionContent="{loc:Locale Name=Refresh}"
+            Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
+            Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}">
+            <interactivity:Interaction.Behaviors>
+                <behaviors:ReloadBehavior />
+            </interactivity:Interaction.Behaviors>
+        </controls:ErrorPanel>
+        <controls:OverlayLoadingPanel IsBarActive="False" IsRingActive="{x:Bind ViewModel.IsReloading, Mode=OneWay}" />
+    </Grid>
+</base:LivePlayerPageBase>

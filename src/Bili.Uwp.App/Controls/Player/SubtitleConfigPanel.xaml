@@ -1,0 +1,44 @@
+﻿<UserControl
+    x:Class="Bili.Uwp.App.Controls.Player.SubtitleConfigPanel"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:app="using:Bili.Models.Enums.App"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:loc="using:Bili.Uwp.App.Resources.Extension"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:player="using:Bili.Models.Data.Player"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+
+    <StackPanel Spacing="12">
+        <ToggleSwitch Header="{loc:Locale Name=ShowSubtitle}" IsOn="{x:Bind ViewModel.CanShowSubtitle, Mode=TwoWay}" />
+        <ComboBox
+            HorizontalAlignment="Stretch"
+            Header="{loc:Locale Name=SubtitleConvert}"
+            ItemsSource="{x:Bind ViewModel.ConvertTypeCollection}"
+            SelectedItem="{x:Bind ViewModel.ConvertType, Mode=TwoWay}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate x:DataType="app:SubtitleConvertType">
+                    <TextBlock Text="{x:Bind Converter={StaticResource SubtitleConvertTypeConverter}}" />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <ListView
+            Header="{loc:Locale Name=SubtitleList}"
+            IsItemClickEnabled="True"
+            ItemClick="OnMetaItemClick"
+            ItemsSource="{x:Bind ViewModel.Metas, Mode=OneWay}"
+            SelectedItem="{x:Bind ViewModel.CurrentMeta, Mode=OneWay}">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="player:SubtitleMeta">
+                    <TextBlock
+                        FontSize="12"
+                        FontWeight="Bold"
+                        Text="{x:Bind LanguageName}"
+                        TextWrapping="Wrap" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackPanel>
+</UserControl>

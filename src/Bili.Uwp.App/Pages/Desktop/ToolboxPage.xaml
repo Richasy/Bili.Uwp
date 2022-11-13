@@ -1,0 +1,92 @@
+﻿<local:ToolboxPageBase
+    x:Class="Bili.Uwp.App.Pages.Desktop.ToolboxPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:app="using:Bili.Uwp.App.Controls.App"
+    xmlns:controls="using:Bili.Uwp.App.Controls"
+    xmlns:converter="using:Bili.Uwp.App.Resources.Converter"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:icon="using:Richasy.FluentIcon.Uwp"
+    xmlns:loc="using:Bili.Uwp.App.Resources.Extension"
+    xmlns:local="using:Bili.Uwp.App.Pages.Desktop"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:toolbox="using:Bili.ViewModels.Interfaces.Toolbox"
+    mc:Ignorable="d">
+
+    <local:ToolboxPageBase.Resources>
+        <converter:ToolboxItemIconConverter x:Key="IconConverter" />
+    </local:ToolboxPageBase.Resources>
+
+    <Grid RowSpacing="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <app:PageHeader Title="{loc:Locale Name=Toolbox}" />
+
+        <ScrollViewer
+            Grid.Row="1"
+            Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
+            HorizontalScrollMode="Disabled"
+            VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <muxc:ItemsRepeater Margin="0,4,0,20" ItemsSource="{x:Bind ViewModel.ToolCollection}">
+                    <muxc:ItemsRepeater.Layout>
+                        <muxc:UniformGridLayout
+                            ItemsStretch="Fill"
+                            MinColumnSpacing="12"
+                            MinItemHeight="220"
+                            MinItemWidth="160"
+                            MinRowSpacing="12" />
+                    </muxc:ItemsRepeater.Layout>
+                    <muxc:ItemsRepeater.ItemTemplate>
+                        <DataTemplate x:DataType="toolbox:IToolboxItemViewModel">
+                            <controls:CardPanel Click="OnItemClick" DataContext="{x:Bind}">
+                                <Grid Padding="16,20" RowSpacing="8">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Border
+                                        Width="80"
+                                        Height="80"
+                                        HorizontalAlignment="Center"
+                                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                                        CornerRadius="{StaticResource ControlCornerRadius}">
+                                        <icon:RegularFluentIcon
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontSize="32"
+                                            Symbol="{x:Bind Type, Mode=OneWay, Converter={StaticResource IconConverter}}" />
+                                    </Border>
+
+                                    <TextBlock
+                                        Style="{StaticResource BodyTextBlockStyle}"
+                                        Grid.Row="1"
+                                        Margin="0,12,0,0"
+                                        HorizontalAlignment="Center"
+                                        FontWeight="Bold"
+                                        Text="{x:Bind Title, Mode=OneWay}"
+                                        TextAlignment="Center"
+                                        TextTrimming="CharacterEllipsis" />
+
+                                    <TextBlock
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        Grid.Row="2"
+                                        HorizontalAlignment="Center"
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                        Text="{x:Bind Description, Mode=OneWay}"
+                                        TextAlignment="Center"
+                                        TextTrimming="CharacterEllipsis" />
+                                </Grid>
+                            </controls:CardPanel>
+                        </DataTemplate>
+                    </muxc:ItemsRepeater.ItemTemplate>
+                </muxc:ItemsRepeater>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</local:ToolboxPageBase>

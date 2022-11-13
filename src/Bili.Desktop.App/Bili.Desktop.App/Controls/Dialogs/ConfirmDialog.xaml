@@ -1,0 +1,24 @@
+﻿<ContentDialog
+    x:Class="Bili.Desktop.App.Controls.Dialogs.ConfirmDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:loc="using:Bili.Desktop.App.Resources.Extension"
+    xmlns:local="using:Bili.Desktop.App.Controls.Dialogs"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="{loc:Locale Name=AppTip}"
+    Style="{StaticResource DefaultContentDialogStyle}"
+    CloseButtonText="{loc:Locale Name=Cancel}"
+    PrimaryButtonStyle="{StaticResource AccentButtonStyle}"
+    PrimaryButtonText="{loc:Locale Name=Confirm}"
+    mc:Ignorable="d">
+
+    <Grid>
+        <TextBlock
+            x:Name="DisplayBlock"
+            Style="{StaticResource BodyTextBlockStyle}"
+            MaxWidth="300"
+            LineHeight="20"
+            TextWrapping="Wrap" />
+    </Grid>
+</ContentDialog>

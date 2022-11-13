@@ -22,7 +22,6 @@
     <Rule Id="CA1415" Action="Warning" />
     <Rule Id="CA1800" Action="Warning" />
     <Rule Id="CA1821" Action="Warning" />
-    <Rule Id="CA1822" Action="Warning" />
     <Rule Id="CA1900" Action="Warning" />
     <Rule Id="CA1901" Action="Warning" />
     <Rule Id="CA2002" Action="Warning" />
@@ -75,6 +74,9 @@
     <Rule Id="IDE0005" Action="Warning" />
     <Rule Id="IDE0044" Action="Warning" />
     <Rule Id="IDE0044WithoutSuggestion" Action="Warning" />
+  </Rules>
+  <Rules AnalyzerId="Microsoft.CodeAnalysis.NetAnalyzers" RuleNamespace="Microsoft.CodeAnalysis.NetAnalyzers">
+    <Rule Id="CA1822" Action="None" />
   </Rules>
   <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
     <Rule Id="SA0001" Action="None" />

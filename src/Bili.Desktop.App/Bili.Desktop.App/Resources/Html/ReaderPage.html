@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>专栏文章</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=0; ">
+    <script>
+        var getHtml = function () {
+            return document.body.innerHTML;
+        }
+    </script>
+    <style>
+        $style$
+    </style>
+</head>
+<body $noscroll$>
+    <progress id="content_progress" value="0"></progress>
+    $body$
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var winHeight = window.innerHeight,
+                docHeight = document.documentElement.scrollHeight,
+                progressBar = document.querySelector('#content_progress');
+            progressBar.max = docHeight - winHeight;
+            progressBar.value = window.scrollY;
+            document.addEventListener('scroll', function () {
+                progressBar.max = document.documentElement.scrollHeight - window.innerHeight;
+                progressBar.value = window.scrollY;
+            });
+        });
+        var links = document.getElementsByTagName('a');
+        var imgs = document.getElementsByTagName('img');
+        // 拦截所有导航事件
+        if (links.length > 0) {
+            for (var i = 0; i < links.length; i++) {
+                links[i].addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    let target = e.currentTarget;
+                    let link = target.getAttribute('href');
+                    let data = {
+                        Key: 'LinkClick',
+                        Value: link
+                    }
+                    window.external.notify(JSON.stringify(data));
+                })
+            }
+        }
+        // 给所有图片附加点击事件
+        if (imgs.length > 0) {
+            for (var i = 0; i < imgs.length; i++) {
+                imgs[i].addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    let target = e.currentTarget;
+                    let src = target.getAttribute('src');
+                    var obj = {
+                        Key: 'ImageClick',
+                        Value: src
+                    };
+                    window.external.notify(JSON.stringify(obj));
+                })
+            }
+        }
+    </script>
+
+</body>
+
+</html>

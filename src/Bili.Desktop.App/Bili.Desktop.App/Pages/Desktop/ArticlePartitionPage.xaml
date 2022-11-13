@@ -1,0 +1,164 @@
+﻿<local:ArticlePartitionPageBase
+    x:Class="Bili.Desktop.App.Pages.Desktop.ArticlePartitionPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:app="using:Bili.Desktop.App.Controls.App"
+    xmlns:article="using:Bili.ViewModels.Interfaces.Article"
+    xmlns:article1="using:Bili.Desktop.App.Controls.Article"
+    xmlns:behaviors="using:Bili.Desktop.App.Behaviors"
+    xmlns:community="using:Bili.Models.Data.Community"
+    xmlns:controls="using:Bili.Desktop.App.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:enums="using:Bili.Models.Enums"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:loc="using:Bili.Desktop.App.Resources.Extension"
+    xmlns:local="using:Bili.Desktop.App.Pages.Desktop"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d">
+
+    <interactivity:Interaction.Behaviors>
+        <behaviors:InitializeBehavior />
+    </interactivity:Interaction.Behaviors>
+
+    <Grid RowSpacing="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="Common">
+                <VisualState x:Name="WideState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource MediumWindowThresholdWidth}" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="NarrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ArticleView.ItemOrientation" Value="Horizontal" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <app:PageHeader Title="{loc:Locale Name=SpecialColumn}" RefreshCommand="{x:Bind ViewModel.ReloadCommand}" />
+
+        <NavigationView
+            x:Name="ArticleNavigationView"
+            Style="{StaticResource TopNavigationViewStyle}"
+            Grid.Row="1"
+            Margin="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
+            ItemInvoked="OnSpecialColumnNavigationViewItemInvoked"
+            MenuItemsSource="{x:Bind ViewModel.Partitions}"
+            SelectedItem="{x:Bind ViewModel.CurrentPartition, Mode=OneWay}">
+
+            <NavigationView.MenuItemTemplate>
+                <DataTemplate x:DataType="community:Partition">
+                    <NavigationViewItem Content="{x:Bind}" MenuItemsSource="{x:Bind Children}" />
+                </DataTemplate>
+            </NavigationView.MenuItemTemplate>
+        </NavigationView>
+
+        <ScrollViewer
+            x:Name="ContentScrollViewer"
+            Grid.Row="2"
+            Margin="0,8,0,0"
+            Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
+            HorizontalScrollMode="Disabled"
+            VerticalScrollBarVisibility="Auto"
+            Visibility="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+            <Grid x:Name="ContentGrid">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <!-- 横幅 -->
+                <controls:BannerView
+                    x:Name="BannerView"
+                    Margin="0,0,0,12"
+                    VerticalAlignment="Top"
+                    ItemsSource="{x:Bind ViewModel.Banners}"
+                    Visibility="{x:Bind ViewModel.IsRecommendPartition, Mode=OneWay}" />
+
+                <!-- 排行榜 -->
+                <controls:HorizontalRepeaterView
+                    x:Name="RankView"
+                    Grid.Row="1"
+                    Margin="0,0,0,12"
+                    VerticalAlignment="Top"
+                    Header="{loc:Locale Name=Rank}"
+                    HeaderVisibility="Visible"
+                    ItemsSource="{x:Bind ViewModel.Ranks}"
+                    Visibility="{x:Bind ViewModel.IsRecommendPartition, Mode=OneWay}">
+                    <controls:HorizontalRepeaterView.WideItemTemplate>
+                        <DataTemplate x:DataType="article:IArticleItemViewModel">
+                            <article1:ArticleItem
+                                Style="{StaticResource HorizontalArticleItemStyle}"
+                                Width="420"
+                                Height="144"
+                                ViewModel="{x:Bind}" />
+                        </DataTemplate>
+                    </controls:HorizontalRepeaterView.WideItemTemplate>
+                </controls:HorizontalRepeaterView>
+
+                <controls:VerticalRepeaterView
+                    x:Name="ArticleView"
+                    Grid.Row="2"
+                    Margin="0,0,0,12"
+                    HeaderText="{x:Bind ViewModel.CurrentPartition.Name, Mode=OneWay}"
+                    ItemsSource="{x:Bind ViewModel.Items}"
+                    MinWideItemHeight="260"
+                    Visibility="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                    <interactivity:Interaction.Behaviors>
+                        <behaviors:IncrementalBehavior />
+                    </interactivity:Interaction.Behaviors>
+                    <controls:VerticalRepeaterView.AdditionalContent>
+                        <Grid>
+                            <ComboBox
+                                x:Name="ArticleSortComboBox"
+                                Style="{StaticResource DefaultComboBoxStyle}"
+                                ItemsSource="{x:Bind ViewModel.SortTypes, Mode=OneWay}"
+                                PlaceholderText="{loc:Locale Name=SelectSortType}"
+                                SelectedItem="{x:Bind ViewModel.SortType, Mode=OneWay}"
+                                SelectionChanged="OnArticleSortComboBoxSlectionChanged"
+                                Visibility="{x:Bind ViewModel.IsRecommendPartition, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate x:DataType="enums:ArticleSortType">
+                                        <TextBlock Text="{x:Bind Converter={StaticResource SortTypeTextConverter}}" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </Grid>
+                    </controls:VerticalRepeaterView.AdditionalContent>
+                    <controls:VerticalRepeaterView.ItemTemplate>
+                        <DataTemplate x:DataType="article:IArticleItemViewModel">
+                            <article1:ArticleItem ViewModel="{x:Bind}" />
+                        </DataTemplate>
+                    </controls:VerticalRepeaterView.ItemTemplate>
+                </controls:VerticalRepeaterView>
+            </Grid>
+        </ScrollViewer>
+
+        <controls:ErrorPanel
+            x:Name="ErrorPanel"
+            Grid.Row="2"
+            ActionContent="{loc:Locale Name=Refresh}"
+            Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
+            Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}">
+            <interactivity:Interaction.Behaviors>
+                <behaviors:ReloadBehavior />
+            </interactivity:Interaction.Behaviors>
+        </controls:ErrorPanel>
+
+        <controls:OverlayLoadingPanel
+            Grid.Row="2"
+            IsBarActive="{x:Bind ViewModel.IsIncrementalLoading, Mode=OneWay}"
+            IsRingActive="{x:Bind ViewModel.IsReloading, Mode=OneWay}" />
+    </Grid>
+</local:ArticlePartitionPageBase>

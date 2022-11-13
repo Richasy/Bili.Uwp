@@ -1,0 +1,159 @@
+﻿<base:SearchPageBase
+    x:Class="Bili.Desktop.App.Pages.Xbox.Overlay.SearchPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:app="using:Bili.Desktop.App.Controls.App"
+    xmlns:base="using:Bili.Desktop.App.Pages.Base"
+    xmlns:behaviors="using:Bili.Desktop.App.Behaviors"
+    xmlns:controls="using:Bili.Desktop.App.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:loc="using:Bili.Desktop.App.Resources.Extension"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:search="using:Bili.ViewModels.Interfaces.Search"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    mc:Ignorable="d">
+
+    <interactivity:Interaction.Behaviors>
+        <behaviors:InitializeBehavior />
+    </interactivity:Interaction.Behaviors>
+
+    <Grid RowSpacing="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <app:PageHeader>
+            <app:PageHeader.Title>
+                <TextBlock
+                    Style="{StaticResource TitleTextBlockStyle}"
+                    Margin="0,0,0,8"
+                    HorizontalAlignment="Left"
+                    TextTrimming="CharacterEllipsis">
+                    <Run Text="{loc:Locale Name=Search}" />
+                    <Run
+                        FontWeight="Bold"
+                        Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                        Text="{x:Bind ViewModel.Keyword, Mode=OneWay}" />
+                </TextBlock>
+            </app:PageHeader.Title>
+        </app:PageHeader>
+
+        <NavigationView
+            x:Name="Nav"
+            Style="{StaticResource XboxSideNavigationViewStyle}"
+            Grid.Row="1"
+            Margin="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
+            ItemInvoked="OnNavItemInvokedAsync"
+            MenuItemsSource="{x:Bind ViewModel.Items}"
+            OpenPaneLength="120"
+            SelectedItem="{x:Bind ViewModel.CurrentModule, Mode=OneWay}">
+            <NavigationView.MenuItemTemplate>
+                <DataTemplate x:DataType="search:ISearchModuleItemViewModel">
+                    <NavigationViewItem Content="{x:Bind}" IsEnabled="{x:Bind IsEnabled, Mode=OneWay}">
+                        <NavigationViewItem.ContentTemplate>
+                            <DataTemplate x:DataType="search:ISearchModuleItemViewModel">
+                                <TextBlock Text="{x:Bind Title, Mode=OneWay}" />
+                            </DataTemplate>
+                        </NavigationViewItem.ContentTemplate>
+                    </NavigationViewItem>
+                </DataTemplate>
+            </NavigationView.MenuItemTemplate>
+            <Grid RowSpacing="4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid
+                    x:Name="FilterContainer"
+                    Margin="4"
+                    Visibility="{x:Bind ViewModel.IsCurrentFilterEmpty, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                    <ItemsRepeater x:Name="FilterRepeater" ItemsSource="{x:Bind ViewModel.CurrentFilters}">
+                        <ItemsRepeater.Layout>
+                            <UniformGridLayout
+                                x:Name="FilterRepeaterLayout"
+                                ItemsStretch="Uniform"
+                                MinColumnSpacing="12"
+                                MinItemWidth="120"
+                                MinRowSpacing="12" />
+                        </ItemsRepeater.Layout>
+                        <ItemsRepeater.ItemTemplate>
+                            <DataTemplate x:DataType="search:ISearchFilterViewModel">
+                                <ComboBox
+                                    AutomationProperties.Name="{x:Bind Filter.Name}"
+                                    HorizontalAlignment="Stretch"
+                                    DataContext="{x:Bind}"
+                                    ItemsSource="{x:Bind Filter.Conditions}"
+                                    PlaceholderText="{x:Bind Filter.Name}"
+                                    SelectedItem="{x:Bind CurrentCondition, Mode=OneWay}"
+                                    SelectionChanged="OnFilterItemSelectionChanged" />
+                            </DataTemplate>
+                        </ItemsRepeater.ItemTemplate>
+                    </ItemsRepeater>
+                </Grid>
+                <Grid
+                    x:Name="ContentContainer"
+                    Grid.Row="1"
+                    Margin="-36,0">
+                    <controls:SearchVideoView
+                        x:Name="VideoView"
+                        DataContext="{x:Bind ViewModel}"
+                        ItemsSource="{x:Bind ViewModel.Videos}"
+                        Visibility="{x:Bind ViewModel.IsVideoModuleShown, Mode=OneWay}" />
+                    <controls:SearchPgcView
+                        x:Name="BangumiView"
+                        DataContext="{x:Bind ViewModel}"
+                        ItemsSource="{x:Bind ViewModel.Animes}"
+                        Visibility="{x:Bind ViewModel.IsAnimeModuleShown, Mode=OneWay}" />
+                    <controls:SearchPgcView
+                        x:Name="MovieView"
+                        DataContext="{x:Bind ViewModel}"
+                        ItemsSource="{x:Bind ViewModel.Movies}"
+                        Visibility="{x:Bind ViewModel.IsMovieModuleShown, Mode=OneWay}" />
+                    <controls:SearchArticleView
+                        x:Name="ArticleView"
+                        DataContext="{x:Bind ViewModel}"
+                        ItemsSource="{x:Bind ViewModel.Articles}"
+                        Visibility="{x:Bind ViewModel.IsArticleModuleShown, Mode=OneWay}" />
+                    <controls:SearchUserView
+                        x:Name="UserView"
+                        DataContext="{x:Bind ViewModel}"
+                        ItemsSource="{x:Bind ViewModel.Users}"
+                        Visibility="{x:Bind ViewModel.IsUserModuleShown, Mode=OneWay}" />
+                    <controls:SearchLiveView
+                        x:Name="LiveView"
+                        DataContext="{x:Bind ViewModel}"
+                        ItemsSource="{x:Bind ViewModel.Lives}"
+                        Visibility="{x:Bind ViewModel.IsLiveModuleShown, Mode=OneWay}" />
+                </Grid>
+            </Grid>
+        </NavigationView>
+
+        <controls:OverlayLoadingPanel
+            Grid.Row="1"
+            IsBarActive="{x:Bind ViewModel.IsIncrementalLoading, Mode=OneWay}"
+            IsRingActive="{x:Bind ViewModel.IsReloading, Mode=OneWay}" />
+
+        <controls:OverlayLoadingPanel
+            Grid.Row="1"
+            IsBarActive="False"
+            IsRingActive="{x:Bind ViewModel.IsReloadingModule, Mode=OneWay}" />
+
+        <controls:ErrorPanel
+            Grid.Row="1"
+            ActionContent="{loc:Locale Name=Refresh}"
+            Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
+            Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}">
+            <interactivity:Interaction.Behaviors>
+                <behaviors:ReloadBehavior />
+            </interactivity:Interaction.Behaviors>
+        </controls:ErrorPanel>
+
+        <controls:ErrorPanel
+            Grid.Row="1"
+            Text="{loc:Locale Name=NoSpecificData}"
+            Visibility="{x:Bind ViewModel.IsCurrentContentEmpty, Mode=OneWay}" />
+    </Grid>
+</base:SearchPageBase>

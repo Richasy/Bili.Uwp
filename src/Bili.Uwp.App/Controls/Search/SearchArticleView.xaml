@@ -1,0 +1,52 @@
+﻿<local:SearchComponent
+    x:Class="Bili.Uwp.App.Controls.SearchArticleView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:article="using:Bili.ViewModels.Interfaces.Article"
+    xmlns:article1="using:Bili.Uwp.App.Controls.Article"
+    xmlns:behaviors="using:Bili.Uwp.App.Behaviors"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:local="using:Bili.Uwp.App.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+
+    <ScrollViewer
+        Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
+        HorizontalScrollMode="Disabled"
+        VerticalScrollBarVisibility="Auto">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="LayoutGroup">
+                <VisualState x:Name="WideState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource MediumWindowThresholdWidth}" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="NarrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ArticleView.ItemOrientation" Value="Horizontal" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <local:VerticalRepeaterView
+            x:Name="ArticleView"
+            HeaderVisibility="Collapsed"
+            ItemsSource="{x:Bind ItemsSource, Mode=OneWay}"
+            MinWideItemHeight="248">
+            <interactivity:Interaction.Behaviors>
+                <behaviors:IncrementalBehavior />
+            </interactivity:Interaction.Behaviors>
+            <local:VerticalRepeaterView.ItemTemplate>
+                <DataTemplate x:DataType="article:IArticleItemViewModel">
+                    <article1:ArticleItem ViewModel="{x:Bind}" />
+                </DataTemplate>
+            </local:VerticalRepeaterView.ItemTemplate>
+        </local:VerticalRepeaterView>
+    </ScrollViewer>
+</local:SearchComponent>

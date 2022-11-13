@@ -1,0 +1,130 @@
+﻿<base:LiveFeedPageBase
+    x:Class="Bili.Desktop.App.Pages.Xbox.LiveFeedPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:app="using:Bili.Desktop.App.Controls.App"
+    xmlns:base="using:Bili.Desktop.App.Pages.Base"
+    xmlns:behaviors="using:Bili.Desktop.App.Behaviors"
+    xmlns:com="using:Bili.Models.Data.Community"
+    xmlns:community="using:Bili.Desktop.App.Controls.Community"
+    xmlns:controls="using:Bili.Desktop.App.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:live="using:Bili.ViewModels.Interfaces.Live"
+    xmlns:liveControls="using:Bili.Desktop.App.Controls.Live"
+    xmlns:loc="using:Bili.Desktop.App.Resources.Extension"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    mc:Ignorable="d">
+
+    <interactivity:Interaction.Behaviors>
+        <behaviors:InitializeBehavior />
+    </interactivity:Interaction.Behaviors>
+
+    <Grid x:Name="RootContainer">
+        <Grid RowSpacing="12">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <app:PageHeader Title="{loc:Locale Name=Live}" IsShowLogo="True" />
+            <ScrollViewer
+                x:Name="RootScrollViewer"
+                Grid.Row="1"
+                Padding="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
+                HorizontalScrollMode="Disabled"
+                VerticalScrollBarVisibility="Auto">
+                <Grid x:Name="RootGrid" Visibility="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid x:Name="PartitionContainer">
+                        <controls:HorizontalRepeaterView
+                            x:Name="PartitionView"
+                            Header="{loc:Locale Name=HotTags}"
+                            HeaderVisibility="Visible"
+                            ItemsSource="{x:Bind ViewModel.HotPartitions}">
+                            <controls:HorizontalRepeaterView.WideItemTemplate>
+                                <DataTemplate x:DataType="com:Partition">
+                                    <community:PartitionItem
+                                        Width="120"
+                                        Height="120"
+                                        Type="Live"
+                                        ViewModel="{x:Bind}" />
+                                </DataTemplate>
+                            </controls:HorizontalRepeaterView.WideItemTemplate>
+                            <controls:HorizontalRepeaterView.AdditionalContent>
+                                <Button
+                                    x:Name="SeeAllTagsButton"
+                                    Command="{x:Bind ViewModel.SeeAllPartitionsCommand}"
+                                    Content="{loc:Locale Name=SeeAll}" />
+                            </controls:HorizontalRepeaterView.AdditionalContent>
+                        </controls:HorizontalRepeaterView>
+                    </Grid>
+
+                    <Grid
+                        x:Name="InlineFollowContainer"
+                        Grid.Row="1"
+                        HorizontalAlignment="Stretch"
+                        Visibility="{x:Bind ViewModel.IsLoggedIn, Mode=OneWay}">
+                        <controls:HorizontalRepeaterView
+                            Margin="0,8,0,0"
+                            Header="{loc:Locale Name=FollowLiveRoom}"
+                            HeaderVisibility="Visible"
+                            ItemsSource="{x:Bind ViewModel.Follows}"
+                            Visibility="{x:Bind ViewModel.IsFollowsEmpty, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                            <controls:HorizontalRepeaterView.WideItemTemplate>
+                                <DataTemplate x:DataType="live:ILiveItemViewModel">
+                                    <liveControls:LiveItem Style="{StaticResource SlimLiveItemStyle}" ViewModel="{x:Bind}" />
+                                </DataTemplate>
+                            </controls:HorizontalRepeaterView.WideItemTemplate>
+                        </controls:HorizontalRepeaterView>
+                    </Grid>
+
+                    <Grid
+                        x:Name="FeedsContainer"
+                        Grid.Row="2"
+                        Margin="0,8,0,0"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch">
+                        <controls:VerticalRepeaterView
+                            x:Name="VideoView"
+                            Margin="0,4,0,12"
+                            HeaderText="{loc:Locale Name=Recommend}"
+                            ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
+                            MinWideItemHeight="208"
+                            MinWideItemWidth="200">
+                            <interactivity:Interaction.Behaviors>
+                                <behaviors:IncrementalBehavior />
+                            </interactivity:Interaction.Behaviors>
+                            <controls:VerticalRepeaterView.ItemTemplate>
+                                <DataTemplate x:DataType="live:ILiveItemViewModel">
+                                    <liveControls:LiveItem ViewModel="{x:Bind}" />
+                                </DataTemplate>
+                            </controls:VerticalRepeaterView.ItemTemplate>
+                        </controls:VerticalRepeaterView>
+                    </Grid>
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+
+
+        <controls:ErrorPanel
+            x:Name="ErrorPanel"
+            Grid.Row="1"
+            ActionContent="{loc:Locale Name=Refresh}"
+            Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}"
+            Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}">
+            <interactivity:Interaction.Behaviors>
+                <behaviors:ReloadBehavior />
+            </interactivity:Interaction.Behaviors>
+        </controls:ErrorPanel>
+
+        <controls:OverlayLoadingPanel
+            Grid.Row="1"
+            IsBarActive="{x:Bind ViewModel.IsIncrementalLoading, Mode=OneWay}"
+            IsRingActive="{x:Bind ViewModel.IsReloading, Mode=OneWay}" />
+    </Grid>
+</base:LiveFeedPageBase>

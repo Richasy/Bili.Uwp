@@ -1,0 +1,109 @@
+﻿<local:VideoPartViewBase
+    x:Class="Bili.Uwp.App.Controls.Player.VideoPartView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Bili.Uwp.App.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:loc="using:Bili.Uwp.App.Resources.Extension"
+    xmlns:local="using:Bili.Uwp.App.Controls.Player"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:video="using:Bili.ViewModels.Interfaces.Video"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+
+    <Grid RowSpacing="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid ColumnSpacing="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock
+                VerticalAlignment="Center"
+                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                Text="{loc:Locale Name=OnlyIndex}"
+                TextTrimming="CharacterEllipsis" />
+            <ToggleSwitch
+                x:Name="OnlyIndexSwitch"
+                Grid.Column="1"
+                MinWidth="0"
+                MinHeight="0"
+                VerticalAlignment="Center"
+                IsOn="{x:Bind ViewModel.IsOnlyShowIndex, Mode=TwoWay}" />
+        </Grid>
+        <ScrollViewer
+            Grid.Row="1"
+            HorizontalScrollMode="Disabled"
+            VerticalScrollBarVisibility="Auto"
+            VerticalScrollMode="Auto">
+            <Grid>
+                <controls:VerticalRepeaterView
+                    x:Name="PartRepeater"
+                    EnableDetectParentScrollViewer="False"
+                    HeaderVisibility="Collapsed"
+                    ItemOrientation="Horizontal"
+                    ItemsSource="{x:Bind ViewModel.VideoParts}"
+                    Loaded="OnPartRepeaterLoaded"
+                    Visibility="{x:Bind ViewModel.IsOnlyShowIndex, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                    <controls:VerticalRepeaterView.ItemTemplate>
+                        <DataTemplate x:DataType="video:IVideoIdentifierSelectableViewModel">
+                            <controls:CardPanel
+                                Click="OnPartItemClick"
+                                DataContext="{x:Bind}"
+                                IsChecked="{x:Bind IsSelected, Mode=OneWay}"
+                                IsEnableCheck="True"
+                                IsEnableHoverAnimation="False">
+                                <Grid Padding="12">
+                                    <TextBlock
+                                        Style="{StaticResource BodyTextBlockStyle}"
+                                        HorizontalAlignment="Left"
+                                        FontWeight="Bold"
+                                        Text="{x:Bind Data.Title}" />
+                                </Grid>
+                            </controls:CardPanel>
+                        </DataTemplate>
+                    </controls:VerticalRepeaterView.ItemTemplate>
+                </controls:VerticalRepeaterView>
+                <muxc:ItemsRepeater
+                    x:Name="IndexRepeater"
+                    ItemsSource="{x:Bind ViewModel.VideoParts}"
+                    Loaded="OnPartRepeaterLoaded"
+                    Visibility="{x:Bind ViewModel.IsOnlyShowIndex, Mode=OneWay}">
+                    <muxc:ItemsRepeater.Layout>
+                        <muxc:UniformGridLayout
+                            ItemsStretch="Fill"
+                            MinColumnSpacing="8"
+                            MinItemHeight="48"
+                            MinItemWidth="48"
+                            MinRowSpacing="8" />
+                    </muxc:ItemsRepeater.Layout>
+                    <muxc:ItemsRepeater.ItemTemplate>
+                        <DataTemplate x:DataType="video:IVideoIdentifierSelectableViewModel">
+                            <controls:CardPanel
+                                AutomationProperties.Name="{x:Bind Data.Title}"
+                                Click="OnPartItemClick"
+                                DataContext="{x:Bind}"
+                                IsChecked="{x:Bind IsSelected, Mode=OneWay}"
+                                IsEnableCheck="True"
+                                IsEnableHoverAnimation="False"
+                                ToolTipService.ToolTip="{x:Bind Data.Title}">
+                                <Grid>
+                                    <TextBlock
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        FontWeight="Bold"
+                                        Text="{x:Bind Index, Mode=OneWay}" />
+                                </Grid>
+                            </controls:CardPanel>
+                        </DataTemplate>
+                    </muxc:ItemsRepeater.ItemTemplate>
+                </muxc:ItemsRepeater>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</local:VideoPartViewBase>

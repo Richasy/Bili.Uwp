@@ -55,7 +55,7 @@ namespace Bili.Toolkit.Uwp
         }
 
         /// <inheritdoc/>
-        public IAppToolkit InitializeTitleBar()
+        public IAppToolkit InitializeTitleBar(object titleBar)
         {
             var view = ApplicationView.GetForCurrentView();
             CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
@@ -150,5 +150,21 @@ namespace Bili.Toolkit.Uwp
             var appVersion = Package.Current.Id.Version;
             return $"{appVersion.Major}.{appVersion.Minor}.{appVersion.Build}.{appVersion.Revision}";
         }
+
+        /// <inheritdoc/>
+        public string GetWindowIconPath()
+            => throw new NotSupportedException("不支持 UWP 调用此方法");
+
+        /// <inheritdoc/>
+        public void InitializeAotWindow(object window, double width, double height, string title = "")
+            => throw new NotSupportedException("不支持 UWP 调用此方法");
+
+        /// <inheritdoc/>
+        public void EnsureWindowsSystemDispatcherQueueController()
+            => throw new NotSupportedException("不支持 UWP 调用此方法");
+
+        /// <inheritdoc/>
+        public void ResizeAndCenterWindow(double width, double height, IntPtr windowHandle)
+            => throw new NotSupportedException("不支持 UWP 调用此方法");
     }
 }

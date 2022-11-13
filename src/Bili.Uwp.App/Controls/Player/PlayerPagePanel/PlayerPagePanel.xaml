@@ -1,0 +1,233 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Bili.Uwp.App.Controls"
+    xmlns:loc="using:Bili.Uwp.App.Resources.Extension"
+    xmlns:local="using:Bili.Uwp.App.Controls.Player"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:uwp="using:Richasy.FluentIcon.Uwp">
+    <Style x:Key="DefaultPlayerPagePanelStyle" TargetType="local:PlayerPagePanel">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:PlayerPagePanel">
+                    <SplitView
+                        x:Name="RootView"
+                        CompactPaneLength="0"
+                        DisplayMode="Inline"
+                        IsPaneOpen="True"
+                        OpenPaneLength="376"
+                        PaneBackground="Transparent"
+                        PanePlacement="Right">
+                        <SplitView.Pane>
+                            <Grid x:Name="PaneGrid" Margin="16,-16,16,16">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <muxc:NavigationView
+                                    x:Name="SectionNavigationView"
+                                    Style="{StaticResource TopNavigationViewStyle}"
+                                    Margin="8"
+                                    MenuItemsSource="{TemplateBinding SectionHeaderItemsSource}"
+                                    SelectedItem="{TemplateBinding SectionHeaderSelectedItem}">
+                                    <muxc:NavigationView.MenuItemTemplate>
+                                        <DataTemplate>
+                                            <muxc:NavigationViewItem Content="{Binding}">
+                                                <muxc:NavigationViewItem.ContentTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding Title}" />
+                                                    </DataTemplate>
+                                                </muxc:NavigationViewItem.ContentTemplate>
+                                            </muxc:NavigationViewItem>
+                                        </DataTemplate>
+                                    </muxc:NavigationView.MenuItemTemplate>
+                                </muxc:NavigationView>
+                                <ContentPresenter Grid.Row="1" Content="{TemplateBinding SectionContent}" />
+                            </Grid>
+                        </SplitView.Pane>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="WidthGroup">
+                                <VisualState x:Name="NormalState">
+                                    <VisualState.Setters>
+                                        <Setter Target="RootView.IsPaneOpen" Value="True" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="NarrowState">
+                                    <VisualState.Setters>
+                                        <Setter Target="RootGrid.Padding" Value="16" />
+                                        <Setter Target="RootView.DisplayMode" Value="CompactOverlay" />
+                                        <Setter Target="RootView.PaneBackground" Value="{ThemeResource NavigationViewDefaultPaneBackground}" />
+                                        <Setter Target="ExpandButton.Visibility" Value="Visible" />
+                                        <Setter Target="DashboardComponent.(Grid.Column)" Value="0" />
+                                        <Setter Target="DashboardComponent.(Grid.Row)" Value="1" />
+                                        <Setter Target="DashboardComponent.Margin" Value="0,20,0,0" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="PlayerGroup">
+                                <VisualState x:Name="StandardState" />
+                                <VisualState x:Name="FullPlayerState">
+                                    <VisualState.Setters>
+                                        <Setter Target="RootGrid.Padding" Value="0" />
+                                        <Setter Target="RootGrid.RowSpacing" Value="0" />
+                                        <Setter Target="DetailContainer.Visibility" Value="Collapsed" />
+                                        <Setter Target="ExpandButtonContainer.Visibility" Value="Collapsed" />
+                                        <Setter Target="RootView.OpenPaneLength" Value="0" />
+                                        <Setter Target="RootView.IsPaneOpen" Value="False" />
+                                        <Setter Target="PlayerComponent.CornerRadius" Value="0" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid
+                            x:Name="RootGrid"
+                            Padding="36,24,24,24"
+                            RowSpacing="24">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <ContentPresenter
+                                x:Name="PlayerComponent"
+                                Content="{TemplateBinding Player}"
+                                CornerRadius="{StaticResource OverlayCornerRadius}" />
+                            <Grid x:Name="DetailContainer" Grid.Row="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <ContentPresenter
+                                    x:Name="DescriptorComponent"
+                                    VerticalAlignment="Top"
+                                    Content="{TemplateBinding Descriptor}" />
+                                <ContentPresenter
+                                    x:Name="DashboardComponent"
+                                    Grid.Column="1"
+                                    Margin="20,0,0,0"
+                                    VerticalAlignment="Top"
+                                    Content="{TemplateBinding Dashboard}" />
+                            </Grid>
+
+                            <Grid
+                                x:Name="ExpandButtonContainer"
+                                Grid.RowSpan="2"
+                                Margin="24"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Bottom">
+                                <Button
+                                    x:Name="ExpandButton"
+                                    Style="{StaticResource AccentButtonStyle}"
+                                    Width="40"
+                                    Height="40"
+                                    CornerRadius="20"
+                                    Visibility="Collapsed">
+                                    <uwp:RegularFluentIcon
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        FontSize="16"
+                                        Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
+                                        Symbol="PanelRightExpand20" />
+                                </Button>
+                            </Grid>
+                        </Grid>
+                    </SplitView>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="XboxPlayerPagePanelStyle" TargetType="local:PlayerPagePanel">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:PlayerPagePanel">
+                    <SplitView
+                        x:Name="RootView"
+                        CompactPaneLength="0"
+                        DisplayMode="CompactOverlay"
+                        IsPaneOpen="False"
+                        OpenPaneLength="376"
+                        PaneBackground="{ThemeResource NavigationViewDefaultPaneBackground}"
+                        PanePlacement="Right">
+                        <SplitView.Pane>
+                            <Grid x:Name="PaneGrid" Margin="16,-16,16,16">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <muxc:NavigationView
+                                    x:Name="SectionNavigationView"
+                                    Style="{StaticResource TopNavigationViewStyle}"
+                                    Margin="8"
+                                    MenuItemsSource="{TemplateBinding SectionHeaderItemsSource}"
+                                    SelectedItem="{TemplateBinding SectionHeaderSelectedItem}">
+                                    <muxc:NavigationView.MenuItemTemplate>
+                                        <DataTemplate>
+                                            <muxc:NavigationViewItem Content="{Binding}">
+                                                <muxc:NavigationViewItem.ContentTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding Title}" />
+                                                    </DataTemplate>
+                                                </muxc:NavigationViewItem.ContentTemplate>
+                                            </muxc:NavigationViewItem>
+                                        </DataTemplate>
+                                    </muxc:NavigationView.MenuItemTemplate>
+                                </muxc:NavigationView>
+                                <ContentPresenter Grid.Row="1" Content="{TemplateBinding SectionContent}" />
+                            </Grid>
+                        </SplitView.Pane>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="PlayerGroup">
+                                <VisualState x:Name="StandardState" />
+                                <VisualState x:Name="FullPlayerState">
+                                    <VisualState.Setters>
+                                        <Setter Target="DetailContainer.Visibility" Value="Collapsed" />
+                                        <Setter Target="RootView.OpenPaneLength" Value="0" />
+                                        <Setter Target="RootView.IsPaneOpen" Value="False" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid x:Name="RootGrid">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <ContentPresenter x:Name="PlayerComponent" Content="{TemplateBinding Player}" />
+                            <Grid
+                                x:Name="DetailContainer"
+                                Grid.Row="1"
+                                Padding="24,12"
+                                ColumnSpacing="8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <ContentPresenter
+                                    x:Name="DescriptorComponent"
+                                    VerticalAlignment="Center"
+                                    Content="{TemplateBinding Descriptor}" />
+                                <ContentPresenter
+                                    x:Name="DashboardComponent"
+                                    Grid.Column="1"
+                                    VerticalAlignment="Center"
+                                    Content="{TemplateBinding Dashboard}" />
+                                <controls:ProgressButton
+                                    x:Name="ExpandButton"
+                                    Grid.Column="2"
+                                    VerticalAlignment="Center"
+                                    Description="{loc:Locale Name=Sections}">
+                                    <uwp:RegularFluentIcon Symbol="PanelRightExpand20" />
+                                </controls:ProgressButton>
+                            </Grid>
+                        </Grid>
+                    </SplitView>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style BasedOn="{StaticResource DefaultPlayerPagePanelStyle}" TargetType="local:PlayerPagePanel" />
+</ResourceDictionary>

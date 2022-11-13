@@ -1,0 +1,101 @@
+﻿<UserControl
+    x:Class="Bili.Desktop.App.Controls.AccountPanel"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:loc="using:Bili.Desktop.App.Resources.Extension"
+    xmlns:local="using:Bili.Desktop.App.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <Style
+            x:Key="BasicButtonStyle"
+            BasedOn="{StaticResource DefaultButtonStyle}"
+            TargetType="Button">
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+    </UserControl.Resources>
+
+    <Grid
+        Padding="12,8"
+        HorizontalAlignment="Stretch"
+        RowSpacing="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid ColumnSpacing="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <local:UserAvatar
+                Width="40"
+                Height="40"
+                Avatar="{x:Bind ViewModel.Avatar, Mode=OneWay}"
+                DecodeSize="80"
+                UserName="{x:Bind ViewModel.DisplayName, Mode=OneWay}" />
+            <StackPanel
+                Grid.Column="1"
+                VerticalAlignment="Center"
+                Spacing="4">
+                <TextBlock
+                    Style="{StaticResource BodyTextBlockStyle}"
+                    HorizontalAlignment="Left"
+                    Text="{x:Bind ViewModel.DisplayName, Mode=OneWay}"
+                    TextTrimming="CharacterEllipsis" />
+                <Image
+                    Height="10"
+                    HorizontalAlignment="Left"
+                    Source="{x:Bind ViewModel.Level, Mode=OneWay, Converter={StaticResource UserLevelConverter}}" />
+            </StackPanel>
+
+            <Border
+                x:Name="VipContainer"
+                Grid.Column="2"
+                Padding="4"
+                VerticalAlignment="Center"
+                BorderBrush="{ThemeResource AccentFillColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="{StaticResource ControlCornerRadius}"
+                Visibility="{x:Bind ViewModel.IsVip, Mode=OneWay}">
+                <TextBlock
+                    FontSize="10"
+                    Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                    Text="{loc:Locale Name=Vip}" />
+            </Border>
+        </Grid>
+        <Grid
+            Grid.Row="1"
+            ColumnSpacing="4"
+            XYFocusKeyboardNavigation="Enabled">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <local:TwoLineButton
+                Click="OnDynamicButtonClick"
+                FirstLineText="{x:Bind ViewModel.DynamicCount, Mode=OneWay}"
+                SecondLineText="{loc:Locale Name=DynamicCount}" />
+
+            <local:TwoLineButton
+                Grid.Column="1"
+                Click="OnFollowButtonClick"
+                FirstLineText="{x:Bind ViewModel.FollowCount, Mode=OneWay}"
+                SecondLineText="{loc:Locale Name=FollowCount}" />
+
+            <local:TwoLineButton
+                Grid.Column="2"
+                Click="OnFollowerButtonClick"
+                FirstLineText="{x:Bind ViewModel.FollowerCount, Mode=OneWay}"
+                SecondLineText="{loc:Locale Name=FansCount}" />
+        </Grid>
+    </Grid>
+</UserControl>

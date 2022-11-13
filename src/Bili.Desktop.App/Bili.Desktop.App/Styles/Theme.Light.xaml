@@ -1,0 +1,28 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <AcrylicBrush
+        x:Key="AppMaskAcrylicBrush"
+        FallbackColor="White"
+        TintColor="White"
+        TintOpacity="0.5" />
+    <AcrylicBrush
+        x:Key="AccentMaskAcrylicBrush"
+        FallbackColor="{ThemeResource SystemAccentColor}"
+        TintColor="{ThemeResource SystemAccentColorLight2}"
+        TintOpacity="0.8" />
+
+    <SolidColorBrush x:Key="AppMaskBrush" Color="#CCFFFFFF" />
+
+    <SolidColorBrush
+        x:Key="AccentMaskBrush"
+        Opacity="0.8"
+        Color="{ThemeResource SystemAccentColorLight2}" />
+
+    <SolidColorBrush
+        x:Key="AccentBadgeBackground"
+        Opacity="0.4"
+        Color="{ThemeResource SystemAccentColorDark1}" />
+
+    <SolidColorBrush x:Key="ToggleSwitchKnobOffForeground" Color="White" />
+
+    <SolidColorBrush x:Key="TransparentBackground" Color="#01FFFFFF" />
+</ResourceDictionary>

@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using Bili.Lib.Interfaces;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
@@ -52,6 +53,18 @@ namespace Bili.ViewModels.Uwp.Core
 
         [ObservableProperty]
         private bool _isTraditionalChinese;
+
+        /// <inheritdoc/>
+        public object MainWindow
+            => throw new NotImplementedException();
+
+        /// <inheritdoc/>
+        public object AppWindow
+            => throw new NotImplementedException();
+
+        /// <inheritdoc/>
+        public IntPtr MainWindowHandle
+            => throw new NotImplementedException();
 
         /// <inheritdoc/>
         public IAsyncRelayCommand CheckUpdateCommand { get; }

@@ -2,12 +2,10 @@
 
 using System;
 using System.IO;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Bili.Toolkit.Interfaces;
 using Newtonsoft.Json;
 using Windows.Storage;
-using Windows.Storage.Pickers;
 
 namespace Bili.Toolkit.Uwp
 {
@@ -61,14 +59,9 @@ namespace Bili.Toolkit.Uwp
             }
 
             var writeContent = string.Empty;
-            if (data is string)
-            {
-                writeContent = data.ToString();
-            }
-            else
-            {
-                writeContent = JsonConvert.SerializeObject(data);
-            }
+            writeContent = data is string
+                ? data.ToString()
+                : JsonConvert.SerializeObject(data);
 
             var file = await folder.CreateFileAsync(fileName, CreationCollisionOption.OpenIfExists)
                         .AsTask();
@@ -93,35 +86,6 @@ namespace Bili.Toolkit.Uwp
             await file.DeleteAsync()
                 .AsTask();
         });
-
-        /// <inheritdoc/>
-        public async Task<Tuple<string, string>> OpenLocalFileAndReadAsync(params string[] types)
-        {
-            var picker = new FileOpenPicker();
-            picker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
-            var typeReg = new Regex(@"^\.[a-zA-Z0-9]+$");
-            foreach (var type in types)
-            {
-                if (type == "*" || typeReg.IsMatch(type))
-                {
-                    picker.FileTypeFilter.Add(type);
-                }
-                else
-                {
-                    throw new InvalidCastException("Invalid file extension.");
-                }
-            }
-
-            var file = await picker.PickSingleFileAsync();
-
-            if (file != null)
-            {
-                var content = await FileIO.ReadTextAsync(file);
-                return new Tuple<string, string>(content, file.FileType);
-            }
-
-            return null;
-        }
 
         /// <inheritdoc/>
         public async Task<string> ReadPackageFile(string filePath)
