@@ -41,7 +41,6 @@ namespace Bili.ViewModels.Uwp.Core
         private MediaPlaybackSession _videoCurrentSession;
         private int _liveRetryCount;
         private int _videoRetryCount;
-        private bool _shouldPreventSkip;
 
         /// <inheritdoc/>
         public event EventHandler MediaOpened;

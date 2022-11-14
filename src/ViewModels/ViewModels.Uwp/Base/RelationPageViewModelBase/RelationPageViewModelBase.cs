@@ -7,7 +7,6 @@ using Bili.Models.Data.User;
 using Bili.Models.Enums.Bili;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
-using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Base
 {
@@ -22,9 +21,7 @@ namespace Bili.ViewModels.Uwp.Base
         internal RelationPageViewModelBase(
             IAccountProvider accountProvider,
             IResourceToolkit resourceToolkit,
-            RelationType type,
-            CoreDispatcher dispatcher)
-            : base(dispatcher)
+            RelationType type)
         {
             _accountProvider = accountProvider;
             _resourceToolkit = resourceToolkit;

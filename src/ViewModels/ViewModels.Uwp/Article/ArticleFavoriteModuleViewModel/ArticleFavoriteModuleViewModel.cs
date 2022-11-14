@@ -7,7 +7,6 @@ using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Article;
 using Bili.ViewModels.Uwp.Base;
-using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Article
 {
@@ -21,9 +20,7 @@ namespace Bili.ViewModels.Uwp.Article
         /// </summary>
         public ArticleFavoriteModuleViewModel(
             IFavoriteProvider favoriteProvider,
-            IResourceToolkit resourceToolkit,
-            CoreDispatcher dispatcher)
-            : base(dispatcher)
+            IResourceToolkit resourceToolkit)
         {
             _favoriteProvider = favoriteProvider;
             _resourceToolkit = resourceToolkit;

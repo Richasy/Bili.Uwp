@@ -75,7 +75,7 @@ namespace Bili.App.Controls.Player
 
         private async void OnMediaPlayerChangedAsync(object sender, object e)
         {
-            if(e is MediaPlayer mp)
+            if (e is MediaPlayer mp)
             {
                 _mediaPlayerElement.SetMediaPlayer(mp);
 

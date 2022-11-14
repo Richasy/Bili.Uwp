@@ -17,7 +17,6 @@ using Bili.ViewModels.Interfaces.Search;
 using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
 using CommunityToolkit.Mvvm.Input;
-using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Search
 {
@@ -35,9 +34,7 @@ namespace Bili.ViewModels.Uwp.Search
             IHomeProvider homeProvider,
             IArticleProvider articleProvider,
             ISettingsToolkit settingsToolkit,
-            IAppViewModel appViewModel,
-            CoreDispatcher dispatcher)
-            : base(dispatcher)
+            IAppViewModel appViewModel)
         {
             _searchProvider = searchProvider;
             _resourceToolkit = resourceToolkit;

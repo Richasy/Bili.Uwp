@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using Bili.App.Pages.Base;
 using Bili.Models.Data.Community;
 

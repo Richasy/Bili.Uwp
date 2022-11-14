@@ -8,7 +8,7 @@ using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Graphics.Canvas;
-using Windows.UI.Core;
+using Windows.UI.Xaml;
 
 namespace Bili.ViewModels.Uwp.Core
 {
@@ -22,12 +22,11 @@ namespace Bili.ViewModels.Uwp.Core
         /// </summary>
         public NativePlayerViewModel(
             IFileToolkit fileToolkit,
-            IResourceToolkit resourceToolkit,
-            CoreDispatcher dispatcher)
+            IResourceToolkit resourceToolkit)
         {
             _fileToolkit = fileToolkit;
             _resourceToolkit = resourceToolkit;
-            _dispatcher = dispatcher;
+            _dispatcher = Window.Current.CoreWindow.Dispatcher;
 
             ClearCommand = new RelayCommand(Clear);
         }
@@ -37,7 +36,7 @@ namespace Bili.ViewModels.Uwp.Core
         {
             _video = video;
             _audio = audio;
-            _shouldPreventSkip = true;
+            Clear();
             await LoadDashVideoSourceAsync();
         }
 

@@ -11,6 +11,7 @@ using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Live;
 using CommunityToolkit.Mvvm.Input;
 using Windows.UI.Core;
+using Windows.UI.Xaml;
 
 namespace Bili.ViewModels.Uwp.Live
 {
@@ -24,12 +25,11 @@ namespace Bili.ViewModels.Uwp.Live
         /// </summary>
         public LivePartitionPageViewModel(
             IResourceToolkit resourceToolkit,
-            ILiveProvider liveProvider,
-            CoreDispatcher dispatcher)
+            ILiveProvider liveProvider)
         {
             _resourceToolkit = resourceToolkit;
             _liveProvider = liveProvider;
-            _dispatcher = dispatcher;
+            _dispatcher = Window.Current.CoreWindow.Dispatcher;
 
             ParentPartitions = new ObservableCollection<Partition>();
             DisplayPartitions = new ObservableCollection<Partition>();

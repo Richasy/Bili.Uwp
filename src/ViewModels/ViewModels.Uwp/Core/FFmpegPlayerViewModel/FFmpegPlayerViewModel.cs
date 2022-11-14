@@ -9,7 +9,7 @@ using Bili.ViewModels.Interfaces.Core;
 using CommunityToolkit.Mvvm.Input;
 using FFmpegInteropX;
 using Microsoft.Graphics.Canvas;
-using Windows.UI.Core;
+using Windows.UI.Xaml;
 
 namespace Bili.ViewModels.Uwp.Core
 {
@@ -23,12 +23,11 @@ namespace Bili.ViewModels.Uwp.Core
         /// </summary>
         public FFmpegPlayerViewModel(
             IResourceToolkit resourceToolkit,
-            ISettingsToolkit settingsToolkit,
-            CoreDispatcher dispatcher)
+            ISettingsToolkit settingsToolkit)
         {
             _resourceToolkit = resourceToolkit;
             _settingsToolkit = settingsToolkit;
-            _dispatcher = dispatcher;
+            _dispatcher = Window.Current.CoreWindow.Dispatcher;
 
             _liveConfig = new MediaSourceConfig();
             _liveConfig.FFmpegOptions.Add("rtsp_transport", "tcp");
@@ -45,7 +44,6 @@ namespace Bili.ViewModels.Uwp.Core
             _video = video;
             _audio = audio;
             _videoRetryCount = 0;
-            _shouldPreventSkip = true;
 
             await LoadDashVideoSourceAsync();
         }

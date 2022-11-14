@@ -11,7 +11,6 @@ using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
 using CommunityToolkit.Mvvm.Input;
-using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Account
 {
@@ -26,9 +25,7 @@ namespace Bili.ViewModels.Uwp.Account
         public ViewLaterPageViewModel(
             IAccountProvider accountProvider,
             IResourceToolkit resourceToolkit,
-            INavigationViewModel navigationViewModel,
-            CoreDispatcher dispatcher)
-            : base(dispatcher)
+            INavigationViewModel navigationViewModel)
         {
             _accountProvider = accountProvider;
             _resourceToolkit = resourceToolkit;

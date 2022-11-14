@@ -32,7 +32,6 @@ using Bili.ViewModels.Uwp.Search;
 using Bili.ViewModels.Uwp.Toolbox;
 using Bili.ViewModels.Uwp.Video;
 using Windows.Storage;
-using Windows.UI.Xaml;
 
 namespace Bili.DI.App
 {
@@ -52,7 +51,7 @@ namespace Bili.DI.App
             NLog.GlobalDiagnosticsContext.Set("LogPath", fullPath);
             var logger = NLog.LogManager.GetLogger("Richasy.Bili");
             Container.Locator.Instance
-                .RegisterSingleton<NLog.ILogger>(logger)
+                .RegisterConstant(logger)
                 .RegisterSingleton<IResourceToolkit, ResourceToolkit>()
                 .RegisterSingleton<INumberToolkit, NumberToolkit>()
                 .RegisterSingleton<ISettingsToolkit, SettingsToolkit>()
@@ -177,15 +176,6 @@ namespace Bili.DI.App
                 .RegisterSingleton<IVideoPlayerPageViewModel, VideoPlayerPageViewModel>()
                 .RegisterSingleton<IPgcPlayerPageViewModel, PgcPlayerPageViewModel>()
                 .RegisterSingleton<ILivePlayerPageViewModel, LivePlayerPageViewModel>()
-                .Build();
-        }
-
-        /// <summary>
-        /// 注册应用所需的常量.
-        /// </summary>
-        public static void RegisterAppRequiredConstants()
-        {
-            Container.Locator.Instance.RegisterSingleton(Window.Current.CoreWindow.Dispatcher)
                 .Build();
         }
     }

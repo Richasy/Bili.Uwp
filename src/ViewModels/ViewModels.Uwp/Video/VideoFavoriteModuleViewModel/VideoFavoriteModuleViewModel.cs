@@ -7,7 +7,6 @@ using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
 using CommunityToolkit.Mvvm.Input;
-using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Video
 {
@@ -22,9 +21,7 @@ namespace Bili.ViewModels.Uwp.Video
         public VideoFavoriteModuleViewModel(
             INavigationViewModel navigationViewModel,
             IAccountProvider accountProvider,
-            IFavoriteProvider favoriteProvider,
-            CoreDispatcher dispatcher)
-            : base(dispatcher)
+            IFavoriteProvider favoriteProvider)
         {
             _navigationViewModel = navigationViewModel;
             _accountProvider = accountProvider;

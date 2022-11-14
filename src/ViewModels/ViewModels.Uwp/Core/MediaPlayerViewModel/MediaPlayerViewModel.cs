@@ -20,6 +20,7 @@ using Windows.Media;
 using Windows.System.Display;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
+using Windows.UI.Xaml;
 
 namespace Bili.ViewModels.Uwp.Core
 {
@@ -44,8 +45,7 @@ namespace Bili.ViewModels.Uwp.Core
             IDanmakuModuleViewModel danmakuModuleViewModel,
             IInteractionModuleViewModel interactionModuleViewModel,
             ICallerViewModel callerViewModel,
-            IAppViewModel appViewModel,
-            CoreDispatcher dispatcher)
+            IAppViewModel appViewModel)
         {
             _playerProvider = playerProvider;
             _liveProvider = liveProvider;
@@ -57,7 +57,7 @@ namespace Bili.ViewModels.Uwp.Core
             _callerViewModel = callerViewModel;
             _appViewModel = appViewModel;
             _navigationViewModel = navigationViewModel;
-            _dispatcher = dispatcher;
+            _dispatcher = Window.Current.CoreWindow.Dispatcher;
             SubtitleViewModel = subtitleModuleViewModel;
             DanmakuViewModel = danmakuModuleViewModel;
             InteractionViewModel = interactionModuleViewModel;

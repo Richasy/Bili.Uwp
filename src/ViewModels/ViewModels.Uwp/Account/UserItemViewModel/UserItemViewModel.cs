@@ -12,6 +12,7 @@ using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Core;
 using CommunityToolkit.Mvvm.Input;
 using Windows.UI.Core;
+using Windows.UI.Xaml;
 
 namespace Bili.ViewModels.Uwp.Account
 {
@@ -29,8 +30,7 @@ namespace Bili.ViewModels.Uwp.Account
             IResourceToolkit resourceToolkit,
             ICallerViewModel callerViewModel,
             INavigationViewModel navigationViewModel,
-            IAccountViewModel accountViewModel,
-            CoreDispatcher dispatcher)
+            IAccountViewModel accountViewModel)
         {
             _numberToolkit = numberToolkit;
             _accountProvider = accountProvider;
@@ -38,7 +38,7 @@ namespace Bili.ViewModels.Uwp.Account
             _callerViewModel = callerViewModel;
             _navigationViewModel = navigationViewModel;
             _accountViewModel = accountViewModel;
-            _dispatcher = dispatcher;
+            _dispatcher = Window.Current.CoreWindow.Dispatcher;
 
             ToggleRelationCommand = new AsyncRelayCommand(ToggleRelationAsync);
             InitializeRelationCommand = new AsyncRelayCommand(InitializeRelationAsync);

@@ -8,7 +8,6 @@ using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
-using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Video
 {
@@ -23,9 +22,7 @@ namespace Bili.ViewModels.Uwp.Video
         public VideoFavoriteFolderDetailViewModel(
             IFavoriteProvider favoriteProvider,
             IResourceToolkit resourceToolkit,
-            IAccountViewModel accountViewModel,
-            CoreDispatcher dispatcher)
-            : base(dispatcher)
+            IAccountViewModel accountViewModel)
         {
             _favoriteProvider = favoriteProvider;
             _resourceToolkit = resourceToolkit;

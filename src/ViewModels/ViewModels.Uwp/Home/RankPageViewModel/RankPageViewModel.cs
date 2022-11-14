@@ -16,6 +16,7 @@ using Bili.ViewModels.Interfaces.Home;
 using Bili.ViewModels.Interfaces.Video;
 using CommunityToolkit.Mvvm.Input;
 using Windows.UI.Core;
+using Windows.UI.Xaml;
 
 namespace Bili.ViewModels.Uwp.Home
 {
@@ -29,15 +30,13 @@ namespace Bili.ViewModels.Uwp.Home
         /// </summary>
         /// <param name="resourceToolkit">本地资源工具.</param>
         /// <param name="homeProvider">分区服务提供工具.</param>
-        /// <param name="dispatcher">UI 调度器.</param>
         public RankPageViewModel(
             IResourceToolkit resourceToolkit,
-            IHomeProvider homeProvider,
-            CoreDispatcher dispatcher)
+            IHomeProvider homeProvider)
         {
             _resourceToolkit = resourceToolkit;
             _homeProvider = homeProvider;
-            _dispatcher = dispatcher;
+            _dispatcher = Window.Current.CoreWindow.Dispatcher;
             _caches = new Dictionary<Partition, IEnumerable<VideoInformation>>();
 
             Videos = new ObservableCollection<IVideoItemViewModel>();

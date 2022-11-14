@@ -18,7 +18,7 @@ using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
 using CommunityToolkit.Mvvm.Input;
-using Windows.UI.Core;
+using Windows.UI.Xaml;
 
 namespace Bili.ViewModels.Uwp.Video
 {
@@ -42,8 +42,7 @@ namespace Bili.ViewModels.Uwp.Video
             INavigationViewModel navigationViewModel,
             IAccountViewModel accountViewModel,
             IDownloadModuleViewModel downloadViewModel,
-            ICommentPageViewModel commentPageViewModel,
-            CoreDispatcher dispatcher)
+            ICommentPageViewModel commentPageViewModel)
         {
             _playerProvider = playerProvider;
             _authorizeProvider = authorizeProvider;
@@ -56,7 +55,7 @@ namespace Bili.ViewModels.Uwp.Video
             _recordViewModel = recordViewModel;
             _commentPageViewModel = commentPageViewModel;
             _accountViewModel = accountViewModel;
-            _dispatcher = dispatcher;
+            _dispatcher = Window.Current.CoreWindow.Dispatcher;
 
             Collaborators = new ObservableCollection<IUserItemViewModel>();
             Tags = new ObservableCollection<Tag>();

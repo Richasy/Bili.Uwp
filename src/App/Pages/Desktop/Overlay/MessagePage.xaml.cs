@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using Bili.ViewModels.Interfaces.Community;
 
 namespace Bili.App.Pages.Desktop.Overlay

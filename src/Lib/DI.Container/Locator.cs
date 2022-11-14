@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Microsoft.Extensions.DependencyInjection;
+using Autofac;
 
 namespace Bili.DI.Container
 {
@@ -10,19 +10,16 @@ namespace Bili.DI.Container
     /// </summary>
     public sealed class Locator
     {
-        private readonly IServiceCollection _serviceDescriptors;
+        private static IContainer _container;
+        private static ContainerBuilder _containerBuilder;
 
-        private Locator() => _serviceDescriptors = new ServiceCollection();
+        private Locator()
+            => _containerBuilder = new ContainerBuilder();
 
         /// <summary>
         /// DI 容器实例.
         /// </summary>
-        public static Locator Instance { get; } = new Locator();
-
-        /// <summary>
-        /// 服务注册提供器.
-        /// </summary>
-        public IServiceProvider Provider { get; private set; }
+        public static Locator Instance { get; } = new Lazy<Locator>(() => new Locator()).Value;
 
         /// <summary>
         /// 注册单例.
@@ -34,20 +31,9 @@ namespace Bili.DI.Container
             where TInterface : class
             where TImplementation : class, TInterface
         {
-            _serviceDescriptors.AddSingleton<TInterface, TImplementation>();
-            return this;
-        }
-
-        /// <summary>
-        /// 注册单例.
-        /// </summary>
-        /// <param name="implementation">接口的实现实例.</param>
-        /// <typeparam name="TInterface">单例接口.</typeparam>
-        /// <returns>定位器.</returns>
-        public Locator RegisterSingleton<TInterface>(TInterface implementation)
-            where TInterface : class
-        {
-            _serviceDescriptors.AddSingleton(implementation);
+            _containerBuilder.RegisterType<TImplementation>()
+                .As<TInterface>()
+                .SingleInstance();
             return this;
         }
 
@@ -58,7 +44,7 @@ namespace Bili.DI.Container
         /// <returns>定位器.</returns>
         public Locator RegisterConstant(object data)
         {
-            _serviceDescriptors.AddSingleton(data);
+            _containerBuilder.RegisterInstance(data);
             return this;
         }
 
@@ -72,7 +58,8 @@ namespace Bili.DI.Container
             where TInterface : class
             where TImplementation : class, TInterface
         {
-            _serviceDescriptors.AddTransient<TInterface, TImplementation>();
+            _containerBuilder.RegisterType<TImplementation>()
+                .As<TInterface>();
             return this;
         }
 
@@ -80,7 +67,7 @@ namespace Bili.DI.Container
         /// 构建服务提供器，使注册的服务生效.
         /// </summary>
         public void Build()
-            => Provider = _serviceDescriptors.BuildServiceProvider();
+            => _container = _containerBuilder.Build();
 
         /// <summary>
         /// 获取注册的服务.
@@ -88,6 +75,6 @@ namespace Bili.DI.Container
         /// <typeparam name="T">服务注册标识.</typeparam>
         /// <returns>注册的服务.</returns>
         public T GetService<T>()
-            => Provider.GetService<T>();
+            => _container.Resolve<T>();
     }
 }

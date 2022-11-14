@@ -12,7 +12,6 @@ using Bili.ViewModels.Interfaces.Common;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Pgc;
 using CommunityToolkit.Mvvm.Input;
-using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Base
 {
@@ -32,10 +31,8 @@ namespace Bili.ViewModels.Uwp.Base
         public PgcPageViewModelBase(
             IPgcProvider pgcProvider,
             IResourceToolkit resourceToolkit,
-            CoreDispatcher dispatcher,
             INavigationViewModel navigationViewModel,
             PgcType type)
-            : base(dispatcher)
         {
             _type = type;
             _pgcProvider = pgcProvider;

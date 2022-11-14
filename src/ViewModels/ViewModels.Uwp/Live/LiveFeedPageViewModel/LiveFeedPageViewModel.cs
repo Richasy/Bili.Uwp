@@ -13,7 +13,6 @@ using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Live;
 using Bili.ViewModels.Uwp.Base;
 using CommunityToolkit.Mvvm.Input;
-using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Live
 {
@@ -25,17 +24,14 @@ namespace Bili.ViewModels.Uwp.Live
         /// <summary>
         /// Initializes a new instance of the <see cref="LiveFeedPageViewModel"/> class.
         /// </summary>
-        /// <param name="dispatcher">UI调度器.</param>
         /// <param name="liveProvider">直播服务提供工具.</param>
         /// <param name="authorizeProvider">账户服务提供工具.</param>
         /// <param name="resourceToolkit">资源工具.</param>
         public LiveFeedPageViewModel(
-            CoreDispatcher dispatcher,
             ILiveProvider liveProvider,
             IAuthorizeProvider authorizeProvider,
             IResourceToolkit resourceToolkit,
             INavigationViewModel navigationViewModel)
-            : base(dispatcher)
         {
             _liveProvider = liveProvider;
             _authorizeProvider = authorizeProvider;

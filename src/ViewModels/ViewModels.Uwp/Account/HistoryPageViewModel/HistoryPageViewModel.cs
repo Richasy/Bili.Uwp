@@ -8,7 +8,6 @@ using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
 using CommunityToolkit.Mvvm.Input;
-using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Account
 {
@@ -22,9 +21,7 @@ namespace Bili.ViewModels.Uwp.Account
         /// </summary>
         public HistoryPageViewModel(
             IAccountProvider accountProvider,
-            IResourceToolkit resourceToolkit,
-            CoreDispatcher dispatcher)
-            : base(dispatcher)
+            IResourceToolkit resourceToolkit)
         {
             _accountProvider = accountProvider;
             _resourceToolkit = resourceToolkit;

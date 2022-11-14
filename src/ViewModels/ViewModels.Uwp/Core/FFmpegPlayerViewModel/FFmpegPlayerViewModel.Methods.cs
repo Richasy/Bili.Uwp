@@ -258,13 +258,6 @@ namespace Bili.ViewModels.Uwp.Core
 
         private async void OnPlayerPositionChangedAsync(MediaPlaybackSession sender, object args)
         {
-            if (_shouldPreventSkip && Position != TimeSpan.Zero)
-            {
-                _shouldPreventSkip = false;
-                SeekTo(TimeSpan.Zero);
-                return;
-            }
-
             await _dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
                 if (_videoCurrentSession == null)
