@@ -78,7 +78,7 @@ namespace Bili.Adapter
             if (userModule != null)
             {
                 var author = userModule.Author;
-                user = _userAdapter.ConvertToUserProfile(Convert.ToInt32(author.Mid), author.Name, author.Face, Models.Enums.App.AvatarSize.Size64);
+                user = _userAdapter.ConvertToUserProfile(author.Mid, author.Name, author.Face, Models.Enums.App.AvatarSize.Size64);
                 tip = userModule.PtimeLabelText;
             }
             else
@@ -87,7 +87,7 @@ namespace Bili.Adapter
                 if (forwardUserModule != null)
                 {
                     var name = forwardUserModule.Title.FirstOrDefault()?.Text ?? "--";
-                    user = _userAdapter.ConvertToUserProfile(Convert.ToInt32(forwardUserModule.Uid), name, forwardUserModule.FaceUrl, Models.Enums.App.AvatarSize.Size32);
+                    user = _userAdapter.ConvertToUserProfile(forwardUserModule.Uid, name, forwardUserModule.FaceUrl, Models.Enums.App.AvatarSize.Size32);
                     tip = forwardUserModule.PtimeLabelText;
                 }
             }
