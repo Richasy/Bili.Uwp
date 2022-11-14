@@ -18,6 +18,7 @@ using Bili.ViewModels.Interfaces.Live;
 using Bili.ViewModels.Uwp.Base;
 using CommunityToolkit.Mvvm.Input;
 using Windows.UI.Core;
+using Windows.UI.Xaml;
 
 namespace Bili.ViewModels.Uwp.Live
 {
@@ -38,8 +39,7 @@ namespace Bili.ViewModels.Uwp.Live
             ICallerViewModel callerViewModel,
             IRecordViewModel recordViewModel,
             IAccountViewModel accountViewModel,
-            IMediaPlayerViewModel mediaPlayerViewModel,
-            CoreDispatcher dispatcher)
+            IMediaPlayerViewModel mediaPlayerViewModel)
         {
             _authorizeProvider = authorizeProvider;
             _liveProvider = liveProvider;
@@ -49,7 +49,7 @@ namespace Bili.ViewModels.Uwp.Live
             _callerViewModel = callerViewModel;
             _recordViewModel = recordViewModel;
             _accountViewModel = accountViewModel;
-            _dispatcher = dispatcher;
+            _dispatcher = Window.Current.CoreWindow.Dispatcher;
 
             Danmakus = new ObservableCollection<LiveDanmakuInformation>();
             Sections = new ObservableCollection<PlayerSectionHeader>

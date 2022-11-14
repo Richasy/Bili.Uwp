@@ -4,7 +4,6 @@ using Bili.Lib.Interfaces;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Community;
 using Bili.ViewModels.Uwp.Base;
-using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Community
 {
@@ -18,9 +17,8 @@ namespace Bili.ViewModels.Uwp.Community
         /// </summary>
         public FansPageViewModel(
             IAccountProvider accountProvider,
-            IResourceToolkit resourceToolkit,
-            CoreDispatcher dispatcher)
-            : base(accountProvider, resourceToolkit, Models.Enums.Bili.RelationType.Fans, dispatcher)
+            IResourceToolkit resourceToolkit)
+            : base(accountProvider, resourceToolkit, Models.Enums.Bili.RelationType.Fans)
         {
         }
     }

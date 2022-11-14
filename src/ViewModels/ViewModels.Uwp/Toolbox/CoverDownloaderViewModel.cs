@@ -11,6 +11,7 @@ using CommunityToolkit.Mvvm.Input;
 using Windows.Storage;
 using Windows.System;
 using Windows.UI.Core;
+using Windows.UI.Xaml;
 
 namespace Bili.ViewModels.Uwp.Toolbox
 {
@@ -43,12 +44,11 @@ namespace Bili.ViewModels.Uwp.Toolbox
         /// </summary>
         public CoverDownloaderViewModel(
              IVideoToolkit videoToolkit,
-             IPlayerProvider playerProvider,
-             CoreDispatcher dispatcher)
+             IPlayerProvider playerProvider)
         {
             _videoToolkit = videoToolkit;
             _playerProvider = playerProvider;
-            _dispatcher = dispatcher;
+            _dispatcher = Window.Current.CoreWindow.Dispatcher;
 
             DownloadCommand = new AsyncRelayCommand(DownloadCoverAsync);
             LoadPreviewCommand = new AsyncRelayCommand(LoadPreviewAsync);

@@ -100,6 +100,7 @@ namespace Bili.ViewModels.Uwp.Core
             RemoveBackStack(BackBehavior.OpenPlayer);
             var pageId = GetPageIdFromPlaySnapshot(parameter);
             PlayViewId = pageId;
+            SecondaryViewId = PageIds.None;
             var args = new AppNavigationEventArgs(NavigationType.Player, pageId, parameter);
             AddBackStack(
                     BackBehavior.OpenPlayer,

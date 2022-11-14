@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using Windows.UI.Xaml;
 
 namespace Bili.App.Controls.Player.PlayerControls

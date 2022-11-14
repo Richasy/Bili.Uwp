@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using System.Linq;
 using Bili.App.Controls.Base;
 using Bili.App.Pages.Xbox;

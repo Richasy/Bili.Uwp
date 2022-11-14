@@ -25,12 +25,11 @@ namespace Bili.ViewModels.Uwp.Search
         /// </summary>
         public SearchBoxViewModel(
             ISearchProvider searchProvider,
-            INavigationViewModel navigationViewModel,
-            CoreDispatcher dispatcher)
+            INavigationViewModel navigationViewModel)
         {
             _searchProvider = searchProvider;
             _navigationViewModel = navigationViewModel;
-            _dispatcher = dispatcher;
+            _dispatcher = Window.Current.CoreWindow.Dispatcher;
 
             HotSearchCollection = new ObservableCollection<SearchSuggest>();
             SearchSuggestion = new ObservableCollection<SearchSuggest>();

@@ -9,7 +9,6 @@ using Bili.Models.Enums.App;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Pgc;
 using CommunityToolkit.Mvvm.Input;
-using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Base
 {
@@ -24,9 +23,7 @@ namespace Bili.ViewModels.Uwp.Base
         internal PgcFavoriteModuleViewModelBase(
             FavoriteType type,
             IFavoriteProvider favoriteProvider,
-            IResourceToolkit resourceToolkit,
-            CoreDispatcher dispatcher)
-            : base(dispatcher)
+            IResourceToolkit resourceToolkit)
         {
             _type = type;
             _favoriteProvider = favoriteProvider;

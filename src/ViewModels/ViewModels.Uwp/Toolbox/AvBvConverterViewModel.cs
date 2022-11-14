@@ -9,6 +9,7 @@ using Bili.ViewModels.Interfaces.Toolbox;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Windows.UI.Core;
+using Windows.UI.Xaml;
 
 namespace Bili.ViewModels.Uwp.Toolbox
 {
@@ -45,8 +46,7 @@ namespace Bili.ViewModels.Uwp.Toolbox
             IResourceToolkit resourceToolkit,
             IVideoToolkit videoToolkit,
             IPlayerProvider playerProvider,
-            IAppViewModel appViewModel,
-            CoreDispatcher dispatcher)
+            IAppViewModel appViewModel)
         {
             _resourceToolkit = resourceToolkit;
             _videoToolkit = videoToolkit;
@@ -56,7 +56,7 @@ namespace Bili.ViewModels.Uwp.Toolbox
 
             AttachIsRunningToAsyncCommand(p => IsConverting = p, ConvertCommand);
             AttachExceptionHandlerToAsyncCommand(DisplayExAsync, ConvertCommand);
-            _dispatcher = dispatcher;
+            _dispatcher = Window.Current.CoreWindow.Dispatcher;
         }
 
         /// <inheritdoc/>

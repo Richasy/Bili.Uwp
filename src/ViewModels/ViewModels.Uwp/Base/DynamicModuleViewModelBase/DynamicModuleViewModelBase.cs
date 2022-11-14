@@ -7,7 +7,6 @@ using Bili.Lib.Interfaces;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Community;
 using Bili.ViewModels.Uwp.Community;
-using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Base
 {
@@ -24,9 +23,7 @@ namespace Bili.ViewModels.Uwp.Base
             IResourceToolkit resourceToolkit,
             ISettingsToolkit settingsToolkit,
             IAuthorizeProvider authorizeProvider,
-            bool isOnlyVideo,
-            CoreDispatcher dispatcher)
-            : base(dispatcher)
+            bool isOnlyVideo)
         {
             _communityProvider = communityProvider;
             _resourceToolkit = resourceToolkit;

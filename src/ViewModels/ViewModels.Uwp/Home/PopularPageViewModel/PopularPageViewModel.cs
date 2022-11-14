@@ -8,7 +8,6 @@ using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Home;
 using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
-using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Home
 {
@@ -22,9 +21,7 @@ namespace Bili.ViewModels.Uwp.Home
         /// </summary>
         public PopularPageViewModel(
             IResourceToolkit resourceToolkit,
-            IHomeProvider homeProvider,
-            CoreDispatcher coreDispatcher)
-            : base(coreDispatcher)
+            IHomeProvider homeProvider)
         {
             _resourceToolkit = resourceToolkit;
             _homeProvider = homeProvider;

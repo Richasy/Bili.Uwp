@@ -13,7 +13,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Update="FluentAssertions" Version="6.7.0" />
+      <PackageReference Update="FluentAssertions" Version="6.8.0" />
       <PackageReference Update="FluentAssertions.Analyzers" Version="0.17.2">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

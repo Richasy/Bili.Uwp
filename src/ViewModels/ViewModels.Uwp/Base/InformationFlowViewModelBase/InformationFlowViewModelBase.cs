@@ -7,6 +7,7 @@ using Bili.Models.App.Other;
 using Bili.ViewModels.Interfaces;
 using CommunityToolkit.Mvvm.Input;
 using Windows.UI.Core;
+using Windows.UI.Xaml;
 
 namespace Bili.ViewModels.Uwp.Base
 {
@@ -17,9 +18,9 @@ namespace Bili.ViewModels.Uwp.Base
     public abstract partial class InformationFlowViewModelBase<T> : ViewModelBase, IInformationFlowViewModel<T>
         where T : class
     {
-        internal InformationFlowViewModelBase(CoreDispatcher dispatcher)
+        internal InformationFlowViewModelBase()
         {
-            _dispatcher = dispatcher;
+            _dispatcher = Window.Current.CoreWindow.Dispatcher;
             Items = new ObservableCollection<T>();
 
             ResetStateCommand = new RelayCommand(ResetState);

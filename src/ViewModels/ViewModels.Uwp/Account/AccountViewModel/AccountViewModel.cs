@@ -12,7 +12,7 @@ using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using CommunityToolkit.Mvvm.Input;
-using Windows.UI.Core;
+using Windows.UI.Xaml;
 
 namespace Bili.ViewModels.Uwp.Account
 {
@@ -29,15 +29,14 @@ namespace Bili.ViewModels.Uwp.Account
             INumberToolkit numberToolkit,
             IFileToolkit fileToolkit,
             IAuthorizeProvider authorizeProvider,
-            IAccountProvider accountProvider,
-            CoreDispatcher dispatcher)
+            IAccountProvider accountProvider)
         {
             _resourceToolkit = resourceToolkit;
             _numberToolkit = numberToolkit;
             _fileToolkit = fileToolkit;
             _authorizeProvider = authorizeProvider;
             _accountProvider = accountProvider;
-            _dispatcher = dispatcher;
+            _dispatcher = Window.Current.CoreWindow.Dispatcher;
 
             TrySignInCommand = new AsyncRelayCommand<bool>(TrySignInAsync);
             SignOutCommand = new AsyncRelayCommand(SignOutAsync);

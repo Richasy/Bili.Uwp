@@ -12,7 +12,6 @@ using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Uwp.Base;
 using CommunityToolkit.Mvvm.Input;
-using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Account
 {
@@ -27,9 +26,7 @@ namespace Bili.ViewModels.Uwp.Account
         public MyFollowsPageViewModel(
             IAccountProvider accountProvider,
             IResourceToolkit resourceToolkit,
-            IAccountViewModel accountViewModel,
-            CoreDispatcher dispatcher)
-            : base(dispatcher)
+            IAccountViewModel accountViewModel)
         {
             _accountProvider = accountProvider;
             _resourceToolkit = resourceToolkit;

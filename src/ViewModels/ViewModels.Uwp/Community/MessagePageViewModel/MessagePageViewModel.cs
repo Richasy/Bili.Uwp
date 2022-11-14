@@ -15,7 +15,6 @@ using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Community;
 using Bili.ViewModels.Uwp.Base;
 using CommunityToolkit.Mvvm.Input;
-using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Community
 {
@@ -30,9 +29,7 @@ namespace Bili.ViewModels.Uwp.Community
         public MessagePageViewModel(
             IAccountProvider accountProvider,
             IResourceToolkit resourceToolkit,
-            IAccountViewModel accountViewModel,
-            CoreDispatcher dispatcher)
-            : base(dispatcher)
+            IAccountViewModel accountViewModel)
         {
             _accountProvider = accountProvider;
             _resourceToolkit = resourceToolkit;

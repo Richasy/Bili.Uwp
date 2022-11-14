@@ -9,7 +9,6 @@ using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
 using CommunityToolkit.Mvvm.Input;
 using Windows.Globalization;
-using Windows.UI.Core;
 using Windows.UI.Xaml;
 
 namespace Bili.ViewModels.Uwp.Core
@@ -28,8 +27,7 @@ namespace Bili.ViewModels.Uwp.Core
             IAppToolkit appToolkit,
             IUpdateProvider updateProvider,
             ICallerViewModel callerViewModel,
-            INavigationViewModel navigationViewModel,
-            CoreDispatcher dispatcher)
+            INavigationViewModel navigationViewModel)
         {
             _callerViewModel = callerViewModel;
             _navigationViewModel = navigationViewModel;
@@ -38,7 +36,7 @@ namespace Bili.ViewModels.Uwp.Core
             _appToolkit = appToolkit;
             _updateProvider = updateProvider;
             _networkHelper = Microsoft.Toolkit.Uwp.Connectivity.NetworkHelper.Instance;
-            _dispatcher = dispatcher;
+            _dispatcher = Window.Current.CoreWindow.Dispatcher;
 
             IsXbox = Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Xbox";
             IsNavigatePaneOpen = true;

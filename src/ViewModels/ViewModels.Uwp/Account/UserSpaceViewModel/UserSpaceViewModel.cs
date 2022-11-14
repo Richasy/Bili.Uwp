@@ -13,7 +13,6 @@ using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
 using CommunityToolkit.Mvvm.Input;
-using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Account
 {
@@ -30,9 +29,7 @@ namespace Bili.ViewModels.Uwp.Account
             IResourceToolkit resourceToolkit,
             INavigationViewModel navigationViewModel,
             IAccountViewModel accountViewModel,
-            ICallerViewModel callerViewModel,
-            CoreDispatcher dispatcher)
-            : base(dispatcher)
+            ICallerViewModel callerViewModel)
         {
             _accountProvider = accountProvider;
             _resourceToolkit = resourceToolkit;

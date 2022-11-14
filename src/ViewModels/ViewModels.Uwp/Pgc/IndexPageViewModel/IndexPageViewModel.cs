@@ -11,7 +11,6 @@ using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Pgc;
 using Bili.ViewModels.Uwp.Base;
-using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Pgc
 {
@@ -25,12 +24,9 @@ namespace Bili.ViewModels.Uwp.Pgc
         /// </summary>
         /// <param name="pgcProvider">PGC 服务提供工具.</param>
         /// <param name="resourceToolkit">资源管理工具.</param>
-        /// <param name="dispatcher">UI 调度器.</param>
         public IndexPageViewModel(
             IPgcProvider pgcProvider,
-            IResourceToolkit resourceToolkit,
-            CoreDispatcher dispatcher)
-            : base(dispatcher)
+            IResourceToolkit resourceToolkit)
         {
             _pgcProvider = pgcProvider;
             _resourceToolkit = resourceToolkit;

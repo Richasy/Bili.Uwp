@@ -11,7 +11,6 @@ using Bili.ViewModels.Interfaces.Community;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Uwp.Base;
 using CommunityToolkit.Mvvm.Input;
-using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Community
 {
@@ -26,9 +25,7 @@ namespace Bili.ViewModels.Uwp.Community
         public CommentDetailModuleViewModel(
             ICommunityProvider communityProvider,
             IResourceToolkit resourceToolkit,
-            ICallerViewModel callerViewModel,
-            CoreDispatcher dispatcher)
-            : base(dispatcher)
+            ICallerViewModel callerViewModel)
         {
             _communityProvider = communityProvider;
             _resourceToolkit = resourceToolkit;

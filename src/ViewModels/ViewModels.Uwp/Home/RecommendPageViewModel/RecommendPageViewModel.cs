@@ -12,7 +12,6 @@ using Bili.ViewModels.Interfaces.Home;
 using Bili.ViewModels.Interfaces.Pgc;
 using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
-using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Home
 {
@@ -26,9 +25,7 @@ namespace Bili.ViewModels.Uwp.Home
         /// </summary>
         public RecommendPageViewModel(
             IResourceToolkit resourceToolkit,
-            IHomeProvider recommendProvider,
-            CoreDispatcher coreDispatcher)
-            : base(coreDispatcher)
+            IHomeProvider recommendProvider)
         {
             _resourceToolkit = resourceToolkit;
             _homeProvider = recommendProvider;

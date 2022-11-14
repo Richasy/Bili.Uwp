@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using Bili.Models.Data.Search;
 using Bili.ViewModels.Interfaces.Search;
 

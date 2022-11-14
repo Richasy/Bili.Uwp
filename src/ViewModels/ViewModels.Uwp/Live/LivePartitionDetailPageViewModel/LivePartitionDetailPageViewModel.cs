@@ -14,7 +14,6 @@ using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Live;
 using Bili.ViewModels.Uwp.Base;
 using CommunityToolkit.Mvvm.Input;
-using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Live
 {
@@ -33,9 +32,7 @@ namespace Bili.ViewModels.Uwp.Live
         public LivePartitionDetailPageViewModel(
             IResourceToolkit resourceToolkit,
             ILiveProvider liveProvider,
-            CoreDispatcher coreDispatcher,
             INavigationViewModel navigationViewModel)
-            : base(coreDispatcher)
         {
             _resourceToolkit = resourceToolkit;
             _liveProvider = liveProvider;

@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using System.ComponentModel;
 using Bili.Models.Data.Player;
 using Windows.UI.Xaml;

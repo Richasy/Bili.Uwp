@@ -14,7 +14,6 @@ using Bili.ViewModels.Interfaces.Article;
 using Bili.ViewModels.Interfaces.Common;
 using Bili.ViewModels.Uwp.Base;
 using CommunityToolkit.Mvvm.Input;
-using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Article
 {
@@ -31,9 +30,7 @@ namespace Bili.ViewModels.Uwp.Article
         /// <param name="coreDispatcher">UI 调度器.</param>
         public ArticlePartitionPageViewModel(
             IResourceToolkit resourceToolkit,
-            IArticleProvider articleProvider,
-            CoreDispatcher coreDispatcher)
-            : base(coreDispatcher)
+            IArticleProvider articleProvider)
         {
             _resourceToolkit = resourceToolkit;
             _articleProvider = articleProvider;

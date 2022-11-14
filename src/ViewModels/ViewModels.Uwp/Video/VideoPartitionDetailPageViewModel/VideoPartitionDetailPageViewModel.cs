@@ -14,7 +14,6 @@ using Bili.ViewModels.Interfaces.Common;
 using Bili.ViewModels.Interfaces.Video;
 using Bili.ViewModels.Uwp.Base;
 using CommunityToolkit.Mvvm.Input;
-using Windows.UI.Core;
 
 namespace Bili.ViewModels.Uwp.Community
 {
@@ -28,9 +27,7 @@ namespace Bili.ViewModels.Uwp.Community
         /// </summary>
         public VideoPartitionDetailPageViewModel(
             IResourceToolkit resourceToolkit,
-            IHomeProvider homeProvider,
-            CoreDispatcher coreDispatcher)
-            : base(coreDispatcher)
+            IHomeProvider homeProvider)
         {
             _resourceToolkit = resourceToolkit;
             _homeProvider = homeProvider;

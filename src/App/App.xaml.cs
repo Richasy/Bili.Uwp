@@ -76,7 +76,6 @@ namespace Bili.App
 
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
-                DIFactory.RegisterAppRequiredConstants();
             }
 
             if (e is LaunchActivatedEventArgs && (e as LaunchActivatedEventArgs).PrelaunchActivated == false)
