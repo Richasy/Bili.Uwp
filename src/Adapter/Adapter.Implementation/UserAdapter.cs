@@ -68,7 +68,7 @@ namespace Bili.Adapter
         /// <inheritdoc/>
         public AccountInformation ConvertToAccountInformation(UserSpaceInformation spaceInfo, AvatarSize avatarSize)
         {
-            var user = ConvertToUserProfile(Convert.ToInt32(spaceInfo.UserId), spaceInfo.UserName, spaceInfo.Avatar, avatarSize);
+            var user = ConvertToUserProfile(Convert.ToInt64(spaceInfo.UserId), spaceInfo.UserName, spaceInfo.Avatar, avatarSize);
             var communityInfo = _communityAdapter.ConvertToUserCommunityInformation(spaceInfo);
             return new AccountInformation(
                 user,
@@ -107,7 +107,7 @@ namespace Bili.Adapter
         /// <inheritdoc/>
         public AccountInformation ConvertToAccountInformation(Member member, AvatarSize avatarSize = AvatarSize.Size64)
         {
-            var profile = ConvertToUserProfile(Convert.ToInt32(member.Mid), member.Name, member.Face, avatarSize);
+            var profile = ConvertToUserProfile(member.Mid, member.Name, member.Face, avatarSize);
             return new AccountInformation(profile, default, Convert.ToInt32(member.Level), default);
         }
 
@@ -121,7 +121,7 @@ namespace Bili.Adapter
         /// <inheritdoc/>
         public RoleProfile ConvertToRoleProfile(Staff staff, AvatarSize avatarSize)
         {
-            var user = ConvertToUserProfile(Convert.ToInt32(staff.Mid), staff.Name, staff.Face, avatarSize);
+            var user = ConvertToUserProfile(staff.Mid, staff.Name, staff.Face, avatarSize);
             return new RoleProfile(
                 user,
                 _textToolkit.ConvertToTraditionalChineseIfNeeded(staff.Title));
@@ -137,7 +137,7 @@ namespace Bili.Adapter
         /// <inheritdoc/>
         public RoleProfile ConvertToRoleProfile(Author author, AvatarSize avatarSize = AvatarSize.Size32)
         {
-            var user = ConvertToUserProfile(Convert.ToInt32(author.Mid), author.Name, author.Face, avatarSize);
+            var user = ConvertToUserProfile(author.Mid, author.Name, author.Face, avatarSize);
             return new RoleProfile(user);
         }
 
