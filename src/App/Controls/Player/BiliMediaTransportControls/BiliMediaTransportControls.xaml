@@ -650,6 +650,14 @@
                                         Modifiers="Shift" />
                                 </Button.KeyboardAccelerators>
                             </Button>
+                            <Button
+                                x:Name="BackToDefaultButton"
+                                Style="{StaticResource HiddenButtonStyle}"
+                                Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.BackToDefaultModeCommand}">
+                                <Button.KeyboardAccelerators>
+                                    <KeyboardAccelerator Key="Escape" IsEnabled="True" />
+                                </Button.KeyboardAccelerators>
+                            </Button>
                         </Grid>
                         <Grid
                             x:Name="ControlPanel"
