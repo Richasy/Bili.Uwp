@@ -492,8 +492,17 @@
     <Compile Include="Pages\Xbox\Overlay\VideoPlayerPage.xaml.cs">
       <DependentUpon>VideoPlayerPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Xbox\PopularPage.xaml.cs">
+      <DependentUpon>PopularPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Xbox\PreSearchPage.xaml.cs">
       <DependentUpon>PreSearchPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Xbox\RankPage.xaml.cs">
+      <DependentUpon>RankPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Xbox\RecommendPage.xaml.cs">
+      <DependentUpon>RecommendPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Xbox\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
@@ -503,15 +512,6 @@
     </Compile>
     <Compile Include="Pages\Xbox\VideoPartitionPage.xaml.cs">
       <DependentUpon>VideoPartitionPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Xbox\PopularPage.xaml.cs">
-      <DependentUpon>PopularPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Xbox\RankPage.xaml.cs">
-      <DependentUpon>RankPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Xbox\RecommendPage.xaml.cs">
-      <DependentUpon>RecommendPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Xbox\XboxAccountPage.xaml.cs">
       <DependentUpon>XboxAccountPage.xaml</DependentUpon>
@@ -1182,100 +1182,100 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Xbox\BangumiPage.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\Xbox\DocumentaryPage.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\Xbox\DomesticPage.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\Xbox\DynamicPage.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\Xbox\LiveFeedPage.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\Xbox\MoviePage.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\Xbox\Overlay\FavoritePage.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\Xbox\Overlay\LivePartitionDetailPage.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\Xbox\Overlay\LivePartitionPage.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\Xbox\Overlay\LivePlayerPage.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\Xbox\Overlay\PgcPlayerPage.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\Xbox\Overlay\SearchPage.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\Xbox\Overlay\UserSpacePage.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\Xbox\Overlay\VideoFavoriteDetailPage.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\Xbox\Overlay\VideoPartitionDetailPage.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\Xbox\Overlay\VideoPlayerPage.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\Xbox\PreSearchPage.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\Xbox\SettingsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\Xbox\TvPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\Xbox\VideoPartitionPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Xbox\PopularPage.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Xbox\PreSearchPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\Xbox\RankPage.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\Xbox\RecommendPage.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Xbox\SettingsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Xbox\TvPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\Xbox\VideoPartitionPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\Xbox\XboxAccountPage.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Styles\Style.Dimensions.xaml">
       <SubType>Designer</SubType>

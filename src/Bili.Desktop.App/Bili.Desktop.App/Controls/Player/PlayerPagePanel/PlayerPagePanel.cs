@@ -8,11 +8,11 @@ using Bili.Models.App.Constants;
 using Bili.Models.App.Other;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces;
-using Windows.UI.ViewManagement;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Markup;
+using Windows.UI.ViewManagement;
 
 namespace Bili.Desktop.App.Controls.Player
 {

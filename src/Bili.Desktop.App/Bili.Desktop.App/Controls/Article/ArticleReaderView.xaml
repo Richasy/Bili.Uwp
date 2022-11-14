@@ -6,7 +6,6 @@
     xmlns:loc="using:Bili.Desktop.App.Resources.Extension"
     xmlns:local="using:Bili.Desktop.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     d:DesignHeight="300"
     d:DesignWidth="400"
     Closed="OnClosed"

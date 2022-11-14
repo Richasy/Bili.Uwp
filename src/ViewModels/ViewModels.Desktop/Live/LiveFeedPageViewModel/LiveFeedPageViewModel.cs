@@ -13,7 +13,6 @@ using Bili.ViewModels.Interfaces.Common;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Live;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.UI.Dispatching;
 
 namespace Bili.ViewModels.Desktop.Live
 {

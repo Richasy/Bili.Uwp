@@ -81,7 +81,7 @@
                     </interactivity:Interaction.Behaviors>
                     <controls:VerticalRepeaterView.AdditionalContent>
                         <Button x:Name="IndexButton" Command="{x:Bind ViewModel.GotoIndexPageCommand}">
-                            <controls:IconTextBlock Symbol="TextBulletListLtr16" Text="{loc:Locale Name=Index}" />
+                            <controls:IconTextBlock Symbol="TextBulletListLtr" Text="{loc:Locale Name=Index}" />
                         </Button>
                     </controls:VerticalRepeaterView.AdditionalContent>
                     <controls:VerticalRepeaterView.ItemTemplate>

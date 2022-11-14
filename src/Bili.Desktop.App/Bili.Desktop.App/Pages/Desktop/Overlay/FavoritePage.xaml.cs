@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using System.Linq;
 using Bili.Desktop.App.Pages.Base;
 using Bili.Models.App.Other;

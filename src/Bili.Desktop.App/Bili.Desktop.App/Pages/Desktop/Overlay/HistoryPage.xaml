@@ -6,7 +6,6 @@
     xmlns:behaviors="using:Bili.Desktop.App.Behaviors"
     xmlns:controls="using:Bili.Desktop.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:icons="using:Richasy.FluentIcon.Uwp"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:loc="using:Bili.Desktop.App.Resources.Extension"
     xmlns:local="using:Bili.Desktop.App.Pages.Desktop.Overlay"
@@ -68,7 +67,7 @@
                                 VerticalAlignment="Center"
                                 Command="{x:Bind ViewModel.ReloadCommand}"
                                 IsEnabled="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource ObjectToBoolReverseConverter}}">
-                                <controls:IconTextBlock Symbol="ArrowSync16" Text="{loc:Locale Name=Refresh}" />
+                                <controls:IconTextBlock Symbol="ArrowSync" Text="{loc:Locale Name=Refresh}" />
                             </Button>
                             <Button
                                 x:Name="ClearButton"
@@ -77,7 +76,7 @@
                                 IsEnabled="{x:Bind ViewModel.ClearCommand.IsRunning, Converter={StaticResource ObjectToBoolReverseConverter}, Mode=OneWay}">
                                 <controls:IconTextBlock
                                     Foreground="{ThemeResource SystemFillColorCriticalBrush}"
-                                    Symbol="Delete16"
+                                    Symbol="Delete"
                                     Text="{loc:Locale Name=ClearHistory}" />
                             </Button>
                         </StackPanel>
@@ -93,7 +92,7 @@
                                             DataContext="{x:Bind}"
                                             Text="{loc:Locale Name=Delete}">
                                             <MenuFlyoutItem.Icon>
-                                                <icons:RegularFluentIcon Foreground="{ThemeResource SystemFillColorCriticalBrush}" Symbol="Delete24" />
+                                                <controls:FluentIcon Foreground="{ThemeResource SystemFillColorCriticalBrush}" Symbol="Delete" />
                                             </MenuFlyoutItem.Icon>
                                         </MenuFlyoutItem>
                                     </MenuFlyout>

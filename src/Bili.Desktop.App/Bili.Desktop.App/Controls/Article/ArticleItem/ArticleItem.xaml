@@ -2,10 +2,8 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Bili.Desktop.App.Controls"
-    xmlns:icons="using:Richasy.FluentIcon.Uwp"
     xmlns:loc="using:Bili.Desktop.App.Resources.Extension"
-    xmlns:local="using:Bili.Desktop.App.Controls.Article"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
+    xmlns:local="using:Bili.Desktop.App.Controls.Article">
 
     <MenuFlyout x:Key="DefaultArticleItemContextFlyout">
         <MenuFlyoutItem
@@ -13,7 +11,7 @@
             IsEnabled="{Binding Publisher.User, Converter={StaticResource ObjectToBoolConverter}}"
             Text="{loc:Locale Name=EnterUserSpace}">
             <MenuFlyoutItem.Icon>
-                <icons:RegularFluentIcon Symbol="Person16" />
+                <controls:FluentIcon Symbol="Person" />
             </MenuFlyoutItem.Icon>
         </MenuFlyoutItem>
         <MenuFlyoutItem
@@ -22,7 +20,7 @@
             Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.OpenInBroswerCommand}"
             Text="{loc:Locale Name=OpenInBroswer}">
             <MenuFlyoutItem.Icon>
-                <icons:RegularFluentIcon Symbol="Globe16" />
+                <controls:FluentIcon Symbol="Globe" />
             </MenuFlyoutItem.Icon>
         </MenuFlyoutItem>
     </MenuFlyout>
@@ -118,21 +116,21 @@
                                         <controls:IconTextBlock
                                             Margin="0,0,12,0"
                                             Opacity="0.6"
-                                            Symbol="EyeShow20"
+                                            Symbol="Eye"
                                             Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ViewCountText}"
                                             ToolTipService.ToolTip="{loc:Locale Name=ReadCount}"
                                             Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ViewCountText, Converter={StaticResource ObjectToVisibilityConverter}}" />
                                         <controls:IconTextBlock
                                             Margin="0,0,12,0"
                                             Opacity="0.6"
-                                            Symbol="ThumbLike16"
+                                            Symbol="ThumbLike"
                                             Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.LikeCountText}"
                                             ToolTipService.ToolTip="{loc:Locale Name=BeLikeCount}"
                                             Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.LikeCountText, Converter={StaticResource ObjectToVisibilityConverter}}" />
                                         <controls:IconTextBlock
                                             Margin="0,0,12,0"
                                             Opacity="0.6"
-                                            Symbol="Comment16"
+                                            Symbol="Comment"
                                             Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.CommentCountText}"
                                             ToolTipService.ToolTip="{loc:Locale Name=ReplyCount}"
                                             Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.CommentCountText, Converter={StaticResource ObjectToVisibilityConverter}}" />
@@ -258,21 +256,21 @@
                                         <controls:IconTextBlock
                                             Margin="0,0,12,0"
                                             Opacity="0.6"
-                                            Symbol="EyeShow20"
+                                            Symbol="Eye"
                                             Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ViewCountText}"
                                             ToolTipService.ToolTip="{loc:Locale Name=ReadCount}"
                                             Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ViewCountText, Converter={StaticResource ObjectToVisibilityConverter}}" />
                                         <controls:IconTextBlock
                                             Margin="0,0,12,0"
                                             Opacity="0.6"
-                                            Symbol="ThumbLike16"
+                                            Symbol="ThumbLike"
                                             Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.LikeCountText}"
                                             ToolTipService.ToolTip="{loc:Locale Name=BeLikeCount}"
                                             Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.LikeCountText, Converter={StaticResource ObjectToVisibilityConverter}}" />
                                         <controls:IconTextBlock
                                             Margin="0,0,12,0"
                                             Opacity="0.6"
-                                            Symbol="Comment16"
+                                            Symbol="Comment"
                                             Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.CommentCountText}"
                                             ToolTipService.ToolTip="{loc:Locale Name=ReplyCount}"
                                             Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.CommentCountText, Converter={StaticResource ObjectToVisibilityConverter}}" />

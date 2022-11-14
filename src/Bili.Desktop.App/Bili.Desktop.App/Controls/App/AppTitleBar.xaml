@@ -3,14 +3,12 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:animatedVisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
-    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
+    xmlns:animations="using:CommunityToolkit.WinUI.UI.Animations"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:loc="using:Bili.Desktop.App.Resources.Extension"
     xmlns:local="using:Bili.Desktop.App.Controls"
     xmlns:local1="using:Bili.Models.Data.Local"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:uwp="using:Richasy.FluentIcon.Uwp"
     Height="48"
     d:DesignHeight="300"
     d:DesignWidth="400"
@@ -185,7 +183,7 @@
                     Height="16"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch">
-                    <uwp:RegularFluentIcon Symbol="History16" />
+                    <local:FluentIcon Symbol="History" />
                 </Viewbox>
                 <Button.Flyout>
                     <Flyout x:Name="RecordsFlyout" ShouldConstrainToRootBounds="False">
@@ -258,7 +256,7 @@
                                                 Padding="4"
                                                 VerticalAlignment="Center"
                                                 Click="OnRemoveRecordButtonClick">
-                                                <uwp:RegularFluentIcon FontSize="10" Symbol="Dismiss16" />
+                                                <local:FluentIcon FontSize="10" Symbol="Dismiss" />
                                             </Button>
                                         </Grid>
                                     </DataTemplate>

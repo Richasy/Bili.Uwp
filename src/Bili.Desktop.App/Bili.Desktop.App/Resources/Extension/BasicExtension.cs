@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Windows.UI;
 using Microsoft.UI.Xaml;
+using Windows.UI;
 
 namespace Bili.Desktop.App.Resources.Extension
 {

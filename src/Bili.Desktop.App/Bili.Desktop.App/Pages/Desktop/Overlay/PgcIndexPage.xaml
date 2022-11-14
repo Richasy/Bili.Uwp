@@ -9,7 +9,6 @@
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:loc="using:Bili.Desktop.App.Resources.Extension"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:pages="using:Bili.Desktop.App.Pages.Desktop"
     xmlns:pgc="using:Bili.ViewModels.Interfaces.Pgc"
     xmlns:pgc1="using:Bili.Desktop.App.Controls.Pgc"

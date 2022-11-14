@@ -10,7 +10,6 @@
     xmlns:loc="using:Bili.Desktop.App.Resources.Extension"
     xmlns:local="using:Bili.Desktop.App.Pages.Desktop"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolbox="using:Bili.ViewModels.Interfaces.Toolbox"
     mc:Ignorable="d">
 
@@ -56,7 +55,7 @@
                                         HorizontalAlignment="Center"
                                         Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                                         CornerRadius="{StaticResource ControlCornerRadius}">
-                                        <icon:RegularFluentIcon
+                                        <controls:FluentIcon
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             FontSize="32"

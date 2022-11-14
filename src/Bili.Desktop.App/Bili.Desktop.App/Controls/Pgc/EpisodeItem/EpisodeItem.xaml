@@ -4,8 +4,7 @@
     xmlns:controls="using:Bili.Desktop.App.Controls"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
     xmlns:loc="using:Bili.Desktop.App.Resources.Extension"
-    xmlns:local="using:Bili.Desktop.App.Controls.Pgc"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
+    xmlns:local="using:Bili.Desktop.App.Controls.Pgc">
 
     <Style x:Key="VerticalEpisodeItemStyle" TargetType="local:EpisodeItem">
         <Setter Property="IsTabStop" Value="False" />
@@ -35,7 +34,7 @@
                                         Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.OpenInBroswerCommand}"
                                         Text="{loc:Locale Name=OpenInBroswer}">
                                         <MenuFlyoutItem.Icon>
-                                            <icons:RegularFluentIcon Symbol="Globe16" />
+                                            <controls:FluentIcon Symbol="Globe" />
                                         </MenuFlyoutItem.Icon>
                                     </MenuFlyoutItem>
                                 </MenuFlyout>
@@ -109,21 +108,21 @@
                                         <controls:IconTextBlock
                                             Margin="0,0,12,0"
                                             Opacity="0.6"
-                                            Symbol="PlayCircle16"
+                                            Symbol="PlayCircle"
                                             Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlayCountText}"
                                             ToolTipService.ToolTip="{loc:Locale Name=PlayCount}"
                                             Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlayCountText, Converter={StaticResource ObjectToVisibilityConverter}}" />
                                         <controls:IconTextBlock
                                             Margin="0,0,12,0"
                                             Opacity="0.6"
-                                            Symbol="SlideText16"
+                                            Symbol="SlideText"
                                             Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DanmakuCountText}"
                                             ToolTipService.ToolTip="{loc:Locale Name=DanmakuCount}"
                                             Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DanmakuCountText, Converter={StaticResource ObjectToVisibilityConverter}}" />
                                         <controls:IconTextBlock
                                             Margin="0,0,12,0"
                                             Opacity="0.6"
-                                            Symbol="RibbonStar20"
+                                            Symbol="RibbonStar"
                                             Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.TrackCountText}"
                                             ToolTipService.ToolTip="{loc:Locale Name=TrackCount}"
                                             Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.TrackCountText, Converter={StaticResource ObjectToVisibilityConverter}}" />
@@ -167,7 +166,7 @@
                                         Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.OpenInBroswerCommand}"
                                         Text="{loc:Locale Name=OpenInBroswer}">
                                         <MenuFlyoutItem.Icon>
-                                            <icons:RegularFluentIcon Symbol="Globe16" />
+                                            <controls:FluentIcon Symbol="Globe" />
                                         </MenuFlyoutItem.Icon>
                                     </MenuFlyoutItem>
                                 </MenuFlyout>
@@ -241,21 +240,21 @@
                                         <controls:IconTextBlock
                                             Margin="0,0,12,0"
                                             Opacity="0.6"
-                                            Symbol="PlayCircle16"
+                                            Symbol="PlayCircle"
                                             Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlayCountText}"
                                             ToolTipService.ToolTip="{loc:Locale Name=PlayCount}"
                                             Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlayCountText, Converter={StaticResource ObjectToVisibilityConverter}}" />
                                         <controls:IconTextBlock
                                             Margin="0,0,12,0"
                                             Opacity="0.6"
-                                            Symbol="SlideText16"
+                                            Symbol="SlideText"
                                             Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DanmakuCountText}"
                                             ToolTipService.ToolTip="{loc:Locale Name=DanmakuCount}"
                                             Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DanmakuCountText, Converter={StaticResource ObjectToVisibilityConverter}}" />
                                         <controls:IconTextBlock
                                             Margin="0,0,12,0"
                                             Opacity="0.6"
-                                            Symbol="RibbonStar20"
+                                            Symbol="RibbonStar"
                                             Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.TrackCountText}"
                                             ToolTipService.ToolTip="{loc:Locale Name=TrackCount}"
                                             Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.TrackCountText, Converter={StaticResource ObjectToVisibilityConverter}}" />
@@ -302,7 +301,7 @@
                                         Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.OpenInBroswerCommand}"
                                         Text="{loc:Locale Name=OpenInBroswer}">
                                         <MenuFlyoutItem.Icon>
-                                            <icons:RegularFluentIcon Symbol="Globe16" />
+                                            <controls:FluentIcon Symbol="Globe" />
                                         </MenuFlyoutItem.Icon>
                                     </MenuFlyoutItem>
                                 </MenuFlyout>
@@ -320,7 +319,7 @@
                                     CornerRadius="{StaticResource ControlCornerRadius}">
                                     <controls:CommonImageEx
                                         x:Name="CoverImage"
-                                        Width="120"
+                                        Width="1"
                                         VerticalAlignment="Center"
                                         ImageUrl="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Data.Identifier.Cover.Uri}"
                                         Stretch="UniformToFill" />
@@ -422,12 +421,12 @@
                                         Height="40"
                                         Fill="{ThemeResource AppMaskBrush}"
                                         Opacity="0.8" />
-                                    <icons:RegularFluentIcon
+                                    <controls:FluentIcon
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
-                                        FontSize="16"
+                                        FontSize=""
                                         Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
-                                        Symbol="Play16" />
+                                        Symbol="Play" />
                                 </Grid>
                             </Grid>
 
@@ -479,7 +478,7 @@
                         </Grid.ColumnDefinitions>
                         <Grid
                             x:Name="CoverContainer"
-                            Width="120"
+                            Width="1"
                             Height="76"
                             VerticalAlignment="Stretch"
                             CornerRadius="{StaticResource ControlCornerRadius}">
@@ -491,12 +490,12 @@
                                     Height="40"
                                     Fill="{ThemeResource AppMaskBrush}"
                                     Opacity="0.8" />
-                                <icons:RegularFluentIcon
+                                <controls:FluentIcon
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
-                                    FontSize="16"
+                                    FontSize=""
                                     Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
-                                    Symbol="Play16" />
+                                    Symbol="Play" />
                             </Grid>
                         </Grid>
 
@@ -529,7 +528,7 @@
                                 FontSize="12"
                                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                 IconFontSize="12"
-                                Symbol="Timer16"
+                                Symbol="Timer"
                                 Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DurationText, Mode=OneWay}"
                                 Visibility="Collapsed" />
                         </Grid>

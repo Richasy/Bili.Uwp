@@ -4,8 +4,8 @@ using System;
 using Bili.DI.Container;
 using Bili.Models.App.Args;
 using Bili.Toolkit.Interfaces;
-using Windows.System;
 using Microsoft.UI.Xaml.Controls;
+using Windows.System;
 
 namespace Bili.Desktop.App.Controls.Dialogs
 {

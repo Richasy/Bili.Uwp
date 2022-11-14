@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using Bili.Models.Data.Community;
 using Bili.Models.Enums;
 using Bili.ViewModels.Interfaces.Article;

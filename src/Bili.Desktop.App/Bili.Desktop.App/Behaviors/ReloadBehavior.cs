@@ -3,7 +3,7 @@
 using System;
 using Bili.Desktop.App.Controls;
 using Bili.ViewModels.Interfaces;
-using Microsoft.Toolkit.Uwp.UI.Behaviors;
+using CommunityToolkit.WinUI.UI.Behaviors;
 using Microsoft.UI.Xaml.Controls;
 
 namespace Bili.Desktop.App.Behaviors

@@ -1,13 +1,12 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
-    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    xmlns:animations="using:CommunityToolkit.WinUI.UI.Animations"
+    xmlns:controls="using:Bili.Desktop.App.Controls"
     xmlns:danmaku="using:Bili.Desktop.App.Controls.Danmaku"
     xmlns:loc="using:Bili.Desktop.App.Resources.Extension"
     xmlns:local="using:Bili.Desktop.App.Controls.Player"
-    xmlns:playercontrols="using:Bili.Desktop.App.Controls.Player.PlayerControls"
-    xmlns:uwp="using:Richasy.FluentIcon.Uwp">
+    xmlns:playercontrols="using:Bili.Desktop.App.Controls.Player.PlayerControls">
 
     <Style
         x:Key="PlayerButtonStyle"
@@ -49,7 +48,7 @@
         <Setter Property="UseSystemFocusVisuals" Value="{StaticResource UseSystemFocusVisuals}" />
         <Setter Property="IsTextScaleFactorEnabled" Value="False" />
         <Setter Property="CornerRadius" Value="{ThemeResource OverlayCornerRadius}" />
-        <Setter Property="MaxWidth" Value="820" />
+        <Setter Property="MaxWidth" Value="8" />
         <Setter Property="CornerRadius" Value="{StaticResource ControlCornerRadius}" />
         <Setter Property="Template">
             <Setter.Value>
@@ -242,10 +241,10 @@
                                     Style="{StaticResource PlayerButtonStyle}"
                                     Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlayPauseCommand}">
                                     <Grid>
-                                        <uwp:RegularFluentIcon x:Name="PlaySymbol" Symbol="Play16" />
-                                        <uwp:RegularFluentIcon
+                                        <controls:FluentIcon x:Name="PlaySymbol" Symbol="Play" />
+                                        <controls:FluentIcon
                                             x:Name="PauseSymbol"
-                                            Symbol="Pause16"
+                                            Symbol="Pause"
                                             Visibility="Collapsed" />
                                     </Grid>
                                 </Button>
@@ -257,7 +256,7 @@
                                     ToolTipService.ToolTip="{loc:Locale Name=BackToStart}"
                                     Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsInteractionEnd}">
                                     <Button.Content>
-                                        <uwp:RegularFluentIcon Symbol="EraserMedium24" />
+                                        <controls:FluentIcon Symbol="EraserMedium" />
                                     </Button.Content>
                                 </Button>
                                 <Button
@@ -267,7 +266,7 @@
                                     Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ForwardSkipCommand}"
                                     ToolTipService.ToolTip="{loc:Locale Name=ForwardSkip}">
                                     <Button.Content>
-                                        <uwp:RegularFluentIcon Symbol="ArrowStepOver16" />
+                                        <controls:FluentIcon Symbol="ArrowStepOver" />
                                     </Button.Content>
                                 </Button>
                                 <Button
@@ -278,7 +277,7 @@
                                     ToolTipService.ToolTip="{loc:Locale Name=PlayNextPart}"
                                     Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.CanPlayNextPart}">
                                     <Button.Content>
-                                        <uwp:RegularFluentIcon Symbol="Next20" />
+                                        <controls:FluentIcon Symbol="Next" />
                                     </Button.Content>
                                 </Button>
                                 <Button
@@ -288,7 +287,7 @@
                                     Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ReloadCommand}"
                                     ToolTipService.ToolTip="{loc:Locale Name=Refresh}">
                                     <Button.Content>
-                                        <uwp:RegularFluentIcon Symbol="ArrowSync16" />
+                                        <controls:FluentIcon Symbol="ArrowSync" />
                                     </Button.Content>
                                 </Button>
                             </StackPanel>
@@ -324,7 +323,7 @@
                                     AutomationProperties.Name="{loc:Locale Name=CurrentVolume}"
                                     Style="{StaticResource PlayerButtonStyle}"
                                     ToolTipService.ToolTip="{loc:Locale Name=CurrentVolume}">
-                                    <uwp:RegularFluentIcon Symbol="Speaker216" />
+                                    <controls:FluentIcon Symbol="Speaker2" />
                                     <Button.Flyout>
                                         <Flyout>
                                             <Flyout.FlyoutPresenterStyle>
@@ -364,11 +363,11 @@
                                                     Style="{StaticResource CaptionTextBlockStyle}"
                                                     Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                                     Text="{loc:Locale Name=PlaybackRate}" />
-                                                <controls:ItemsRepeater ItemsSource="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlaybackRates}">
-                                                    <controls:ItemsRepeater.Layout>
-                                                        <controls:StackLayout Orientation="Horizontal" Spacing="4" />
-                                                    </controls:ItemsRepeater.Layout>
-                                                    <controls:ItemsRepeater.ItemTemplate>
+                                                <ItemsRepeater ItemsSource="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlaybackRates}">
+                                                    <ItemsRepeater.Layout>
+                                                        <StackLayout Orientation="Horizontal" Spacing="4" />
+                                                    </ItemsRepeater.Layout>
+                                                    <ItemsRepeater.ItemTemplate>
                                                         <DataTemplate>
                                                             <ToggleButton
                                                                 Style="{StaticResource DefaultToggleButtonStyle}"
@@ -381,8 +380,8 @@
                                                                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                                                 IsChecked="{Binding IsSelected, Mode=TwoWay}" />
                                                         </DataTemplate>
-                                                    </controls:ItemsRepeater.ItemTemplate>
-                                                </controls:ItemsRepeater>
+                                                    </ItemsRepeater.ItemTemplate>
+                                                </ItemsRepeater>
                                                 <Slider
                                                     MinWidth="160"
                                                     HorizontalAlignment="Stretch"
@@ -401,13 +400,13 @@
                                     Style="{StaticResource PlayerButtonStyle}"
                                     ToolTipService.ToolTip="{loc:Locale Name=Quality}">
                                     <Button.Content>
-                                        <uwp:RegularFluentIcon Symbol="Hd24" />
+                                        <controls:FluentIcon Symbol="Hd" />
                                     </Button.Content>
                                     <Button.Flyout>
                                         <Flyout FlyoutPresenterStyle="{StaticResource PlayerFlyoutStyle}" Placement="Top">
                                             <ListView
                                                 x:Name="FormatListView"
-                                                MinWidth="120"
+                                                MinWidth="1"
                                                 Margin="4"
                                                 AllowFocusOnInteraction="True"
                                                 ItemsSource="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Formats}"
@@ -434,7 +433,7 @@
                                     ToolTipService.ToolTip="{loc:Locale Name=Subtitle}"
                                     Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.SubtitleViewModel.HasSubtitles}">
                                     <Button.Content>
-                                        <uwp:RegularFluentIcon Symbol="ClosedCaption16" />
+                                        <controls:FluentIcon Symbol="ClosedCaption" />
                                     </Button.Content>
                                     <Button.KeyboardAccelerators>
                                         <KeyboardAccelerator
@@ -449,7 +448,7 @@
                                     </Button.Flyout>
                                 </Button>
                                 <Button x:Name="PlaySettingsButton" Style="{StaticResource PlayerButtonStyle}">
-                                    <uwp:RegularFluentIcon Symbol="Settings16" />
+                                    <controls:FluentIcon Symbol="Settings" />
                                     <Button.Flyout>
                                         <MenuFlyout>
                                             <MenuFlyoutItem
@@ -458,7 +457,7 @@
                                                 KeyboardAcceleratorTextOverride="F10"
                                                 Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.FullWindowText}">
                                                 <MenuFlyoutItem.Icon>
-                                                    <uwp:RegularFluentIcon Symbol="Window16" />
+                                                    <controls:FluentIcon Symbol="Window" />
                                                 </MenuFlyoutItem.Icon>
                                             </MenuFlyoutItem>
                                             <MenuFlyoutItem
@@ -467,7 +466,7 @@
                                                 KeyboardAcceleratorTextOverride="Ctrl + M"
                                                 Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.CompactOverlayText}">
                                                 <MenuFlyoutItem.Icon>
-                                                    <uwp:RegularFluentIcon Symbol="ContractDownLeft16" />
+                                                    <controls:FluentIcon Symbol="ContractDownLeft" />
                                                 </MenuFlyoutItem.Icon>
                                             </MenuFlyoutItem>
                                             <MenuFlyoutSeparator />
@@ -477,7 +476,7 @@
                                                 KeyboardAcceleratorTextOverride="Shift + S"
                                                 Text="{loc:Locale Name=Screenshot}">
                                                 <MenuFlyoutItem.Icon>
-                                                    <uwp:RegularFluentIcon Symbol="Screenshot20" />
+                                                    <controls:FluentIcon Symbol="Screenshot" />
                                                 </MenuFlyoutItem.Icon>
                                             </MenuFlyoutItem>
                                         </MenuFlyout>
@@ -490,26 +489,17 @@
                                     Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ToggleFullScreenCommand}"
                                     ToolTipService.ToolTip="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.FullScreenText}">
                                     <Grid>
-                                        <uwp:RegularFluentIcon
+                                        <controls:FluentIcon
                                             x:Name="EnterFullScreenIcon"
-                                            Symbol="FullScreenMaximize16"
+                                            Symbol="FullScreenMaximize"
                                             Visibility="Visible" />
-                                        <uwp:RegularFluentIcon
+                                        <controls:FluentIcon
                                             x:Name="ExitFullScreenIcon"
-                                            Symbol="FullScreenMinimize24"
+                                            Symbol="FullScreenMinimize"
                                             Visibility="Collapsed" />
                                     </Grid>
                                 </Button>
                             </StackPanel>
-
-                            <Grid
-                                Grid.Row="1"
-                                Grid.ColumnSpan="3"
-                                Padding="4"
-                                BorderBrush="{ThemeResource ControlStrokeColorDefaultBrush}"
-                                BorderThickness="0,1,0,0">
-                                <danmaku:DanmakuBox x:Name="DanmakuBox" ViewModel="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DanmakuViewModel}" />
-                            </Grid>
                         </Grid>
                     </Grid>
                 </ControlTemplate>
@@ -524,7 +514,7 @@
         <Setter Property="UseSystemFocusVisuals" Value="{StaticResource UseSystemFocusVisuals}" />
         <Setter Property="IsTextScaleFactorEnabled" Value="False" />
         <Setter Property="CornerRadius" Value="{ThemeResource OverlayCornerRadius}" />
-        <Setter Property="MaxWidth" Value="820" />
+        <Setter Property="MaxWidth" Value="8" />
         <Setter Property="CornerRadius" Value="{StaticResource ControlCornerRadius}" />
         <Setter Property="Template">
             <Setter.Value>
@@ -677,10 +667,10 @@
                                     Style="{StaticResource PlayerButtonStyle}"
                                     Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlayPauseCommand}">
                                     <Grid>
-                                        <uwp:RegularFluentIcon x:Name="PlaySymbol" Symbol="Play16" />
-                                        <uwp:RegularFluentIcon
+                                        <controls:FluentIcon x:Name="PlaySymbol" Symbol="Play" />
+                                        <controls:FluentIcon
                                             x:Name="PauseSymbol"
-                                            Symbol="Pause16"
+                                            Symbol="Pause"
                                             Visibility="Collapsed" />
                                     </Grid>
                                 </Button>
@@ -691,7 +681,7 @@
                                     Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ReloadCommand}"
                                     ToolTipService.ToolTip="{loc:Locale Name=Refresh}">
                                     <Button.Content>
-                                        <uwp:RegularFluentIcon Symbol="ArrowSync16" />
+                                        <controls:FluentIcon Symbol="ArrowSync" />
                                     </Button.Content>
                                 </Button>
                             </StackPanel>
@@ -700,19 +690,19 @@
                                 x:Name="NormalProgressContainer"
                                 Grid.Column="1"
                                 Background="{ThemeResource TransparentBackground}">
-                                <controls:ProgressBar
+                                <ProgressBar
                                     HorizontalAlignment="Stretch"
                                     VerticalAlignment="Center"
                                     Maximum="10"
                                     ShowError="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsError}"
                                     ShowPaused="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsMediaPause}"
                                     Value="10">
-                                    <controls:ProgressBar.Resources>
+                                    <ProgressBar.Resources>
                                         <x:Double x:Key="ProgressBarTrackHeight">4</x:Double>
                                         <CornerRadius x:Key="ProgressBarCornerRadius">2</CornerRadius>
                                         <CornerRadius x:Key="ProgressBarTrackCornerRadius">2</CornerRadius>
-                                    </controls:ProgressBar.Resources>
-                                </controls:ProgressBar>
+                                    </ProgressBar.Resources>
+                                </ProgressBar>
                             </Grid>
 
                             <StackPanel Grid.Column="2" Orientation="Horizontal">
@@ -721,7 +711,7 @@
                                     AutomationProperties.Name="{loc:Locale Name=CurrentVolume}"
                                     Style="{StaticResource PlayerButtonStyle}"
                                     ToolTipService.ToolTip="{loc:Locale Name=CurrentVolume}">
-                                    <uwp:RegularFluentIcon Symbol="Speaker216" />
+                                    <controls:FluentIcon Symbol="Speaker2" />
                                     <Button.Flyout>
                                         <Flyout>
                                             <Flyout.FlyoutPresenterStyle>
@@ -753,13 +743,13 @@
                                     Style="{StaticResource PlayerButtonStyle}"
                                     ToolTipService.ToolTip="{loc:Locale Name=Quality}">
                                     <Button.Content>
-                                        <uwp:RegularFluentIcon Symbol="Hd24" />
+                                        <controls:FluentIcon Symbol="Hd" />
                                     </Button.Content>
                                     <Button.Flyout>
                                         <Flyout FlyoutPresenterStyle="{StaticResource PlayerFlyoutStyle}" Placement="Top">
                                             <ListView
                                                 x:Name="FormatListView"
-                                                MinWidth="120"
+                                                MinWidth="1"
                                                 Margin="4"
                                                 AllowFocusOnInteraction="True"
                                                 ItemsSource="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Formats}"
@@ -780,7 +770,7 @@
                                     </Button.KeyboardAccelerators>
                                 </Button>
                                 <Button x:Name="PlaySettingsButton" Style="{StaticResource PlayerButtonStyle}">
-                                    <uwp:RegularFluentIcon Symbol="Settings16" />
+                                    <controls:FluentIcon Symbol="Settings" />
                                     <Button.Flyout>
                                         <MenuFlyout>
                                             <MenuFlyoutItem
@@ -789,7 +779,7 @@
                                                 KeyboardAcceleratorTextOverride="F10"
                                                 Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.FullWindowText}">
                                                 <MenuFlyoutItem.Icon>
-                                                    <uwp:RegularFluentIcon Symbol="Window16" />
+                                                    <controls:FluentIcon Symbol="Window" />
                                                 </MenuFlyoutItem.Icon>
                                             </MenuFlyoutItem>
                                             <MenuFlyoutItem
@@ -798,7 +788,7 @@
                                                 KeyboardAcceleratorTextOverride="Ctrl + M"
                                                 Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.CompactOverlayText}">
                                                 <MenuFlyoutItem.Icon>
-                                                    <uwp:RegularFluentIcon Symbol="ContractDownLeft16" />
+                                                    <controls:FluentIcon Symbol="ContractDownLeft" />
                                                 </MenuFlyoutItem.Icon>
                                             </MenuFlyoutItem>
                                             <MenuFlyoutSeparator />
@@ -808,7 +798,7 @@
                                                 KeyboardAcceleratorTextOverride="Shift + S"
                                                 Text="{loc:Locale Name=Screenshot}">
                                                 <MenuFlyoutItem.Icon>
-                                                    <uwp:RegularFluentIcon Symbol="Screenshot20" />
+                                                    <controls:FluentIcon Symbol="Screenshot" />
                                                 </MenuFlyoutItem.Icon>
                                             </MenuFlyoutItem>
                                         </MenuFlyout>
@@ -821,26 +811,17 @@
                                     Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ToggleFullScreenCommand}"
                                     ToolTipService.ToolTip="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.FullScreenText}">
                                     <Grid>
-                                        <uwp:RegularFluentIcon
+                                        <controls:FluentIcon
                                             x:Name="EnterFullScreenIcon"
-                                            Symbol="FullScreenMaximize16"
+                                            Symbol="FullScreenMaximize"
                                             Visibility="Visible" />
-                                        <uwp:RegularFluentIcon
+                                        <controls:FluentIcon
                                             x:Name="ExitFullScreenIcon"
-                                            Symbol="FullScreenMinimize24"
+                                            Symbol="FullScreenMinimize"
                                             Visibility="Collapsed" />
                                     </Grid>
                                 </Button>
                             </StackPanel>
-
-                            <Grid
-                                Grid.Row="1"
-                                Grid.ColumnSpan="3"
-                                Padding="4"
-                                BorderBrush="{ThemeResource ControlStrokeColorDefaultBrush}"
-                                BorderThickness="0,1,0,0">
-                                <danmaku:DanmakuBox x:Name="DanmakuBox" ViewModel="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DanmakuViewModel}" />
-                            </Grid>
                         </Grid>
                     </Grid>
                 </ControlTemplate>
@@ -856,7 +837,7 @@
         <Setter Property="IsTextScaleFactorEnabled" Value="False" />
         <Setter Property="CornerRadius" Value="{ThemeResource OverlayCornerRadius}" />
         <Setter Property="CornerRadius" Value="{StaticResource ControlCornerRadius}" />
-        <Setter Property="MaxWidth" Value="820" />
+        <Setter Property="MaxWidth" Value="8" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:BiliMediaTransportControls">
@@ -952,10 +933,10 @@
                                     Style="{StaticResource PlayerButtonStyle}"
                                     Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlayPauseCommand}">
                                     <Grid>
-                                        <uwp:RegularFluentIcon x:Name="PlaySymbol" Symbol="Play16" />
-                                        <uwp:RegularFluentIcon
+                                        <controls:FluentIcon x:Name="PlaySymbol" Symbol="Play" />
+                                        <controls:FluentIcon
                                             x:Name="PauseSymbol"
-                                            Symbol="Pause16"
+                                            Symbol="Pause"
                                             Visibility="Collapsed" />
                                     </Grid>
                                 </Button>
@@ -967,7 +948,7 @@
                                     ToolTipService.ToolTip="{loc:Locale Name=BackToStart}"
                                     Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsInteractionEnd}">
                                     <Button.Content>
-                                        <uwp:RegularFluentIcon Symbol="EraserMedium24" />
+                                        <controls:FluentIcon Symbol="EraserMedium" />
                                     </Button.Content>
                                 </Button>
                                 <Button
@@ -977,7 +958,7 @@
                                     Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ForwardSkipCommand}"
                                     ToolTipService.ToolTip="{loc:Locale Name=ForwardSkip}">
                                     <Button.Content>
-                                        <uwp:RegularFluentIcon Symbol="ArrowStepOver16" />
+                                        <controls:FluentIcon Symbol="ArrowStepOver" />
                                     </Button.Content>
                                 </Button>
                                 <Button
@@ -988,7 +969,7 @@
                                     ToolTipService.ToolTip="{loc:Locale Name=PlayNextPart}"
                                     Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.CanPlayNextPart}">
                                     <Button.Content>
-                                        <uwp:RegularFluentIcon Symbol="Next20" />
+                                        <controls:FluentIcon Symbol="Next" />
                                     </Button.Content>
                                 </Button>
                                 <Button
@@ -998,7 +979,7 @@
                                     Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ReloadCommand}"
                                     ToolTipService.ToolTip="{loc:Locale Name=Refresh}">
                                     <Button.Content>
-                                        <uwp:RegularFluentIcon Symbol="ArrowSync16" />
+                                        <controls:FluentIcon Symbol="ArrowSync" />
                                     </Button.Content>
                                 </Button>
                             </StackPanel>
@@ -1043,11 +1024,11 @@
                                                     Style="{StaticResource CaptionTextBlockStyle}"
                                                     Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                                     Text="{loc:Locale Name=PlaybackRate}" />
-                                                <controls:ItemsRepeater ItemsSource="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlaybackRates}">
-                                                    <controls:ItemsRepeater.Layout>
-                                                        <controls:StackLayout Orientation="Horizontal" Spacing="4" />
-                                                    </controls:ItemsRepeater.Layout>
-                                                    <controls:ItemsRepeater.ItemTemplate>
+                                                <ItemsRepeater ItemsSource="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlaybackRates}">
+                                                    <ItemsRepeater.Layout>
+                                                        <StackLayout Orientation="Horizontal" Spacing="4" />
+                                                    </ItemsRepeater.Layout>
+                                                    <ItemsRepeater.ItemTemplate>
                                                         <DataTemplate>
                                                             <ToggleButton
                                                                 Style="{StaticResource DefaultToggleButtonStyle}"
@@ -1060,8 +1041,8 @@
                                                                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                                                 IsChecked="{Binding IsSelected, Mode=TwoWay}" />
                                                         </DataTemplate>
-                                                    </controls:ItemsRepeater.ItemTemplate>
-                                                </controls:ItemsRepeater>
+                                                    </ItemsRepeater.ItemTemplate>
+                                                </ItemsRepeater>
                                                 <Slider
                                                     MinWidth="160"
                                                     HorizontalAlignment="Stretch"
@@ -1080,13 +1061,13 @@
                                     Style="{StaticResource PlayerButtonStyle}"
                                     ToolTipService.ToolTip="{loc:Locale Name=Quality}">
                                     <Button.Content>
-                                        <uwp:RegularFluentIcon Symbol="Hd24" />
+                                        <controls:FluentIcon Symbol="Hd" />
                                     </Button.Content>
                                     <Button.Flyout>
                                         <Flyout FlyoutPresenterStyle="{StaticResource PlayerFlyoutStyle}" Placement="Top">
                                             <ListView
                                                 x:Name="FormatListView"
-                                                MinWidth="120"
+                                                MinWidth="1"
                                                 Margin="4"
                                                 AllowFocusOnInteraction="True"
                                                 ItemsSource="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Formats}"
@@ -1113,7 +1094,7 @@
                                     ToolTipService.ToolTip="{loc:Locale Name=Subtitle}"
                                     Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.SubtitleViewModel.HasSubtitles}">
                                     <Button.Content>
-                                        <uwp:RegularFluentIcon Symbol="ClosedCaption16" />
+                                        <controls:FluentIcon Symbol="ClosedCaption" />
                                     </Button.Content>
                                     <Button.Flyout>
                                         <Flyout>
@@ -1128,26 +1109,17 @@
                                     Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ToggleFullScreenCommand}"
                                     ToolTipService.ToolTip="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.FullScreenText}">
                                     <Grid>
-                                        <uwp:RegularFluentIcon
+                                        <controls:FluentIcon
                                             x:Name="EnterFullScreenIcon"
-                                            Symbol="FullScreenMaximize16"
+                                            Symbol="FullScreenMaximize"
                                             Visibility="Visible" />
-                                        <uwp:RegularFluentIcon
+                                        <controls:FluentIcon
                                             x:Name="ExitFullScreenIcon"
-                                            Symbol="FullScreenMinimize24"
+                                            Symbol="FullScreenMinimize"
                                             Visibility="Collapsed" />
                                     </Grid>
                                 </Button>
                             </StackPanel>
-
-                            <Grid
-                                Grid.Row="1"
-                                Grid.ColumnSpan="3"
-                                Padding="4"
-                                BorderBrush="{ThemeResource ControlStrokeColorDefaultBrush}"
-                                BorderThickness="0,1,0,0">
-                                <danmaku:DanmakuBox x:Name="DanmakuBox" ViewModel="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DanmakuViewModel}" />
-                            </Grid>
                         </Grid>
                     </Grid>
                 </ControlTemplate>
@@ -1162,7 +1134,7 @@
         <Setter Property="UseSystemFocusVisuals" Value="{StaticResource UseSystemFocusVisuals}" />
         <Setter Property="IsTextScaleFactorEnabled" Value="False" />
         <Setter Property="CornerRadius" Value="{ThemeResource OverlayCornerRadius}" />
-        <Setter Property="MaxWidth" Value="820" />
+        <Setter Property="MaxWidth" Value="8" />
         <Setter Property="CornerRadius" Value="{StaticResource ControlCornerRadius}" />
         <Setter Property="Template">
             <Setter.Value>
@@ -1258,10 +1230,10 @@
                                     Style="{StaticResource PlayerButtonStyle}"
                                     Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.PlayPauseCommand}">
                                     <Grid>
-                                        <uwp:RegularFluentIcon x:Name="PlaySymbol" Symbol="Play16" />
-                                        <uwp:RegularFluentIcon
+                                        <controls:FluentIcon x:Name="PlaySymbol" Symbol="Play" />
+                                        <controls:FluentIcon
                                             x:Name="PauseSymbol"
-                                            Symbol="Pause16"
+                                            Symbol="Pause"
                                             Visibility="Collapsed" />
                                     </Grid>
                                 </Button>
@@ -1272,7 +1244,7 @@
                                     Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ReloadCommand}"
                                     ToolTipService.ToolTip="{loc:Locale Name=Refresh}">
                                     <Button.Content>
-                                        <uwp:RegularFluentIcon Symbol="ArrowSync16" />
+                                        <controls:FluentIcon Symbol="ArrowSync" />
                                     </Button.Content>
                                 </Button>
                             </StackPanel>
@@ -1281,19 +1253,19 @@
                                 x:Name="NormalProgressContainer"
                                 Grid.Column="1"
                                 Background="{ThemeResource TransparentBackground}">
-                                <controls:ProgressBar
+                                <ProgressBar
                                     HorizontalAlignment="Stretch"
                                     VerticalAlignment="Center"
                                     Maximum="10"
                                     ShowError="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsError}"
                                     ShowPaused="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsMediaPause}"
                                     Value="10">
-                                    <controls:ProgressBar.Resources>
+                                    <ProgressBar.Resources>
                                         <x:Double x:Key="ProgressBarTrackHeight">4</x:Double>
                                         <CornerRadius x:Key="ProgressBarCornerRadius">2</CornerRadius>
                                         <CornerRadius x:Key="ProgressBarTrackCornerRadius">2</CornerRadius>
-                                    </controls:ProgressBar.Resources>
-                                </controls:ProgressBar>
+                                    </ProgressBar.Resources>
+                                </ProgressBar>
                             </Grid>
 
                             <StackPanel Grid.Column="2" Orientation="Horizontal">
@@ -1303,13 +1275,13 @@
                                     Style="{StaticResource PlayerButtonStyle}"
                                     ToolTipService.ToolTip="{loc:Locale Name=Quality}">
                                     <Button.Content>
-                                        <uwp:RegularFluentIcon Symbol="Hd24" />
+                                        <controls:FluentIcon Symbol="Hd" />
                                     </Button.Content>
                                     <Button.Flyout>
                                         <Flyout FlyoutPresenterStyle="{StaticResource PlayerFlyoutStyle}" Placement="Top">
                                             <ListView
                                                 x:Name="FormatListView"
-                                                MinWidth="120"
+                                                MinWidth="1"
                                                 Margin="4"
                                                 AllowFocusOnInteraction="True"
                                                 ItemsSource="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.Formats}"
@@ -1336,26 +1308,17 @@
                                     Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ToggleFullScreenCommand}"
                                     ToolTipService.ToolTip="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.FullScreenText}">
                                     <Grid>
-                                        <uwp:RegularFluentIcon
+                                        <controls:FluentIcon
                                             x:Name="EnterFullScreenIcon"
-                                            Symbol="FullScreenMaximize16"
+                                            Symbol="FullScreenMaximize"
                                             Visibility="Visible" />
-                                        <uwp:RegularFluentIcon
+                                        <controls:FluentIcon
                                             x:Name="ExitFullScreenIcon"
-                                            Symbol="FullScreenMinimize24"
+                                            Symbol="FullScreenMinimize"
                                             Visibility="Collapsed" />
                                     </Grid>
                                 </Button>
                             </StackPanel>
-
-                            <Grid
-                                Grid.Row="1"
-                                Grid.ColumnSpan="3"
-                                Padding="4"
-                                BorderBrush="{ThemeResource ControlStrokeColorDefaultBrush}"
-                                BorderThickness="0,1,0,0">
-                                <danmaku:DanmakuBox x:Name="DanmakuBox" ViewModel="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.DanmakuViewModel}" />
-                            </Grid>
                         </Grid>
                     </Grid>
                 </ControlTemplate>

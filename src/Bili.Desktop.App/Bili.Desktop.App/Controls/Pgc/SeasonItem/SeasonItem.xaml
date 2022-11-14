@@ -13,7 +13,7 @@
             Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.OpenInBroswerCommand}"
             Text="{loc:Locale Name=OpenInBroswer}">
             <MenuFlyoutItem.Icon>
-                <icons:RegularFluentIcon Symbol="Globe16" />
+                <controls:FluentIcon Symbol="Globe" />
             </MenuFlyoutItem.Icon>
         </MenuFlyoutItem>
     </MenuFlyout>

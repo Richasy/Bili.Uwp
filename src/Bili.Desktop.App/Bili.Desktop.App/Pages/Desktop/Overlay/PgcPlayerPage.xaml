@@ -6,11 +6,9 @@
     xmlns:behaviors="using:Bili.Desktop.App.Behaviors"
     xmlns:controls="using:Bili.Desktop.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:icons="using:Richasy.FluentIcon.Uwp"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:loc="using:Bili.Desktop.App.Resources.Extension"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:player="using:Bili.Desktop.App.Controls.Player"
     xmlns:video="using:Bili.ViewModels.Interfaces.Video"
     mc:Ignorable="d">
@@ -22,7 +20,7 @@
         </Style>
 
         <Flyout x:Name="CoinFlyout">
-            <Grid RowSpacing="16">
+            <Grid RowSpacing="">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -171,21 +169,21 @@
                             <controls:IconTextBlock
                                 Margin="0,0,12,0"
                                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                Symbol="EyeShow16"
+                                Symbol="Eye"
                                 Text="{x:Bind ViewModel.PlayCountText, Mode=OneWay}"
                                 ToolTipService.ToolTip="{loc:Locale Name=View}"
                                 Visibility="{x:Bind ViewModel.PlayCountText, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}" />
                             <controls:IconTextBlock
                                 Margin="0,0,12,0"
                                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                Symbol="SlideText16"
+                                Symbol="SlideText"
                                 Text="{x:Bind ViewModel.DanmakuCountText, Mode=OneWay}"
                                 ToolTipService.ToolTip="{loc:Locale Name=Danmaku}"
                                 Visibility="{x:Bind ViewModel.DanmakuCountText, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}" />
                             <controls:IconTextBlock
                                 Margin="0,0,12,0"
                                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                Symbol="Chat16"
+                                Symbol="Chat"
                                 Text="{x:Bind ViewModel.CommentCountText, Mode=OneWay}"
                                 ToolTipService.ToolTip="{loc:Locale Name=Reply}"
                                 Visibility="{x:Bind ViewModel.CommentCountText, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}" />
@@ -218,7 +216,7 @@
                             IsEnabled="{x:Bind ViewModel.IsSignedIn, Mode=OneWay}"
                             IsHoldingEnabled="{x:Bind ViewModel.IsSignedIn, Mode=OneWay}"
                             ToolTipService.ToolTip="{loc:Locale Name=Like}">
-                            <icons:RegularFluentIcon Symbol="ThumbLike16" />
+                            <controls:FluentIcon Symbol="ThumbLike" />
                         </controls:ProgressButton>
                         <controls:ProgressButton
                             x:Name="CoinButton"
@@ -228,7 +226,7 @@
                             IsEnabled="{x:Bind ViewModel.IsSignedIn, Mode=OneWay}"
                             IsHoldingEnabled="False"
                             ToolTipService.ToolTip="{loc:Locale Name=Coin}">
-                            <icons:RegularFluentIcon Symbol="Blur16" />
+                            <controls:FluentIcon Symbol="Blur" />
                         </controls:ProgressButton>
                         <controls:ProgressButton
                             x:Name="FavoriteButton"
@@ -238,7 +236,7 @@
                             IsEnabled="{x:Bind ViewModel.IsSignedIn, Mode=OneWay}"
                             IsHoldingEnabled="False"
                             ToolTipService.ToolTip="{loc:Locale Name=Favorite}">
-                            <icons:RegularFluentIcon Symbol="Star16" />
+                            <controls:FluentIcon Symbol="Star" />
                         </controls:ProgressButton>
                         <controls:ProgressButton
                             x:Name="TrackButton"
@@ -248,7 +246,7 @@
                             IsEnabled="{x:Bind ViewModel.IsSignedIn, Mode=OneWay}"
                             IsHoldingEnabled="False"
                             ToolTipService.ToolTip="{x:Bind ViewModel.IsTracking, Mode=OneWay, Converter={StaticResource FollowTextConverter}}">
-                            <icons:RegularFluentIcon Symbol="RibbonStar20" />
+                            <controls:FluentIcon Symbol="RibbonStar" />
                         </controls:ProgressButton>
                     </StackPanel>
                     <StackPanel Grid.Row="1">
@@ -260,7 +258,7 @@
                             Command="{x:Bind ViewModel.ShowSeasonDetailCommand}">
                             <controls:IconTextBlock
                                 Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
-                                Symbol="TextBulletListTree16"
+                                Symbol="TextBulletListTree"
                                 Text="{loc:Locale Name=Detail}" />
                         </Button>
 
@@ -275,7 +273,7 @@
                                 Command="{x:Bind ViewModel.ShareCommand}">
                                 <controls:IconTextBlock
                                     Foreground="{ThemeResource TextFillColorPrimaryBrush}"
-                                    Symbol="Share16"
+                                    Symbol="Share"
                                     Text="{loc:Locale Name=Share}" />
                             </Button>
                             <Button
@@ -293,7 +291,7 @@
                             HorizontalAlignment="Stretch">
                             <controls:IconTextBlock
                                 Foreground="{ThemeResource TextFillColorPrimaryBrush}"
-                                Symbol="ArrowDownload16"
+                                Symbol="ArrowDownload"
                                 Text="{loc:Locale Name=Download}" />
                             <Button.Flyout>
                                 <Flyout>

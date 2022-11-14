@@ -3,15 +3,13 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Threading.Tasks;
-using Atelier39;
 using Bili.Models.Data.Player;
 using Bili.Models.Enums;
 using Bili.Models.Enums.App;
-using Windows.Media.Playback;
-using Windows.UI.Input;
+using Microsoft.UI.Input;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Input;
+using Windows.Media.Playback;
 
 namespace Bili.Desktop.App.Controls.Player
 {
@@ -22,11 +20,11 @@ namespace Bili.Desktop.App.Controls.Player
     {
         /// <inheritdoc/>
         protected override async void OnPointerEntered(PointerRoutedEventArgs e)
-            => await ShowAndResetMediaTransportAsync(e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse);
+            => await ShowAndResetMediaTransportAsync(e.Pointer.PointerDeviceType == PointerDeviceType.Mouse);
 
         /// <inheritdoc/>
         protected override async void OnPointerMoved(PointerRoutedEventArgs e)
-            => await ShowAndResetMediaTransportAsync(e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse);
+            => await ShowAndResetMediaTransportAsync(e.Pointer.PointerDeviceType == PointerDeviceType.Mouse);
 
         /// <inheritdoc/>
         protected override void OnPointerExited(PointerRoutedEventArgs e)
@@ -59,7 +57,6 @@ namespace Bili.Desktop.App.Controls.Player
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
             _unitTimer.Start();
-            _danmakuView?.ClearAll();
             _isForceHiddenTransportControls = true;
             ViewModel.RequestShowTempMessage -= OnRequestShowTempMessage;
             ViewModel.PropertyChanged -= OnViewModelPropertyChanged;
@@ -68,19 +65,18 @@ namespace Bili.Desktop.App.Controls.Player
         }
 
         private void OnRequestClearDanmaku(object sender, EventArgs e)
-            => _danmakuView?.ClearAll();
+        {
+        }
 
         private void OnDanmakuListAdded(object sender, IEnumerable<DanmakuInformation> e)
-            => _danmakuView.Prepare(BilibiliDanmakuXmlParser.GetDanmakuList(e, ViewModel.DanmakuViewModel.IsDanmakuMerge), true);
+        {
+        }
 
         private async void OnMediaPlayerChangedAsync(object sender, object e)
         {
-            if(e is MediaPlayer mp)
+            if (e is MediaPlayer mp)
             {
                 _mediaPlayerElement.SetMediaPlayer(mp);
-
-                await Task.Delay(200);
-                await _danmakuView?.RedrawAsync();
             }
             else
             {
@@ -100,10 +96,10 @@ namespace Bili.Desktop.App.Controls.Player
                 return;
             }
 
-            if (e.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
+            if (e.PointerDeviceType == PointerDeviceType.Mouse)
             {
                 _isTouch = false;
-                ViewModel.PlayPauseCommand.ExecuteAsync(null);
+                ViewModel.PlayPauseCommand.Execute(null);
             }
             else
             {
@@ -119,17 +115,17 @@ namespace Bili.Desktop.App.Controls.Player
             var canDoubleTapped = playerStatus == PlayerStatus.Playing || playerStatus == PlayerStatus.Pause;
             if (canDoubleTapped)
             {
-                if (e.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Mouse)
+                if (e.PointerDeviceType == PointerDeviceType.Mouse)
                 {
                     ViewModel.ToggleFullScreenCommand.Execute(null);
                     if (ViewModel.IsMediaPause)
                     {
-                        ViewModel.PlayPauseCommand.ExecuteAsync(null);
+                        ViewModel.PlayPauseCommand.Execute(null);
                     }
                 }
                 else
                 {
-                    ViewModel.PlayPauseCommand.ExecuteAsync(null);
+                    ViewModel.PlayPauseCommand.Execute(null);
                 }
             }
         }
@@ -144,7 +140,7 @@ namespace Bili.Desktop.App.Controls.Player
 
             if (_manipulationBeforeIsPlay)
             {
-                ViewModel.PlayPauseCommand.ExecuteAsync(null);
+                ViewModel.PlayPauseCommand.Execute(null);
             }
 
             _manipulationBeforeIsPlay = false;
@@ -152,17 +148,14 @@ namespace Bili.Desktop.App.Controls.Player
 
         private void OnGestureRecognizerHolding(GestureRecognizer sender, HoldingEventArgs args)
         {
-            if (args.ContactCount == 1)
+            _isHolding = true;
+            if (args.HoldingState == HoldingState.Started)
             {
-                _isHolding = true;
-                if (args.HoldingState == HoldingState.Started)
-                {
-                    ViewModel.StartTempQuickPlayCommand.ExecuteAsync(null);
-                }
-                else
-                {
-                    ViewModel.StopTempQuickPlayCommand.ExecuteAsync(null);
-                }
+                ViewModel.StartTempQuickPlayCommand.Execute(null);
+            }
+            else
+            {
+                ViewModel.StopTempQuickPlayCommand.Execute(null);
             }
         }
 
@@ -284,14 +277,7 @@ namespace Bili.Desktop.App.Controls.Player
         {
             if (e.PropertyName == nameof(ViewModel.Status))
             {
-                if (ViewModel.Status == PlayerStatus.Playing)
-                {
-                    _danmakuView.ResumeDanmaku();
-                }
-                else
-                {
-                    _danmakuView.PauseDanmaku();
-                }
+                // 暂停/恢复弹幕
             }
         }
     }

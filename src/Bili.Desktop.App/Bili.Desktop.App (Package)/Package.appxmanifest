@@ -38,14 +38,18 @@
         Square44x44Logo="Assets\Logo\Square44x44Logo.png"
         Description="ms-resource:AppDescription"
         BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Logo\Wide310x150Logo.png" ShortName="ms-resource:AppName" Square71x71Logo="Assets\Logo\SmallTile.png" Square310x310Logo="Assets\Logo\LargeTile.png">
+        <uap:DefaultTile
+          Wide310x150Logo="Assets\Logo\Wide310x150Logo.png"
+          ShortName="ms-resource:AppName"
+          Square71x71Logo="Assets\Logo\SmallTile.png"
+          Square310x310Logo="Assets\Logo\LargeTile.png">
           <uap:ShowNameOnTiles>
             <uap:ShowOn Tile="square150x150Logo"/>
             <uap:ShowOn Tile="wide310x150Logo"/>
             <uap:ShowOn Tile="square310x310Logo"/>
           </uap:ShowNameOnTiles>
         </uap:DefaultTile >
-        <uap:SplashScreen Image="Assets\Logo\SplashScreen.png" />
+        <uap:SplashScreen Image="Assets\Logo\SplashScreen.png" uap5:Optional="true" BackgroundColor="transparent" />
       </uap:VisualElements>
       <Extensions>
         <uap5:Extension Category="windows.startupTask">
@@ -64,12 +68,6 @@
             <uap:Logo>Assets\Bili_rgba_80.png</uap:Logo>
           </uap:Protocol>
         </uap:Extension>
-        <Extension Category="windows.backgroundTasks" EntryPoint="Bili.Tasks.DynamicNotifyTask">
-          <BackgroundTasks>
-            <Task Type="timer"/>
-            <Task Type="pushNotification"/>
-          </BackgroundTasks>
-        </Extension>
       </Extensions>
     </Application>
   </Applications>

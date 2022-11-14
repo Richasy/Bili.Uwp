@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using Bili.ViewModels.Interfaces;
-using Microsoft.Toolkit.Uwp.UI.Behaviors;
+using CommunityToolkit.WinUI.UI.Behaviors;
 using Microsoft.UI.Xaml.Controls;
 
 namespace Bili.Desktop.App.Behaviors

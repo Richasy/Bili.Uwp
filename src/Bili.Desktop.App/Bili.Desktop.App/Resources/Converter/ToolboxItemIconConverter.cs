@@ -2,7 +2,6 @@
 
 using System;
 using Bili.Models.Enums;
-using Richasy.FluentIcon.Uwp;
 using Microsoft.UI.Xaml.Data;
 
 namespace Bili.Desktop.App.Resources.Converter
@@ -12,16 +11,16 @@ namespace Bili.Desktop.App.Resources.Converter
         /// <inheritdoc/>
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            var symbol = RegularFluentSymbol.ErrorCircle24;
+            var symbol = FluentIcons.Common.Symbol.ErrorCircle;
             if (value is ToolboxItemType type)
             {
                 switch (type)
                 {
                     case ToolboxItemType.AvBvConverter:
-                        symbol = RegularFluentSymbol.TextClearFormatting24;
+                        symbol = FluentIcons.Common.Symbol.TextClearFormatting;
                         break;
                     case ToolboxItemType.CoverDownloader:
-                        symbol = RegularFluentSymbol.ImageSearch24;
+                        symbol = FluentIcons.Common.Symbol.ImageSearch;
                         break;
                     default:
                         break;

@@ -2,7 +2,7 @@
 
 using System;
 using Bili.Desktop.App.Resources.Extension;
-using Windows.UI;
+using Microsoft.UI;
 using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Media;
 
@@ -30,7 +30,7 @@ namespace Bili.Desktop.App.Resources.Converter
                 }
                 else
                 {
-                    color = Microsoft.Toolkit.Uwp.Helpers.ColorHelper.ToColor(hexColor);
+                    color = CommunityToolkit.WinUI.Helpers.ColorHelper.ToColor(hexColor);
                 }
             }
 

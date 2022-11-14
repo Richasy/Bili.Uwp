@@ -9,7 +9,6 @@
     xmlns:loc="using:Bili.Desktop.App.Resources.Extension"
     xmlns:local="using:Bili.Desktop.App.Controls.Player"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -72,7 +71,7 @@
                     VerticalAlignment="Center"
                     Command="{x:Bind ViewModel.ChangeSaveLocationCommand}"
                     ToolTipService.ToolTip="{loc:Locale Name=ChooseDownloadFolder}">
-                    <icon:RegularFluentIcon Symbol="Folder16" />
+                    <controls:FluentIcon Symbol="Folder" />
                 </Button>
             </Grid>
         </StackPanel>

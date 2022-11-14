@@ -4,16 +4,16 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.UI.Composition;
-using Windows.ApplicationModel;
-using Windows.Foundation;
-using Windows.Graphics.Display;
-using Windows.UI;
-using Windows.UI.Composition;
+using Microsoft.UI;
+using Microsoft.UI.Composition;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Hosting;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Shapes;
+using Windows.ApplicationModel;
+using Windows.Foundation;
+using Windows.Graphics.Display;
 
 namespace Bili.Desktop.App.Controls
 {
@@ -152,10 +152,7 @@ namespace Bili.Desktop.App.Controls
                 _bubbles = null;
             }
 
-            if (_bubblesVisual != null)
-            {
-                _bubblesVisual.Children.RemoveAll();
-            }
+            _bubblesVisual?.Children.RemoveAll();
         }
 
         private void CreateBubbles()
@@ -207,24 +204,16 @@ namespace Bili.Desktop.App.Controls
         }
 
         private void OnDisplayInformationDisplayContentsInvalidated(DisplayInformation sender, object args)
-        {
-            ResetDevices(false);
-        }
+            => ResetDevices(false);
 
         private void OnCanvasDeviceDeviceLost(CanvasDevice sender, object args)
-        {
-            ResetDevices(true);
-        }
+            => ResetDevices(true);
 
         private void OnGraphicsDeviceRenderingDeviceReplaced(CompositionGraphicsDevice sender, RenderingDeviceReplacedEventArgs args)
-        {
-            CreateBubbles();
-        }
+            => CreateBubbles();
 
         private void OnBubbleHostSizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            CreateBubbles();
-        }
+            => CreateBubbles();
 
         private void OnBubbleViewUnloaded(object sender, RoutedEventArgs e)
         {

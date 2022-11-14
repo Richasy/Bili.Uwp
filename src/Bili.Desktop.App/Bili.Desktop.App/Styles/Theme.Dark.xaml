@@ -25,4 +25,19 @@
 
     <SolidColorBrush x:Key="ToggleSwitchKnobOffForeground" Color="Black" />
     <SolidColorBrush x:Key="TransparentBackground" Color="#01000000" />
+
+    <StaticResource x:Key="SettingsCardBackground" ResourceKey="CardBackgroundFillColorDefaultBrush" />
+    <StaticResource x:Key="SettingsCardBackgroundPointerOver" ResourceKey="ControlFillColorSecondaryBrush" />
+    <StaticResource x:Key="SettingsCardBackgroundPressed" ResourceKey="ControlFillColorTertiaryBrush" />
+    <StaticResource x:Key="SettingsCardBackgroundDisabled" ResourceKey="ControlFillColorDisabledBrush" />
+
+    <StaticResource x:Key="SettingsCardForeground" ResourceKey="TextFillColorPrimaryBrush" />
+    <StaticResource x:Key="SettingsCardForegroundPointerOver" ResourceKey="TextFillColorPrimaryBrush" />
+    <StaticResource x:Key="SettingsCardForegroundPressed" ResourceKey="TextFillColorSecondaryBrush" />
+    <StaticResource x:Key="SettingsCardForegroundDisabled" ResourceKey="TextFillColorDisabledBrush" />
+
+    <StaticResource x:Key="SettingsCardBorderBrush" ResourceKey="CardStrokeColorDefaultBrush" />
+    <StaticResource x:Key="SettingsCardBorderBrushPointerOver" ResourceKey="ControlElevationBorderBrush" />
+    <StaticResource x:Key="SettingsCardBorderBrushPressed" ResourceKey="ControlStrokeColorDefaultBrush" />
+    <StaticResource x:Key="SettingsCardBorderBrushDisabled" ResourceKey="ControlStrokeColorDefaultBrush" />
 </ResourceDictionary>

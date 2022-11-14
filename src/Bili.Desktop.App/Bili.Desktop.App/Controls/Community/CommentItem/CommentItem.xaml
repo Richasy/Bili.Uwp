@@ -3,7 +3,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:app="using:Bili.Desktop.App.Controls.App"
     xmlns:controls="using:Bili.Desktop.App.Controls"
-    xmlns:icons="using:Richasy.FluentIcon.Uwp"
     xmlns:loc="using:Bili.Desktop.App.Resources.Extension"
     xmlns:local="using:Bili.Desktop.App.Controls.Community">
     <Style x:Key="DefaultCommentItemStyle" TargetType="local:CommentItem">
@@ -106,10 +105,10 @@
                                         Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ToggleLikeCommand}"
                                         IsChecked="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsLiked}">
                                         <StackPanel Orientation="Horizontal" Spacing="8">
-                                            <icons:RegularFluentIcon
+                                            <controls:FluentIcon
                                                 VerticalAlignment="Center"
                                                 FontSize="12"
-                                                Symbol="ThumbLike16" />
+                                                Symbol="ThumbLike" />
                                             <TextBlock
                                                 VerticalAlignment="Center"
                                                 FontSize="12"

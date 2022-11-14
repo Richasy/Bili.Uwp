@@ -241,7 +241,7 @@ namespace Bili.ViewModels.Desktop.Home
 
         private void PreferQualityInit()
         {
-            if(PreferQualities.Count == 0)
+            if (PreferQualities.Count == 0)
             {
                 PreferQualities.Add(PreferQuality.Auto);
                 PreferQualities.Add(PreferQuality.HDFirst);

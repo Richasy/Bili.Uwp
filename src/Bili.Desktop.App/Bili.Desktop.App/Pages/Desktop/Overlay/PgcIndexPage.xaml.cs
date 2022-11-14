@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using System.Linq;
 using Bili.Models.Data.Appearance;
 using Bili.Models.Enums;

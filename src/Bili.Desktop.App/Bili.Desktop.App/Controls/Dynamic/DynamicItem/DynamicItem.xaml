@@ -3,7 +3,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:app="using:Bili.Desktop.App.Controls.App"
     xmlns:controls="using:Bili.Desktop.App.Controls"
-    xmlns:icons="using:Richasy.FluentIcon.Uwp"
     xmlns:loc="using:Bili.Desktop.App.Resources.Extension"
     xmlns:local="using:Bili.Desktop.App.Controls.Dynamic">
 
@@ -62,7 +61,7 @@
                                     VerticalAlignment="Top"
                                     Background="Transparent"
                                     BorderThickness="0">
-                                    <icons:RegularFluentIcon Symbol="MoreHorizontal16" />
+                                    <controls:FluentIcon Symbol="MoreHorizontal" />
                                     <Button.Flyout>
                                         <MenuFlyout Placement="Bottom">
                                             <MenuFlyoutItem
@@ -71,7 +70,7 @@
                                                 IsEnabled="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.CanAddViewLater}"
                                                 Text="{loc:Locale Name=AddToViewLater}">
                                                 <MenuFlyoutItem.Icon>
-                                                    <icons:RegularFluentIcon Symbol="Add16" />
+                                                    <controls:FluentIcon Symbol="Add" />
                                                 </MenuFlyoutItem.Icon>
                                             </MenuFlyoutItem>
                                         </MenuFlyout>
@@ -115,10 +114,10 @@
                                     BorderThickness="0"
                                     Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ToggleLikeCommand}">
                                     <StackPanel Orientation="Horizontal" Spacing="4">
-                                        <icons:RegularFluentIcon
+                                        <controls:FluentIcon
                                             VerticalAlignment="Center"
                                             FontSize="12"
-                                            Symbol="ThumbLike16" />
+                                            Symbol="ThumbLike" />
                                         <TextBlock
                                             x:Name="LikeCountBlock"
                                             VerticalAlignment="Center"
@@ -137,7 +136,7 @@
                                         x:Name="ReplyCountBlock"
                                         FontSize="12"
                                         IconFontSize="12"
-                                        Symbol="Comment16"
+                                        Symbol="Comment"
                                         Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.CommentCountText}" />
                                 </Button>
                                 <Button
@@ -146,7 +145,7 @@
                                     Height="28"
                                     BorderThickness="0"
                                     Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ShareCommand}">
-                                    <icons:RegularFluentIcon FontSize="14" Symbol="Share20" />
+                                    <controls:FluentIcon FontSize="14" Symbol="Share" />
                                 </Button>
                             </Grid>
                         </Grid>

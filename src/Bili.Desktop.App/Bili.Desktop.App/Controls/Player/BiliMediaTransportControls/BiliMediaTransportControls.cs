@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Bili.Desktop.App.Controls.Danmaku;
 using Bili.ViewModels.Interfaces.Core;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -40,7 +39,6 @@ namespace Bili.Desktop.App.Controls.Player
             _volumeSlider = GetTemplateChild(VolumeSliderName) as Slider;
             _formatListView = GetTemplateChild(FormatListViewName) as ListView;
             _playPauseButton = GetTemplateChild(PlayPauseButtonName) as Button;
-            _danmakuBox = GetTemplateChild(DanmakuBoxName) as DanmakuBox;
             _rootGrid = GetTemplateChild(RootGridName) as Grid;
 
             if (_formatListView != null)

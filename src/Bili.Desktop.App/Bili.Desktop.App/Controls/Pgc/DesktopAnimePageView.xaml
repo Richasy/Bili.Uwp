@@ -11,7 +11,6 @@
     xmlns:loc="using:Bili.Desktop.App.Resources.Extension"
     xmlns:local="using:Bili.Desktop.App.Controls.Pgc"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:pgc="using:Bili.ViewModels.Interfaces.Pgc"
     xmlns:pgc1="using:Bili.Models.Data.Pgc"
     xmlns:video="using:Bili.ViewModels.Interfaces.Video"
@@ -79,13 +78,13 @@
                         Style="{StaticResource AccentButtonStyle}"
                         Command="{x:Bind ViewModel.GotoFavoritePageCommand}"
                         Visibility="{x:Bind ViewModel.IsLoggedIn, Mode=OneWay}">
-                        <controls:IconTextBlock Symbol="Person16" Text="{loc:Locale Name=MyFavoriteAnime}" />
+                        <controls:IconTextBlock Symbol="Person" Text="{loc:Locale Name=MyFavoriteAnime}" />
                     </Button>
                     <Button x:Name="IndexButton" Command="{x:Bind ViewModel.GotoIndexPageCommand}">
-                        <controls:IconTextBlock Symbol="TextBulletListLtr16" Text="{loc:Locale Name=Index}" />
+                        <controls:IconTextBlock Symbol="TextBulletListLtr" Text="{loc:Locale Name=Index}" />
                     </Button>
                     <Button x:Name="TimeChartButton" Command="{x:Bind ViewModel.GotoTimeLinePageCommand}">
-                        <controls:IconTextBlock Symbol="Clock16" Text="{loc:Locale Name=TimeChart}" />
+                        <controls:IconTextBlock Symbol="Clock" Text="{loc:Locale Name=TimeChart}" />
                     </Button>
                 </StackPanel>
             </NavigationView.PaneFooter>
@@ -182,7 +181,7 @@
                                                 <Button.Content>
                                                     <controls:IconTextBlock
                                                         Spacing="8"
-                                                        Symbol="List16"
+                                                        Symbol="List"
                                                         Text="{loc:Locale Name=ShowMore}" />
                                                 </Button.Content>
                                             </Button>

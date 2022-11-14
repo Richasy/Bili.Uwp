@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
 using System.ComponentModel;
 using Bili.Models.Data.Player;
 using Microsoft.UI.Xaml;
@@ -53,7 +52,6 @@ namespace Bili.Desktop.App.Controls.Player
             _formatListView = null;
             _volumeSlider = null;
             _playPauseButton = null;
-            _danmakuBox = null;
             _rootGrid?.Children?.Clear();
             _rootGrid = null;
         }

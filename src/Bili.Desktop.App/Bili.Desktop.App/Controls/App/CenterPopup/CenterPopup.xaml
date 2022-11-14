@@ -1,7 +1,6 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:icons="using:Richasy.FluentIcon.Uwp"
     xmlns:loc="using:Bili.Desktop.App.Resources.Extension"
     xmlns:local="using:Bili.Desktop.App.Controls">
 
@@ -81,7 +80,7 @@
                                     VerticalAlignment="Center"
                                     TabIndex="1"
                                     ToolTipService.ToolTip="{loc:Locale Name=Close}">
-                                    <icons:RegularFluentIcon FontSize="12" Symbol="Dismiss16" />
+                                    <local:FluentIcon FontSize="12" Symbol="Dismiss" />
                                     <Button.KeyboardAccelerators>
                                         <KeyboardAccelerator Key="Escape" />
                                     </Button.KeyboardAccelerators>
@@ -91,8 +90,8 @@
                                 Grid.Row="1"
                                 HorizontalContentAlignment="Stretch"
                                 VerticalContentAlignment="Stretch"
-                                Content="{TemplateBinding Content}"
                                 AllowFocusOnInteraction="True"
+                                Content="{TemplateBinding Content}"
                                 XYFocusKeyboardNavigation="Enabled" />
                         </Grid>
                     </Grid>

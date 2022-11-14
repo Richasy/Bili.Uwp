@@ -51,7 +51,7 @@ namespace Bili.Desktop.App.Controls.Favorite
             }
         }
 
-        private void OnDefaultExpanderClick(object sender, Richasy.ExpanderEx.Uwp.ExpanderExClickEventArgs e)
+        private void OnDefaultExpanderClick(object sender, RoutedEventArgs e)
             => ViewModel.ShowDefaultFolderDetailCommand.Execute(null);
     }
 

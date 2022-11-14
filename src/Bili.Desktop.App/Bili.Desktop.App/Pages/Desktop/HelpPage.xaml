@@ -6,7 +6,6 @@
     xmlns:behaviors="using:Bili.Desktop.App.Behaviors"
     xmlns:controls="using:Bili.Desktop.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:icons="using:Richasy.FluentIcon.Uwp"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:loc="using:Bili.Desktop.App.Resources.Extension"
     xmlns:local="using:Bili.Desktop.App.Pages.Desktop"
@@ -52,12 +51,12 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
-                        <icons:RegularFluentIcon
+                        <controls:FluentIcon
                             HorizontalAlignment="Center"
                             VerticalAlignment="Bottom"
                             FontSize="64"
                             FontWeight="Bold"
-                            Symbol="ChatBubblesQuestion24" />
+                            Symbol="ChatBubblesQuestion" />
                         <StackPanel Grid.Row="1" Spacing="16">
                             <TextBlock
                                 Style="{StaticResource SubtitleTextBlockStyle}"

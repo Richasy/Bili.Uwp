@@ -7,7 +7,6 @@
     xmlns:behaviors="using:Bili.Desktop.App.Behaviors"
     xmlns:controls="using:Bili.Desktop.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:icons="using:Richasy.FluentIcon.Uwp"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:loc="using:Bili.Desktop.App.Resources.Extension"
     xmlns:local="using:Bili.Desktop.App.Controls.Favorite"
@@ -60,7 +59,7 @@
                                 <MenuFlyout>
                                     <MenuFlyoutItem Command="{x:Bind UnfavoriteCommand}" Text="{loc:Locale Name=UnFavorite}">
                                         <MenuFlyoutItem.Icon>
-                                            <icons:RegularFluentIcon Symbol="StarOff16" />
+                                            <controls:FluentIcon Symbol="StarOff" />
                                         </MenuFlyoutItem.Icon>
                                     </MenuFlyoutItem>
                                 </MenuFlyout>

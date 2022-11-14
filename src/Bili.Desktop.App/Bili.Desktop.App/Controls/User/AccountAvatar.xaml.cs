@@ -7,9 +7,9 @@ using Bili.DI.Container;
 using Bili.Models.Enums;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Core;
-using Windows.System;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls.Primitives;
+using Windows.System;
 
 namespace Bili.Desktop.App.Controls
 {

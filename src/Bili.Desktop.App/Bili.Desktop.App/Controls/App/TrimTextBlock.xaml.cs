@@ -50,14 +50,7 @@ namespace Bili.Desktop.App.Controls
 
         private void OnIsTextTrimmedChanged(TextBlock sender, IsTextTrimmedChangedEventArgs args)
         {
-            if (sender.IsTextTrimmed)
-            {
-                OverflowButton.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                OverflowButton.Visibility = Visibility.Collapsed;
-            }
+            OverflowButton.Visibility = sender.IsTextTrimmed ? Visibility.Visible : Visibility.Collapsed;
         }
     }
 }

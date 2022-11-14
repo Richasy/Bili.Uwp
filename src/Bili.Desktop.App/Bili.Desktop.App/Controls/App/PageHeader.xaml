@@ -39,7 +39,7 @@
             VerticalAlignment="Center"
             Command="{x:Bind RefreshCommand, Mode=OneWay}"
             Visibility="{x:Bind RefreshCommand, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}">
-            <controls:IconTextBlock Symbol="ArrowSync16" Text="{loc:Locale Name=Refresh}" />
+            <controls:IconTextBlock Symbol="ArrowSync" Text="{loc:Locale Name=Refresh}" />
         </Button>
 
         <Image

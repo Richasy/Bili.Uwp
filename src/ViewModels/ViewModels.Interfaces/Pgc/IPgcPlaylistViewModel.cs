@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System.Collections.ObjectModel;
-using System.Windows.Input;
 using Bili.Models.Data.Pgc;
 using CommunityToolkit.Mvvm.Input;
 

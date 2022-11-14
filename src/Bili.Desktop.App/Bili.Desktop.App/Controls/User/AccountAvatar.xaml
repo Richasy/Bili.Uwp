@@ -4,11 +4,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:ext="using:Bili.Desktop.App.Resources.Extension"
-    xmlns:icons="using:Richasy.FluentIcon.Uwp"
     xmlns:loc="using:Bili.Desktop.App.Resources.Extension"
     xmlns:local="using:Bili.Desktop.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     d:DesignHeight="300"
     d:DesignWidth="400"
     IsTabStop="False"
@@ -51,7 +49,7 @@
                         </Style>
                     </StackPanel.Resources>
                     <Button Click="OnNavigateToMyHomePageButtonClickAsync">
-                        <local:IconTextBlock Symbol="Globe16" Text="{loc:Locale Name=MyWebPage}" />
+                        <local:IconTextBlock Symbol="Globe" Text="{loc:Locale Name=MyWebPage}" />
                     </Button>
                     <Button
                         HorizontalContentAlignment="Stretch"
@@ -64,7 +62,7 @@
                             </Grid.ColumnDefinitions>
                             <local:IconTextBlock
                                 VerticalAlignment="Center"
-                                Symbol="Chat16"
+                                Symbol="Chat"
                                 Text="{loc:Locale Name=Message}" />
                             <Border
                                 Grid.Column="1"
@@ -81,13 +79,13 @@
                         </Grid>
                     </Button>
                     <Button ext:NavigationExtension.PageId="Favorite" Click="OnNavigateButtonClick">
-                        <local:IconTextBlock Symbol="StarLineHorizontal320" Text="{loc:Locale Name=MyFavorite}" />
+                        <local:IconTextBlock Symbol="StarLineHorizontal3" Text="{loc:Locale Name=MyFavorite}" />
                     </Button>
                     <Button ext:NavigationExtension.PageId="ViewLater" Click="OnNavigateButtonClick">
-                        <local:IconTextBlock Symbol="CalendarClock16" Text="{loc:Locale Name=ViewLater}" />
+                        <local:IconTextBlock Symbol="CalendarClock" Text="{loc:Locale Name=ViewLater}" />
                     </Button>
                     <Button ext:NavigationExtension.PageId="ViewHistory" Click="OnNavigateButtonClick">
-                        <local:IconTextBlock Symbol="History20" Text="{loc:Locale Name=ViewHistory}" />
+                        <local:IconTextBlock Symbol="History" Text="{loc:Locale Name=ViewHistory}" />
                     </Button>
                     <StackPanel
                         Height="1"
@@ -96,7 +94,7 @@
                     <Button Click="OnSignOutButtonClick" Command="{x:Bind ViewModel.SignOutCommand}">
                         <local:IconTextBlock
                             Foreground="{ThemeResource SystemFillColorCriticalBrush}"
-                            Symbol="SignOut20"
+                            Symbol="SignOut"
                             Text="{loc:Locale Name=SignOut}" />
                     </Button>
                 </StackPanel>

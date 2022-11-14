@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
-using Microsoft.Toolkit.Uwp.UI.Animations;
-using Windows.UI.Composition;
+using CommunityToolkit.WinUI.UI.Animations;
+using Microsoft.UI.Composition;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Automation.Peers;
 using Microsoft.UI.Xaml.Controls;

@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -179,10 +180,18 @@ namespace Bili.Toolkit.Desktop
             SetWindowPos(windowHandle, SpecialWindowHandles.HWND_NOTOPMOST, left, top, actualWidth, actualHeight, SetWindowPosFlags.SWP_SHOWWINDOW);
         }
 
-        private static int GetScalePixel(double pixel, IntPtr windowHandle)
+        /// <inheritdoc/>
+        public int GetScalePixel(double pixel, IntPtr windowHandle)
         {
             var dpi = GetDpiForWindow(windowHandle);
             return Convert.ToInt32(pixel * (dpi / 96.0));
+        }
+
+        /// <inheritdoc/>
+        public Size GetMonitorSize(IntPtr windowHandle)
+        {
+            var rect = GetMonitorRect(windowHandle);
+            return new System.Drawing.Size(rect.right - rect.left, rect.bottom - rect.top);
         }
 
         private static RECT GetMonitorRect(IntPtr windowHandle)

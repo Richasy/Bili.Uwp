@@ -2,6 +2,7 @@
 
 using Bili.DI.Container;
 using Bili.ViewModels.Interfaces.Core;
+using Microsoft.UI.Input;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
@@ -43,8 +44,8 @@ namespace Bili.Desktop.App.Pages
         protected override void OnPointerReleased(PointerRoutedEventArgs e)
         {
             var kind = e.GetCurrentPoint(this).Properties.PointerUpdateKind;
-            if (kind == Windows.UI.Input.PointerUpdateKind.XButton1Released
-                || kind == Windows.UI.Input.PointerUpdateKind.MiddleButtonReleased)
+            if (kind == PointerUpdateKind.XButton1Released
+                || kind == PointerUpdateKind.MiddleButtonReleased)
             {
                 e.Handled = true;
                 var navigationVM = Locator.Instance.GetService<INavigationViewModel>();

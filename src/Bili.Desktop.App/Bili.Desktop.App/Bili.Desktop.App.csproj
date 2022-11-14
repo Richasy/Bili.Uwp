@@ -29,11 +29,19 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|arm64'">
     <DefineConstants>DISABLE_XAML_GENERATED_MAIN</DefineConstants>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Controls\Common\SettingsCard\SettingsCardAutomationPeer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Controls\Common\SettingsCard\SettingsCard.xaml" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.WinUI.UI.Animations" Version="7.1.2" />
     <PackageReference Include="CommunityToolkit.WinUI.UI.Behaviors" Version="7.1.2" />
     <PackageReference Include="CommunityToolkit.WinUI.UI.Controls" Version="7.1.2" />
+    <PackageReference Include="FluentIcons.Common" Version="1.1.187" />
+    <PackageReference Include="Microsoft.Graphics.Win2D" Version="1.0.4" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.2.221109.1" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.755" />
     <Manifest Include="$(ApplicationManifest)" />
@@ -48,5 +56,19 @@
     <ProjectReference Include="..\..\Models\Models.Enums\Models.Enums.csproj" />
     <ProjectReference Include="..\..\Utilities\Toolkit\Toolkit.Interfaces\Toolkit.Interfaces.csproj" />
     <ProjectReference Include="..\..\ViewModels\ViewModels.Interfaces\ViewModels.Interfaces.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Controls\Common\SettingsCard\SettingsCard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controls\Common\SettingsExpander\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Include="Controls\Common\SettingsCard\SettingsCardAutomationPeer.cs" />
   </ItemGroup>
 </Project>

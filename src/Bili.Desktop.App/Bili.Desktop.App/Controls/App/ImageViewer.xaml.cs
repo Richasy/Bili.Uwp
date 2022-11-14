@@ -10,15 +10,15 @@ using System.Threading.Tasks;
 using Bili.DI.Container;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Xaml.Media.Imaging;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.Storage.Streams;
 using Windows.System.UserProfile;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace Bili.Desktop.App.Controls
 {

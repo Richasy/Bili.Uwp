@@ -157,10 +157,7 @@ namespace Bili.Desktop.App.Controls
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
         {
-            if (_timer != null)
-            {
-                _timer.Stop();
-            }
+            _timer?.Stop();
 
             _isHolding = false;
             UnregisterPropertyChangedCallback(IsPressedProperty, _pressedToken);

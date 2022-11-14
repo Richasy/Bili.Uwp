@@ -2,14 +2,12 @@
     x:Class="Bili.Desktop.App.Controls.ImageViewer"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
+    xmlns:animations="using:CommunityToolkit.WinUI.UI.Animations"
     xmlns:appearance="using:Bili.Models.Data.Appearance"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:icon="using:Richasy.FluentIcon.Uwp"
     xmlns:loc="using:Bili.Desktop.App.Resources.Extension"
     xmlns:local="using:Bili.Desktop.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -101,7 +99,7 @@
                     Label="{loc:Locale Name=ZoomIn}"
                     ToolTipService.ToolTip="{loc:Locale Name=ZoomIn}">
                     <AppBarButton.Icon>
-                        <icon:RegularFluentIcon Symbol="ZoomIn20" />
+                        <local:FluentIcon Symbol="ZoomIn" />
                     </AppBarButton.Icon>
                 </AppBarButton>
                 <AppBarElementContainer Padding="12,0" VerticalAlignment="Center">
@@ -117,7 +115,7 @@
                     Label="{loc:Locale Name=ZoomOut}"
                     ToolTipService.ToolTip="{loc:Locale Name=ZoomOut}">
                     <AppBarButton.Icon>
-                        <icon:RegularFluentIcon Symbol="ZoomOut20" />
+                        <local:FluentIcon Symbol="ZoomOut" />
                     </AppBarButton.Icon>
                 </AppBarButton>
                 <AppBarButton
@@ -127,7 +125,7 @@
                     Label="{loc:Locale Name=Rotate}"
                     ToolTipService.ToolTip="{loc:Locale Name=Rotate}">
                     <AppBarButton.Icon>
-                        <icon:RegularFluentIcon Symbol="RotateRight20" />
+                        <local:FluentIcon Symbol="RotateRight" />
                     </AppBarButton.Icon>
                     <AppBarButton.KeyboardAccelerators>
                         <KeyboardAccelerator
@@ -143,7 +141,7 @@
                     Label="{loc:Locale Name=CopyToClipboard}"
                     ToolTipService.ToolTip="{loc:Locale Name=CopyToClipboard}">
                     <AppBarButton.Icon>
-                        <icon:RegularFluentIcon Symbol="Copy20" />
+                        <local:FluentIcon Symbol="Copy" />
                     </AppBarButton.Icon>
                     <AppBarButton.KeyboardAccelerators>
                         <KeyboardAccelerator Key="C" Modifiers="Control" />
@@ -155,7 +153,7 @@
                     Label="{loc:Locale Name=SaveTo}"
                     ToolTipService.ToolTip="{loc:Locale Name=SaveTo}">
                     <AppBarButton.Icon>
-                        <icon:RegularFluentIcon Symbol="Save20" />
+                        <local:FluentIcon Symbol="Save" />
                     </AppBarButton.Icon>
                     <AppBarButton.KeyboardAccelerators>
                         <KeyboardAccelerator Key="S" Modifiers="Control" />
@@ -165,7 +163,7 @@
                 <CommandBar.SecondaryCommands>
                     <AppBarButton Click="OnShareButtonClick" Label="{loc:Locale Name=Share}">
                         <AppBarButton.Icon>
-                            <icon:RegularFluentIcon Symbol="Share20" />
+                            <local:FluentIcon Symbol="Share" />
                         </AppBarButton.Icon>
                     </AppBarButton>
                     <AppBarButton Label="{loc:Locale Name=SettingTo}">
@@ -173,18 +171,18 @@
                             <MenuFlyout>
                                 <MenuFlyoutItem Click="OnSettingToBackgroundClickAsync" Text="{loc:Locale Name=SettingToBackground}">
                                     <MenuFlyoutItem.Icon>
-                                        <icon:RegularFluentIcon Symbol="VideoBackgroundEffect20" />
+                                        <local:FluentIcon Symbol="VideoBackgroundEffect" />
                                     </MenuFlyoutItem.Icon>
                                 </MenuFlyoutItem>
                                 <MenuFlyoutItem Click="OnSettingToLockScreenClickAsync" Text="{loc:Locale Name=SettingToLockScreen}">
                                     <MenuFlyoutItem.Icon>
-                                        <icon:RegularFluentIcon Symbol="LockClosed20" />
+                                        <local:FluentIcon Symbol="LockClosed" />
                                     </MenuFlyoutItem.Icon>
                                 </MenuFlyoutItem>
                             </MenuFlyout>
                         </AppBarButton.Flyout>
                         <AppBarButton.Icon>
-                            <icon:RegularFluentIcon Symbol="ImageArrowForward24" />
+                            <local:FluentIcon Symbol="ImageArrowForward" />
                         </AppBarButton.Icon>
                     </AppBarButton>
                 </CommandBar.SecondaryCommands>
@@ -199,7 +197,7 @@
             HorizontalAlignment="Right"
             VerticalAlignment="Top"
             Click="OnCloseButtonClick">
-            <icon:RegularFluentIcon Symbol="Dismiss20" />
+            <local:FluentIcon Symbol="Dismiss" />
             <Button.KeyboardAccelerators>
                 <KeyboardAccelerator Key="Escape" IsEnabled="True" />
             </Button.KeyboardAccelerators>
@@ -219,10 +217,7 @@
                 VerticalScrollMode="Disabled">
                 <ItemsRepeater x:Name="ImageRepeater" ItemsSource="{x:Bind Images}">
                     <ItemsRepeater.Layout>
-                        <StackLayout
-                            DisableVirtualization="True"
-                            Orientation="Horizontal"
-                            Spacing="4" />
+                        <StackLayout Orientation="Horizontal" Spacing="4" />
                     </ItemsRepeater.Layout>
                     <ItemsRepeater.ItemTemplate>
                         <DataTemplate x:DataType="appearance:Image">

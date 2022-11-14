@@ -1,8 +1,7 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Bili.Desktop.App.Controls"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
+    xmlns:local="using:Bili.Desktop.App.Controls">
     <Style BasedOn="{StaticResource DefaultProgressButtonStyle}" TargetType="local:ProgressButton" />
 
     <Style x:Key="DefaultProgressButtonStyle" TargetType="local:ProgressButton">

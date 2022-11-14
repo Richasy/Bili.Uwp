@@ -166,5 +166,13 @@ namespace Bili.Toolkit.Uwp
         /// <inheritdoc/>
         public void ResizeAndCenterWindow(double width, double height, IntPtr windowHandle)
             => throw new NotSupportedException("不支持 UWP 调用此方法");
+
+        /// <inheritdoc/>
+        public int GetScalePixel(double pixel, IntPtr windowHandle)
+            => throw new NotSupportedException("不支持 UWP 调用此方法");
+
+        /// <inheritdoc/>
+        public System.Drawing.Size GetMonitorSize(IntPtr windowHandle)
+            => throw new NotSupportedException("不支持 UWP 调用此方法");
     }
 }

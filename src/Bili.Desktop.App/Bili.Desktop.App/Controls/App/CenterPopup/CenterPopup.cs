@@ -4,6 +4,7 @@ using System;
 using Bili.Desktop.App.Pages.Desktop;
 using Bili.DI.Container;
 using Bili.ViewModels.Interfaces.Core;
+using Microsoft.UI.Input;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
@@ -45,7 +46,7 @@ namespace Bili.Desktop.App.Controls
         /// <inheritdoc/>
         protected override void OnPointerReleased(PointerRoutedEventArgs e)
         {
-            if (e.GetCurrentPoint(this).Properties.PointerUpdateKind == Windows.UI.Input.PointerUpdateKind.XButton1Released)
+            if (e.GetCurrentPoint(this).Properties.PointerUpdateKind == PointerUpdateKind.XButton1Released)
             {
                 e.Handled = true;
                 Hide();

@@ -6,7 +6,6 @@
     xmlns:behaviors="using:Bili.Desktop.App.Behaviors"
     xmlns:controls="using:Bili.Desktop.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:icons="using:Richasy.FluentIcon.Uwp"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:loc="using:Bili.Desktop.App.Resources.Extension"
     xmlns:local="using:Bili.Desktop.App.Pages.Desktop.Overlay"
@@ -65,14 +64,14 @@
                                 VerticalAlignment="Center"
                                 Command="{x:Bind ViewModel.ReloadCommand}"
                                 IsEnabled="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource ObjectToBoolReverseConverter}}">
-                                <controls:IconTextBlock Symbol="ArrowSync16" Text="{loc:Locale Name=Refresh}" />
+                                <controls:IconTextBlock Symbol="ArrowSync" Text="{loc:Locale Name=Refresh}" />
                             </Button>
                             <Button
                                 x:Name="PlayAllButton"
                                 Style="{StaticResource AccentButtonStyle}"
                                 VerticalAlignment="Center"
                                 Command="{x:Bind ViewModel.PlayAllCommand}">
-                                <controls:IconTextBlock Symbol="Play16" Text="{loc:Locale Name=PlayAll}" />
+                                <controls:IconTextBlock Symbol="Play" Text="{loc:Locale Name=PlayAll}" />
                             </Button>
                             <Button
                                 x:Name="ClearButton"
@@ -81,7 +80,7 @@
                                 IsEnabled="{x:Bind ViewModel.IsClearing, Mode=OneWay, Converter={StaticResource ObjectToBoolReverseConverter}}">
                                 <controls:IconTextBlock
                                     Foreground="{ThemeResource SystemFillColorCriticalBrush}"
-                                    Symbol="Delete16"
+                                    Symbol="Delete"
                                     Text="{loc:Locale Name=ClearViewLater}" />
                             </Button>
                         </StackPanel>
@@ -96,7 +95,7 @@
                                             Command="{x:Bind RemoveFromViewLaterCommand}"
                                             Text="{loc:Locale Name=Remove}">
                                             <MenuFlyoutItem.Icon>
-                                                <icons:RegularFluentIcon Foreground="{ThemeResource SystemFillColorCriticalBrush}" Symbol="Delete20" />
+                                                <controls:FluentIcon Foreground="{ThemeResource SystemFillColorCriticalBrush}" Symbol="Delete" />
                                             </MenuFlyoutItem.Icon>
                                         </MenuFlyoutItem>
                                     </MenuFlyout>

@@ -7,10 +7,9 @@ using Bili.Models.App.Constants;
 using Bili.Models.Data.Local;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Article;
+using Microsoft.UI.Xaml;
 using Newtonsoft.Json;
 using Windows.System;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Input;
 
 namespace Bili.Desktop.App.Controls.Article
 {
@@ -89,9 +88,6 @@ namespace Bili.Desktop.App.Controls.Article
         }
 
         private void OnClosed(object sender, EventArgs e) => ReaderWebView.NavigateToString(string.Empty);
-
-        private async void OnDOMContentLoadedAsync(Microsoft.UI.Xaml.Controls.WebView sender, Microsoft.UI.Xaml.Controls.WebViewDOMContentLoadedEventArgs args)
-            => await FocusManager.TryFocusAsync(sender, FocusState.Programmatic);
 
         private async void OnWebMessageReceivedAsync(Microsoft.UI.Xaml.Controls.WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2WebMessageReceivedEventArgs args)
         {

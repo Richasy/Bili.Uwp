@@ -1,39 +1,28 @@
-// Copyright (c) Microsoft Corporation and Contributors.
-// Licensed under the MIT License.
+﻿// Copyright (c) Richasy. All rights reserved.
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
+using Bili.Desktop.App.Pages.Desktop;
+using Bili.Models.App.Constants;
 using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
 
 namespace Bili.Desktop.App
 {
     /// <summary>
-    /// An empty window that can be used on its own or navigated to within a Frame.
+    /// 主窗口.
     /// </summary>
-    public sealed partial class MainWindow : Window
+    public sealed partial class MainWindow : WindowBase
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainWindow"/> class.
+        /// </summary>
         public MainWindow()
         {
-            this.InitializeComponent();
+            SetMinWindowSize(AppConstants.AppMinWidth, AppConstants.AppMinHeight);
+            InitializeComponent();
+            AppFrame.Navigate(typeof(RootPage));
+            AppFrame.Loaded += OnFrameLoaded;
         }
 
-        private void myButton_Click(object sender, RoutedEventArgs e)
-        {
-            myButton.Content = "Clicked";
-        }
+        private void OnFrameLoaded(object sender, RoutedEventArgs e)
+            => AttachThemeChangedCallback();
     }
 }

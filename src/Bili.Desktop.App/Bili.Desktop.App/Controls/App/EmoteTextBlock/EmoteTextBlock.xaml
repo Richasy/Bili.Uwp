@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:icons="using:Richasy.FluentIcon.Uwp"
+    xmlns:controls="using:Bili.Desktop.App.Controls"
     xmlns:local="using:Bili.Desktop.App.Controls.App">
     <Style TargetType="local:EmoteTextBlock">
         <Setter Property="Template">
@@ -29,7 +29,7 @@
                             Padding="2"
                             BorderThickness="0"
                             Visibility="Collapsed">
-                            <icons:RegularFluentIcon FontSize="12" Symbol="MoreHorizontal16" />
+                            <controls:FluentIcon FontSize="12" Symbol="MoreHorizontal" />
                             <Button.Flyout>
                                 <Flyout>
                                     <RichTextBlock

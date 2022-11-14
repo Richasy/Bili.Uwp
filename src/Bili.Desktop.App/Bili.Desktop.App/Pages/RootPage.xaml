@@ -6,8 +6,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Bili.Desktop.App.Pages.Desktop"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    BackdropMaterial.ApplyToRootOrPageBackground="True"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource TransparentBackground}">

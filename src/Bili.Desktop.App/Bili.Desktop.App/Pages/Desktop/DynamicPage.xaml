@@ -8,7 +8,6 @@
     xmlns:dynamic="using:Bili.Desktop.App.Controls.Dynamic"
     xmlns:loc="using:Bili.Desktop.App.Resources.Extension"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:other="using:Bili.Models.App.Other"
     mc:Ignorable="d">
 

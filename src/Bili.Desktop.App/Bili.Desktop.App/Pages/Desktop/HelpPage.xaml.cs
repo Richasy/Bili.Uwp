@@ -6,9 +6,9 @@ using Bili.Models.App.Constants;
 using Bili.Models.Data.Local;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Home;
-using Windows.System;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Windows.System;
 
 namespace Bili.Desktop.App.Pages.Desktop
 {

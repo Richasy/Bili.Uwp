@@ -20,6 +20,7 @@
     <ProjectReference Include="..\..\Models\Models.Data\Models.Data.csproj" />
     <ProjectReference Include="..\..\Models\Models.Enums\Models.Enums.csproj" />
     <ProjectReference Include="..\..\Models\Models.gRPC\Models.gRPC.csproj" />
+    <ProjectReference Include="..\..\Utilities\Toolkit\Toolkit.Interfaces\Toolkit.Interfaces.csproj" />
     <ProjectReference Include="..\Lib.Interfaces\Lib.Interfaces.csproj" />
   </ItemGroup>
 

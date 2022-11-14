@@ -3,9 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Bili.Desktop.App.Controls"
     xmlns:loc="using:Bili.Desktop.App.Resources.Extension"
-    xmlns:local="using:Bili.Desktop.App.Controls.Player"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:uwp="using:Richasy.FluentIcon.Uwp">
+    xmlns:local="using:Bili.Desktop.App.Controls.Player">
     <Style x:Key="DefaultPlayerPagePanelStyle" TargetType="local:PlayerPagePanel">
         <Setter Property="Template">
             <Setter.Value>
@@ -125,12 +123,12 @@
                                     Height="40"
                                     CornerRadius="20"
                                     Visibility="Collapsed">
-                                    <uwp:RegularFluentIcon
+                                    <controls:FluentIcon
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         FontSize="16"
                                         Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
-                                        Symbol="PanelRightExpand20" />
+                                        Symbol="PanelRightExpand" />
                                 </Button>
                             </Grid>
                         </Grid>
@@ -220,7 +218,7 @@
                                     Grid.Column="2"
                                     VerticalAlignment="Center"
                                     Description="{loc:Locale Name=Sections}">
-                                    <uwp:RegularFluentIcon Symbol="PanelRightExpand20" />
+                                    <controls:FluentIcon Symbol="PanelRightExpand" />
                                 </controls:ProgressButton>
                             </Grid>
                         </Grid>

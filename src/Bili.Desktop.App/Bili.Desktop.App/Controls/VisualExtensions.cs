@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Windows.UI.Composition;
+using Microsoft.UI.Composition;
 
 namespace Bili.Desktop.App.Controls
 {

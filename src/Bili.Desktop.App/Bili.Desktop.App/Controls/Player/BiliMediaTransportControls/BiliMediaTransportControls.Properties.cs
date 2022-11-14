@@ -27,6 +27,6 @@ namespace Bili.Desktop.App.Controls.Player
         /// <summary>
         /// 弹幕输入框是否获得了焦点.
         /// </summary>
-        public bool IsDanmakuBoxFocused => _danmakuBox?.IsInputFocused ?? false;
+        public bool IsDanmakuBoxFocused => false;
     }
 }

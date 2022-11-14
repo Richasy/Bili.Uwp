@@ -2,13 +2,12 @@
     x:Class="Bili.Desktop.App.Controls.Player.LiveMessageView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Bili.Desktop.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:live="using:Bili.Models.Data.Live"
     xmlns:loc="using:Bili.Desktop.App.Resources.Extension"
     xmlns:local="using:Bili.Desktop.App.Controls.Player"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:uwp="using:Richasy.FluentIcon.Uwp"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -80,11 +79,11 @@
                     VerticalAlignment="Center"
                     Spacing="8"
                     Visibility="{x:Bind ViewModel.IsDanmakusEmpty, Mode=OneWay}">
-                    <uwp:RegularFluentIcon
+                    <controls:FluentIcon
                         HorizontalAlignment="Center"
                         FontSize="32"
                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                        Symbol="Chat48" />
+                        Symbol="Chat" />
                     <TextBlock
                         HorizontalAlignment="Center"
                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"

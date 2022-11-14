@@ -4,7 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:behaviors="using:Bili.Desktop.App.Behaviors"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:icons="using:Richasy.FluentIcon.Uwp"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:loc="using:Bili.Desktop.App.Resources.Extension"
     xmlns:local="using:Bili.Desktop.App.Controls"
@@ -130,7 +129,7 @@
             IsTabStop="True"
             TabIndex="1"
             ToolTipService.ToolTip="{loc:Locale Name=HotSearch}">
-            <icons:RegularFluentIcon FontSize="12" Symbol="Reward24" />
+            <local:FluentIcon FontSize="12" Symbol="Reward" />
         </Button>
     </Grid>
 </local:SearchSuggestBoxBase>

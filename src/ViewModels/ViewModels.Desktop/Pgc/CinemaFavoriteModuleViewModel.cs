@@ -4,7 +4,6 @@ using Bili.Lib.Interfaces;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Desktop.Base;
 using Bili.ViewModels.Interfaces.Pgc;
-using Microsoft.UI.Dispatching;
 
 namespace Bili.ViewModels.Desktop.Pgc
 {

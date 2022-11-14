@@ -9,7 +9,6 @@
     xmlns:favorite="using:Bili.Desktop.App.Controls.Favorite"
     xmlns:loc="using:Bili.Desktop.App.Resources.Extension"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:other="using:Bili.Models.App.Other"
     mc:Ignorable="d">
 
@@ -41,7 +40,7 @@
             </NavigationView.MenuItemTemplate>
             <NavigationView.PaneFooter>
                 <Button x:Name="RefreshButton" Click="OnRefreshButtonClickAsync">
-                    <controls:IconTextBlock Symbol="ArrowRepeatAll16" Text="{loc:Locale Name=RefreshCurrentSection}" />
+                    <controls:IconTextBlock Symbol="ArrowRepeatAll" Text="{loc:Locale Name=RefreshCurrentSection}" />
                 </Button>
             </NavigationView.PaneFooter>
         </NavigationView>

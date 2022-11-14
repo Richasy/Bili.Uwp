@@ -3,9 +3,9 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Windows.Foundation;
-using Microsoft.UI.Xaml;
 
 namespace Bili.Desktop.App.Controls
 {

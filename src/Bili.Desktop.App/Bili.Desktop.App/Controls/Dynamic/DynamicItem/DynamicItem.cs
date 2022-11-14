@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using Bili.ViewModels.Interfaces.Community;
-using Windows.Foundation;
 using Microsoft.UI.Xaml.Controls;
+using Windows.Foundation;
 
 namespace Bili.Desktop.App.Controls.Dynamic
 {

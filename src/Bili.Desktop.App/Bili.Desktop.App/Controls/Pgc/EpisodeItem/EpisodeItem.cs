@@ -3,9 +3,9 @@
 using Bili.DI.Container;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Pgc;
-using Windows.Foundation;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Windows.Foundation;
 
 namespace Bili.Desktop.App.Controls.Pgc
 {

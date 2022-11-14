@@ -4,9 +4,11 @@ using System;
 using System.Numerics;
 using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.UI.Composition;
+using Microsoft.Graphics.DirectX;
+using Microsoft.UI;
+using Microsoft.UI.Composition;
 using Windows.Foundation;
 using Windows.UI;
-using Windows.UI.Composition;
 
 namespace Bili.Desktop.App.Controls
 {
@@ -93,7 +95,7 @@ namespace Bili.Desktop.App.Controls
         /// </summary>
         ~Bubble()
         {
-            Dispose(false);
+            Disposing(false);
         }
 
         /// <summary>
@@ -118,11 +120,11 @@ namespace Bili.Desktop.App.Controls
         }
 
         /// <inheritdoc/>
-        public void Dispose() => Dispose(true);
+        public void Dispose() => Disposing(true);
 
         private void Draw(bool isFill, Color color)
         {
-            _surface = _graphicsDevice.CreateDrawingSurface(_size.ToSize(), Windows.Graphics.DirectX.DirectXPixelFormat.B8G8R8A8UIntNormalized, Windows.Graphics.DirectX.DirectXAlphaMode.Premultiplied);
+            _surface = _graphicsDevice.CreateDrawingSurface(_size.ToSize(), DirectXPixelFormat.B8G8R8A8UIntNormalized, DirectXAlphaMode.Premultiplied);
             using (var dc = CanvasComposition.CreateDrawingSession(_surface))
             {
                 dc.Clear(Colors.Transparent);
@@ -180,7 +182,7 @@ namespace Bili.Desktop.App.Controls
             _animations.Add(offsetan);
         }
 
-        private void Dispose(bool isDisposing)
+        private void Disposing(bool isDisposing)
         {
             _visual?.Dispose();
             _visual = null;

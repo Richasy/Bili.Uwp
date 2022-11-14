@@ -15,7 +15,7 @@ namespace Bili.Desktop.App.Resources.Converter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            if(value is PreferQuality quality)
+            if (value is PreferQuality quality)
             {
                 var resToolkit = Locator.Instance.GetService<IResourceToolkit>();
                 return quality switch

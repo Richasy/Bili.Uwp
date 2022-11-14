@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using System.IO;
 using System.Text;
 using Bili.DI.Container;
 using Bili.Toolkit.Interfaces;

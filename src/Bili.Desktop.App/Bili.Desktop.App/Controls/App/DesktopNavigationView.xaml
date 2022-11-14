@@ -6,11 +6,8 @@
     xmlns:controls="using:Bili.Desktop.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:ext="using:Bili.Desktop.App.Resources.Extension"
-    xmlns:icons="using:Richasy.FluentIcon.Uwp"
-    xmlns:loc="using:Bili.Desktop.App.Resources.Extension"
     xmlns:local="using:Bili.Models.Data.Local"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -52,68 +49,68 @@
             IsPaneOpen="{x:Bind AppViewModel.IsNavigatePaneOpen, Mode=TwoWay}"
             ItemInvoked="OnRootNavViewItemInvoked">
             <NavigationView.MenuItems>
-                <NavigationViewItemHeader Content="{loc:Locale Name=Navigation}" />
-                <NavigationViewItem ext:NavigationExtension.PageId="Recommend" Content="{loc:Locale Name=Recommend}">
+                <NavigationViewItemHeader Content="{ext:Locale Name=Navigation}" />
+                <NavigationViewItem ext:NavigationExtension.PageId="Recommend" Content="{ext:Locale Name=Recommend}">
                     <NavigationViewItem.Icon>
-                        <icons:RegularFluentIcon Symbol="Home16" />
+                        <controls:FluentIcon Symbol="Home" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem ext:NavigationExtension.PageId="Popular" Content="{loc:Locale Name=Popular}">
+                <NavigationViewItem ext:NavigationExtension.PageId="Popular" Content="{ext:Locale Name=Popular}">
                     <NavigationViewItem.Icon>
-                        <icons:RegularFluentIcon Symbol="Rocket16" />
+                        <controls:FluentIcon Symbol="Rocket" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem ext:NavigationExtension.PageId="Rank" Content="{loc:Locale Name=Rank}">
+                <NavigationViewItem ext:NavigationExtension.PageId="Rank" Content="{ext:Locale Name=Rank}">
                     <NavigationViewItem.Icon>
-                        <icons:RegularFluentIcon Symbol="Trophy16" />
+                        <controls:FluentIcon Symbol="Trophy" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem ext:NavigationExtension.PageId="VideoPartition" Content="{loc:Locale Name=Partition}">
+                <NavigationViewItem ext:NavigationExtension.PageId="VideoPartition" Content="{ext:Locale Name=Partition}">
                     <NavigationViewItem.Icon>
-                        <icons:RegularFluentIcon Symbol="Apps16" />
+                        <controls:FluentIcon Symbol="Apps" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem ext:NavigationExtension.PageId="Live" Content="{loc:Locale Name=Live}">
+                <NavigationViewItem ext:NavigationExtension.PageId="Live" Content="{ext:Locale Name=Live}">
                     <NavigationViewItem.Icon>
-                        <icons:RegularFluentIcon Symbol="Video16" />
+                        <controls:FluentIcon Symbol="Video" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem ext:NavigationExtension.PageId="Dynamic" Content="{loc:Locale Name=DynamicFeed}">
+                <NavigationViewItem ext:NavigationExtension.PageId="Dynamic" Content="{ext:Locale Name=DynamicFeed}">
                     <NavigationViewItem.Icon>
-                        <icons:RegularFluentIcon Symbol="DesignIdeas16" />
+                        <controls:FluentIcon Symbol="DesignIdeas" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
                 <NavigationViewItemSeparator />
 
-                <NavigationViewItemHeader Content="{loc:Locale Name=Topic}" />
-                <NavigationViewItem ext:NavigationExtension.PageId="Bangumi" Content="{loc:Locale Name=Bangumi}">
+                <NavigationViewItemHeader Content="{ext:Locale Name=Topic}" />
+                <NavigationViewItem ext:NavigationExtension.PageId="Bangumi" Content="{ext:Locale Name=Bangumi}">
                     <NavigationViewItem.Icon>
-                        <icons:RegularFluentIcon Symbol="Cookies20" />
+                        <controls:FluentIcon Symbol="Cookies" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem ext:NavigationExtension.PageId="DomesticAnime" Content="{loc:Locale Name=DomesticAnime}">
+                <NavigationViewItem ext:NavigationExtension.PageId="DomesticAnime" Content="{ext:Locale Name=DomesticAnime}">
                     <NavigationViewItem.Icon>
-                        <icons:RegularFluentIcon Symbol="FastAcceleration24" />
+                        <controls:FluentIcon Symbol="FastAcceleration" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem ext:NavigationExtension.PageId="SpecialColumn" Content="{loc:Locale Name=SpecialColumn}">
+                <NavigationViewItem ext:NavigationExtension.PageId="SpecialColumn" Content="{ext:Locale Name=SpecialColumn}">
                     <NavigationViewItem.Icon>
-                        <icons:RegularFluentIcon Symbol="DocumentBriefcase20" />
+                        <controls:FluentIcon Symbol="DocumentBriefcase" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem ext:NavigationExtension.PageId="Documentary" Content="{loc:Locale Name=Documentary}">
+                <NavigationViewItem ext:NavigationExtension.PageId="Documentary" Content="{ext:Locale Name=Documentary}">
                     <NavigationViewItem.Icon>
-                        <icons:RegularFluentIcon Symbol="LeafTwo16" />
+                        <controls:FluentIcon Symbol="LeafTwo" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem ext:NavigationExtension.PageId="Movie" Content="{loc:Locale Name=Movie}">
+                <NavigationViewItem ext:NavigationExtension.PageId="Movie" Content="{ext:Locale Name=Movie}">
                     <NavigationViewItem.Icon>
-                        <icons:RegularFluentIcon Symbol="MoviesAndTv16" />
+                        <controls:FluentIcon Symbol="MoviesAndTv" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem ext:NavigationExtension.PageId="TV" Content="{loc:Locale Name=TV}">
+                <NavigationViewItem ext:NavigationExtension.PageId="TV" Content="{ext:Locale Name=TV}">
                     <NavigationViewItem.Icon>
-                        <icons:RegularFluentIcon Symbol="VideoClip20" />
+                        <controls:FluentIcon Symbol="VideoClip" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
             </NavigationView.MenuItems>
@@ -134,7 +131,7 @@
             <NavigationView.PaneCustomContent>
                 <StackPanel Spacing="4">
                     <StackPanel Spacing="4" Visibility="{x:Bind AccountViewModel.IsShowFixedItem, Mode=OneWay}">
-                        <NavigationViewItemHeader Content="{loc:Locale Name=FixedContent}" />
+                        <NavigationViewItemHeader Content="{ext:Locale Name=FixedContent}" />
                         <ItemsRepeater ItemsSource="{x:Bind AccountViewModel.FixedItemCollection}">
                             <ItemsRepeater.Layout>
                                 <StackLayout />
@@ -174,14 +171,14 @@
             </NavigationView.PaneCustomContent>
 
             <NavigationView.FooterMenuItems>
-                <NavigationViewItem ext:NavigationExtension.PageId="Toolbox" Content="{loc:Locale Name=Toolbox}">
+                <NavigationViewItem ext:NavigationExtension.PageId="Toolbox" Content="{ext:Locale Name=Toolbox}">
                     <NavigationViewItem.Icon>
-                        <icons:RegularFluentIcon Symbol="Toolbox24" />
+                        <controls:FluentIcon Symbol="Toolbox" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem ext:NavigationExtension.PageId="Help" Content="{loc:Locale Name=HelpAndSupport}">
+                <NavigationViewItem ext:NavigationExtension.PageId="Help" Content="{ext:Locale Name=HelpAndSupport}">
                     <NavigationViewItem.Icon>
-                        <icons:RegularFluentIcon Symbol="BookQuestionMark24" />
+                        <controls:FluentIcon Symbol="BookQuestionMark" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
             </NavigationView.FooterMenuItems>

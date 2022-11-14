@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Bili.Desktop.App.Controls.Danmaku;
 using Microsoft.UI.Xaml.Controls;
 
 namespace Bili.Desktop.App.Controls.Player
@@ -19,7 +18,6 @@ namespace Bili.Desktop.App.Controls.Player
         private Slider _volumeSlider;
         private ListView _formatListView;
         private Button _playPauseButton;
-        private DanmakuBox _danmakuBox;
         private Grid _rootGrid;
     }
 }

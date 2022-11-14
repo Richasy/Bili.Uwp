@@ -1,7 +1,6 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:icons="using:Richasy.FluentIcon.Uwp"
     xmlns:local="using:Bili.Desktop.App.Controls">
     <Style TargetType="local:IconTextBlock">
         <Setter Property="Template">
@@ -16,7 +15,7 @@
                             Width="{TemplateBinding IconFontSize}"
                             Height="{TemplateBinding IconFontSize}"
                             VerticalAlignment="Center">
-                            <icons:RegularFluentIcon Symbol="{TemplateBinding Symbol}" />
+                            <local:FluentIcon Symbol="{TemplateBinding Symbol}" />
                         </Viewbox>
                         <TextBlock
                             x:Name="ContentBlock"

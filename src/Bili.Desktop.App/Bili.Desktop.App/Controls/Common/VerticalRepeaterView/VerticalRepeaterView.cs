@@ -4,7 +4,6 @@ using System;
 using System.Collections;
 using System.Threading.Tasks;
 using Bili.Desktop.App.Resources.Extension;
-using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;

@@ -6,7 +6,6 @@
     xmlns:controls="using:Bili.Desktop.App.Controls"
     xmlns:converter="using:Bili.Desktop.App.Resources.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:icons="using:Richasy.FluentIcon.Uwp"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:loc="using:Bili.Desktop.App.Resources.Extension"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -49,7 +48,7 @@
 
         <ComboBox
             x:Name="StatusComboBox"
-            MinWidth="120"
+            MinWidth="1"
             Margin="{x:Bind CoreViewModel.PageHorizontalPadding, Converter={StaticResource HorizontalThicknessConverter}, Mode=OneWay}"
             HorizontalAlignment="Left"
             ItemsSource="{x:Bind ViewModel.StatusCollection}"
@@ -93,7 +92,7 @@
                                         Tag="1"
                                         Text="{loc:Locale Name=MarkWantWatch}">
                                         <MenuFlyoutItem.Icon>
-                                            <icons:RegularFluentIcon Symbol="Thinking20" />
+                                            <controls:FluentIcon Symbol="Thinking" />
                                         </MenuFlyoutItem.Icon>
                                     </MenuFlyoutItem>
                                     <MenuFlyoutItem
@@ -102,7 +101,7 @@
                                         Tag="2"
                                         Text="{loc:Locale Name=MarkWatching}">
                                         <MenuFlyoutItem.Icon>
-                                            <icons:RegularFluentIcon Symbol="EyeTrackingOn20" />
+                                            <controls:FluentIcon Symbol="EyeTracking" />
                                         </MenuFlyoutItem.Icon>
                                     </MenuFlyoutItem>
                                     <MenuFlyoutItem
@@ -111,12 +110,12 @@
                                         Tag="3"
                                         Text="{loc:Locale Name=MarkWatched}">
                                         <MenuFlyoutItem.Icon>
-                                            <icons:RegularFluentIcon Symbol="Folder16" />
+                                            <controls:FluentIcon Symbol="Folder" />
                                         </MenuFlyoutItem.Icon>
                                     </MenuFlyoutItem>
                                     <MenuFlyoutItem Command="{x:Bind UnfollowCommand}" Text="{loc:Locale Name=UnFavorite}">
                                         <MenuFlyoutItem.Icon>
-                                            <icons:RegularFluentIcon Symbol="StarOff16" />
+                                            <controls:FluentIcon Symbol="StarOff" />
                                         </MenuFlyoutItem.Icon>
                                     </MenuFlyoutItem>
                                 </MenuFlyout>

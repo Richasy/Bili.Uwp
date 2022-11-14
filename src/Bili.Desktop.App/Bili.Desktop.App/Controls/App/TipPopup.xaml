@@ -2,12 +2,10 @@
     x:Class="Bili.Desktop.App.Controls.TipPopup"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:animations="using:Microsoft.Toolkit.Uwp.UI.Animations"
+    xmlns:animations="using:CommunityToolkit.WinUI.UI.Animations"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:icons="using:Richasy.FluentIcon.Uwp"
     xmlns:local="using:Bili.Desktop.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -47,29 +45,29 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid Margin="0,4,0,0" VerticalAlignment="Center">
-                <icons:RegularFluentIcon
+                <local:FluentIcon
                     x:Name="InformationIcon"
                     FontSize="14"
                     Foreground="{ThemeResource InfoBarInformationalSeverityIconBackground}"
-                    Symbol="Info16"
+                    Symbol="Info"
                     Visibility="Collapsed" />
-                <icons:RegularFluentIcon
+                <local:FluentIcon
                     x:Name="WarningIcon"
                     FontSize="14"
                     Foreground="{ThemeResource InfoBarWarningSeverityIconBackground}"
-                    Symbol="Warning16"
+                    Symbol="Warning"
                     Visibility="Collapsed" />
-                <icons:RegularFluentIcon
+                <local:FluentIcon
                     x:Name="SuccessIcon"
                     FontSize="14"
                     Foreground="{ThemeResource InfoBarSuccessSeverityIconBackground}"
-                    Symbol="CheckmarkCircle20"
+                    Symbol="CheckmarkCircle"
                     Visibility="Collapsed" />
-                <icons:RegularFluentIcon
+                <local:FluentIcon
                     x:Name="ErrorIcon"
                     FontSize="14"
                     Foreground="{ThemeResource InfoBarErrorSeverityIconBackground}"
-                    Symbol="DismissCircle16"
+                    Symbol="DismissCircle"
                     Visibility="Collapsed" />
             </Grid>
             <TextBlock

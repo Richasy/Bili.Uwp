@@ -6,54 +6,50 @@
     xmlns:behaviors="using:Bili.Desktop.App.Behaviors"
     xmlns:controls="using:Bili.Desktop.App.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:exp="using:Richasy.ExpanderEx.Uwp"
-    xmlns:icons="using:Richasy.FluentIcon.Uwp"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:labs="using:CommunityToolkit.Labs.WinUI"
     xmlns:loc="using:Bili.Desktop.App.Resources.Extension"
     xmlns:local="using:Bili.Desktop.App.Pages.Desktop.Overlay"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:pgc="using:Bili.Models.Data.Pgc"
     xmlns:pgc1="using:Bili.Desktop.App.Controls.Pgc"
     mc:Ignorable="d">
     <Page.Resources>
         <DataTemplate x:Key="TimlineTemplate" x:DataType="pgc:TimelineInformation">
-            <exp:ExpanderEx IsExpanded="{x:Bind IsToday}">
-                <exp:ExpanderEx.Header>
-                    <exp:ExpanderExDescriptor
-                        Title="{x:Bind DayOfWeek}"
-                        Margin="0,8"
-                        Description="{x:Bind Date}">
-                        <exp:ExpanderExDescriptor.Icon>
-                            <icons:RegularFluentIcon Symbol="CalendarDay16" />
-                        </exp:ExpanderExDescriptor.Icon>
-                    </exp:ExpanderExDescriptor>
-                </exp:ExpanderEx.Header>
-                <exp:ExpanderEx.Content>
-                    <Grid Margin="20,12">
-                        <ItemsRepeater x:Name="Repeater" ItemsSource="{x:Bind Seasons}">
-                            <ItemsRepeater.Layout>
-                                <UniformGridLayout
-                                    ItemsStretch="Fill"
-                                    MinColumnSpacing="12"
-                                    MinItemHeight="160"
-                                    MinItemWidth="300"
-                                    MinRowSpacing="12" />
-                            </ItemsRepeater.Layout>
-                            <ItemsRepeater.ItemTemplate>
-                                <DataTemplate x:DataType="pgc:SeasonInformation">
-                                    <pgc1:SeasonItem Style="{StaticResource SlimSeasonItemStyle}" Information="{x:Bind}" />
-                                </DataTemplate>
-                            </ItemsRepeater.ItemTemplate>
-                        </ItemsRepeater>
-                        <TextBlock
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Text="{loc:Locale Name=TimelineHasNoVideo}"
-                            Visibility="{x:Bind Seasons, Converter={StaticResource ObjectToVisibilityReverseConverter}}" />
-                    </Grid>
-                </exp:ExpanderEx.Content>
-            </exp:ExpanderEx>
+            <labs:SettingsExpander
+                Description="{x:Bind Date}"
+                Header="{x:Bind DayOfWeek}"
+                IsExpanded="{x:Bind IsToday}">
+                <labs:SettingsExpander.HeaderIcon>
+                    <controls:FluentIcon Symbol="CalendarDay" />
+                </labs:SettingsExpander.HeaderIcon>
+                <labs:SettingsExpander.Items>
+                    <labs:SettingsCard>
+                        <Grid>
+                            <ItemsRepeater x:Name="Repeater" ItemsSource="{x:Bind Seasons}">
+                                <ItemsRepeater.Layout>
+                                    <UniformGridLayout
+                                        ItemsStretch="Fill"
+                                        MinColumnSpacing="12"
+                                        MinItemHeight="160"
+                                        MinItemWidth="300"
+                                        MinRowSpacing="12" />
+                                </ItemsRepeater.Layout>
+                                <ItemsRepeater.ItemTemplate>
+                                    <DataTemplate x:DataType="pgc:SeasonInformation">
+                                        <pgc1:SeasonItem Style="{StaticResource SlimSeasonItemStyle}" Information="{x:Bind}" />
+                                    </DataTemplate>
+                                </ItemsRepeater.ItemTemplate>
+                            </ItemsRepeater>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Text="{loc:Locale Name=TimelineHasNoVideo}"
+                                Visibility="{x:Bind Seasons, Converter={StaticResource ObjectToVisibilityReverseConverter}}" />
+                        </Grid>
+                    </labs:SettingsCard>
+                </labs:SettingsExpander.Items>
+            </labs:SettingsExpander>
         </DataTemplate>
     </Page.Resources>
 

@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Drawing;
 
 namespace Bili.Toolkit.Interfaces
 {
@@ -78,5 +79,20 @@ namespace Bili.Toolkit.Interfaces
         /// <param name="height">Window height.</param>
         /// <param name="windowHandle">Window handle.</param>
         void ResizeAndCenterWindow(double width, double height, IntPtr windowHandle);
+
+        /// <summary>
+        /// Get the magnified pixels under the DPI of the current window.
+        /// </summary>
+        /// <param name="pixel">Pixel value.</param>
+        /// <param name="windowHandle">Window handle.</param>
+        /// <returns>Converted value.</returns>
+        int GetScalePixel(double pixel, IntPtr windowHandle);
+
+        /// <summary>
+        /// Get the monitor size on which the app is located.
+        /// </summary>
+        /// <param name="windowHandle">Window handle.</param>
+        /// <returns>Monitor size.</returns>
+        Size GetMonitorSize(IntPtr windowHandle);
     }
 }

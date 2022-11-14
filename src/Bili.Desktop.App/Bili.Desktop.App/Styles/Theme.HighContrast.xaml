@@ -6,4 +6,18 @@
     <SolidColorBrush x:Key="AccentBadgeBackground" Color="{ThemeResource SystemColorWindowColor}" />
     <SolidColorBrush x:Key="ToggleSwitchKnobOffForeground" Color="White" />
     <SolidColorBrush x:Key="TransparentBackground" Color="#01000000" />
+    <StaticResource x:Key="SettingsCardBackground" ResourceKey="SystemColorButtonFaceColorBrush" />
+    <StaticResource x:Key="SettingsCardBackgroundPointerOver" ResourceKey="SystemColorHighlightTextColorBrush" />
+    <StaticResource x:Key="SettingsCardBackgroundPressed" ResourceKey="SystemColorHighlightTextColorBrush" />
+    <StaticResource x:Key="SettingsCardBackgroundDisabled" ResourceKey="SystemControlBackgroundBaseLowBrush" />
+
+    <StaticResource x:Key="SettingsCardForeground" ResourceKey="SystemColorButtonTextColorBrush" />
+    <StaticResource x:Key="SettingsCardForegroundPointerOver" ResourceKey="SystemColorHighlightColorBrush" />
+    <StaticResource x:Key="SettingsCardForegroundPressed" ResourceKey="SystemColorHighlightTextColorBrush" />
+    <StaticResource x:Key="SettingsCardForegroundDisabled" ResourceKey="SystemControlDisabledBaseMediumLowBrush" />
+
+    <StaticResource x:Key="SettingsCardBorderBrush" ResourceKey="SystemColorButtonTextColorBrush" />
+    <StaticResource x:Key="SettingsCardBorderBrushPointerOver" ResourceKey="SystemColorHighlightColorBrush" />
+    <StaticResource x:Key="SettingsCardBorderBrushPressed" ResourceKey="SystemColorHighlightTextColorBrush" />
+    <StaticResource x:Key="SettingsCardBorderBrushDisabled" ResourceKey="SystemControlDisabledTransparentBrush" />
 </ResourceDictionary>

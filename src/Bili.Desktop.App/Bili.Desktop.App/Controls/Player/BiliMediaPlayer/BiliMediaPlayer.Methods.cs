@@ -2,8 +2,8 @@
 
 using System;
 using System.Threading.Tasks;
-using Windows.Foundation;
 using Microsoft.UI.Xaml;
+using Windows.Foundation;
 
 namespace Bili.Desktop.App.Controls.Player
 {

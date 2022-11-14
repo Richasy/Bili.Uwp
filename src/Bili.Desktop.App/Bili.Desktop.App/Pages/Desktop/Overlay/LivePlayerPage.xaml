@@ -76,7 +76,7 @@
                     </TextBlock>
                     <controls:IconTextBlock
                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                        Symbol="EyeShow16"
+                        Symbol="Eye"
                         Text="{x:Bind ViewModel.WatchingCountText, Mode=OneWay}"
                         ToolTipService.ToolTip="{loc:Locale Name=Viewer}"
                         Visibility="{x:Bind ViewModel.WatchingCountText, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}" />
@@ -122,7 +122,7 @@
                                 Command="{x:Bind ViewModel.ShareCommand}">
                                 <controls:IconTextBlock
                                     Foreground="{ThemeResource TextFillColorPrimaryBrush}"
-                                    Symbol="Share16"
+                                    Symbol="Share"
                                     Text="{loc:Locale Name=Share}" />
                             </Button>
                             <Button
@@ -138,7 +138,7 @@
                             Command="{x:Bind ViewModel.OpenInBroswerCommand}">
                             <controls:IconTextBlock
                                 Foreground="{ThemeResource TextFillColorPrimaryBrush}"
-                                Symbol="Globe16"
+                                Symbol="Globe"
                                 Text="{loc:Locale Name=OpenInBroswer}" />
                         </Button>
                     </StackPanel>

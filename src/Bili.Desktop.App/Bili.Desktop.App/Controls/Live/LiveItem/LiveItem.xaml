@@ -2,10 +2,8 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Bili.Desktop.App.Controls"
-    xmlns:icons="using:Richasy.FluentIcon.Uwp"
     xmlns:loc="using:Bili.Desktop.App.Resources.Extension"
-    xmlns:local="using:Bili.Desktop.App.Controls.Live"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls">
+    xmlns:local="using:Bili.Desktop.App.Controls.Live">
     <Style x:Key="VerticalLiveItemStyle" TargetType="local:LiveItem">
         <Setter Property="IsTabStop" Value="False" />
         <Setter Property="Template">
@@ -25,7 +23,7 @@
                                     Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.OpenInBroswerCommand}"
                                     Text="{loc:Locale Name=OpenInBroswer}">
                                     <MenuFlyoutItem.Icon>
-                                        <icons:RegularFluentIcon Symbol="Globe16" />
+                                        <controls:FluentIcon Symbol="Globe" />
                                     </MenuFlyoutItem.Icon>
                                 </MenuFlyoutItem>
                             </MenuFlyout>
@@ -109,7 +107,7 @@
                                     <controls:IconTextBlock
                                         Margin="0,0,12,0"
                                         Opacity="0.6"
-                                        Symbol="People16"
+                                        Symbol="People"
                                         Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ViewerCountText}"
                                         ToolTipService.ToolTip="{loc:Locale Name=Viewer}"
                                         Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ViewerCountText, Converter={StaticResource ObjectToVisibilityConverter}}" />
@@ -143,7 +141,7 @@
                                     Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.OpenInBroswerCommand}"
                                     Text="{loc:Locale Name=OpenInBroswer}">
                                     <MenuFlyoutItem.Icon>
-                                        <icons:RegularFluentIcon Symbol="Globe16" />
+                                        <controls:FluentIcon Symbol="Globe" />
                                     </MenuFlyoutItem.Icon>
                                 </MenuFlyoutItem>
                             </MenuFlyout>
@@ -228,7 +226,7 @@
                                     <controls:IconTextBlock
                                         Margin="0,0,12,0"
                                         Opacity="0.6"
-                                        Symbol="People16"
+                                        Symbol="People"
                                         Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ViewerCountText}"
                                         ToolTipService.ToolTip="{loc:Locale Name=Viewer}"
                                         Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ViewerCountText, Converter={StaticResource ObjectToVisibilityConverter}}" />
@@ -262,7 +260,7 @@
                                     Command="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.OpenInBroswerCommand}"
                                     Text="{loc:Locale Name=OpenInBroswer}">
                                     <MenuFlyoutItem.Icon>
-                                        <icons:RegularFluentIcon Symbol="Globe16" />
+                                        <controls:FluentIcon Symbol="Globe" />
                                     </MenuFlyoutItem.Icon>
                                 </MenuFlyoutItem>
                             </MenuFlyout>
@@ -306,7 +304,7 @@
                                 Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                 IconFontSize="12"
                                 Spacing="4"
-                                Symbol="People16"
+                                Symbol="People"
                                 Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.ViewerCountText, Mode=OneWay}" />
                         </Grid>
                     </controls:CardPanel>

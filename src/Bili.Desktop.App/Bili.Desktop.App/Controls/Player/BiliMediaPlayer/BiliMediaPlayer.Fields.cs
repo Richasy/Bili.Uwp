@@ -1,8 +1,7 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
-using Bili.Desktop.App.Controls.Danmaku;
 using Bili.Models.Enums.App;
-using Windows.UI.Input;
+using Microsoft.UI.Input;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Shapes;
@@ -31,7 +30,6 @@ namespace Bili.Desktop.App.Controls.Player
         private Grid _tempMessageContainer;
         private TextBlock _tempMessageBlock;
         private TextBlock _subtitleBlock;
-        private DanmakuView _danmakuView;
 
         private double _cursorStayTime;
         private double _tempMessageStayTime;
