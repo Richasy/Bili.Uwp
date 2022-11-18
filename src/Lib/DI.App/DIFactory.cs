@@ -49,9 +49,7 @@ namespace Bili.DI.App
             var logFolderName = AppConstants.Location.LoggerFolder;
             var fullPath = $"{rootFolder.Path}\\{logFolderName}\\";
             NLog.GlobalDiagnosticsContext.Set("LogPath", fullPath);
-            var logger = NLog.LogManager.GetLogger("Richasy.Bili");
             Container.Locator.Instance
-                .RegisterConstant(logger)
                 .RegisterSingleton<IResourceToolkit, ResourceToolkit>()
                 .RegisterSingleton<INumberToolkit, NumberToolkit>()
                 .RegisterSingleton<ISettingsToolkit, SettingsToolkit>()

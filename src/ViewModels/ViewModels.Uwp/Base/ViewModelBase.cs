@@ -37,7 +37,7 @@ namespace Bili.ViewModels.Uwp
         protected void LogException(Exception exception)
         {
             Debug.WriteLine(exception.StackTrace);
-            var logger = Locator.Instance.GetService<NLog.ILogger>();
+            var logger = NLog.LogManager.GetLogger("Richasy.Bili");
             logger.Error(exception);
         }
 

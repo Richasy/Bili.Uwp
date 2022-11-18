@@ -172,7 +172,7 @@ namespace Bili.App
         private void OnUnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
         {
             e.Handled = true;
-            Locator.Instance.GetService<ILogger>().Error(e.Exception);
+            NLog.LogManager.GetLogger("Richasy.Bili").Error(e.Exception);
         }
 
         private void NavigateToRootPage(object args = null)
