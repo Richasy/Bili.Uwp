@@ -12,11 +12,15 @@
   
 [![Release Builder](https://github.com/Richasy/Bili.Uwp/actions/workflows/release-builder.yml/badge.svg)](https://github.com/Richasy/Bili.Uwp/actions/workflows/release-builder.yml)
 
+***目前由于技术原因和个人精力原因，该项目不便再继续维护下去，请考虑使用哔哩哔哩官方客户端或网页***
+
+现阶段 `直播` 和 `动态` 模块因API限制，不再可用
+
 </div>
 
 ---
 
-`哔哩` 是一款 [哔哩哔哩](https://www.bilibili.com) 的第三方应用，使用 UWP 框架开发，是原生的 Windows 应用，支持 Windows 10/11 桌面系统以及版本号在 22000 以上的 XBOX。主打设计和易用性，广受用户好评。
+`哔哩` 是一款 [哔哩哔哩](https://www.bilibili.com) 的第三方应用，使用 UWP 框架开发，是原生的 Windows 应用，支持 Windows 10/11 桌面系统以及版本号在 22000 以上的 XBOX。主打设计和易用性，~~广受用户好评~~。
 
 ## 🙌 简单的开始
 
@@ -58,9 +62,9 @@
 
 借助 Github 平台提供的 Discussions 功能，对于一般讨论、提议或分享，我们都可以在 [哔哩论坛](https://github.com/Richasy/Bili.Uwp/discussions) 中进行，欢迎来这里进行讨论。
 
-## 🌏 路线图
+## ~~🌏 路线图~~
 
-哔哩会逐步完善，请查看 [哔哩里程碑](https://github.com/Richasy/Bili.Uwp/milestones) 来了解哔哩下一步打算做的事情。与此同时，欢迎各位开发者加入，让我们一起打造哔哩的未来。
+~~哔哩会逐步完善，请查看 [哔哩里程碑](https://github.com/Richasy/Bili.Uwp/milestones) 来了解哔哩下一步打算做的事情。与此同时，欢迎各位开发者加入，让我们一起打造哔哩的未来。~~
 
 ## 🧩 截图
 
