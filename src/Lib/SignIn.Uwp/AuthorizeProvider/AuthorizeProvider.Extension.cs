@@ -15,7 +15,6 @@ using Bili.Models.BiliBili;
 using Bili.Models.BiliBili.Authorize;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
-using Microsoft.QueryStringDotNET;
 using Newtonsoft.Json.Linq;
 using Windows.Security.Cryptography.Core;
 using Windows.Storage;
@@ -256,10 +255,6 @@ namespace Bili.SignIn.Uwp
 
             try
             {
-                // var httpClient = new Windows.Web.Http.HttpClient();
-                // var url = $"{Passport.QRCodeCheck}?{Query.QRCodeKey}={_internalQRAuthCode}";
-                // var data = await httpClient.GetStringAsync(new Uri(url)).AsTask();
-                // var result = JsonConvert.DeserializeObject<ServerResponse<QRToken>>(data);
                 var httpProvider = Locator.Instance.GetService<IHttpProvider>();
                 var request = await httpProvider.GetRequestMessageAsync(HttpMethod.Get, Passport.QRCodeCheck, queryParameters);
                 var response = await httpProvider.SendAsync(request, _qrPollCancellationTokenSource.Token);
@@ -287,19 +282,21 @@ namespace Bili.SignIn.Uwp
                 {
                     AccessToken = result.Data.RefreshToken,
                     RefreshToken = result.Data.RefreshToken,
-                    ExpiresIn = 25 * 24 * 3600,
+                    ExpiresIn = Convert.ToInt32(DateTimeOffset.Now.AddDays(14).ToUnixTimeSeconds()),
                     Mid = default,
                 };
 
                 if (!string.IsNullOrEmpty(result.Data.GameUrl))
                 {
-                    var queries = QueryString.Parse(new Uri(result.Data.GameUrl).Query.TrimStart('?'));
-                    var mid = queries["DedeUserID"];
-                    tokenInfo.Mid = Convert.ToInt64(mid);
-                    StopQRLoginListener();
-                    _tokenInfo = tokenInfo;
-                    var httpClient = new Windows.Web.Http.HttpClient();
-                    await httpClient.TryGetStringAsync(new Uri(result.Data.GameUrl));
+                    // var queries = QueryString.Parse(new Uri(result.Data.GameUrl).Query.TrimStart('?'));
+                    // var mid = queries["DedeUserID"];
+                    // tokenInfo.Mid = Convert.ToInt64(mid);
+                    // StopQRLoginListener();
+                    // _tokenInfo = tokenInfo;
+                    // _lastAuthorizeTime = DateTimeOffset.Now;
+                    // var tokenReq = await httpProvider.GetRequestMessageAsync(HttpMethod.Get, Passport.CheckToken, needToken: true);
+                    // _ = await httpProvider.SendAsync(tokenReq);
+                    // await InternalRefreshTokenAsync();
                 }
 
                 QRCodeStatusChanged?.Invoke(this, new Tuple<QRCodeStatus, TokenInfo>(qrStatus, tokenInfo));

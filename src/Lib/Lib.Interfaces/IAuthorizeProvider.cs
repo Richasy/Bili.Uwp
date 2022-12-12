@@ -55,8 +55,9 @@ namespace Bili.Lib.Interfaces
         /// <summary>
         /// 用户登录.
         /// </summary>
+        /// <param name="isForceSignIn">是否强制执行互动登录.</param>
         /// <returns><see cref="Task"/>.</returns>
-        Task<bool> TrySignInAsync();
+        Task<bool> TrySignInAsync(bool isForceSignIn = false);
 
         /// <summary>
         /// 用户退出.

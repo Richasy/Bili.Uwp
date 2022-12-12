@@ -29,23 +29,20 @@ namespace Bili.Lib
         /// <param name="authProvider">授权验证模块.</param>
         public HttpProvider(IAuthorizeProvider authProvider)
         {
-            this._authenticationProvider = authProvider;
+            _authenticationProvider = authProvider;
             InitHttpClient();
         }
 
         /// <inheritdoc/>
         public TimeSpan OverallTimeout
         {
-            get
-            {
-                return this._httpClient.Timeout;
-            }
+            get => _httpClient.Timeout;
 
             set
             {
                 try
                 {
-                    this._httpClient.Timeout = value;
+                    _httpClient.Timeout = value;
                 }
                 catch (InvalidOperationException exception)
                 {
@@ -158,7 +155,7 @@ namespace Bili.Lib
         /// <inheritdoc/>
         public async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            HttpResponseMessage response = null;
+            HttpResponseMessage response;
             try
             {
                 response = await SendRequestAsync(request, cancellationToken);

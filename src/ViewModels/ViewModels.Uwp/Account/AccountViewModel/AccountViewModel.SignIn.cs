@@ -32,7 +32,7 @@ namespace Bili.ViewModels.Uwp.Account
                 }
                 else if (!isSlientOnly)
                 {
-                    isSuccess = await _authorizeProvider.TrySignInAsync();
+                    isSuccess = await _authorizeProvider.TrySignInAsync(true);
                 }
                 else
                 {

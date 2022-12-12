@@ -175,14 +175,18 @@ namespace Bili.SignIn.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<bool> TrySignInAsync()
+        public async Task<bool> TrySignInAsync(bool isForceSignIn = false)
         {
-            if (await IsTokenValidAsync() || State != AuthorizeState.SignedOut)
+            if (!isForceSignIn && (await IsTokenValidAsync() || State != AuthorizeState.SignedOut))
             {
                 return true;
             }
 
             State = AuthorizeState.Loading;
+            if (isForceSignIn)
+            {
+                await SignOutAsync();
+            }
 
             var token = await GetTokenAsync();
 

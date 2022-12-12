@@ -53,6 +53,11 @@ namespace Bili.Models.App.Constants
             /// 登录二维码轮询状态.
             /// </summary>
             public const string QRCodeCheck = _passBase + "/x/passport-login/web/qrcode/poll";
+
+            /// <summary>
+            /// 检查令牌状态.
+            /// </summary>
+            public const string TokenInfo = _passBase + "/x/passport-login/oauth2/info";
         }
 
         public static class Account
