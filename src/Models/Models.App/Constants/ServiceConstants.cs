@@ -229,6 +229,10 @@ namespace Bili.Models.App.Constants
             public const string BiliRestriction = "x-bili-restriction-bin";
             public const string BiliLocale = "x-bili-locale-bin";
             public const string BiliFawkes = "x-bili-fawkes-req-bin";
+            public const string BiliAuroraZone = "x-bili-aurora-zone";
+            public const string BiliAuroraZoneValue = "sh001";
+            public const string BiliAuroraEid = "x-bili-aurora-eid";
+            public const string BiliAuroraEidValue = "UlMFQVcABlAH";
             public const string GRPCAcceptEncodingKey = "grpc-accept-encoding";
             public const string GRPCAcceptEncodingValue = "identity,deflate,gzip";
             public const string GRPCTimeOutKey = "grpc-timeout";

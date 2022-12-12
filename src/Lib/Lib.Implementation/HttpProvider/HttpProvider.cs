@@ -83,6 +83,8 @@ namespace Bili.Lib
 
                 url += $"?{query}";
                 requestMessage = new HttpRequestMessage(method, url);
+                requestMessage.Headers.Add(Headers.BiliAuroraZone, Headers.BiliAuroraZoneValue);
+                requestMessage.Headers.Add(Headers.BiliAuroraEid, Headers.BiliAuroraEidValue);
             }
             else
             {
