@@ -60,7 +60,7 @@ namespace Bili.Lib
         }
 
         /// <inheritdoc/>
-        public HttpClient HttpClient { get => _httpClient; }
+        public HttpClient HttpClient => _httpClient;
 
         /// <inheritdoc/>
         public async Task<HttpRequestMessage> GetRequestMessageAsync(
@@ -130,6 +130,8 @@ namespace Bili.Lib
             requestMessage.Headers.Add(Headers.Envoriment, GRPCConfig.Envorienment);
             requestMessage.Headers.Add(Headers.TransferEncodingKey, Headers.TransferEncodingValue);
             requestMessage.Headers.Add(Headers.TEKey, Headers.TEValue);
+            requestMessage.Headers.Add(Headers.EidKey, Headers.EidValue);
+            requestMessage.Headers.Add(Headers.ZoneKey, Headers.ZoneValue);
 
             var messageBytes = grpcMessage.ToByteArray();
 

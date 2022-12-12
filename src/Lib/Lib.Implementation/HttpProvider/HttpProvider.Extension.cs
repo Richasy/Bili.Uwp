@@ -83,13 +83,10 @@ namespace Bili.Lib
             {
                 if (disposing)
                 {
-                    if (this._httpClient != null)
-                    {
-                        this._httpClient.Dispose();
-                    }
+                    _httpClient?.Dispose();
                 }
 
-                this._httpClient = null;
+                _httpClient = null;
                 _disposedValue = true;
             }
         }
@@ -108,7 +105,7 @@ namespace Bili.Lib
             var client = new HttpClient(handler);
             client.DefaultRequestHeaders.CacheControl = new CacheControlHeaderValue { NoCache = false, NoStore = false };
             client.DefaultRequestHeaders.Add("accept", ServiceConstants.DefaultAcceptString);
-            this._httpClient = client;
+            _httpClient = client;
         }
 
         private async Task ThrowIfHasExceptionAsync(HttpResponseMessage response)
@@ -155,22 +152,17 @@ namespace Bili.Lib
 
             if (errorResponse == null || !response.IsSuccessStatusCode)
             {
-                if (response != null && response.StatusCode == HttpStatusCode.NotFound)
-                {
-                    errorResponse = new ServerResponse
+                errorResponse = response != null && response.StatusCode == HttpStatusCode.NotFound
+                    ? new ServerResponse
                     {
                         Message = ServiceConstants.Messages.NotFound,
                         IsHttpError = true,
-                    };
-                }
-                else
-                {
-                    errorResponse = new ServerResponse
+                    }
+                    : new ServerResponse
                     {
                         Message = ServiceConstants.Messages.UnexpectedExceptionResponse,
                         IsHttpError = true,
                     };
-                }
             }
 
             if (response.Content?.Headers.ContentType?.MediaType == ServiceConstants.Headers.JsonContentType)

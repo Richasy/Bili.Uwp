@@ -25,12 +25,12 @@ namespace Bili.Models.gRPC
         /// <summary>
         /// 厂商.
         /// </summary>
-        public const string Brand = "Apple";
+        public const string Brand = "Xiaomi";
 
         /// <summary>
         /// 手机系统.
         /// </summary>
-        public const string Model = "iPhone 11";
+        public const string Model = "Xiaomi 13";
 
         /// <summary>
         /// 应用版本.
@@ -75,12 +75,12 @@ namespace Bili.Models.gRPC
         /// <summary>
         /// 应用类型.
         /// </summary>
-        public const string MobileApp = "iphone";
+        public const string MobileApp = "android64";
 
         /// <summary>
         /// 移动平台.
         /// </summary>
-        public const string Platform = "iphone";
+        public const string Platform = "android";
 
         /// <summary>
         /// 产品环境.
