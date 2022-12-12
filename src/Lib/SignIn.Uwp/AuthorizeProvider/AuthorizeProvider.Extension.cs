@@ -12,8 +12,10 @@ using Bili.DI.Container;
 using Bili.Lib.Interfaces;
 using Bili.Models.App.Other;
 using Bili.Models.BiliBili;
+using Bili.Models.BiliBili.Authorize;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
+using Microsoft.QueryStringDotNET;
 using Newtonsoft.Json.Linq;
 using Windows.Security.Cryptography.Core;
 using Windows.Storage;
@@ -191,12 +193,8 @@ namespace Bili.SignIn.Uwp
             try
             {
                 StopQRLoginListener();
-                var queryParameters = new Dictionary<string, string>
-                {
-                    { Query.LocalId, _guid },
-                };
                 var httpProvider = Locator.Instance.GetService<IHttpProvider>();
-                var request = await httpProvider.GetRequestMessageAsync(HttpMethod.Post, Passport.QRCode, queryParameters);
+                var request = await httpProvider.GetRequestMessageAsync(HttpMethod.Get, Passport.QRCode);
                 var response = await httpProvider.SendAsync(request);
                 var result = await httpProvider.ParseAsync<ServerResponse<QRInfo>>(response);
 
@@ -253,18 +251,58 @@ namespace Bili.SignIn.Uwp
             _qrPollCancellationTokenSource = new CancellationTokenSource();
             var queryParameters = new Dictionary<string, string>
             {
-                { Query.AuthCode, _internalQRAuthCode },
-                { Query.LocalId, _guid },
+                { Query.QRCodeKey, _internalQRAuthCode },
             };
 
             try
             {
+                // var httpClient = new Windows.Web.Http.HttpClient();
+                // var url = $"{Passport.QRCodeCheck}?{Query.QRCodeKey}={_internalQRAuthCode}";
+                // var data = await httpClient.GetStringAsync(new Uri(url)).AsTask();
+                // var result = JsonConvert.DeserializeObject<ServerResponse<QRToken>>(data);
                 var httpProvider = Locator.Instance.GetService<IHttpProvider>();
-                var request = await httpProvider.GetRequestMessageAsync(HttpMethod.Post, Passport.QRCodeCheck, queryParameters);
+                var request = await httpProvider.GetRequestMessageAsync(HttpMethod.Get, Passport.QRCodeCheck, queryParameters);
                 var response = await httpProvider.SendAsync(request, _qrPollCancellationTokenSource.Token);
-                var result = await httpProvider.ParseAsync<ServerResponse<TokenInfo>>(response);
+                var result = await httpProvider.ParseAsync<ServerResponse<QRToken>>(response);
+                QRCodeStatus qrStatus = default;
+                switch (result.Data.Code)
+                {
+                    case 0:
+                        qrStatus = QRCodeStatus.Success;
+                        break;
+                    case 86038:
+                        qrStatus = QRCodeStatus.Expiried;
+                        break;
+                    case 86090:
+                        qrStatus = QRCodeStatus.NotConfirm;
+                        break;
+                    case 86101:
+                        return;
+                    default:
+                        qrStatus = QRCodeStatus.Failed;
+                        break;
+                }
 
-                QRCodeStatusChanged?.Invoke(this, new Tuple<QRCodeStatus, TokenInfo>(QRCodeStatus.Success, result.Data));
+                var tokenInfo = new TokenInfo
+                {
+                    AccessToken = result.Data.RefreshToken,
+                    RefreshToken = result.Data.RefreshToken,
+                    ExpiresIn = 25 * 24 * 3600,
+                    Mid = default,
+                };
+
+                if (!string.IsNullOrEmpty(result.Data.GameUrl))
+                {
+                    var queries = QueryString.Parse(new Uri(result.Data.GameUrl).Query.TrimStart('?'));
+                    var mid = queries["DedeUserID"];
+                    tokenInfo.Mid = Convert.ToInt64(mid);
+                    StopQRLoginListener();
+                    _tokenInfo = tokenInfo;
+                    var httpClient = new Windows.Web.Http.HttpClient();
+                    await httpClient.TryGetStringAsync(new Uri(result.Data.GameUrl));
+                }
+
+                QRCodeStatusChanged?.Invoke(this, new Tuple<QRCodeStatus, TokenInfo>(qrStatus, tokenInfo));
             }
             catch (ServiceException se)
             {

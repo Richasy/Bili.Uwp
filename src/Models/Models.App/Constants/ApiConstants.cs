@@ -47,12 +47,12 @@ namespace Bili.Models.App.Constants
             /// <summary>
             /// 获取登录二维码.
             /// </summary>
-            public const string QRCode = _passBase + "/x/passport-tv-login/qrcode/auth_code";
+            public const string QRCode = _passBase + "/x/passport-login/web/qrcode/generate";
 
             /// <summary>
             /// 登录二维码轮询状态.
             /// </summary>
-            public const string QRCodeCheck = _passBase + "/x/passport-tv-login/qrcode/poll";
+            public const string QRCodeCheck = _passBase + "/x/passport-login/web/qrcode/poll";
         }
 
         public static class Account

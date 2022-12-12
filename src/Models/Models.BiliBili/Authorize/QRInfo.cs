@@ -19,7 +19,7 @@ namespace Bili.Models.BiliBili
         /// <summary>
         /// 验证码.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "auth_code", Required = Required.Default)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "qrcode_key", Required = Required.Default)]
         public string AuthCode { get; set; }
     }
 }

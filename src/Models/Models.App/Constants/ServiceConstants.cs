@@ -66,6 +66,7 @@ namespace Bili.Models.App.Constants
             public const string GeeType = "gee_type";
             public const string LocalId = "local_id";
             public const string AuthCode = "auth_code";
+            public const string QRCodeKey = "qrcode_key";
             public const string PartitionId = "rid";
             public const string CreateTime = "ctime";
             public const string Order = "order";
