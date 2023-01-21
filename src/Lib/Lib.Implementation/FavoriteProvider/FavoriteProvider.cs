@@ -68,7 +68,7 @@ namespace Bili.Lib
                 { Query.UpId, userId.ToString() },
             };
 
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Account.VideoFavoriteGallery, queryParameters, needToken: true);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Account.VideoFavoriteGallery, queryParameters, Models.Enums.RequestClientType.IOS, needToken: true);
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync<ServerResponse<VideoFavoriteGalleryResponse>>(response);
             _videoCollectFolderPageNumber = 1;

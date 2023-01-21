@@ -312,7 +312,7 @@ namespace Bili.Lib
                 { Query.Aid, videoId },
             };
 
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Video.Subtitle, queryParameters);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Video.Subtitle, queryParameters, RequestClientType.IOS);
             var response = await _httpProvider.SendAsync(request);
             var text = await response.Content.ReadAsStringAsync();
             if (!string.IsNullOrEmpty(text) && text.Contains("subtitle"))

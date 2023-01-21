@@ -85,7 +85,7 @@ namespace Bili.Lib
             var uri = partitionId == "0"
                 ? ApiConstants.Article.Recommend
                 : ApiConstants.Article.ArticleList;
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, uri, queryParameters);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, uri, queryParameters, RequestClientType.IOS);
             var response = await _httpProvider.SendAsync(request);
             ArticlePartitionView view;
             if (partitionId == "0")

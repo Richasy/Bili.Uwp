@@ -113,7 +113,7 @@ namespace Bili.Lib
                 otherQuery = $"area={area}";
             }
 
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, url, queryParameters, Models.Enums.RequestClientType.Web, additionalQuery: otherQuery);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, url, queryParameters, Models.Enums.RequestClientType.IOS, additionalQuery: otherQuery);
             var response = await _httpProvider.SendAsync(request);
             var data = await _httpProvider.ParseAsync<ServerResponse<PlayerInformation>, ServerResponse2<PlayerInformation>>(response, (str) =>
             {
