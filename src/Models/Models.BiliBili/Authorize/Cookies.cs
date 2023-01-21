@@ -34,6 +34,12 @@ namespace Bili.Models.BiliBili
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "expires", Required = Required.Default)]
         public int Expires { get; set; }
+
+        /// <summary>
+        /// 安全.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "secure", Required = Required.Default)]
+        public int Secure { get; set; }
     }
 
     /// <summary>

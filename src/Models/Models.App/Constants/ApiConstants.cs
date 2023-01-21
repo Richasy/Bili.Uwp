@@ -17,6 +17,9 @@ namespace Bili.Models.App.Constants
         public const string _bangumiBase = "https://bangumi.bilibili.com";
         public const string _grpcBase = "https://grpc.biliapi.net";
 
+        public const string CookieGetDomain = "https://bilibili.com";
+        public const string CookieSetDomain = "bilibili.com";
+
         public static class Passport
         {
             /// <summary>
@@ -53,6 +56,16 @@ namespace Bili.Models.App.Constants
             /// 登录二维码轮询状态.
             /// </summary>
             public const string QRCodeCheck = _passBase + "/x/passport-tv-login/qrcode/poll";
+
+            /// <summary>
+            /// cookie转访问令牌.
+            /// </summary>
+            public const string LoginAppThird = _passBase + "/login/app/third";
+
+            /// <summary>
+            /// cookie转访问令牌.
+            /// </summary>
+            public const string LoginAppThirdApi = "http://link.acg.tv/forum.php";
         }
 
         public static class Account

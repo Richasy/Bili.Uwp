@@ -8,8 +8,10 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 using Bili.DI.Container;
 using Bili.Lib.Interfaces;
+using Bili.Models.App.Constants;
 using Bili.Models.App.Other;
 using Bili.Models.BiliBili;
 using Bili.Models.Enums;
@@ -19,6 +21,7 @@ using Windows.Security.Cryptography.Core;
 using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media.Imaging;
+using Windows.Web.Http.Filters;
 using ZXing;
 using ZXing.Common;
 using static Bili.Models.App.Constants.ApiConstants;
@@ -103,23 +106,63 @@ namespace Bili.SignIn.Uwp
             return null;
         }
 
-        internal string GenerateSign(Dictionary<string, string> queryParameters)
+        internal void GenerateAppKey(Dictionary<string, string> queryParameters, RequestClientType clientType, bool onlyAppKey = false)
+        {
+            if (clientType == RequestClientType.IOS)
+            {
+                queryParameters.Add(ServiceConstants.Query.AppKey, ServiceConstants.Keys.IOSKey);
+                if (!onlyAppKey)
+                {
+                    queryParameters.Add(ServiceConstants.Query.MobileApp, "iphone");
+                    queryParameters.Add(ServiceConstants.Query.Platform, "ios");
+                    queryParameters.Add(ServiceConstants.Query.TimeStamp, GetNowSeconds().ToString());
+                }
+            }
+            else if (clientType == RequestClientType.Web)
+            {
+                queryParameters.Add(ServiceConstants.Query.AppKey, ServiceConstants.Keys.WebKey);
+                if (!onlyAppKey)
+                {
+                    queryParameters.Add(ServiceConstants.Query.Platform, "web");
+                    queryParameters.Add(ServiceConstants.Query.TimeStamp, GetNowMilliSeconds().ToString());
+                }
+            }
+            else if (clientType == RequestClientType.Login)
+            {
+                queryParameters.Add(ServiceConstants.Query.AppKey, ServiceConstants.Keys.LoginKey);
+                if (!onlyAppKey)
+                {
+                    queryParameters.Add(ServiceConstants.Query.TimeStamp, GetNowMilliSeconds().ToString());
+                }
+            }
+            else
+            {
+                queryParameters.Add(ServiceConstants.Query.AppKey, ServiceConstants.Keys.AndroidKey);
+                if (!onlyAppKey)
+                {
+                    queryParameters.Add(ServiceConstants.Query.MobileApp, "android");
+                    queryParameters.Add(ServiceConstants.Query.Platform, "android");
+                    queryParameters.Add(ServiceConstants.Query.TimeStamp, GetNowSeconds().ToString());
+                }
+            }
+        }
+
+        internal string GenerateSign(Dictionary<string, string> queryParameters, RequestClientType clientType)
         {
             var queryList = queryParameters.Select(p => $"{p.Key}={p.Value}").ToList();
             queryList.Sort();
 
-            var apiKey = queryParameters[Query.AppKey].ToString();
             var apiSecret = string.Empty;
 
-            switch (apiKey)
+            switch (clientType)
             {
-                case Keys.IOSKey:
+                case RequestClientType.IOS:
                     apiSecret = Keys.IOSSecret;
                     break;
-                case Keys.AndroidKey:
+                case RequestClientType.Android:
                     apiSecret = Keys.AndroidSecret;
                     break;
-                case Keys.LoginKey:
+                case RequestClientType.Login:
                     apiSecret = Keys.LoginSecret;
                     break;
                 default:
@@ -264,6 +307,16 @@ namespace Bili.SignIn.Uwp
                 var response = await httpProvider.SendAsync(request, _qrPollCancellationTokenSource.Token);
                 var result = await httpProvider.ParseAsync<ServerResponse<TokenInfo>>(response);
 
+                // 保存cookie
+                SaveCookie(result.Data.CookieInfo);
+
+                // 获取确认链接
+                var confirmUrl = await GetCookieToAccessKeyConfirmUrlAsync();
+
+                // 获取新的访问令牌
+                var accessKey = await GetAccessKeyAsync(confirmUrl);
+                result.Data.AccessToken = accessKey;
+
                 QRCodeStatusChanged?.Invoke(this, new Tuple<QRCodeStatus, TokenInfo>(QRCodeStatus.Success, result.Data));
             }
             catch (ServiceException se)
@@ -407,6 +460,71 @@ namespace Bili.SignIn.Uwp
             {
                 _tokenInfo = null;
                 _lastAuthorizeTime = default;
+            }
+        }
+
+        private void SaveCookie(CookieInfo cookieInfo)
+        {
+            var domain = ApiConstants.CookieSetDomain;
+
+            if (cookieInfo != null && cookieInfo.Cookies != null)
+            {
+                var filter = new HttpBaseProtocolFilter();
+                foreach (var cookieItem in cookieInfo.Cookies)
+                {
+                    filter.CookieManager.SetCookie(new Windows.Web.Http.HttpCookie(cookieItem.Name, domain, "/")
+                    {
+                        HttpOnly = cookieItem.HttpOnly == 1,
+                        Secure = cookieItem.Secure == 1,
+                        Expires = DateTimeOffset.FromUnixTimeSeconds(cookieItem.Expires),
+                        Value = cookieItem.Value,
+                    });
+                }
+            }
+        }
+
+        private async Task<string> GetCookieToAccessKeyConfirmUrlAsync()
+        {
+            try
+            {
+                var httpProvider = Locator.Instance.GetService<IHttpProvider>();
+                var query = new Dictionary<string, string>
+                {
+                    { "api", ApiConstants.Passport.LoginAppThirdApi },
+                };
+                var request = await httpProvider.GetRequestMessageAsync(HttpMethod.Get, Passport.LoginAppThird, query, type: RequestClientType.IOS, needCookie: true, needAppKey: true);
+                var response = await httpProvider.SendAsync(request);
+                var result = await httpProvider.ParseAsync<ServerResponse<LoginAppThird>>(response);
+                return result.Data.ConfirmUri;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private async Task<string> GetAccessKeyAsync(string confirmUri)
+        {
+            try
+            {
+                var httpProvider = Locator.Instance.GetService<IHttpProvider>();
+                var request = await httpProvider.GetRequestMessageAsync(HttpMethod.Get, confirmUri, needCookie: true);
+                var response = await httpProvider.SendAsync(request);
+                var success = response.Headers.TryGetValues("location", out var locations);
+                if (!success)
+                {
+                    return default;
+                }
+
+                var redirectUrl = locations.FirstOrDefault();
+                var uri = new Uri(redirectUrl);
+                var queries = HttpUtility.ParseQueryString(uri.Query);
+                var accessKey = queries.Get("access_key");
+                return accessKey;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
     }
