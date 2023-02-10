@@ -77,7 +77,7 @@ namespace Bili.Lib
                 { Query.ActionKey, Query.AppKey },
             };
 
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Live.EnterRoom, queryParameters);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Live.EnterRoom, queryParameters, RequestClientType.IOS);
             var response = await _httpProvider.SendAsync(request);
             var data = await _httpProvider.ParseAsync<ServerResponse>(response);
             if (data.IsSuccess())
@@ -218,7 +218,7 @@ namespace Bili.Lib
 
             try
             {
-                var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Live.SendMessage, queryParameter, needToken: true);
+                var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Live.SendMessage, queryParameter, RequestClientType.IOS, needToken: true);
                 var response = await _httpProvider.SendAsync(request);
                 var result = await _httpProvider.ParseAsync<ServerResponse>(response);
                 return result.IsSuccess();
