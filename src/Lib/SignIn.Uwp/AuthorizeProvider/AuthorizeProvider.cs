@@ -32,7 +32,6 @@ namespace Bili.SignIn.Uwp
             _settingsToolkit = settingsToolkit;
             State = AuthorizeState.SignedOut;
             RetrieveAuthorizeResult();
-            _guid = Guid.NewGuid().ToString("N");
             _isXbox = Windows.System.Profile.AnalyticsInfo.VersionInfo.DeviceFamily == "Windows.Xbox";
         }
 
@@ -74,31 +73,23 @@ namespace Bili.SignIn.Uwp
                 queryParameters = new Dictionary<string, string>();
             }
 
+            queryParameters.Add(ServiceConstants.Query.LocalId, "0");
             queryParameters.Add(ServiceConstants.Query.Build, ServiceConstants.BuildNumber);
+            queryParameters.Add(ServiceConstants.Query.TimeStamp, GetNowSeconds().ToString());
             if (clientType == RequestClientType.IOS)
             {
                 queryParameters.Add(ServiceConstants.Query.AppKey, ServiceConstants.Keys.IOSKey);
                 queryParameters.Add(ServiceConstants.Query.MobileApp, "iphone");
                 queryParameters.Add(ServiceConstants.Query.Platform, "ios");
-                queryParameters.Add(ServiceConstants.Query.TimeStamp, GetNowSeconds().ToString());
             }
             else if (clientType == RequestClientType.Web)
             {
                 queryParameters.Add(ServiceConstants.Query.AppKey, ServiceConstants.Keys.WebKey);
                 queryParameters.Add(ServiceConstants.Query.Platform, "web");
-                queryParameters.Add(ServiceConstants.Query.TimeStamp, GetNowMilliSeconds().ToString());
-            }
-            else if (clientType == RequestClientType.Login)
-            {
-                queryParameters.Add(ServiceConstants.Query.AppKey, ServiceConstants.Keys.LoginKey);
-                queryParameters.Add(ServiceConstants.Query.TimeStamp, GetNowMilliSeconds().ToString());
             }
             else
             {
                 queryParameters.Add(ServiceConstants.Query.AppKey, ServiceConstants.Keys.AndroidKey);
-                queryParameters.Add(ServiceConstants.Query.MobileApp, "android");
-                queryParameters.Add(ServiceConstants.Query.Platform, "android");
-                queryParameters.Add(ServiceConstants.Query.TimeStamp, GetNowSeconds().ToString());
             }
 
             var token = string.Empty;

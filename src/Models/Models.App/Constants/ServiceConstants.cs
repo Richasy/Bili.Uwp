@@ -10,7 +10,7 @@ namespace Bili.Models.App.Constants
 #pragma warning disable SA1600 // Elements should be documented
 #pragma warning disable SA1401 // Fields should be private
         public const string DefaultAcceptString = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9";
-        public const string DefaultUserAgentString = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 Edg/92.0.902.62";
+        public const string DefaultUserAgentString = "BiLiBiLi AppleTV Client/1.0.0 (github/yichengchen/ATV-Bilibili-live-demo)";
         public const string BuildNumber = "5520400";
         public const string Av = "av";
         public const string Bangumi = "bangumi";

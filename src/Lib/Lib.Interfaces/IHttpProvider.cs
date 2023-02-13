@@ -26,6 +26,12 @@ namespace Bili.Lib.Interfaces
         HttpClient HttpClient { get; }
 
         /// <summary>
+        /// 获取跨站标识.
+        /// </summary>
+        /// <returns>标识字段.</returns>
+        string GetCsrf();
+
+        /// <summary>
         /// 获取 <see cref="HttpRequestMessage"/>.
         /// </summary>
         /// <param name="method">请求方法.</param>

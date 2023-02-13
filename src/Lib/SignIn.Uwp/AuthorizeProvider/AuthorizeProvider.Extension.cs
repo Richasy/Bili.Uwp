@@ -33,7 +33,6 @@ namespace Bili.SignIn.Uwp
     {
         private readonly IMD5Toolkit _md5Toolkit;
         private readonly ISettingsToolkit _settingsToolkit;
-        private readonly string _guid;
         private readonly bool _isXbox;
         private AuthorizeState _state;
         private TokenInfo _tokenInfo;
@@ -90,6 +89,7 @@ namespace Bili.SignIn.Uwp
                     var httpProvider = Locator.Instance.GetService<IHttpProvider>();
                     var request = await httpProvider.GetRequestMessageAsync(HttpMethod.Post, Passport.RefreshToken, queryParameters);
                     var response = await httpProvider.SendAsync(request);
+                    var cookies = response.Headers.SingleOrDefault(header => header.Key == "Set-Cookie").Value;
                     var result = await httpProvider.ParseAsync<ServerResponse<TokenInfo>>(response);
                     await SSOInitAsync();
 
@@ -191,12 +191,8 @@ namespace Bili.SignIn.Uwp
             try
             {
                 StopQRLoginListener();
-                var queryParameters = new Dictionary<string, string>
-                {
-                    { Query.LocalId, _guid },
-                };
                 var httpProvider = Locator.Instance.GetService<IHttpProvider>();
-                var request = await httpProvider.GetRequestMessageAsync(HttpMethod.Post, Passport.QRCode, queryParameters);
+                var request = await httpProvider.GetRequestMessageAsync(HttpMethod.Post, Passport.QRCode);
                 var response = await httpProvider.SendAsync(request);
                 var result = await httpProvider.ParseAsync<ServerResponse<QRInfo>>(response);
 
@@ -254,7 +250,6 @@ namespace Bili.SignIn.Uwp
             var queryParameters = new Dictionary<string, string>
             {
                 { Query.AuthCode, _internalQRAuthCode },
-                { Query.LocalId, _guid },
             };
 
             try
@@ -263,7 +258,7 @@ namespace Bili.SignIn.Uwp
                 var request = await httpProvider.GetRequestMessageAsync(HttpMethod.Post, Passport.QRCodeCheck, queryParameters);
                 var response = await httpProvider.SendAsync(request, _qrPollCancellationTokenSource.Token);
                 var result = await httpProvider.ParseAsync<ServerResponse<TokenInfo>>(response);
-
+                await SSOInitAsync();
                 QRCodeStatusChanged?.Invoke(this, new Tuple<QRCodeStatus, TokenInfo>(QRCodeStatus.Success, result.Data));
             }
             catch (ServiceException se)

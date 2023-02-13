@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
@@ -86,6 +87,14 @@ namespace Bili.Lib
             }
             else
             {
+                var csrf = GetCsrf();
+                queryParams ??= new Dictionary<string, string>();
+                if (!string.IsNullOrEmpty(csrf))
+                {
+                    queryParams.Add("biliCSRF", csrf);
+                    queryParams.Add("csrf", csrf);
+                }
+
                 var query = await _authenticationProvider.GenerateAuthorizedQueryDictionaryAsync(queryParams, clientType, needToken);
                 requestMessage = new HttpRequestMessage(method, url);
                 requestMessage.Content = new FormUrlEncodedContent(query);
@@ -97,6 +106,12 @@ namespace Bili.Lib
         /// <inheritdoc/>
         public async Task<HttpRequestMessage> GetRequestMessageAsync(string url, IMessage grpcMessage, bool needToken = false)
         {
+            var csrf = GetCsrf();
+            if (!string.IsNullOrEmpty(csrf))
+            {
+                url += $"?biliCSRF={csrf}&csrf={csrf}";
+            }
+
             var requestMessage = new HttpRequestMessage(HttpMethod.Post, url);
             var isTokenValid = await _authenticationProvider.IsTokenValidAsync();
             var token = string.Empty;
@@ -160,6 +175,7 @@ namespace Bili.Lib
             try
             {
                 response = await SendRequestAsync(request, cancellationToken);
+                SaveCookies(response);
             }
             catch (Exception)
             {
@@ -196,6 +212,26 @@ namespace Bili.Lib
             {
                 return JsonConvert.DeserializeObject<T2>(responseString);
             }
+        }
+
+        /// <inheritdoc/>
+        public string GetCsrf()
+        {
+            if (_cookieContainer == null)
+            {
+                return default;
+            }
+
+            var cookies = _cookieContainer.GetCookies(new Uri("https://bilibili.com"));
+            foreach (var cookie in cookies.OfType<Cookie>())
+            {
+                if (cookie.Name == "bili_jct")
+                {
+                    return cookie.Value;
+                }
+            }
+
+            return default;
         }
     }
 }

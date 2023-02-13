@@ -1327,7 +1327,7 @@
       <Version>2.8.2-prerelease.220830001</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
-      <Version>13.0.1</Version>
+      <Version>13.0.2</Version>
     </PackageReference>
     <PackageReference Include="Richasy.ExpanderEx.UWP">
       <Version>1.0.4</Version>

@@ -3,7 +3,6 @@
 using System;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
@@ -83,13 +82,10 @@ namespace Bili.Lib
             {
                 if (disposing)
                 {
-                    if (this._httpClient != null)
-                    {
-                        this._httpClient.Dispose();
-                    }
+                    _httpClient?.Dispose();
                 }
 
-                this._httpClient = null;
+                _httpClient = null;
                 _disposedValue = true;
             }
         }
@@ -98,17 +94,8 @@ namespace Bili.Lib
         {
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
             _cookieContainer = new CookieContainer();
-            var handler = new HttpClientHandler
-            {
-                AllowAutoRedirect = true,
-                AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.None,
-                UseCookies = true,
-                CookieContainer = _cookieContainer,
-            };
-            var client = new HttpClient(handler);
-            client.DefaultRequestHeaders.CacheControl = new CacheControlHeaderValue { NoCache = false, NoStore = false };
-            client.DefaultRequestHeaders.Add("accept", ServiceConstants.DefaultAcceptString);
-            this._httpClient = client;
+            var client = new HttpClient();
+            _httpClient = client;
         }
 
         private async Task ThrowIfHasExceptionAsync(HttpResponseMessage response)
@@ -190,6 +177,19 @@ namespace Bili.Lib
                 // System.Net.HttpStatusCode不支持RFC 6585，附加HTTP状态代码。
                 // 节流状态代码429是在RFC 6586中。状态码429将被传递过去。
                 throw new ServiceException(errorResponse, response.Headers, response.StatusCode);
+            }
+        }
+
+        private void SaveCookies(HttpResponseMessage response)
+        {
+            if (!response.Headers.Contains("Set-Cookie"))
+            {
+                return;
+            }
+
+            foreach (var cookieHeader in response.Headers.GetValues("Set-Cookie"))
+            {
+                _cookieContainer.SetCookies(response.RequestMessage.RequestUri, cookieHeader);
             }
         }
     }
