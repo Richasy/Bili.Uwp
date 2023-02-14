@@ -69,11 +69,30 @@ namespace Bili.Lib
             Dictionary<string, string> queryParams = null,
             RequestClientType clientType = RequestClientType.Android,
             bool needToken = true,
-            string additionalQuery = "")
+            string additionalQuery = "",
+            bool needCookie = false,
+            bool needAppKey = false)
         {
             HttpRequestMessage requestMessage;
 
-            if (method == HttpMethod.Get || method == HttpMethod.Delete)
+            if (method == HttpMethod.Get && needCookie)
+            {
+                if (needAppKey)
+                {
+                    var query = _authenticationProvider.GenerateAuthorizedQueryStringFirstSign(queryParams, clientType);
+                    url += $"?{query}";
+                }
+
+                if (!string.IsNullOrEmpty(additionalQuery))
+                {
+                    url += $"&{additionalQuery}";
+                }
+
+                requestMessage = new HttpRequestMessage(method, url);
+                var cookie = _authenticationProvider.GetCookieString();
+                requestMessage.Headers.Add("Cookie", cookie);
+            }
+            else if (method == HttpMethod.Get || method == HttpMethod.Delete)
             {
                 var query = await _authenticationProvider.GenerateAuthorizedQueryStringAsync(queryParams, clientType, needToken);
                 if (!string.IsNullOrEmpty(additionalQuery))

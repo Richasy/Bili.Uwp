@@ -40,12 +40,12 @@ namespace Bili.Models.App.Constants
         {
             public const string AndroidKey = "4409e2ce8ffd12b8";
             public const string AndroidSecret = "59b43e04ad6965f34319062b478f83dd";
-            public const string IOSKey = "4ebafd7c4951b366";
-            public const string IOSSecret = "8cb98205e9b2ad3669aad0fce12a4c13";
+            public const string IOSKey = "27eb53fc9058f8c3";
+            public const string IOSSecret = "c2ed53a74eeefe3cf99fbd01d8c9c375";
             public const string WebKey = "84956560bc028eb7";
             public const string WebSecret = "94aba54af9065f71de72f5508f1cd42e";
-            public const string LoginKey = "783bbb7264451d82";
-            public const string LoginSecret = "2653583c8873dea268ab9386918b1d65";
+            public const string LoginKey = "4409e2ce8ffd12b8";
+            public const string LoginSecret = "59b43e04ad6965f34319062b478f83dd";
         }
 
         public static class Query

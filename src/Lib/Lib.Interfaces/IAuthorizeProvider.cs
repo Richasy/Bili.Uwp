@@ -47,6 +47,22 @@ namespace Bili.Lib.Interfaces
         Task<Dictionary<string, string>> GenerateAuthorizedQueryDictionaryAsync(Dictionary<string, string> queryParameters, RequestClientType clientType, bool needToken = true);
 
         /// <summary>
+        /// 获取包含授权码的查询字典，无token且先加盐.
+        /// </summary>
+        /// <param name="queryParameters">请求所需的查询参数.</param>
+        /// <param name="clientType">请求需要模拟的客户端类型.</param>
+        /// <returns>包含授权验证码的查询字典.</returns>
+        string GenerateAuthorizedQueryStringFirstSign(
+            Dictionary<string, string> queryParameters,
+            RequestClientType clientType);
+
+        /// <summary>
+        /// 获取Cookie字符串.
+        /// </summary>
+        /// <returns>Cookie字符串.</returns>
+        string GetCookieString();
+
+        /// <summary>
         /// 获取当前登录用户的访问令牌.
         /// </summary>
         /// <returns>账户授权的令牌.</returns>

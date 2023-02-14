@@ -11,6 +11,7 @@ using Bili.Models.App.Constants;
 using Bili.Models.BiliBili;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
+using Windows.Web.Http.Filters;
 
 namespace Bili.SignIn.Uwp
 {
@@ -75,31 +76,7 @@ namespace Bili.SignIn.Uwp
             }
 
             queryParameters.Add(ServiceConstants.Query.Build, ServiceConstants.BuildNumber);
-            if (clientType == RequestClientType.IOS)
-            {
-                queryParameters.Add(ServiceConstants.Query.AppKey, ServiceConstants.Keys.IOSKey);
-                queryParameters.Add(ServiceConstants.Query.MobileApp, "iphone");
-                queryParameters.Add(ServiceConstants.Query.Platform, "ios");
-                queryParameters.Add(ServiceConstants.Query.TimeStamp, GetNowSeconds().ToString());
-            }
-            else if (clientType == RequestClientType.Web)
-            {
-                queryParameters.Add(ServiceConstants.Query.AppKey, ServiceConstants.Keys.WebKey);
-                queryParameters.Add(ServiceConstants.Query.Platform, "web");
-                queryParameters.Add(ServiceConstants.Query.TimeStamp, GetNowMilliSeconds().ToString());
-            }
-            else if (clientType == RequestClientType.Login)
-            {
-                queryParameters.Add(ServiceConstants.Query.AppKey, ServiceConstants.Keys.LoginKey);
-                queryParameters.Add(ServiceConstants.Query.TimeStamp, GetNowMilliSeconds().ToString());
-            }
-            else
-            {
-                queryParameters.Add(ServiceConstants.Query.AppKey, ServiceConstants.Keys.AndroidKey);
-                queryParameters.Add(ServiceConstants.Query.MobileApp, "android");
-                queryParameters.Add(ServiceConstants.Query.Platform, "android");
-                queryParameters.Add(ServiceConstants.Query.TimeStamp, GetNowSeconds().ToString());
-            }
+            GenerateAppKey(queryParameters, clientType);
 
             var token = string.Empty;
             if (await IsTokenValidAsync())
@@ -120,9 +97,29 @@ namespace Bili.SignIn.Uwp
                 throw new OperationCanceledException("需要令牌，但获取访问令牌失败.");
             }
 
-            var sign = GenerateSign(queryParameters);
+            var sign = GenerateSign(queryParameters, clientType);
             queryParameters.Add(ServiceConstants.Query.Sign, sign);
             return queryParameters;
+        }
+
+        /// <inheritdoc/>
+        public string GenerateAuthorizedQueryStringFirstSign(
+            Dictionary<string, string> queryParameters,
+            RequestClientType clientType)
+        {
+            if (queryParameters == null)
+            {
+                queryParameters = new Dictionary<string, string>();
+            }
+
+            // 先加盐再加appKey
+            var sign = GenerateSign(queryParameters, clientType);
+            queryParameters.Add(ServiceConstants.Query.Sign, sign);
+            GenerateAppKey(queryParameters, clientType, true);
+            var queryList = queryParameters.Select(p => $"{p.Key}={p.Value}").ToList();
+            queryList.Sort();
+            var query = string.Join('&', queryList);
+            return query;
         }
 
         /// <inheritdoc/>
@@ -133,6 +130,19 @@ namespace Bili.SignIn.Uwp
             queryList.Sort();
             var query = string.Join('&', queryList);
             return query;
+        }
+
+        /// <inheritdoc/>
+        public string GetCookieString()
+        {
+            var fiter = new HttpBaseProtocolFilter();
+            var cookies = fiter.CookieManager.GetCookies(new Uri(ApiConstants.CookieGetDomain));
+            var cookieList = cookies.Select(x =>
+            {
+                return $"{x.Name}={x.Value}";
+            });
+            var result = string.Join(';', cookieList);
+            return result;
         }
 
         /// <inheritdoc/>

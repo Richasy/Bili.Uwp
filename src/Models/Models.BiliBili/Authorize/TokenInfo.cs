@@ -33,5 +33,11 @@ namespace Bili.Models.BiliBili
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "expires_in", Required = Required.Default)]
         public int ExpiresIn { get; set; }
+
+        /// <summary>
+        /// Cookies.
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "cookie_info", Required = Required.Default)]
+        public CookieInfo CookieInfo { get; set; }
     }
 }
