@@ -2,6 +2,7 @@
 
 using System;
 using Autofac;
+using NLog;
 
 namespace Bili.DI.Container
 {
@@ -76,5 +77,15 @@ namespace Bili.DI.Container
         /// <returns>注册的服务.</returns>
         public T GetService<T>()
             => _container.Resolve<T>();
+
+        /// <summary>
+        /// 获取日志记录器.
+        /// </summary>
+        /// <returns><see cref="ILogger"/>.</returns>
+        public ILogger GetLogger()
+        {
+            var logger = NLog.LogManager.GetLogger("Richasy.Bili");
+            return logger;
+        }
     }
 }

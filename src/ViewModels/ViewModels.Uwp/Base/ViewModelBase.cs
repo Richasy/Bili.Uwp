@@ -37,7 +37,7 @@ namespace Bili.ViewModels.Uwp
         protected void LogException(Exception exception)
         {
             Debug.WriteLine(exception.StackTrace);
-            var logger = Locator.Instance.GetService<NLog.ILogger>();
+            var logger = Locator.Instance.GetLogger();
             logger.Error(exception);
         }
 

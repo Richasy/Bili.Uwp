@@ -133,7 +133,7 @@ namespace Bili.Lib
                 return localCache;
             }
 
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, ApiConstants.Partition.PartitionIndex);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, ApiConstants.Partition.PartitionIndex, type: RequestClientType.IOS);
             var response = await _httpProvider.SendAsync(request);
             var data = await _httpProvider.ParseAsync<Models.BiliBili.ServerResponse<List<Models.BiliBili.Partition>>>(response);
 
@@ -204,7 +204,7 @@ namespace Bili.Lib
                 queryParameters.Add(Query.PageSizeSlim, "30");
             }
 
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, requestUrl, queryParameters);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, requestUrl, queryParameters, RequestClientType.IOS);
             var response = await _httpProvider.SendAsync(request);
             if (isOffset)
             {

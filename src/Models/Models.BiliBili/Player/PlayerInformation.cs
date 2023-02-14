@@ -112,13 +112,13 @@ namespace Bili.Models.BiliBili
         /// <summary>
         /// 基链接.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "baseUrl", Required = Required.Default)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "base_url", Required = Required.Default)]
         public string BaseUrl { get; set; }
 
         /// <summary>
         /// 备份链接.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "backupUrl", Required = Required.Default)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "backup_url", Required = Required.Default)]
         public List<string> BackupUrl { get; set; }
 
         /// <summary>
@@ -130,7 +130,7 @@ namespace Bili.Models.BiliBili
         /// <summary>
         /// 媒体格式.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "mimeType", Required = Required.Default)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "mime_type", Required = Required.Default)]
         public string MimeType { get; set; }
 
         /// <summary>
@@ -154,7 +154,7 @@ namespace Bili.Models.BiliBili
         /// <summary>
         /// 帧率.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "frameRate", Required = Required.Default)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "frame_rate", Required = Required.Default)]
         public string FrameRate { get; set; }
 
         /// <summary>
@@ -166,7 +166,7 @@ namespace Bili.Models.BiliBili
         /// <summary>
         /// 分段的基础信息.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "SegmentBase", Required = Required.Default)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "segment_base", Required = Required.Default)]
         public SegmentBase SegmentBase { get; set; }
 
         /// <summary>
@@ -185,13 +185,13 @@ namespace Bili.Models.BiliBili
         /// <summary>
         /// 起始位置.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "Initialization", Required = Required.Default)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "initialization", Required = Required.Default)]
         public string Initialization { get; set; }
 
         /// <summary>
         /// 索引范围.
         /// </summary>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "indexRange", Required = Required.Default)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "index_range", Required = Required.Default)]
         public string IndexRange { get; set; }
     }
 
