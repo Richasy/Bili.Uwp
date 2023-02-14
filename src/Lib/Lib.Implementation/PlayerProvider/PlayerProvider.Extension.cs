@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -118,6 +119,7 @@ namespace Bili.Lib
             var data = await _httpProvider.ParseAsync<ServerResponse<PlayerInformation>, ServerResponse2<PlayerInformation>>(response, (str) =>
             {
                 var jobj = JObject.Parse(str);
+                Debug.WriteLine(jobj.ToString());
                 return jobj.ContainsKey("data");
             });
 

@@ -361,7 +361,6 @@
                                 VerticalAlignment="Center"
                                 Text="{loc:Locale Name=InfinityLoop}" />
                             <ToggleSwitch
-                                Style="{StaticResource RightAlignedCompactToggleSwitchStyle}"
                                 RelativePanel.AlignRightWithPanel="True"
                                 RelativePanel.AlignVerticalCenterWithPanel="True"
                                 MinWidth="0"

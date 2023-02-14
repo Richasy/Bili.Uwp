@@ -1302,6 +1302,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Labs.Uwp.SettingsControls">
+      <Version>0.0.13</Version>
+    </PackageReference>
     <PackageReference Include="Humanizer.Core.zh-CN">
       <Version>2.14.1</Version>
     </PackageReference>
@@ -1327,10 +1330,7 @@
       <Version>2.8.2-prerelease.220830001</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
-      <Version>13.0.1</Version>
-    </PackageReference>
-    <PackageReference Include="Richasy.ExpanderEx.UWP">
-      <Version>1.0.4</Version>
+      <Version>13.0.2</Version>
     </PackageReference>
     <PackageReference Include="Richasy.FluentIcon.Regular.UWP">
       <Version>1.1.150</Version>

@@ -209,7 +209,7 @@ namespace Bili.Lib
                 { Query.PageNumber, _viewLaterPageNumber.ToString() },
                 { Query.PageSizeSlim, "40" },
             };
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Account.ViewLaterList, queryParameters, needToken: true);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Account.ViewLaterList, queryParameters, Models.Enums.RequestClientType.IOS, needToken: true);
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync<ServerResponse<ViewLaterResponse>>(response);
             _viewLaterPageNumber++;
@@ -219,7 +219,7 @@ namespace Bili.Lib
         /// <inheritdoc/>
         public async Task<bool> ClearViewLaterAsync()
         {
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Account.ViewLaterClear, needToken: true);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Account.ViewLaterClear, type: Models.Enums.RequestClientType.IOS, needToken: true);
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync<ServerResponse>(response);
             return result.IsSuccess();
@@ -232,7 +232,7 @@ namespace Bili.Lib
             {
                 { Query.Aid, videoId },
             };
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Account.ViewLaterAdd, queryParameters, needToken: true);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Account.ViewLaterAdd, queryParameters, Models.Enums.RequestClientType.IOS, needToken: true);
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync<ServerResponse>(response);
             return result.IsSuccess();
@@ -246,7 +246,7 @@ namespace Bili.Lib
             {
                 { Query.Aid, ids },
             };
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Account.ViewLaterDelete, queryParameters, needToken: true);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Post, Account.ViewLaterDelete, queryParameters, Models.Enums.RequestClientType.IOS, needToken: true);
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync<ServerResponse>(response);
             return result.IsSuccess();

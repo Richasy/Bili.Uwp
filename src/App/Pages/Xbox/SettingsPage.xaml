@@ -37,7 +37,10 @@
                 Margin="0,0,0,24"
                 Spacing="4"
                 XYFocusKeyboardNavigation="Enabled">
-
+                <StackPanel.ChildrenTransitions>
+                    <EntranceThemeTransition FromVerticalOffset="50" IsStaggeringEnabled="True" />
+                    <RepositionThemeTransition IsStaggeringEnabled="False" />
+                </StackPanel.ChildrenTransitions>
                 <TextBlock
                     Style="{StaticResource BodyTextBlockStyle}"
                     Margin="0,0,0,8"

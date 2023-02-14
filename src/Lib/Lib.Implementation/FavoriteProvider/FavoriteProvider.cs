@@ -86,7 +86,7 @@ namespace Bili.Lib
                 { Query.PageNumber, _videoFolderDetailPageNumber.ToString() },
             };
 
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Account.VideoFavoriteDelta, queryParameters, needToken: true);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Account.VideoFavoriteDelta, queryParameters, Models.Enums.RequestClientType.IOS, needToken: true);
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync<ServerResponse<VideoFavoriteListResponse>>(response);
             _videoFolderDetailPageNumber++;

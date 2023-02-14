@@ -4,70 +4,34 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:icons="using:Richasy.FluentIcon.Uwp"
+    xmlns:labs="using:CommunityToolkit.Labs.WinUI"
     xmlns:loc="using:Bili.App.Resources.Extension"
     xmlns:local="using:Bili.App.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:uwp="using:Richasy.ExpanderEx.Uwp"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <uwp:ExpanderEx>
-        <uwp:ExpanderEx.Header>
-            <uwp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderHeaderStyle}">
-                <uwp:ExpanderExWrapper.MainContent>
-                    <uwp:ExpanderExDescriptor Title="{loc:Locale Name=StartMethod}" Description="{loc:Locale Name=StartMethodDescription}">
-                        <uwp:ExpanderExDescriptor.Icon>
-                            <icons:RegularFluentIcon Symbol="AirplaneTakeOff16" />
-                        </uwp:ExpanderExDescriptor.Icon>
-                    </uwp:ExpanderExDescriptor>
-                </uwp:ExpanderExWrapper.MainContent>
-            </uwp:ExpanderExWrapper>
-        </uwp:ExpanderEx.Header>
-        <uwp:ExpanderEx.Content>
-            <uwp:ExpanderExMenuPanel>
-                <uwp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
-                    <uwp:ExpanderExWrapper.MainContent>
-                        <uwp:ExpanderExDescriptor
-                            Title="{loc:Locale Name=Prelaunch}"
-                            Description="{loc:Locale Name=PrelaunchDescription}"
-                            IconVisibility="Collapsed"
-                            IsAutoHideIcon="False" />
-                    </uwp:ExpanderExWrapper.MainContent>
-                    <uwp:ExpanderExWrapper.WrapContent>
-                        <ToggleSwitch Style="{StaticResource RightAlignedCompactToggleSwitchStyle}" IsOn="{x:Bind ViewModel.IsPrelaunch, Mode=TwoWay}" />
-                    </uwp:ExpanderExWrapper.WrapContent>
-                </uwp:ExpanderExWrapper>
-                <uwp:ExpanderExItemSeparator />
-                <uwp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}">
-                    <uwp:ExpanderExWrapper.MainContent>
-                        <uwp:ExpanderExDescriptor
-                            Title="{loc:Locale Name=Startup}"
-                            Description="{loc:Locale Name=StartupDescription}"
-                            IconVisibility="Collapsed"
-                            IsAutoHideIcon="False" />
-                    </uwp:ExpanderExWrapper.MainContent>
-                    <uwp:ExpanderExWrapper.WrapContent>
-                        <ToggleSwitch Style="{StaticResource RightAlignedCompactToggleSwitchStyle}" IsOn="{x:Bind ViewModel.IsStartup, Mode=TwoWay}" />
-                    </uwp:ExpanderExWrapper.WrapContent>
-                </uwp:ExpanderExWrapper>
-                <uwp:ExpanderExWrapper Style="{StaticResource WrapperInExpanderContentStyle}" Visibility="{x:Bind ViewModel.StartupWarningText, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}">
-                    <uwp:ExpanderExWrapper.MainContent>
-                        <uwp:ExpanderExDescriptor
-                            Title="{x:Bind ViewModel.StartupWarningText, Mode=OneWay}"
-                            DescriptionVisibility="Collapsed"
-                            Foreground="{ThemeResource SystemFillColorCriticalBrush}"
-                            TitleFontSize="12">
-                            <uwp:ExpanderExDescriptor.Resources>
-                                <SolidColorBrush x:Key="DefaultExpanderDescriptorTitleForeground" Color="{ThemeResource SystemFillColorCritical}" />
-                            </uwp:ExpanderExDescriptor.Resources>
-                            <uwp:ExpanderExDescriptor.Icon>
-                                <icons:RegularFluentIcon Symbol="Warning16" />
-                            </uwp:ExpanderExDescriptor.Icon>
-                        </uwp:ExpanderExDescriptor>
-                    </uwp:ExpanderExWrapper.MainContent>
-                </uwp:ExpanderExWrapper>
-            </uwp:ExpanderExMenuPanel>
-        </uwp:ExpanderEx.Content>
-    </uwp:ExpanderEx>
+    <labs:SettingsExpander Description="{loc:Locale Name=StartMethodDescription}" Header="{loc:Locale Name=StartMethod}">
+        <labs:SettingsExpander.HeaderIcon>
+            <icons:RegularFluentIcon Symbol="AirplaneTakeOff16" />
+        </labs:SettingsExpander.HeaderIcon>
+        <labs:SettingsExpander.Items>
+            <labs:SettingsCard Description="{loc:Locale Name=PrelaunchDescription}" Header="{loc:Locale Name=Prelaunch}">
+                <ToggleSwitch IsOn="{x:Bind ViewModel.IsPrelaunch, Mode=TwoWay}" />
+            </labs:SettingsCard>
+            <labs:SettingsCard Description="{loc:Locale Name=StartupDescription}" Header="{loc:Locale Name=Startup}">
+                <ToggleSwitch IsOn="{x:Bind ViewModel.IsStartup, Mode=TwoWay}" />
+            </labs:SettingsCard>
+            <labs:SettingsCard
+                ContentAlignment="Vertical"
+                Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+                Header="{x:Bind ViewModel.StartupWarningText, Mode=OneWay}"
+                Visibility="{x:Bind ViewModel.StartupWarningText, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}">
+                <labs:SettingsCard.HeaderIcon>
+                    <icons:RegularFluentIcon Symbol="Warning16" />
+                </labs:SettingsCard.HeaderIcon>
+            </labs:SettingsCard>
+        </labs:SettingsExpander.Items>
+    </labs:SettingsExpander>
 </local:SettingSectionControl>
