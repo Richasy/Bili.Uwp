@@ -12,10 +12,6 @@
   
 [![Release Builder](https://github.com/Richasy/Bili.Uwp/actions/workflows/release-builder.yml/badge.svg)](https://github.com/Richasy/Bili.Uwp/actions/workflows/release-builder.yml)
 
-***目前由于技术原因和个人精力原因，该项目不便再继续维护下去，请考虑使用哔哩哔哩官方客户端或网页***
-
-现阶段 `直播` 和 `动态` 模块因API限制，不再可用
-
 </div>
 
 ---
