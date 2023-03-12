@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
+		<Title>Windows Community Toolkit XAMLHost for WPF</Title>
+		<Description>
+			This library provides XAML islands helpers for WPF. It is part of the Windows Community Toolkit.
+			By using the WindowsXamlHost control, you can add built-in or custom UWP controls to the User Interface (UI) of your WPF desktop application, such as Windows Ink and controls that support the Fluent Design System.
+		</Description>
+		<PackageTags>XAML Islands Win32 WPF XAMLHost</PackageTags>
+		<PackageId>Microsoft.Toolkit.Wpf.UI.XamlHost</PackageId>
+		<UseWPF>true</UseWPF>
+		<Platforms>x64;x86;arm64</Platforms>    <Title>Windows Community Toolkit XAMLHost for WPF</Title>
+    <Description>
+      This library provides XAML islands helpers for WPF. It is part of the Windows Community Toolkit.
+      By using the WindowsXamlHost control, you can add built-in or custom UWP controls to the User Interface (UI) of your WPF desktop application, such as Windows Ink and controls that support the Fluent Design System.
+    </Description>
+    <PackageTags>XAML Islands Win32 WPF XAMLHost</PackageTags>
+    <PackageId>Microsoft.Toolkit.Wpf.UI.XamlHost</PackageId>
+    <UseWPF>true</UseWPF>
+    
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="VisualStudioToolsManifest.xml" Pack="true" PackagePath="tools" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Microsoft.Toolkit.Win32.UI.XamlHost.Managed\Microsoft.Toolkit.Win32.UI.XamlHost.Managed.csproj" />
+  </ItemGroup>
+
+</Project>

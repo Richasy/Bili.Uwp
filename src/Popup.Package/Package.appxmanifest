@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
+  IgnorableNamespaces="uap rescap">
+
+  <Identity
+    Name="ecf728c1-74db-4deb-90b0-0a99d02d508e"
+    Publisher="CN=anran"
+    Version="1.0.0.0" />
+
+  <Properties>
+    <DisplayName>Popup.Package</DisplayName>
+    <PublisherDisplayName>anran</PublisherDisplayName>
+    <Logo>Images\Logo\StoreLogo.png</Logo>
+  </Properties>
+
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
+    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.14393.0" MaxVersionTested="10.0.14393.0" />
+  </Dependencies>
+
+  <Resources>
+    <Resource Language="x-generate"/>
+  </Resources>
+
+  <Applications>
+    <Application Id="App"
+      Executable="$targetnametoken$.exe"
+      EntryPoint="$targetentrypoint$">
+      <uap:VisualElements
+        DisplayName="ms-resource:AppName"
+        Description="一种弹窗式的BiliBili打开模式"
+        BackgroundColor="transparent"
+        Square150x150Logo="Images\Logo\Square150x150Logo.png"
+        Square44x44Logo="Images\Logo\Square44x44Logo.png">
+        <uap:DefaultTile Wide310x150Logo="Images\Logo\Wide310x150Logo.png"  ShortName="ms-resource:AppName" Square71x71Logo="Images\Logo\SmallTile.png" Square310x310Logo="Images\Logo\LargeTile.png">
+          <uap:ShowNameOnTiles>
+            <uap:ShowOn Tile="square150x150Logo"/>
+            <uap:ShowOn Tile="wide310x150Logo"/>
+            <uap:ShowOn Tile="square310x310Logo"/>
+          </uap:ShowNameOnTiles>
+        </uap:DefaultTile >
+        <uap:SplashScreen Image="Images\Logo\SplashScreen.png" />
+      </uap:VisualElements>
+    </Application>
+  </Applications>
+
+  <Capabilities>
+    <Capability Name="internetClient" />
+    <rescap:Capability Name="runFullTrust" />
+  </Capabilities>
+</Package>
