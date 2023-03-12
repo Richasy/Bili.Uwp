@@ -65,7 +65,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Workspace", "src\Workspace\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ViewModels.Workspace", "src\ViewModels\ViewModels.Workspace\ViewModels.Workspace.csproj", "{49FA2772-0217-4E93-99E6-93A7A84126B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DI.Workspace", "src\Lib\DI.Workspace\DI.Workspace.csproj", "{9FA13BEE-B184-4930-B031-E5463C6B5B44}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DI.Workspace", "src\Lib\DI.Workspace\DI.Workspace.csproj", "{9FA13BEE-B184-4930-B031-E5463C6B5B44}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -581,8 +581,8 @@ Global
 		{49FA2772-0217-4E93-99E6-93A7A84126B7}.Release|ARM.Build.0 = Release|Any CPU
 		{49FA2772-0217-4E93-99E6-93A7A84126B7}.Release|ARM64.ActiveCfg = Release|Any CPU
 		{49FA2772-0217-4E93-99E6-93A7A84126B7}.Release|ARM64.Build.0 = Release|Any CPU
-		{49FA2772-0217-4E93-99E6-93A7A84126B7}.Release|x64.ActiveCfg = Release|Any CPU
-		{49FA2772-0217-4E93-99E6-93A7A84126B7}.Release|x64.Build.0 = Release|Any CPU
+		{49FA2772-0217-4E93-99E6-93A7A84126B7}.Release|x64.ActiveCfg = Release|x64
+		{49FA2772-0217-4E93-99E6-93A7A84126B7}.Release|x64.Build.0 = Release|x64
 		{49FA2772-0217-4E93-99E6-93A7A84126B7}.Release|x86.ActiveCfg = Release|Any CPU
 		{49FA2772-0217-4E93-99E6-93A7A84126B7}.Release|x86.Build.0 = Release|Any CPU
 		{9FA13BEE-B184-4930-B031-E5463C6B5B44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

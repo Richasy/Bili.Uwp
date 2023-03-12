@@ -11,25 +11,11 @@
     <UseWinUI>true</UseWinUI>
     <EnableMsixTooling>true</EnableMsixTooling>
     <SupportedOSPlatformVersion>10.0.22000.0</SupportedOSPlatformVersion>
+    <DefaultLanguage>zh-Hans</DefaultLanguage>
+    <CreateMSIXPackage>True</CreateMSIXPackage>
   </PropertyGroup>
   <ItemGroup>
     <Content Remove="Assets\FluentIcon.ttf" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="Styles\Style.Overwrite.xaml" />
-    <None Remove="Styles\Theme.Dark.xaml" />
-    <None Remove="Styles\Theme.HighContrast.xaml" />
-    <None Remove="Styles\Theme.Light.xaml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Assets\SplashScreen.scale-200.png" />
-    <Content Include="Assets\LockScreenLogo.scale-200.png" />
-    <Content Include="Assets\Square150x150Logo.scale-200.png" />
-    <Content Include="Assets\Square44x44Logo.scale-200.png" />
-    <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
-    <Content Include="Assets\StoreLogo.png" />
-    <Content Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
 
   <ItemGroup>
