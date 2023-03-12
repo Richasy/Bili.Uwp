@@ -2,7 +2,7 @@
 
 using System.Windows;
 
-namespace Popup
+namespace Bili.Popup
 {
     /// <summary>
     /// Interaction logic for App.xaml.

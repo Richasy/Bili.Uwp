@@ -7,11 +7,35 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <LangVersion>10</LangVersion>
+    <RootNamespace>Bili.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+    <StartupObject>Bili.Popup.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.VCRTForwarders.140" Version="1.0.7" />
     <PackageReference Include="MicaWPF" Version="5.2.1" />
     <PackageReference Include="System.Runtime.InteropServices.WindowsRuntime" Version="4.3.0" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Lib\Microsoft.Toolkit.Wpf.UI.XamlHost\Microsoft.Toolkit.Wpf.UI.XamlHost.csproj" />
+    <ProjectReference Include="..\Popup.Projection\Popup.Projection.csproj" />
+  </ItemGroup>
+  
+  <Target Name="CsWinRTRemoveWinMDReferences" BeforeTargets="BeforeCompile" AfterTargets="ResolveReferences">
+    <ItemGroup>
+      <!--Move winmd references into private item group to prevent subsequent winmd reference errors-->
+      <CsWinRTRemovedReferences Include="@(ReferencePath)" Condition="'%(ReferencePath.Extension)' == '.winmd'" />
+      <CsWinRTInputs Include="@(CsWinRTRemovedReferences)" />
+
+      <!--Prevent NETSDK1130 errors from winmd references-->
+      <ReferencePath Remove="@(ReferencePath)" Condition="'%(ReferencePath.Extension)' == '.winmd'" />
+      <ReferencePathWithRefAssemblies Remove="@(CsWinRTRemovedReferences)" Condition="'%(CsWinRTRemovedReferences.Filename)%(CsWinRTRemovedReferences.Extension)' == '%(ReferencePathWithRefAssemblies.Filename)%(ReferencePathWithRefAssemblies.Extension)'" />
+      <!--Do not publish projection source winmds -->
+      <ReferenceCopyLocalPaths Remove="@(CsWinRTRemovedReferences)" />
+      <!--Remove winmd references from deps.json to prevent CLR failing unit test execution-->
+      <ReferenceDependencyPaths Remove="@(ReferenceDependencyPaths)" Condition="%(ReferenceDependencyPaths.Extension) == '.winmd'" />
+    </ItemGroup>
+  </Target>
 
 </Project>

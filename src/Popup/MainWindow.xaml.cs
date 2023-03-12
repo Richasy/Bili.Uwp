@@ -7,7 +7,7 @@ using System.Windows.Interop;
 using System.Windows.Media.Animation;
 using MicaWPF.Controls;
 
-namespace Popup
+namespace Bili.Popup
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml.
