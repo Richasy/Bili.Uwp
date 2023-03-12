@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Application
-    x:Class="Bili.Tool.App"
+    x:Class="Bili.Workspace.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Bili.Tool">
+    xmlns:local="using:Bili.Workspace">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

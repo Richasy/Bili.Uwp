@@ -181,17 +181,16 @@
                             </Grid.ColumnDefinitions>
                             <Viewbox
                                 x:Name="IconBox"
-                                Width="16"
-                                Height="16"
-                                Margin="12,0,0,0"
-                                HorizontalAlignment="Center"
+                                Width="20"
+                                Height="20"
+                                HorizontalAlignment="Left"
                                 VerticalAlignment="Center">
                                 <ContentPresenter
                                     x:Name="Icon"
                                     AnimatedIcon.State="Normal"
                                     Content="{TemplateBinding Icon}"
+                                    Margin="-2,0,0,0"
                                     Foreground="{TemplateBinding Foreground}" />
-
                             </Viewbox>
                             <ContentPresenter
                                 x:Name="ContentPresenter"

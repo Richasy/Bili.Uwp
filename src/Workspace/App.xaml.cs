@@ -7,13 +7,17 @@ using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using WinRT.Interop;
 
-namespace Bili.Tool
+namespace Bili.Workspace
 {
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
     public partial class App : Application
     {
+        /// <summary>
+        /// 应用标识.
+        /// </summary>
+        public const string Guid = "443BB14D-025E-48A3-B726-33A7B0F66909";
         private Window _window;
 
         /// <summary>
