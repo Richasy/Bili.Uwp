@@ -2,20 +2,19 @@
   <PropertyGroup>
     <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
     <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
-    <RootNamespace>Bili.ViewModels.Workspace</RootNamespace>
+    <RootNamespace>Bili.Toolkit.Workspace</RootNamespace>
     <RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
     <UseWinUI>true</UseWinUI>
-    <Platforms>x86;x64;arm64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
-      <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
       <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.3.230202101-experimental1" />
       <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.755" />
+      <PackageReference Include="ToolGood.Words" Version="3.1.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Utilities\Toolkit\Toolkit.Interfaces\Toolkit.Interfaces.csproj" />
-    <ProjectReference Include="..\ViewModels.Interfaces\ViewModels.Interfaces.csproj" />
+    <ProjectReference Include="..\..\..\Models\Models.App\Models.App.csproj" />
+    <ProjectReference Include="..\Toolkit.Interfaces\Toolkit.Interfaces.csproj" />
   </ItemGroup>
 </Project>

@@ -2,7 +2,9 @@
 
 using System.Collections.ObjectModel;
 using System.Linq;
+using Bili.Models.Enums;
 using Bili.Models.Enums.Workspace;
+using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Core;
 using Models.Workspace;
 
@@ -16,8 +18,9 @@ namespace Bili.ViewModels.Workspace.Core
         /// <summary>
         /// Initializes a new instance of the <see cref="WorkspaceViewModel"/> class.
         /// </summary>
-        public WorkspaceViewModel()
+        public WorkspaceViewModel(IResourceToolkit resourceToolkit)
         {
+            _resourceToolkit = resourceToolkit;
             Items = new ObservableCollection<NavigateItem>();
             InitializeItems();
             CurrentItem = Items.First();
@@ -25,11 +28,11 @@ namespace Bili.ViewModels.Workspace.Core
 
         private void InitializeItems()
         {
-            var homeItem = new NavigateItem(NavigateTarget.Home, "首页", FluentSymbol.Home);
-            var hotItem = new NavigateItem(NavigateTarget.Hot, "热门视频", FluentSymbol.Rocket);
-            var dynamicItem = new NavigateItem(NavigateTarget.Dynamic, "动态", FluentSymbol.DesignIdeas);
-            var liveItem = new NavigateItem(NavigateTarget.Live, "直播", FluentSymbol.Video);
-            var historyItem = new NavigateItem(NavigateTarget.History, "观看历史", FluentSymbol.History);
+            var homeItem = new NavigateItem(NavigateTarget.Home, _resourceToolkit.GetLocaleString(LanguageNames.Home), FluentSymbol.Home);
+            var hotItem = new NavigateItem(NavigateTarget.Hot, _resourceToolkit.GetLocaleString(LanguageNames.Popular), FluentSymbol.Rocket);
+            var dynamicItem = new NavigateItem(NavigateTarget.Dynamic, _resourceToolkit.GetLocaleString(LanguageNames.DynamicFeed), FluentSymbol.DesignIdeas);
+            var liveItem = new NavigateItem(NavigateTarget.Live, _resourceToolkit.GetLocaleString(LanguageNames.Live), FluentSymbol.Video);
+            var historyItem = new NavigateItem(NavigateTarget.History, _resourceToolkit.GetLocaleString(LanguageNames.ViewHistory), FluentSymbol.History);
             Items.Add(homeItem);
             Items.Add(hotItem);
             Items.Add(dynamicItem);

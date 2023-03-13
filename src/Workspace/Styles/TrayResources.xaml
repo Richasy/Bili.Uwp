@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ext="using:Bili.Workspace.Resources.Extension"
+    xmlns:tb="using:H.NotifyIcon">
+    <FontFamily x:Key="FluentIconFontFamily">Assets/FluentIcon.ttf#FluentSystemIcons-Resizable</FontFamily>
+    <XamlUICommand x:Key="LaunchAppCommand" Label="{ext:Locale Name=OpenBili}">
+        <XamlUICommand.IconSource>
+            <FontIconSource FontFamily="{StaticResource FluentIconFontFamily}" Glyph="&#xE9B9;" />
+        </XamlUICommand.IconSource>
+    </XamlUICommand>
+    <XamlUICommand x:Key="QuitCommand" Label="{ext:Locale Name=QuitApp}">
+        <XamlUICommand.IconSource>
+            <FontIconSource FontFamily="{StaticResource FluentIconFontFamily}" Glyph="&#xE55A;" />
+        </XamlUICommand.IconSource>
+    </XamlUICommand>
+    <XamlUICommand x:Key="ShowHideWindowCommand">
+        <XamlUICommand.IconSource>
+            <SymbolIconSource Symbol="OpenPane" />
+        </XamlUICommand.IconSource>
+        <XamlUICommand.KeyboardAccelerators>
+            <KeyboardAccelerator Key="S" Modifiers="Control" />
+        </XamlUICommand.KeyboardAccelerators>
+    </XamlUICommand>
+    <tb:TaskbarIcon
+        x:Key="TrayIcon"
+        ContextMenuMode="SecondWindow"
+        IconSource="\Assets\logo.ico"
+        LeftClickCommand="{StaticResource ShowHideWindowCommand}"
+        NoLeftClickDelay="True"
+        ToolTipText="{ext:Locale Name=AppName}"
+        Visibility="Visible">
+        <tb:TaskbarIcon.ContextFlyout>
+            <MenuFlyout>
+                <MenuFlyoutItem Command="{StaticResource LaunchAppCommand}" />
+                <MenuFlyoutSeparator />
+                <MenuFlyoutItem Command="{StaticResource QuitCommand}" />
+            </MenuFlyout>
+        </tb:TaskbarIcon.ContextFlyout>
+    </tb:TaskbarIcon>
+</ResourceDictionary>

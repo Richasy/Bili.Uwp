@@ -120,4 +120,31 @@
   <data name="AppName" xml:space="preserve">
     <value>哔哩空间</value>
   </data>
+  <data name="BiliHomePage" xml:space="preserve">
+    <value>开发者B站主页</value>
+  </data>
+  <data name="DynamicFeed" xml:space="preserve">
+    <value>动态</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>首页</value>
+  </data>
+  <data name="Live" xml:space="preserve">
+    <value>直播</value>
+  </data>
+  <data name="OpenBili" xml:space="preserve">
+    <value>打开哔哩</value>
+  </data>
+  <data name="Popular" xml:space="preserve">
+    <value>热门</value>
+  </data>
+  <data name="QuitApp" xml:space="preserve">
+    <value>退出应用</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="ViewHistory" xml:space="preserve">
+    <value>观看历史</value>
+  </data>
 </root>

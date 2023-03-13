@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows10.0.22621.0</TargetFramework>
@@ -17,8 +17,13 @@
   <ItemGroup>
     <Content Remove="Assets\FluentIcon.ttf" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="Assets\logo.ico" />
+    <None Remove="Styles\TrayResources.xaml" />
+  </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="H.NotifyIcon.WinUI" Version="2.0.97" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.3.230202101-experimental1" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.755" />
     <PackageReference Include="PInvoke.User32" Version="0.7.124" />
@@ -37,6 +42,11 @@
     <ProjectReference Include="..\Lib\DI.Container\DI.Container.csproj" />
     <ProjectReference Include="..\Lib\DI.Workspace\DI.Workspace.csproj" />
     <ProjectReference Include="..\ViewModels\ViewModels.Interfaces\ViewModels.Interfaces.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Styles\TrayResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Styles\Style.Overwrite.xaml">

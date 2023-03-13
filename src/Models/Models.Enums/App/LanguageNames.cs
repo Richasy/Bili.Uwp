@@ -541,6 +541,9 @@ namespace Bili.Models.Enums
         PreferQuality,
         EnterUserSpace,
         PlayInPrivate,
+        QuitApp,
+        OpenBili,
+        Home,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }
