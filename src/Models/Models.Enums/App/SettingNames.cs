@@ -81,6 +81,8 @@ namespace Bili.Models.Enums
         DecodeType,
         PlayerType,
         PreferQuality,
+        StartupPosition,
+        FixedPartitions,
 #pragma warning disable SA1602 // Enumeration items should be documented
     }
 }

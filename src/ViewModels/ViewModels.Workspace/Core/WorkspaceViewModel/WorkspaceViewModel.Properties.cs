@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using System.Collections.ObjectModel;
 using Bili.Toolkit.Interfaces;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -16,6 +17,12 @@ namespace Bili.ViewModels.Workspace.Core
 
         [ObservableProperty]
         private NavigateItem _currentItem;
+
+        [ObservableProperty]
+        private bool _isSettingsOpen;
+
+        /// <inheritdoc/>
+        public event EventHandler RequestNavigating;
 
         /// <inheritdoc />
         public ObservableCollection<NavigateItem> Items { get; }

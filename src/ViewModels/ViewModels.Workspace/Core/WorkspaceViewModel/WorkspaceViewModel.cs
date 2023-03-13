@@ -1,11 +1,13 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Bili.Models.Enums;
 using Bili.Models.Enums.Workspace;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Interfaces.Core;
+using Bili.ViewModels.Interfaces.Workspace;
+using CommunityToolkit.Mvvm.Input;
 using Models.Workspace;
 
 namespace Bili.ViewModels.Workspace.Core
@@ -38,6 +40,30 @@ namespace Bili.ViewModels.Workspace.Core
             Items.Add(dynamicItem);
             Items.Add(liveItem);
             Items.Add(historyItem);
+        }
+
+        [RelayCommand]
+        private void ShowSettings()
+        {
+            if (IsSettingsOpen)
+            {
+                return;
+            }
+
+            IsSettingsOpen = true;
+            CurrentItem = null;
+            RequestNavigating?.Invoke(this, EventArgs.Empty);
+        }
+
+        partial void OnCurrentItemChanged(NavigateItem value)
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            IsSettingsOpen = false;
+            RequestNavigating?.Invoke(this, EventArgs.Empty);
         }
     }
 }

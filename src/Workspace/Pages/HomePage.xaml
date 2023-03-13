@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<local:HomePageBase
+    x:Class="Bili.Workspace.Pages.HomePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:community="using:Bili.Models.Data.Community"
+    xmlns:communityControls="using:Bili.Workspace.Controls.Community"
+    xmlns:controls="using:Bili.Workspace.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:ext="using:Bili.Workspace.Resources.Extension"
+    xmlns:local="using:Bili.Workspace.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:workspace="using:Bili.ViewModels.Interfaces.Workspace"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <DataTemplate x:Key="PinPartitionItemTemplate" x:DataType="workspace:IVideoPartitionViewModel">
+            <Grid
+                Width="164"
+                Padding="12,8"
+                ColumnSpacing="8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Image
+                    Width="24"
+                    Height="24"
+                    VerticalAlignment="Center"
+                    Source="{x:Bind Data.Image.Uri, Mode=OneWay}" />
+                <TextBlock
+                    Grid.Column="1"
+                    VerticalAlignment="Center"
+                    Text="{x:Bind Data.Name, Mode=OneWay}" />
+                <Button
+                    Grid.Column="2"
+                    VerticalAlignment="Center"
+                    Command="{x:Bind ToggleCommand}">
+                    <Grid>
+                        <controls:FluentIcon
+                            FontSize="16"
+                            Symbol="Pin"
+                            Visibility="{x:Bind IsFixed, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
+                        <controls:FluentIcon
+                            FontSize="16"
+                            Symbol="PinOff"
+                            Visibility="{x:Bind IsFixed, Mode=OneWay}" />
+                    </Grid>
+                </Button>
+            </Grid>
+        </DataTemplate>
+        <Flyout
+            x:Name="PartitionFlyout"
+            Placement="Bottom"
+            ShouldConstrainToRootBounds="False">
+            <Flyout.FlyoutPresenterStyle>
+                <Style BasedOn="{StaticResource DefaultFlyoutPresenterStyle}" TargetType="FlyoutPresenter">
+                    <Setter Property="Padding" Value="12" />
+                </Style>
+            </Flyout.FlyoutPresenterStyle>
+            <Grid>
+                <ItemsRepeater ItemTemplate="{StaticResource PinPartitionItemTemplate}" ItemsSource="{x:Bind ViewModel.VideoPartitions}">
+                    <ItemsRepeater.Layout>
+                        <StackLayout Spacing="4" />
+                    </ItemsRepeater.Layout>
+                </ItemsRepeater>
+            </Grid>
+        </Flyout>
+    </Page.Resources>
+
+    <ScrollViewer Style="{StaticResource PageScrollViewerStyle}">
+        <Grid RowSpacing="12">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <!-- User -->
+            <!-- Video partitions -->
+            <RelativePanel Grid.Row="1" Padding="2,0">
+                <TextBlock
+                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                    RelativePanel.AlignLeftWithPanel="True"
+                    RelativePanel.AlignVerticalCenterWithPanel="True"
+                    Text="{ext:Locale Name=Partition}" />
+                <Button
+                    RelativePanel.AlignRightWithPanel="True"
+                    RelativePanel.AlignVerticalCenterWithPanel="True"
+                    Padding="8,4"
+                    Flyout="{StaticResource PartitionFlyout}">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            VerticalAlignment="Center"
+                            Text="{ext:Locale Name=SeeAll}" />
+                        <controls:FluentIcon
+                            VerticalAlignment="Center"
+                            FontSize="12"
+                            Symbol="ChevronDown" />
+                    </StackPanel>
+                </Button>
+            </RelativePanel>
+
+            <ProgressBar
+                Grid.Row="2"
+                HorizontalAlignment="Stretch"
+                IsIndeterminate="True"
+                Visibility="{x:Bind ViewModel.IsVideoPartitionLoading, Mode=OneWay}" />
+
+            <ItemsRepeater
+                Grid.Row="2"
+                ItemsSource="{x:Bind ViewModel.FixedVideoPartitions}"
+                Visibility="{x:Bind ViewModel.IsVideoPartitionLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                <ItemsRepeater.Layout>
+                    <UniformGridLayout
+                        ItemsStretch="Fill"
+                        MinColumnSpacing="4"
+                        MinItemHeight="112"
+                        MinItemWidth="100"
+                        MinRowSpacing="4"
+                        Orientation="Horizontal" />
+                </ItemsRepeater.Layout>
+                <ItemsRepeater.ItemTemplate>
+                    <DataTemplate x:DataType="community:Partition">
+                        <communityControls:PartitionItem ViewModel="{x:Bind}" />
+                    </DataTemplate>
+                </ItemsRepeater.ItemTemplate>
+            </ItemsRepeater>
+        </Grid>
+    </ScrollViewer>
+</local:HomePageBase>

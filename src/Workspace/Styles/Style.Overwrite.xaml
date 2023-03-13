@@ -9,6 +9,12 @@
         <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
     </ResourceDictionary.MergedDictionaries>
 
+    <Style x:Key="PageScrollViewerStyle" TargetType="ScrollViewer">
+        <Setter Property="Padding" Value="20,0,20,20" />
+        <Setter Property="HorizontalScrollMode" Value="Disabled" />
+        <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+    </Style>
+
     <Style x:Key="MUX_NavigationViewItemPresenterStyleWhenOnTopPane" TargetType="primitives:NavigationViewItemPresenter">
         <Setter Property="Foreground" Value="{ThemeResource TopNavigationViewItemForeground}" />
         <Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
@@ -187,9 +193,9 @@
                                 VerticalAlignment="Center">
                                 <ContentPresenter
                                     x:Name="Icon"
+                                    Margin="-2,0,0,0"
                                     AnimatedIcon.State="Normal"
                                     Content="{TemplateBinding Icon}"
-                                    Margin="-2,0,0,0"
                                     Foreground="{TemplateBinding Foreground}" />
                             </Viewbox>
                             <ContentPresenter

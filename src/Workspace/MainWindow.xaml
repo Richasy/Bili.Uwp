@@ -18,9 +18,12 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Frame
+            x:Name="MainFrame"
+            Padding="0,20,0,0"
             Background="{ThemeResource LayerFillColorDefaultBrush}"
             BorderBrush="{ThemeResource SurfaceStrokeColorDefaultBrush}"
-            BorderThickness="0,0,0,1" />
+            BorderThickness="0,0,0,1"
+            Loaded="OnMainFrameLoaded" />
         <Grid
             Grid.Row="2"
             Height="56"
@@ -53,6 +56,7 @@
                         Padding="0"
                         Background="Transparent"
                         BorderThickness="0"
+                        Command="{x:Bind _viewModel.ShowSettingsCommand}"
                         ToolTipService.ToolTip="{ext:Locale Name=Settings}">
                         <controls:FluentIcon FontSize="18" Symbol="Settings" />
                     </Button>

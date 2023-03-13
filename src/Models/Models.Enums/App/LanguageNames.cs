@@ -544,6 +544,18 @@ namespace Bili.Models.Enums
         QuitApp,
         OpenBili,
         Home,
+        TopLeft,
+        TopCenter,
+        TopRight,
+        Center,
+        BottomLeft,
+        BottomCenter,
+        BottomRight,
+        Bili,
+        Web,
+        About,
+        StartupPosition,
+        StartupPositionDescription,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

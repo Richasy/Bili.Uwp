@@ -117,14 +117,41 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="About" xml:space="preserve">
+    <value>关于</value>
+  </data>
+  <data name="AppDescription" xml:space="preserve">
+    <value>一款BiliBili的第三方桌面工具</value>
+  </data>
   <data name="AppName" xml:space="preserve">
     <value>哔哩空间</value>
+  </data>
+  <data name="Bili" xml:space="preserve">
+    <value>哔哩</value>
   </data>
   <data name="BiliHomePage" xml:space="preserve">
     <value>开发者B站主页</value>
   </data>
+  <data name="BottomCenter" xml:space="preserve">
+    <value>底部居中</value>
+  </data>
+  <data name="BottomLeft" xml:space="preserve">
+    <value>左下角</value>
+  </data>
+  <data name="BottomRight" xml:space="preserve">
+    <value>右下角</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Center" xml:space="preserve">
+    <value>中央</value>
+  </data>
   <data name="DynamicFeed" xml:space="preserve">
     <value>动态</value>
+  </data>
+  <data name="Generic" xml:space="preserve">
+    <value>通用</value>
   </data>
   <data name="Home" xml:space="preserve">
     <value>首页</value>
@@ -135,16 +162,55 @@
   <data name="OpenBili" xml:space="preserve">
     <value>打开哔哩</value>
   </data>
+  <data name="Partition" xml:space="preserve">
+    <value>分区</value>
+  </data>
+  <data name="PlayerType" xml:space="preserve">
+    <value>播放器</value>
+  </data>
+  <data name="PlayerTypeDescription" xml:space="preserve">
+    <value>选择播放视频的方式</value>
+  </data>
   <data name="Popular" xml:space="preserve">
     <value>热门</value>
+  </data>
+  <data name="ProjectHomePage" xml:space="preserve">
+    <value>项目主页</value>
+  </data>
+  <data name="QRLoginTip" xml:space="preserve">
+    <value>请使用移动客户端扫描下方的二维码登录</value>
   </data>
   <data name="QuitApp" xml:space="preserve">
     <value>退出应用</value>
   </data>
+  <data name="SeeAll" xml:space="preserve">
+    <value>查看全部</value>
+  </data>
   <data name="Settings" xml:space="preserve">
     <value>设置</value>
   </data>
+  <data name="SignInTitle" xml:space="preserve">
+    <value>用户登录</value>
+  </data>
+  <data name="StartupPosition" xml:space="preserve">
+    <value>启动位置</value>
+  </data>
+  <data name="StartupPositionDescription" xml:space="preserve">
+    <value>设置窗口显示的位置</value>
+  </data>
+  <data name="TopCenter" xml:space="preserve">
+    <value>顶部居中</value>
+  </data>
+  <data name="TopLeft" xml:space="preserve">
+    <value>左上角</value>
+  </data>
+  <data name="TopRight" xml:space="preserve">
+    <value>右上角</value>
+  </data>
   <data name="ViewHistory" xml:space="preserve">
     <value>观看历史</value>
+  </data>
+  <data name="Web" xml:space="preserve">
+    <value>网页</value>
   </data>
 </root>
