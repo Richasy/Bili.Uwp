@@ -11,44 +11,64 @@
     xmlns:local="using:Bili.Workspace.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:workspace="using:Bili.ViewModels.Interfaces.Workspace"
+    xmlns:workspace1="using:Models.Workspace"
     mc:Ignorable="d">
 
     <Page.Resources>
         <DataTemplate x:Key="PinPartitionItemTemplate" x:DataType="workspace:IVideoPartitionViewModel">
-            <Grid
-                Width="164"
-                Padding="12,8"
-                ColumnSpacing="8">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
+            <controls:CardPanel
+                Background="Transparent"
+                BorderThickness="0"
+                Click="OnVideoPartitionClick"
+                DataContext="{x:Bind}"
+                PointerOverBackground="{ThemeResource CardBackgroundFillColorDefaultBrush}">
+                <Grid
+                    Width="172"
+                    Padding="12,8"
+                    ColumnSpacing="8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Image
+                        Width="24"
+                        Height="24"
+                        VerticalAlignment="Center"
+                        Source="{x:Bind Data.Image.Uri, Mode=OneWay}" />
+                    <TextBlock
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        Text="{x:Bind Data.Name, Mode=OneWay}" />
+                    <Button
+                        Grid.Column="2"
+                        VerticalAlignment="Center"
+                        Command="{x:Bind ToggleCommand}">
+                        <Grid>
+                            <controls:FluentIcon
+                                FontSize="16"
+                                Symbol="Pin"
+                                Visibility="{x:Bind IsFixed, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
+                            <controls:FluentIcon
+                                FontSize="16"
+                                Symbol="PinOff"
+                                Visibility="{x:Bind IsFixed, Mode=OneWay}" />
+                        </Grid>
+                    </Button>
+                </Grid>
+            </controls:CardPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="QuickTopicItemTemplate" x:DataType="workspace1:QuickTopic">
+            <controls:CardPanel
+                Click="OnQuickTopicClickAsync"
+                DataContext="{x:Bind}"
+                ToolTipService.ToolTip="{x:Bind Title}">
                 <Image
-                    Width="24"
-                    Height="24"
+                    Width="28"
+                    HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Source="{x:Bind Data.Image.Uri, Mode=OneWay}" />
-                <TextBlock
-                    Grid.Column="1"
-                    VerticalAlignment="Center"
-                    Text="{x:Bind Data.Name, Mode=OneWay}" />
-                <Button
-                    Grid.Column="2"
-                    VerticalAlignment="Center"
-                    Command="{x:Bind ToggleCommand}">
-                    <Grid>
-                        <controls:FluentIcon
-                            FontSize="16"
-                            Symbol="Pin"
-                            Visibility="{x:Bind IsFixed, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
-                        <controls:FluentIcon
-                            FontSize="16"
-                            Symbol="PinOff"
-                            Visibility="{x:Bind IsFixed, Mode=OneWay}" />
-                    </Grid>
-                </Button>
-            </Grid>
+                    Source="{x:Bind Icon}" />
+            </controls:CardPanel>
         </DataTemplate>
         <Flyout
             x:Name="PartitionFlyout"
@@ -72,6 +92,7 @@
     <ScrollViewer Style="{StaticResource PageScrollViewerStyle}">
         <Grid RowSpacing="12">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -124,10 +145,34 @@
                 </ItemsRepeater.Layout>
                 <ItemsRepeater.ItemTemplate>
                     <DataTemplate x:DataType="community:Partition">
-                        <communityControls:PartitionItem ViewModel="{x:Bind}" />
+                        <communityControls:PartitionItem
+                            Click="OnVideoPartitionClick"
+                            DataContext="{x:Bind}"
+                            ViewModel="{x:Bind}" />
                     </DataTemplate>
                 </ItemsRepeater.ItemTemplate>
             </ItemsRepeater>
+
+            <!-- Quick topics -->
+            <StackPanel
+                Grid.Row="3"
+                Margin="0,8,0,0"
+                Spacing="12">
+                <TextBlock
+                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                    Margin="2,0,0,0"
+                    Text="{ext:Locale Name=Topic}" />
+                <ItemsRepeater ItemTemplate="{StaticResource QuickTopicItemTemplate}" ItemsSource="{x:Bind ViewModel.Topics}">
+                    <ItemsRepeater.Layout>
+                        <UniformGridLayout
+                            ItemsStretch="Fill"
+                            MinColumnSpacing="4"
+                            MinItemHeight="56"
+                            MinItemWidth="56"
+                            Orientation="Horizontal" />
+                    </ItemsRepeater.Layout>
+                </ItemsRepeater>
+            </StackPanel>
         </Grid>
     </ScrollViewer>
 </local:HomePageBase>

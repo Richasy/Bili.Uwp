@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Bili.Models.Data.Community;
 using CommunityToolkit.Mvvm.Input;
+using Models.Workspace;
 
 namespace Bili.ViewModels.Interfaces.Workspace
 {
@@ -21,6 +22,11 @@ namespace Bili.ViewModels.Interfaces.Workspace
         /// 视频分区集合.
         /// </summary>
         ObservableCollection<IVideoPartitionViewModel> VideoPartitions { get; }
+
+        /// <summary>
+        /// 专题集合.
+        /// </summary>
+        ObservableCollection<QuickTopic> Topics { get; }
 
         /// <summary>
         /// 分区是否正在加载.

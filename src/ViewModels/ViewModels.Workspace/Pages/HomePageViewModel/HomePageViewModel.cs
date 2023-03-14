@@ -10,6 +10,7 @@ using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Workspace;
 using CommunityToolkit.Mvvm.Input;
+using Models.Workspace;
 
 namespace Bili.ViewModels.Workspace.Pages
 {
@@ -23,12 +24,23 @@ namespace Bili.ViewModels.Workspace.Pages
         /// </summary>
         public HomePageViewModel(
             ISettingsToolkit settingsToolkit,
+            IResourceToolkit resourceToolkit,
             IHomeProvider homeProvider)
         {
             _settingsToolkit = settingsToolkit;
+            _resourceToolkit = resourceToolkit;
             _homeProvider = homeProvider;
             FixedVideoPartitions = new ObservableCollection<Partition>();
             VideoPartitions = new ObservableCollection<IVideoPartitionViewModel>();
+            Topics = new ObservableCollection<QuickTopic>
+            {
+                CreateTopic(LanguageNames.Anime, "anime", "anime", "anime"),
+                CreateTopic(LanguageNames.DomesticAnime, "domesticAnime", "guochuang", "guochuang"),
+                CreateTopic(LanguageNames.SpecialColumn, "specialColumn", "read/home", "document"),
+                CreateTopic(LanguageNames.Documentary, "documentary", "documentary", "jilu"),
+                CreateTopic(LanguageNames.Movie, "movie", "movie", "movie"),
+                CreateTopic(LanguageNames.TV, "tv", "tv", "tv"),
+            };
 
             AttachExceptionHandlerToAsyncCommand(LogException, InitializeVideoPartitionsCommand);
             AttachIsRunningToAsyncCommand(p => IsVideoPartitionLoading = p, InitializeVideoPartitionsCommand);
@@ -87,6 +99,15 @@ namespace Bili.ViewModels.Workspace.Pages
 
                 VideoPartitions.Add(vm);
             }
+        }
+
+        private QuickTopic CreateTopic(LanguageNames title, string biliPartition, string webName, string iconName)
+        {
+            return new QuickTopic(
+                _resourceToolkit.GetLocaleString(title),
+                $"richasy-bili://navigate?id={biliPartition}",
+                $"https://www.bilibili.com/{webName}",
+                $"ms-appx:///Assets/Images/{iconName}.png");
         }
     }
 }

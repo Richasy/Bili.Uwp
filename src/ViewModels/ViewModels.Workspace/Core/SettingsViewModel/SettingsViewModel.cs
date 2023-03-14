@@ -32,10 +32,10 @@ namespace Bili.ViewModels.Workspace.Core
                 StartupPosition.BottomRight,
                 StartupPosition.Center,
             };
-            PlayerTypes = new ObservableCollection<PlayerType>
+            LaunchTypes = new ObservableCollection<LaunchType>
             {
-                PlayerType.Bili,
-                PlayerType.Web,
+                LaunchType.Bili,
+                LaunchType.Web,
             };
 
             InitializeSettings();
@@ -45,13 +45,13 @@ namespace Bili.ViewModels.Workspace.Core
         {
             Version = _appToolkit.GetPackageVersion();
             StartupPosition = _settingsToolkit.ReadLocalSetting(SettingNames.StartupPosition, StartupPosition.BottomCenter);
-            PlayerType = _settingsToolkit.ReadLocalSetting(SettingNames.PlayerType, PlayerType.Web);
+            LaunchType = _settingsToolkit.ReadLocalSetting(SettingNames.LaunchType, LaunchType.Web);
         }
 
         partial void OnStartupPositionChanged(StartupPosition value)
             => _settingsToolkit.WriteLocalSetting(SettingNames.StartupPosition, value);
 
-        partial void OnPlayerTypeChanged(PlayerType value)
-            => _settingsToolkit.WriteLocalSetting(SettingNames.PlayerType, value);
+        partial void OnLaunchTypeChanged(LaunchType value)
+            => _settingsToolkit.WriteLocalSetting(SettingNames.LaunchType, value);
     }
 }

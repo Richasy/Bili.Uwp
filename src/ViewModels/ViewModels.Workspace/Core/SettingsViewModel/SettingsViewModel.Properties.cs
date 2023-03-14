@@ -19,7 +19,7 @@ namespace Bili.ViewModels.Workspace.Core
         private StartupPosition _startupPosition;
 
         [ObservableProperty]
-        private PlayerType _playerType;
+        private LaunchType _launchType;
 
         [ObservableProperty]
         private string _version;
@@ -28,6 +28,6 @@ namespace Bili.ViewModels.Workspace.Core
         public ObservableCollection<StartupPosition> StartupPositions { get; }
 
         /// <inheritdoc/>
-        public ObservableCollection<PlayerType> PlayerTypes { get; }
+        public ObservableCollection<LaunchType> LaunchTypes { get; }
     }
 }

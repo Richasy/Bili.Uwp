@@ -30,7 +30,7 @@
                 </StackPanel.ChildrenTransitions>
                 <TextBlock Style="{StaticResource SettingsSubHeadingText}" Text="{ext:Locale Name=Generic}" />
                 <settings:StartupPositionSettingSection />
-                <settings:PlayerTypeSettingSection />
+                <settings:LaunchTypeSettingSection />
                 <TextBlock
                     Style="{StaticResource SettingsSubHeadingText}"
                     Margin="1,29,0,5"

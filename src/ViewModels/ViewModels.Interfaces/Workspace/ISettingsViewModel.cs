@@ -17,9 +17,9 @@ namespace Bili.ViewModels.Interfaces.Workspace
         ObservableCollection<StartupPosition> StartupPositions { get; }
 
         /// <summary>
-        /// 播放器类型集合.
+        /// 启动类型集合.
         /// </summary>
-        ObservableCollection<PlayerType> PlayerTypes { get; }
+        ObservableCollection<LaunchType> LaunchTypes { get; }
 
         /// <summary>
         /// 应用版本.
@@ -32,8 +32,8 @@ namespace Bili.ViewModels.Interfaces.Workspace
         StartupPosition StartupPosition { get; set; }
 
         /// <summary>
-        /// 播放器类型.
+        /// 启动类型.
         /// </summary>
-        PlayerType PlayerType { get; set; }
+        LaunchType LaunchType { get; set; }
     }
 }

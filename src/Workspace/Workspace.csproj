@@ -15,9 +15,7 @@
     <CreateMSIXPackage>True</CreateMSIXPackage>
   </PropertyGroup>
   <ItemGroup>
-    <Content Remove="Assets\FluentIcon.ttf" />
-  </ItemGroup>
-  <ItemGroup>
+    <None Remove="Assets\FluentIcon.ttf" />
     <None Remove="Assets\Images\anime.png" />
     <None Remove="Assets\Images\document.png" />
     <None Remove="Assets\Images\guochuang.png" />
@@ -28,7 +26,7 @@
     <None Remove="Controls\App\CardPanel\CardPanel.xaml" />
     <None Remove="Controls\Community\PartitionItem\PartitionItem.xaml" />
     <None Remove="Controls\Settings\AboutSettingSection.xaml" />
-    <None Remove="Controls\Settings\PlayerTypeSettingSection.xaml" />
+    <None Remove="Controls\Settings\LaunchTypeSettingSection.xaml" />
     <None Remove="Controls\Settings\StartupPositionSettingSection.xaml" />
     <None Remove="Pages\HomePage.xaml" />
     <None Remove="Pages\SettingsPage.xaml" />
@@ -69,7 +67,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Controls\Settings\PlayerTypeSettingSection.xaml">
+    <Page Update="Controls\Settings\LaunchTypeSettingSection.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
@@ -112,6 +110,9 @@
     <Page Update="Pages\SettingsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
 
   <!-- 

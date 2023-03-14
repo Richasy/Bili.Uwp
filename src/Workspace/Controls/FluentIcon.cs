@@ -21,7 +21,7 @@ namespace Bili.Workspace.Controls
         /// Initializes a new instance of the <see cref="FluentIcon"/> class.
         /// </summary>
         public FluentIcon()
-            => FontFamily = new Microsoft.UI.Xaml.Media.FontFamily("ms-appx:///Assets/FluentIcon.ttf#FluentSystemIcons-Resizable");
+            => FontFamily = new Microsoft.UI.Xaml.Media.FontFamily("/Assets/FluentIcon.ttf#FluentSystemIcons-Resizable");
 
         /// <summary>
         /// 图标.

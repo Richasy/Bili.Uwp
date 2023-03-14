@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using Bili.DI.Container;
 using Bili.Models.Data.Community;
 using Bili.Models.Enums.App;
@@ -30,6 +31,11 @@ namespace Bili.Workspace.Controls.Community
         public PartitionItem() => DefaultStyleKey = typeof(PartitionItem);
 
         /// <summary>
+        /// 条目被点击时触发.
+        /// </summary>
+        public event RoutedEventHandler Click;
+
+        /// <summary>
         /// 类型.
         /// </summary>
         public PartitionType Type
@@ -46,12 +52,6 @@ namespace Bili.Workspace.Controls.Community
         }
 
         private void OnRootCardClick(object sender, RoutedEventArgs e)
-        {
-            var vm = Locator.Instance.GetService<INavigationViewModel>();
-            var pageId = Type == PartitionType.Video
-                ? Models.Enums.PageIds.VideoPartitionDetail
-                : Models.Enums.PageIds.LivePartitionDetail;
-            vm.NavigateToSecondaryView(pageId, ViewModel);
-        }
+            => Click?.Invoke(this, e);
     }
 }

@@ -144,7 +144,7 @@ namespace Bili.Workspace
             }
         }
 
-        private Windows.Graphics.RectInt32 GetRenderRect(DisplayArea displayArea, Microsoft.UI.WindowId windowId)
+        private Windows.Graphics.RectInt32 GetRenderRect(DisplayArea displayArea, WindowId windowId)
         {
             var settingsToolkit = Locator.Instance.GetService<ISettingsToolkit>();
             var perferPosition = settingsToolkit.ReadLocalSetting(Models.Enums.SettingNames.StartupPosition, StartupPosition.BottomCenter);

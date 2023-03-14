@@ -1,6 +1,15 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
+using System.Diagnostics;
+using Bili.DI.Container;
+using Bili.Models.Data.Community;
+using Bili.Models.Enums.Workspace;
+using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Workspace;
+using Microsoft.UI.Xaml;
+using Models.Workspace;
+using Windows.System;
 
 namespace Bili.Workspace.Pages
 {
@@ -21,6 +30,29 @@ namespace Bili.Workspace.Pages
             {
                 ViewModel.InitializeVideoPartitionsCommand.Execute(default);
             }
+        }
+
+        private void OnVideoPartitionClick(object sender, RoutedEventArgs e)
+        {
+            if (PartitionFlyout.IsOpen)
+            {
+                PartitionFlyout.Hide();
+            }
+
+            var ele = sender as FrameworkElement;
+            var data = ele.DataContext is IVideoPartitionViewModel vpvm
+                ? vpvm.Data
+                : ele.DataContext as Partition;
+            Debug.WriteLine(data.Name);
+        }
+
+        private async void OnQuickTopicClickAsync(object sender, RoutedEventArgs e)
+        {
+            var settingsToolkit = Locator.Instance.GetService<ISettingsToolkit>();
+            var perferLaunch = settingsToolkit.ReadLocalSetting(Models.Enums.SettingNames.LaunchType, LaunchType.Web);
+            var data = (sender as FrameworkElement).DataContext as QuickTopic;
+            var uri = new Uri(perferLaunch == LaunchType.Bili ? data.BiliUrl : data.WebUrl);
+            await Launcher.LaunchUriAsync(uri);
         }
     }
 

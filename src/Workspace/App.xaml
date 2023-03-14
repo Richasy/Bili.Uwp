@@ -22,7 +22,7 @@
             </ResourceDictionary.ThemeDictionaries>
 
             <converters:StartupPositionTextConverter x:Key="StartupPositionTextConverter" />
-            <converters:PlayerTypeTextConverter x:Key="PlayerTypeTextConverter" />
+            <converters:LaunchTypeTextConverter x:Key="LaunchTypeTextConverter" />
             <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
             <converters:ObjectToBoolConverter x:Key="ObjectToBoolReverseConverter" IsReverse="True" />
             <converters:ObjectToVisibilityConverter x:Key="ObjectToVisibilityConverter" />

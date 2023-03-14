@@ -6,6 +6,7 @@ using Bili.Models.Data.Community;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Workspace;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Models.Workspace;
 
 namespace Bili.ViewModels.Workspace.Pages
 {
@@ -15,6 +16,7 @@ namespace Bili.ViewModels.Workspace.Pages
     public sealed partial class HomePageViewModel
     {
         private readonly ISettingsToolkit _settingsToolkit;
+        private readonly IResourceToolkit _resourceToolkit;
         private readonly IHomeProvider _homeProvider;
 
         [ObservableProperty]
@@ -25,5 +27,8 @@ namespace Bili.ViewModels.Workspace.Pages
 
         /// <inheritdoc/>
         public ObservableCollection<IVideoPartitionViewModel> VideoPartitions { get; }
+
+        /// <inheritdoc/>
+        public ObservableCollection<QuickTopic> Topics { get; }
     }
 }

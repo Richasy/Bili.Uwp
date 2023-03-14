@@ -556,6 +556,8 @@ namespace Bili.Models.Enums
         About,
         StartupPosition,
         StartupPositionDescription,
+        LaunchType,
+        LaunchTypeDescription,
 #pragma warning restore SA1602 // Enumeration items should be documented
     }
 }

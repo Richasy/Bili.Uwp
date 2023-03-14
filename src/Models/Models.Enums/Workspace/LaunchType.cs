@@ -3,9 +3,9 @@
 namespace Bili.Models.Enums.Workspace
 {
     /// <summary>
-    /// 播放器类型.
+    /// 启动类型.
     /// </summary>
-    public enum PlayerType
+    public enum LaunchType
     {
         /// <summary>
         /// 哔哩.

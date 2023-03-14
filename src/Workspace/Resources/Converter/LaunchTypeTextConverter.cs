@@ -9,21 +9,21 @@ using Microsoft.UI.Xaml.Data;
 namespace Bili.Workspace.Resources.Converter
 {
     /// <summary>
-    /// 播放器类型文本转换器.
+    /// 启动类型文本转换器.
     /// </summary>
-    public sealed class PlayerTypeTextConverter : IValueConverter
+    public sealed class LaunchTypeTextConverter : IValueConverter
     {
         /// <inheritdoc/>
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             var result = string.Empty;
             var resToolkit = Locator.Instance.GetService<IResourceToolkit>();
-            switch ((PlayerType)value)
+            switch ((LaunchType)value)
             {
-                case PlayerType.Bili:
+                case LaunchType.Bili:
                     result = resToolkit.GetLocaleString(Models.Enums.LanguageNames.Bili);
                     break;
-                case PlayerType.Web:
+                case LaunchType.Web:
                     result = resToolkit.GetLocaleString(Models.Enums.LanguageNames.Web);
                     break;
             }
