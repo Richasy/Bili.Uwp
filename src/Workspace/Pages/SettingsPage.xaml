@@ -22,21 +22,22 @@
         <x:Double x:Key="SettingsCardWrapNoIconThreshold">120</x:Double>
     </Page.Resources>
 
-    <Grid>
-        <ScrollViewer Style="{StaticResource PageScrollViewerStyle}">
-            <StackPanel Spacing="3" TabFocusNavigation="Local">
-                <StackPanel.ChildrenTransitions>
-                    <RepositionThemeTransition IsStaggeringEnabled="False" />
-                </StackPanel.ChildrenTransitions>
-                <TextBlock Style="{StaticResource SettingsSubHeadingText}" Text="{ext:Locale Name=Generic}" />
-                <settings:StartupPositionSettingSection />
-                <settings:LaunchTypeSettingSection />
-                <TextBlock
-                    Style="{StaticResource SettingsSubHeadingText}"
-                    Margin="1,29,0,5"
-                    Text="{ext:Locale Name=About}" />
-                <settings:AboutSettingSection />
-            </StackPanel>
-        </ScrollViewer>
-    </Grid>
+    <ScrollViewer Style="{StaticResource PageScrollViewerStyle}">
+        <StackPanel
+            Margin="{StaticResource PageMargin}"
+            Spacing="3"
+            TabFocusNavigation="Local">
+            <StackPanel.ChildrenTransitions>
+                <RepositionThemeTransition IsStaggeringEnabled="False" />
+            </StackPanel.ChildrenTransitions>
+            <TextBlock Style="{StaticResource SettingsSubHeadingText}" Text="{ext:Locale Name=Generic}" />
+            <settings:StartupPositionSettingSection />
+            <settings:LaunchTypeSettingSection />
+            <TextBlock
+                Style="{StaticResource SettingsSubHeadingText}"
+                Margin="1,29,0,5"
+                Text="{ext:Locale Name=About}" />
+            <settings:AboutSettingSection />
+        </StackPanel>
+    </ScrollViewer>
 </local:SettingsPageBase>

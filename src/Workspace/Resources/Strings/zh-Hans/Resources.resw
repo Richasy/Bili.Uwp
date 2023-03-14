@@ -135,6 +135,9 @@
   <data name="BiliHomePage" xml:space="preserve">
     <value>开发者B站主页</value>
   </data>
+  <data name="Billion" xml:space="preserve">
+    <value>亿</value>
+  </data>
   <data name="BottomCenter" xml:space="preserve">
     <value>底部居中</value>
   </data>
@@ -156,17 +159,32 @@
   <data name="DomesticAnime" xml:space="preserve">
     <value>国创</value>
   </data>
+  <data name="DynamicCount" xml:space="preserve">
+    <value>动态数</value>
+  </data>
   <data name="DynamicFeed" xml:space="preserve">
     <value>动态</value>
   </data>
   <data name="FailedToLoadQRCode" xml:space="preserve">
     <value>二维码加载失败，请刷新</value>
   </data>
+  <data name="FansCount" xml:space="preserve">
+    <value>粉丝数</value>
+  </data>
+  <data name="FollowCount" xml:space="preserve">
+    <value>关注数</value>
+  </data>
   <data name="Generic" xml:space="preserve">
     <value>通用</value>
   </data>
   <data name="Home" xml:space="preserve">
     <value>首页</value>
+  </data>
+  <data name="HotSearch" xml:space="preserve">
+    <value>热搜</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>时</value>
   </data>
   <data name="LaunchType" xml:space="preserve">
     <value>启动方式</value>
@@ -180,14 +198,26 @@
   <data name="LoginFailed" xml:space="preserve">
     <value>登录失败，请稍后重试</value>
   </data>
+  <data name="Message" xml:space="preserve">
+    <value>消息</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>分</value>
+  </data>
   <data name="Movie" xml:space="preserve">
     <value>电影</value>
+  </data>
+  <data name="MyFavorite" xml:space="preserve">
+    <value>我的收藏</value>
   </data>
   <data name="OpenBili" xml:space="preserve">
     <value>打开哔哩</value>
   </data>
   <data name="Partition" xml:space="preserve">
     <value>分区</value>
+  </data>
+  <data name="Personal" xml:space="preserve">
+    <value>个人主页</value>
   </data>
   <data name="Popular" xml:space="preserve">
     <value>热门</value>
@@ -207,17 +237,29 @@
   <data name="Refresh" xml:space="preserve">
     <value>刷新</value>
   </data>
+  <data name="SearchTip" xml:space="preserve">
+    <value>搜索视频、番剧或UP主</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>秒</value>
+  </data>
   <data name="SeeAll" xml:space="preserve">
     <value>查看全部</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>设置</value>
   </data>
+  <data name="ShowMore" xml:space="preserve">
+    <value>显示更多</value>
+  </data>
   <data name="SignIn" xml:space="preserve">
     <value>登录</value>
   </data>
   <data name="SignInTitle" xml:space="preserve">
     <value>用户登录</value>
+  </data>
+  <data name="SignOut" xml:space="preserve">
+    <value>退出账户</value>
   </data>
   <data name="SpecialColumn" xml:space="preserve">
     <value>专栏</value>
@@ -227,6 +269,9 @@
   </data>
   <data name="StartupPositionDescription" xml:space="preserve">
     <value>设置窗口显示的位置</value>
+  </data>
+  <data name="TenThousands" xml:space="preserve">
+    <value>万</value>
   </data>
   <data name="TopCenter" xml:space="preserve">
     <value>顶部居中</value>
@@ -245,6 +290,12 @@
   </data>
   <data name="ViewHistory" xml:space="preserve">
     <value>观看历史</value>
+  </data>
+  <data name="ViewLater" xml:space="preserve">
+    <value>稍后再看</value>
+  </data>
+  <data name="Vip" xml:space="preserve">
+    <value>大会员</value>
   </data>
   <data name="Web" xml:space="preserve">
     <value>网页</value>

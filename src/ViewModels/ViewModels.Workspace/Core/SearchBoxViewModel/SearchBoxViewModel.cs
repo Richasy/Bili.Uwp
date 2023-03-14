@@ -3,17 +3,19 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Search;
-using Bili.ViewModels.Interfaces.Core;
+using Bili.Models.Enums.Workspace;
+using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Search;
 using CommunityToolkit.Mvvm.Input;
-using Windows.UI.Core;
-using Windows.UI.Xaml;
+using Microsoft.UI.Xaml;
+using Windows.System;
 
-namespace Bili.ViewModels.Uwp.Search
+namespace Bili.ViewModels.Workspace.Core
 {
     /// <summary>
     /// 搜索框视图模型.
@@ -25,17 +27,17 @@ namespace Bili.ViewModels.Uwp.Search
         /// </summary>
         public SearchBoxViewModel(
             ISearchProvider searchProvider,
-            INavigationViewModel navigationViewModel)
+            ISettingsToolkit settingsToolkit)
         {
             _searchProvider = searchProvider;
-            _navigationViewModel = navigationViewModel;
-            _dispatcher = Window.Current.CoreWindow.Dispatcher;
+            _settingsToolkit = settingsToolkit;
+            _dispatcher = Microsoft.UI.Dispatching.DispatcherQueue.GetForCurrentThread();
 
             HotSearchCollection = new ObservableCollection<SearchSuggest>();
             SearchSuggestion = new ObservableCollection<SearchSuggest>();
 
-            SearchCommand = new AsyncRelayCommand<string>(Search);
-            SelectSuggestCommand = new AsyncRelayCommand<SearchSuggest>(Search);
+            SearchCommand = new AsyncRelayCommand<string>(SearchAsync);
+            SelectSuggestCommand = new AsyncRelayCommand<SearchSuggest>(SearchAsync);
             InitializeCommand = new AsyncRelayCommand(LoadHotSearchAsync);
 
             _suggestionTimer = new DispatcherTimer
@@ -47,18 +49,21 @@ namespace Bili.ViewModels.Uwp.Search
             AttachExceptionHandlerToAsyncCommand(LogException, InitializeCommand);
         }
 
-        private Task Search(SearchSuggest suggest)
-            => Search(suggest.Keyword);
+        private Task SearchAsync(SearchSuggest suggest)
+            => SearchAsync(suggest.Keyword);
 
-        private Task Search(string keyword)
+        private async Task SearchAsync(string keyword)
         {
             Keyword = string.Empty;
             if (!string.IsNullOrEmpty(keyword))
             {
-                _navigationViewModel.NavigateToSecondaryView(Models.Enums.PageIds.Search, keyword);
+                var perferLaunch = _settingsToolkit.ReadLocalSetting(Models.Enums.SettingNames.LaunchType, LaunchType.Web);
+                var word = WebUtility.UrlEncode(keyword);
+                var uri = perferLaunch == LaunchType.Web
+                    ? new Uri($"https://search.bilibili.com/all?keyword={word}")
+                    : new Uri($"richasy-bili://find?keyword={word}");
+                await Launcher.LaunchUriAsync(uri);
             }
-
-            return Task.CompletedTask;
         }
 
         private void InitializeSuggestionCancellationTokenSource()
@@ -89,7 +94,7 @@ namespace Bili.ViewModels.Uwp.Search
                     return;
                 }
 
-                await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                _dispatcher.TryEnqueue(() =>
                 {
                     suggestion.ToList().ForEach(p => SearchSuggestion.Add(p));
                 });
@@ -112,7 +117,7 @@ namespace Bili.ViewModels.Uwp.Search
             }
 
             var data = await _searchProvider.GetHotSearchListAsync();
-            await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            _dispatcher.TryEnqueue(() =>
             {
                 TryClear(HotSearchCollection);
                 data.ToList().ForEach(p => HotSearchCollection.Add(p));

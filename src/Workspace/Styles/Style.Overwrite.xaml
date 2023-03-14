@@ -10,10 +10,11 @@
     </ResourceDictionary.MergedDictionaries>
 
     <Style x:Key="PageScrollViewerStyle" TargetType="ScrollViewer">
-        <Setter Property="Padding" Value="20,0,20,20" />
         <Setter Property="HorizontalScrollMode" Value="Disabled" />
         <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
     </Style>
+
+    <Thickness x:Key="PageMargin">20,20,20,12</Thickness>
 
     <Style x:Key="MUX_NavigationViewItemPresenterStyleWhenOnTopPane" TargetType="primitives:NavigationViewItemPresenter">
         <Setter Property="Foreground" Value="{ThemeResource TopNavigationViewItemForeground}" />

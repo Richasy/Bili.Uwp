@@ -18,9 +18,7 @@ namespace Bili.Toolkit.Workspace
         /// </summary>
         /// <param name="resourceToolkit">资源工具.</param>
         public NumberToolkit(IResourceToolkit resourceToolkit)
-        {
-            _resourceToolkit = resourceToolkit;
-        }
+            => _resourceToolkit = resourceToolkit;
 
         /// <inheritdoc/>
         public string GetCountText(double count)

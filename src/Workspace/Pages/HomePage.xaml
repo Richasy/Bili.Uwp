@@ -10,6 +10,7 @@
     xmlns:ext="using:Bili.Workspace.Resources.Extension"
     xmlns:local="using:Bili.Workspace.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:search="using:Bili.Models.Data.Search"
     xmlns:workspace="using:Bili.ViewModels.Interfaces.Workspace"
     xmlns:workspace1="using:Models.Workspace"
     mc:Ignorable="d">
@@ -70,6 +71,46 @@
                     Source="{x:Bind Icon}" />
             </controls:CardPanel>
         </DataTemplate>
+        <DataTemplate x:Key="HotSearchItemTemplate" x:DataType="search:SearchSuggest">
+            <controls:CardPanel
+                AutomationProperties.Name="{x:Bind DisplayText}"
+                Height="44"
+                HorizontalAlignment="Stretch"
+                Background="Transparent"
+                Click="OnHotSearchClick"
+                DataContext="{x:Bind}"
+                StrokeThickness="0">
+                <Grid Margin="12,0" VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="28" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        FontSize="12"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        Text="{x:Bind Position}" />
+                    <Image
+                        Grid.Column="1"
+                        Width="16"
+                        Margin="0,0,12,0"
+                        VerticalAlignment="Center"
+                        Source="{Binding Icon}"
+                        Stretch="Uniform"
+                        Visibility="{x:Bind Icon, Converter={StaticResource ObjectToVisibilityConverter}}" />
+                    <TextBlock
+                        Style="{StaticResource BodyTextBlockStyle}"
+                        Grid.Column="2"
+                        VerticalAlignment="Center"
+                        MaxLines="1"
+                        Text="{x:Bind DisplayText}"
+                        TextLineBounds="Tight"
+                        TextTrimming="CharacterEllipsis"
+                        ToolTipService.ToolTip="{x:Bind Keyword}" />
+                </Grid>
+            </controls:CardPanel>
+        </DataTemplate>
         <Flyout
             x:Name="PartitionFlyout"
             Placement="Bottom"
@@ -90,7 +131,7 @@
     </Page.Resources>
 
     <ScrollViewer Style="{StaticResource PageScrollViewerStyle}">
-        <Grid RowSpacing="12">
+        <Grid Margin="{StaticResource PageMargin}" RowSpacing="16">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -99,65 +140,74 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <!-- User -->
+            <StackPanel Spacing="16">
+                <communityControls:AccountPanel ViewModel="{x:Bind _accountViewModel}" />
+                <communityControls:SearchSuggestBox ViewModel="{x:Bind _searchBoxViewModel}" />
+            </StackPanel>
+
+
             <!-- Video partitions -->
-            <RelativePanel Grid.Row="1" Padding="2,0">
-                <TextBlock
-                    Style="{StaticResource BodyStrongTextBlockStyle}"
-                    RelativePanel.AlignLeftWithPanel="True"
-                    RelativePanel.AlignVerticalCenterWithPanel="True"
-                    Text="{ext:Locale Name=Partition}" />
-                <Button
-                    RelativePanel.AlignRightWithPanel="True"
-                    RelativePanel.AlignVerticalCenterWithPanel="True"
-                    Padding="8,4"
-                    Flyout="{StaticResource PartitionFlyout}">
-                    <StackPanel Orientation="Horizontal" Spacing="8">
-                        <TextBlock
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            VerticalAlignment="Center"
-                            Text="{ext:Locale Name=SeeAll}" />
-                        <controls:FluentIcon
-                            VerticalAlignment="Center"
-                            FontSize="12"
-                            Symbol="ChevronDown" />
-                    </StackPanel>
-                </Button>
-            </RelativePanel>
+            <Grid Grid.Row="1" RowSpacing="12">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <RelativePanel Padding="2,0">
+                    <TextBlock
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                        RelativePanel.AlignLeftWithPanel="True"
+                        RelativePanel.AlignVerticalCenterWithPanel="True"
+                        Text="{ext:Locale Name=Partition}" />
+                    <Button
+                        RelativePanel.AlignRightWithPanel="True"
+                        RelativePanel.AlignVerticalCenterWithPanel="True"
+                        Padding="8,4"
+                        Flyout="{StaticResource PartitionFlyout}">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <TextBlock
+                                Style="{StaticResource CaptionTextBlockStyle}"
+                                VerticalAlignment="Center"
+                                Text="{ext:Locale Name=SeeAll}" />
+                            <controls:FluentIcon
+                                VerticalAlignment="Center"
+                                FontSize="12"
+                                Symbol="ChevronDown" />
+                        </StackPanel>
+                    </Button>
+                </RelativePanel>
 
-            <ProgressBar
-                Grid.Row="2"
-                HorizontalAlignment="Stretch"
-                IsIndeterminate="True"
-                Visibility="{x:Bind ViewModel.IsVideoPartitionLoading, Mode=OneWay}" />
+                <ProgressBar
+                    Grid.Row="1"
+                    HorizontalAlignment="Stretch"
+                    IsIndeterminate="True"
+                    Visibility="{x:Bind ViewModel.IsVideoPartitionLoading, Mode=OneWay}" />
 
-            <ItemsRepeater
-                Grid.Row="2"
-                ItemsSource="{x:Bind ViewModel.FixedVideoPartitions}"
-                Visibility="{x:Bind ViewModel.IsVideoPartitionLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
-                <ItemsRepeater.Layout>
-                    <UniformGridLayout
-                        ItemsStretch="Fill"
-                        MinColumnSpacing="4"
-                        MinItemHeight="112"
-                        MinItemWidth="100"
-                        MinRowSpacing="4"
-                        Orientation="Horizontal" />
-                </ItemsRepeater.Layout>
-                <ItemsRepeater.ItemTemplate>
-                    <DataTemplate x:DataType="community:Partition">
-                        <communityControls:PartitionItem
-                            Click="OnVideoPartitionClick"
-                            DataContext="{x:Bind}"
-                            ViewModel="{x:Bind}" />
-                    </DataTemplate>
-                </ItemsRepeater.ItemTemplate>
-            </ItemsRepeater>
+                <ItemsRepeater
+                    Grid.Row="1"
+                    ItemsSource="{x:Bind ViewModel.FixedVideoPartitions}"
+                    Visibility="{x:Bind ViewModel.IsVideoPartitionLoading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+                    <ItemsRepeater.Layout>
+                        <UniformGridLayout
+                            ItemsStretch="Fill"
+                            MinColumnSpacing="4"
+                            MinItemHeight="112"
+                            MinItemWidth="100"
+                            MinRowSpacing="4"
+                            Orientation="Horizontal" />
+                    </ItemsRepeater.Layout>
+                    <ItemsRepeater.ItemTemplate>
+                        <DataTemplate x:DataType="community:Partition">
+                            <communityControls:PartitionItem
+                                Click="OnVideoPartitionClick"
+                                DataContext="{x:Bind}"
+                                ViewModel="{x:Bind}" />
+                        </DataTemplate>
+                    </ItemsRepeater.ItemTemplate>
+                </ItemsRepeater>
+            </Grid>
 
             <!-- Quick topics -->
-            <StackPanel
-                Grid.Row="3"
-                Margin="0,8,0,0"
-                Spacing="12">
+            <StackPanel Grid.Row="2" Spacing="12">
                 <TextBlock
                     Style="{StaticResource BodyStrongTextBlockStyle}"
                     Margin="2,0,0,0"
@@ -170,6 +220,19 @@
                             MinItemHeight="56"
                             MinItemWidth="56"
                             Orientation="Horizontal" />
+                    </ItemsRepeater.Layout>
+                </ItemsRepeater>
+            </StackPanel>
+
+            <!-- Hot search -->
+            <StackPanel Grid.Row="3" Spacing="12">
+                <TextBlock
+                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                    Margin="2,0,0,0"
+                    Text="{ext:Locale Name=HotSearch}" />
+                <ItemsRepeater ItemTemplate="{StaticResource HotSearchItemTemplate}" ItemsSource="{x:Bind _searchBoxViewModel.HotSearchCollection}">
+                    <ItemsRepeater.Layout>
+                        <StackLayout Spacing="2" />
                     </ItemsRepeater.Layout>
                 </ItemsRepeater>
             </StackPanel>

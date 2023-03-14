@@ -99,7 +99,7 @@ namespace Bili.ViewModels.Workspace.Account
         private bool _isShowUnreadMessage;
 
         /// <inheritdoc/>
-        public bool IsShowFixedItem => throw new NotImplementedException();
+        public bool IsShowFixedItem { get; }
 
         /// <summary>
         /// 用户信息.
@@ -114,7 +114,7 @@ namespace Bili.ViewModels.Workspace.Account
         /// <summary>
         /// 固定条目集合.
         /// </summary>
-        public ObservableCollection<FixedItem> FixedItemCollection => throw new NotImplementedException();
+        public ObservableCollection<FixedItem> FixedItemCollection { get; }
 
         /// <summary>
         /// 尝试登录的命令.
@@ -144,11 +144,11 @@ namespace Bili.ViewModels.Workspace.Account
         /// <summary>
         /// 添加固定条目的命令.
         /// </summary>
-        public IAsyncRelayCommand<FixedItem> AddFixedItemCommand => throw new NotImplementedException();
+        public IAsyncRelayCommand<FixedItem> AddFixedItemCommand { get; }
 
         /// <summary>
         /// 移除固定条目的命令.
         /// </summary>
-        public IAsyncRelayCommand<string> RemoveFixedItemCommand => throw new NotImplementedException();
+        public IAsyncRelayCommand<string> RemoveFixedItemCommand { get; }
     }
 }

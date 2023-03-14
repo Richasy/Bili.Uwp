@@ -4,8 +4,11 @@ using System;
 using System.Diagnostics;
 using Bili.DI.Container;
 using Bili.Models.Data.Community;
+using Bili.Models.Data.Search;
 using Bili.Models.Enums.Workspace;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Account;
+using Bili.ViewModels.Interfaces.Search;
 using Bili.ViewModels.Interfaces.Workspace;
 using Microsoft.UI.Xaml;
 using Models.Workspace;
@@ -18,10 +21,18 @@ namespace Bili.Workspace.Pages
     /// </summary>
     public sealed partial class HomePage : HomePageBase
     {
+        private readonly IAccountViewModel _accountViewModel;
+        private readonly ISearchBoxViewModel _searchBoxViewModel;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="HomePage"/> class.
         /// </summary>
-        public HomePage() => InitializeComponent();
+        public HomePage()
+        {
+            InitializeComponent();
+            _accountViewModel = Locator.Instance.GetService<IAccountViewModel>();
+            _searchBoxViewModel = Locator.Instance.GetService<ISearchBoxViewModel>();
+        }
 
         /// <inheritdoc/>
         protected override void OnPageLoaded()
@@ -29,6 +40,11 @@ namespace Bili.Workspace.Pages
             if (ViewModel.VideoPartitions.Count == 0)
             {
                 ViewModel.InitializeVideoPartitionsCommand.Execute(default);
+            }
+
+            if (_searchBoxViewModel.HotSearchCollection.Count == 0)
+            {
+                _searchBoxViewModel.InitializeCommand.Execute(default);
             }
         }
 
@@ -53,6 +69,12 @@ namespace Bili.Workspace.Pages
             var data = (sender as FrameworkElement).DataContext as QuickTopic;
             var uri = new Uri(perferLaunch == LaunchType.Bili ? data.BiliUrl : data.WebUrl);
             await Launcher.LaunchUriAsync(uri);
+        }
+
+        private void OnHotSearchClick(object sender, RoutedEventArgs e)
+        {
+            var data = (sender as FrameworkElement).DataContext as SearchSuggest;
+            _searchBoxViewModel.SelectSuggestCommand.Execute(data);
         }
     }
 

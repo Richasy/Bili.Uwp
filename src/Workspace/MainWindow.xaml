@@ -28,7 +28,6 @@
             </Grid.RowDefinitions>
             <Frame
                 x:Name="MainFrame"
-                Padding="0,20,0,0"
                 Background="{ThemeResource LayerFillColorDefaultBrush}"
                 BorderBrush="{ThemeResource SurfaceStrokeColorDefaultBrush}"
                 BorderThickness="0,0,0,1"

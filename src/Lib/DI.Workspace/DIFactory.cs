@@ -10,6 +10,7 @@ using Bili.SignIn.Workspace;
 using Bili.Toolkit.Interfaces;
 using Bili.Toolkit.Workspace;
 using Bili.ViewModels.Interfaces.Account;
+using Bili.ViewModels.Interfaces.Search;
 using Bili.ViewModels.Interfaces.Workspace;
 using Bili.ViewModels.Workspace;
 using Bili.ViewModels.Workspace.Account;
@@ -73,6 +74,7 @@ namespace DI.Workspace
                 .RegisterSingleton<ISettingsViewModel, SettingsViewModel>()
                 .RegisterSingleton<IHomePageViewModel, HomePageViewModel>()
                 .RegisterSingleton<IAccountViewModel, AccountViewModel>()
+                .RegisterSingleton<ISearchBoxViewModel, SearchBoxViewModel>()
 
                 .RegisterTransient<IVideoPartitionViewModel, VideoPartitionViewModel>()
                 .Build();

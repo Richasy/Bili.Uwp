@@ -10,6 +10,9 @@
             <ResourceDictionary.MergedDictionaries>
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
                 <ResourceDictionary Source="ms-appx:///Controls/App/CardPanel/CardPanel.xaml" />
+                <ResourceDictionary Source="ms-appx:///Controls/App/CommonImageEx/CommonImageEx.xaml" />
+                <ResourceDictionary Source="ms-appx:///Controls/App/IconTextBlock/IconTextBlock.xaml" />
+                <ResourceDictionary Source="ms-appx:///Controls/App/TwoLineButton/TwoLineButton.xaml" />
                 <ResourceDictionary Source="ms-appx:///Controls/Community/PartitionItem/PartitionItem.xaml" />
                 <ResourceDictionary Source="ms-appx:///Styles/Style.Overwrite.xaml" />
                 <ResourceDictionary Source="ms-appx:///Styles/TrayResources.xaml" />
@@ -29,6 +32,7 @@
             <converters:ObjectToVisibilityConverter x:Key="ObjectToVisibilityReverseConverter" IsReverse="True" />
             <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
             <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityReverseConverter" IsReverse="True" />
+            <converters:UserLevelConverter x:Key="UserLevelConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

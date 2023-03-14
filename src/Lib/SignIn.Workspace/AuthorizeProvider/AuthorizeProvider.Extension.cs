@@ -2,6 +2,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -24,7 +26,6 @@ using Windows.Security.Cryptography.Core;
 using Windows.Storage;
 using Windows.Web.Http.Filters;
 using ZXing;
-using ZXing.Common;
 using static Bili.Models.App.Constants.ApiConstants;
 using static Bili.Models.App.Constants.ServiceConstants;
 
@@ -231,7 +232,7 @@ namespace Bili.SignIn.Workspace
             return null;
         }
 
-        internal async Task<WriteableBitmap> GetQRImageAsync()
+        internal async Task<BitmapImage> GetQRImageAsync()
         {
             try
             {
@@ -246,17 +247,27 @@ namespace Bili.SignIn.Workspace
                 var result = await httpProvider.ParseAsync<ServerResponse<QRInfo>>(response);
 
                 _internalQRAuthCode = result.Data.AuthCode;
-                var barcodeWriter = new BarcodeWriter<WriteableBitmap>();
-                barcodeWriter.Format = BarcodeFormat.QR_CODE;
-                barcodeWriter.Options = new EncodingOptions()
+                var barcodeWriter = new ZXing.Windows.Compatibility.BarcodeWriter
                 {
-                    Margin = 1,
-                    Height = 200,
-                    Width = 200,
+                    Format = BarcodeFormat.QR_CODE,
+                    Options = new ZXing.Common.EncodingOptions()
+                    {
+                        Margin = 1,
+                        Height = 200,
+                        Width = 200,
+                    },
                 };
 
-                var img = barcodeWriter.Write(result.Data.Url);
-                return img;
+                var bitmap = barcodeWriter.Write(result.Data.Url);
+                var bitmapImage = new BitmapImage();
+                using (var ms = new MemoryStream())
+                {
+                    bitmap.Save(ms, ImageFormat.Png);
+                    ms.Seek(0, SeekOrigin.Begin);
+                    await bitmapImage.SetSourceAsync(ms.AsRandomAccessStream());
+                }
+
+                return bitmapImage;
             }
             catch
             {
