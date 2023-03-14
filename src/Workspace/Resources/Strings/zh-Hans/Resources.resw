@@ -159,6 +159,9 @@
   <data name="DynamicFeed" xml:space="preserve">
     <value>动态</value>
   </data>
+  <data name="FailedToLoadQRCode" xml:space="preserve">
+    <value>二维码加载失败，请刷新</value>
+  </data>
   <data name="Generic" xml:space="preserve">
     <value>通用</value>
   </data>
@@ -173,6 +176,9 @@
   </data>
   <data name="Live" xml:space="preserve">
     <value>直播</value>
+  </data>
+  <data name="LoginFailed" xml:space="preserve">
+    <value>登录失败，请稍后重试</value>
   </data>
   <data name="Movie" xml:space="preserve">
     <value>电影</value>
@@ -189,17 +195,26 @@
   <data name="ProjectHomePage" xml:space="preserve">
     <value>项目主页</value>
   </data>
+  <data name="QRCodeExpired" xml:space="preserve">
+    <value>二维码已过期，请刷新</value>
+  </data>
   <data name="QRLoginTip" xml:space="preserve">
     <value>请使用移动客户端扫描下方的二维码登录</value>
   </data>
   <data name="QuitApp" xml:space="preserve">
     <value>退出应用</value>
   </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>刷新</value>
+  </data>
   <data name="SeeAll" xml:space="preserve">
     <value>查看全部</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>设置</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>登录</value>
   </data>
   <data name="SignInTitle" xml:space="preserve">
     <value>用户登录</value>
@@ -233,5 +248,8 @@
   </data>
   <data name="Web" xml:space="preserve">
     <value>网页</value>
+  </data>
+  <data name="WorkspaceDescription" xml:space="preserve">
+    <value>这不是啥高大上的应用，就是一个集成了哔哩的一些快捷操作的小工具。当然了，在使用它之前你要先登录才行</value>
   </data>
 </root>

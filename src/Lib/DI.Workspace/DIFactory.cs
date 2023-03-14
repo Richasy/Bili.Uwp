@@ -9,8 +9,10 @@ using Bili.Models.App.Constants;
 using Bili.SignIn.Workspace;
 using Bili.Toolkit.Interfaces;
 using Bili.Toolkit.Workspace;
+using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Workspace;
 using Bili.ViewModels.Workspace;
+using Bili.ViewModels.Workspace.Account;
 using Bili.ViewModels.Workspace.Core;
 using Bili.ViewModels.Workspace.Pages;
 using Windows.Storage;
@@ -70,6 +72,7 @@ namespace DI.Workspace
                 .RegisterSingleton<IWorkspaceViewModel, WorkspaceViewModel>()
                 .RegisterSingleton<ISettingsViewModel, SettingsViewModel>()
                 .RegisterSingleton<IHomePageViewModel, HomePageViewModel>()
+                .RegisterSingleton<IAccountViewModel, AccountViewModel>()
 
                 .RegisterTransient<IVideoPartitionViewModel, VideoPartitionViewModel>()
                 .Build();

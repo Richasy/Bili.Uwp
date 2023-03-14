@@ -4,6 +4,7 @@ using System;
 using System.Collections.ObjectModel;
 using Bili.Toolkit.Interfaces;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.UI.Xaml;
 using Models.Workspace;
 
 namespace Bili.ViewModels.Workspace.Core
@@ -23,6 +24,9 @@ namespace Bili.ViewModels.Workspace.Core
 
         /// <inheritdoc/>
         public event EventHandler RequestNavigating;
+
+        /// <inheritdoc/>
+        public object XamlRoot { get; set; }
 
         /// <inheritdoc />
         public ObservableCollection<NavigateItem> Items { get; }

@@ -24,6 +24,7 @@
     <None Remove="Assets\Images\tv.png" />
     <None Remove="Assets\logo.ico" />
     <None Remove="Controls\App\CardPanel\CardPanel.xaml" />
+    <None Remove="Controls\App\LandingPane.xaml" />
     <None Remove="Controls\Community\PartitionItem\PartitionItem.xaml" />
     <None Remove="Controls\Settings\AboutSettingSection.xaml" />
     <None Remove="Controls\Settings\LaunchTypeSettingSection.xaml" />
@@ -113,6 +114,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Controls\App\LandingPane.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
   <!-- 

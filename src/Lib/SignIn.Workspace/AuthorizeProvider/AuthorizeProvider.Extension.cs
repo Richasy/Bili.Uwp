@@ -16,6 +16,7 @@ using Bili.Models.App.Other;
 using Bili.Models.BiliBili;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Workspace;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media.Imaging;
 using Newtonsoft.Json.Linq;
@@ -401,6 +402,7 @@ namespace Bili.SignIn.Workspace
 
             var dialog = new SignInDialog(webAccountProviderTaskCompletionSource, this);
             dialog.IsShowSwitchButton = !_isXbox;
+            dialog.XamlRoot = Locator.Instance.GetService<IWorkspaceViewModel>().XamlRoot as XamlRoot;
             await dialog.ShowAsync();
 
             return await webAccountProviderTaskCompletionSource.Task;

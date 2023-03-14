@@ -34,6 +34,11 @@ namespace Bili.ViewModels.Interfaces.Workspace
         bool IsSettingsOpen { get; set; }
 
         /// <summary>
+        /// Xaml根元素.
+        /// </summary>
+        object XamlRoot { get; set; }
+
+        /// <summary>
         /// 设置按钮命令.
         /// </summary>
         IRelayCommand ShowSettingsCommand { get; }
