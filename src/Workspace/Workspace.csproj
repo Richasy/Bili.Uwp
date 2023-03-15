@@ -60,6 +60,7 @@
     <None Remove="Pages\PartitionPage.xaml" />
     <None Remove="Pages\PopularPage.xaml" />
     <None Remove="Pages\RankPage.xaml" />
+    <None Remove="Pages\RecommendPage.xaml" />
     <None Remove="Pages\SettingsPage.xaml" />
     <None Remove="Styles\TrayResources.xaml" />
   </ItemGroup>
@@ -197,6 +198,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Pages\RecommendPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Pages\PartitionPage.xaml">

@@ -49,8 +49,10 @@ namespace Bili.ViewModels.Workspace.Core
             var dynamicItem = new NavigateItem(NavigateTarget.Dynamic, _resourceToolkit.GetLocaleString(LanguageNames.DynamicFeed), FluentSymbol.DesignIdeas);
             var rankItem = new NavigateItem(NavigateTarget.Rank, _resourceToolkit.GetLocaleString(LanguageNames.Rank), FluentSymbol.Trophy);
             var historyItem = new NavigateItem(NavigateTarget.History, _resourceToolkit.GetLocaleString(LanguageNames.ViewHistory), FluentSymbol.History);
+            var rcmdItem = new NavigateItem(NavigateTarget.Recommend, _resourceToolkit.GetLocaleString(LanguageNames.Recommend), FluentSymbol.DataSunburst);
             Items.Add(homeItem);
             Items.Add(dynamicItem);
+            Items.Add(rcmdItem);
             Items.Add(rankItem);
             Items.Add(hotItem);
             Items.Add(historyItem);

@@ -82,6 +82,7 @@ namespace DI.Workspace
                 .RegisterSingleton<IAccountViewModel, AccountViewModel>()
                 .RegisterSingleton<ISearchBoxViewModel, SearchBoxViewModel>()
                 .RegisterSingleton<IHomePageViewModel, HomePageViewModel>()
+                .RegisterSingleton<IRecommendPageViewModel, RecommendPageViewModel>()
                 .RegisterSingleton<IPopularPageViewModel, PopularPageViewModel>()
                 .RegisterSingleton<IDynamicVideoModuleViewModel, DynamicVideoModuleViewModel>()
                 .RegisterSingleton<IHistoryPageViewModel, HistoryPageViewModel>()

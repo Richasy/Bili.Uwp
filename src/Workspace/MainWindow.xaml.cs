@@ -93,6 +93,9 @@ namespace Bili.Workspace
                     case NavigateTarget.Rank:
                         MainFrame.Navigate(typeof(RankPage), null, new SlideNavigationTransitionInfo());
                         break;
+                    case NavigateTarget.Recommend:
+                        MainFrame.Navigate(typeof(RecommendPage), null, new SlideNavigationTransitionInfo());
+                        break;
                     case NavigateTarget.History:
                         MainFrame.Navigate(typeof(HistoryPage), null, new SlideNavigationTransitionInfo());
                         break;

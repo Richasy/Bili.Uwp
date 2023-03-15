@@ -36,5 +36,6 @@ namespace Bili.Models.Enums.Workspace
         /// 分区.
         /// </summary>
         Partition,
+        Recommend,
     }
 }

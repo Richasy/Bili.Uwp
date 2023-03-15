@@ -270,14 +270,29 @@
   <data name="Rank" xml:space="preserve">
     <value>全区排行榜</value>
   </data>
+  <data name="RankRequestFailed" xml:space="preserve">
+    <value>排行榜请求失败</value>
+  </data>
+  <data name="Recommend" xml:space="preserve">
+    <value>推荐视频</value>
+  </data>
   <data name="Refresh" xml:space="preserve">
     <value>刷新</value>
   </data>
   <data name="RemoveViewLaterFailed" xml:space="preserve">
     <value>移除稍后再看失败</value>
   </data>
+  <data name="RequestHistoryFailed" xml:space="preserve">
+    <value>请求历史记录失败</value>
+  </data>
   <data name="RequestPopularFailed" xml:space="preserve">
     <value>请求热门视频失败</value>
+  </data>
+  <data name="RequestRecommendFailed" xml:space="preserve">
+    <value>请求推荐视频失败</value>
+  </data>
+  <data name="RequestSubPartitionFailed" xml:space="preserve">
+    <value>请求分区视频失败</value>
   </data>
   <data name="Score" xml:space="preserve">
     <value>评分</value>
