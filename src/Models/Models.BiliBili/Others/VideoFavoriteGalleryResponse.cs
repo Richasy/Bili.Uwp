@@ -65,19 +65,19 @@ namespace Bili.Models.BiliBili
         /// 收藏夹完整ID.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id", Required = Required.Default)]
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         /// <summary>
         /// 收藏夹原始ID.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "fid", Required = Required.Default)]
-        public int OriginId { get; set; }
+        public long OriginId { get; set; }
 
         /// <summary>
         /// 用户ID.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "mid", Required = Required.Default)]
-        public int Mid { get; set; }
+        public long Mid { get; set; }
 
         /// <summary>
         /// 收藏夹标题.
@@ -144,7 +144,7 @@ namespace Bili.Models.BiliBili
         /// 媒体Id.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id", Required = Required.Default)]
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         /// <summary>
         /// 媒体类型，2-视频，12-音频，21-视频合集.
@@ -210,19 +210,19 @@ namespace Bili.Models.BiliBili
         /// 创建时间.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "ctime", Required = Required.Default)]
-        public int CreateTime { get; set; }
+        public long CreateTime { get; set; }
 
         /// <summary>
         /// 发布时间.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "pubtime", Required = Required.Default)]
-        public int PublishTime { get; set; }
+        public long PublishTime { get; set; }
 
         /// <summary>
         /// 收藏时间.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "fav_time", Required = Required.Default)]
-        public int FavoriteTime { get; set; }
+        public long FavoriteTime { get; set; }
 
         /// <summary>
         /// Bv Id.
@@ -285,7 +285,7 @@ namespace Bili.Models.BiliBili
         /// 收藏夹所属分类Id.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id", Required = Required.Default)]
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         /// <summary>
         /// 分类名.
