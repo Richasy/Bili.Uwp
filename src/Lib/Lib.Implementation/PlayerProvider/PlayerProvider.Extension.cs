@@ -2,7 +2,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -114,12 +113,11 @@ namespace Bili.Lib
                 otherQuery = $"area={area}";
             }
 
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, url, queryParameters, Models.Enums.RequestClientType.IOS, additionalQuery: otherQuery);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, url, queryParameters, RequestClientType.IOS, additionalQuery: otherQuery);
             var response = await _httpProvider.SendAsync(request);
             var data = await _httpProvider.ParseAsync<ServerResponse<PlayerInformation>, ServerResponse2<PlayerInformation>>(response, (str) =>
             {
                 var jobj = JObject.Parse(str);
-                Debug.WriteLine(jobj.ToString());
                 return jobj.ContainsKey("data");
             });
 
