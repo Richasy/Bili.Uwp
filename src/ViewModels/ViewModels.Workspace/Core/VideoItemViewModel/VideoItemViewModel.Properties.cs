@@ -19,7 +19,6 @@ namespace Bili.ViewModels.Workspace.Core
     public sealed partial class VideoItemViewModel
     {
         private readonly INumberToolkit _numberToolkit;
-        private readonly ISettingsToolkit _settingsToolkit;
         private readonly IAccountProvider _accountProvider;
         private readonly IAuthorizeProvider _authorizeProvider;
         private readonly IResourceToolkit _resourceToolkit;

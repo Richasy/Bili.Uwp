@@ -18,7 +18,7 @@ namespace Bili.ViewModels.Interfaces.Pgc
         /// <summary>
         /// 播放命令.
         /// </summary>
-        IRelayCommand PlayCommand { get; }
+        IAsyncRelayCommand PlayCommand { get; }
 
         /// <summary>
         /// 播放次数的可读文本.

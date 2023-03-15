@@ -88,6 +88,7 @@ namespace Bili.Workspace
                         MainFrame.Navigate(typeof(PopularPage), null, new SlideNavigationTransitionInfo());
                         break;
                     case NavigateTarget.Dynamic:
+                        MainFrame.Navigate(typeof(DynamicPage), null, new SlideNavigationTransitionInfo());
                         break;
                     case NavigateTarget.Live:
                         break;

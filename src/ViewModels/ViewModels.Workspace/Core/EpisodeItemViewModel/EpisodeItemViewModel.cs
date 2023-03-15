@@ -4,12 +4,10 @@ using System;
 using System.Threading.Tasks;
 using Bili.Models.Data.Pgc;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Pgc;
 using CommunityToolkit.Mvvm.Input;
-using Windows.System;
 
-namespace Bili.ViewModels.Uwp.Pgc
+namespace Bili.ViewModels.Workspace.Core
 {
     /// <summary>
     /// 剧集单集视图模型.
@@ -22,13 +20,10 @@ namespace Bili.ViewModels.Uwp.Pgc
         /// <param name="numberToolkit">数字转换工具.</param>
         /// <param name="navigationViewModel">导航服务.</param>
         public EpisodeItemViewModel(
-            INumberToolkit numberToolkit,
-            INavigationViewModel navigationViewModel)
+            INumberToolkit numberToolkit)
         {
             _numberToolkit = numberToolkit;
-            _navigationViewModel = navigationViewModel;
 
-            OpenInBroswerCommand = new AsyncRelayCommand(OpenInBroswerAsync);
             PlayCommand = new AsyncRelayCommand(PlayAsync);
         }
 
@@ -54,19 +49,6 @@ namespace Bili.ViewModels.Uwp.Pgc
         }
 
         private Task PlayAsync()
-        {
-            _navigationViewModel.NavigateToPlayView(new Models.Data.Local.PlaySnapshot(Data.Identifier.Id, Data.SeasonId, Models.Enums.VideoType.Pgc)
-            {
-                Title = Data.Identifier.Title,
-            });
-
-            return Task.CompletedTask;
-        }
-
-        private async Task OpenInBroswerAsync()
-        {
-            var uri = $"https://www.bilibili.com/bangumi/play/ep{Data.Identifier.Id}";
-            await Launcher.LaunchUriAsync(new Uri(uri));
-        }
+            => Utilities.PlayEpisodeWithIdAsync(Data.Identifier.Id);
     }
 }

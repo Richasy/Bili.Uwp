@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System.ComponentModel;
 using Bili.ViewModels.Interfaces.Home;
 
 namespace Bili.Workspace.Pages
@@ -15,11 +16,20 @@ namespace Bili.Workspace.Pages
         public PopularPage()
         {
             InitializeComponent();
+            ViewModel.PropertyChanged += OnViewModelPropertyChanged;
         }
 
         /// <inheritdoc/>
         protected override void OnPageLoaded()
             => ViewModel.InitializeCommand.Execute(default);
+
+        private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(ViewModel.IsReloading))
+            {
+                ContentScrollViewer.ChangeView(0, 0, 1);
+            }
+        }
 
         private void OnErrorPanelButtonClick(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
             => ViewModel.ReloadCommand.Execute(default);

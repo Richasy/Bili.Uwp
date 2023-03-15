@@ -3,11 +3,10 @@
 using System.Collections.Generic;
 using Bili.Models.Data.Pgc;
 using Bili.Toolkit.Interfaces;
-using Bili.ViewModels.Interfaces.Core;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
-namespace Bili.ViewModels.Uwp.Pgc
+namespace Bili.ViewModels.Workspace.Core
 {
     /// <summary>
     /// 剧集单集视图模型.
@@ -15,7 +14,6 @@ namespace Bili.ViewModels.Uwp.Pgc
     public sealed partial class EpisodeItemViewModel
     {
         private readonly INumberToolkit _numberToolkit;
-        private readonly INavigationViewModel _navigationViewModel;
 
         [ObservableProperty]
         private EpisodeInformation _data;

@@ -6,13 +6,11 @@ using Bili.DI.Container;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums;
-using Bili.Models.Enums.Workspace;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Video;
 using CommunityToolkit.Mvvm.Input;
-using Windows.System;
 
 namespace Bili.ViewModels.Workspace.Core
 {
@@ -26,7 +24,6 @@ namespace Bili.ViewModels.Workspace.Core
         /// </summary>
         public VideoItemViewModel(
             INumberToolkit numberToolkit,
-            ISettingsToolkit settingsToolkit,
             IAccountProvider accountProvider,
             IAuthorizeProvider authorizeProvider,
             IFavoriteProvider favoriteProvider,
@@ -34,7 +31,6 @@ namespace Bili.ViewModels.Workspace.Core
             ICallerViewModel callerViewModel)
         {
             _numberToolkit = numberToolkit;
-            _settingsToolkit = settingsToolkit;
             _accountProvider = accountProvider;
             _authorizeProvider = authorizeProvider;
             _favoriteProvider = favoriteProvider;
@@ -91,15 +87,8 @@ namespace Bili.ViewModels.Workspace.Core
         }
 
         [RelayCommand]
-        private async Task PlayAsync()
-        {
-            var videoId = Data.Identifier.Id;
-            var perferLaunch = _settingsToolkit.ReadLocalSetting(SettingNames.LaunchType, LaunchType.Web);
-            var uri = perferLaunch == LaunchType.Web
-                ? $"https://www.bilibili.com/video/av{videoId}"
-                : $"richasy-bili://play?video={videoId}";
-            await Launcher.LaunchUriAsync(new Uri(uri));
-        }
+        private Task PlayAsync()
+            => Utilities.PlayVideoWithIdAsync(Data.Identifier.Id);
 
         private async Task AddToViewLaterAsync()
         {

@@ -13,6 +13,9 @@
                 <ResourceDictionary Source="ms-appx:///Controls/App/CardPanel/CardPanel.xaml" />
                 <ResourceDictionary Source="ms-appx:///Controls/App/CommonImageEx/CommonImageEx.xaml" />
                 <ResourceDictionary Source="ms-appx:///Controls/App/VideoItem/VideoItem.xaml" />
+                <ResourceDictionary Source="ms-appx:///Controls/App/EpisodeItem/EpisodeItem.xaml" />
+                <ResourceDictionary Source="ms-appx:///Controls/Dynamic/DynamicItem/DynamicItem.xaml" />
+                <ResourceDictionary Source="ms-appx:///Controls/App/EmoteTextBlock/EmoteTextBlock.xaml" />
                 <ResourceDictionary Source="ms-appx:///Controls/App/TwoLineButton/TwoLineButton.xaml" />
                 <ResourceDictionary Source="ms-appx:///Controls/App/VerticalRepeaterView/VerticalRepeaterView.xaml" />
                 <ResourceDictionary Source="ms-appx:///Controls/Community/PartitionItem/PartitionItem.xaml" />

@@ -48,7 +48,7 @@ namespace Bili.ViewModels.Uwp.Community
             _navigationViewModel = navigationViewModel;
 
             ToggleLikeCommand = new AsyncRelayCommand(ToggleLikeAsync);
-            ActiveCommand = new RelayCommand(Active);
+            ActiveCommand = new AsyncRelayCommand(ActiveAsync);
             AddToViewLaterCommand = new RelayCommand(AddToViewLater);
             ShowUserDetailCommand = new RelayCommand(ShowUserDetail);
             ShowCommentDetailCommand = new RelayCommand(ShowCommentDetail);
@@ -109,10 +109,10 @@ namespace Bili.ViewModels.Uwp.Community
             }
         }
 
-        private void Active()
-            => ActiveData(Data.Data);
+        private Task ActiveAsync()
+            => ActiveDataAsync(Data.Data);
 
-        private void ActiveData(object data)
+        private async Task ActiveDataAsync(object data)
         {
             if (data == null || data is IEnumerable<Image>)
             {
@@ -146,8 +146,10 @@ namespace Bili.ViewModels.Uwp.Community
             }
             else if (data is DynamicInformation dynamic)
             {
-                ActiveData(dynamic.Data);
+                await ActiveDataAsync(dynamic.Data);
             }
+
+            await Task.CompletedTask;
         }
 
         private void AddToViewLater()

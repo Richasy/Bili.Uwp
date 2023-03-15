@@ -205,7 +205,7 @@
     <value>热搜</value>
   </data>
   <data name="Hours" xml:space="preserve">
-    <value>时</value>
+    <value>小时</value>
   </data>
   <data name="LaunchType" xml:space="preserve">
     <value>启动方式</value>
@@ -223,7 +223,7 @@
     <value>消息</value>
   </data>
   <data name="Minutes" xml:space="preserve">
-    <value>分</value>
+    <value>分钟</value>
   </data>
   <data name="Movie" xml:space="preserve">
     <value>电影</value>
@@ -233,6 +233,9 @@
   </data>
   <data name="NeedLoginFirst" xml:space="preserve">
     <value>你需要先登录</value>
+  </data>
+  <data name="NoSpecificData" xml:space="preserve">
+    <value>未找到指定的数据</value>
   </data>
   <data name="OpenBili" xml:space="preserve">
     <value>打开哔哩</value>
@@ -281,6 +284,9 @@
   </data>
   <data name="SeeAll" xml:space="preserve">
     <value>查看全部</value>
+  </data>
+  <data name="SetFailed" xml:space="preserve">
+    <value>设置失败</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>设置</value>

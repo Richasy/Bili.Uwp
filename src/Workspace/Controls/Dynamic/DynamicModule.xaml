@@ -1,0 +1,42 @@
+﻿<local:DynamicModuleBase
+    x:Class="Bili.Workspace.Controls.Dynamic.DynamicModule"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:app="using:Bili.Workspace.Controls.App"
+    xmlns:behaviors="using:Bili.Workspace.Behaviors"
+    xmlns:community="using:Bili.ViewModels.Interfaces.Community"
+    xmlns:controls="using:Bili.Workspace.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:ext="using:Bili.Workspace.Resources.Extension"
+    xmlns:local="using:Bili.Workspace.Controls.Dynamic"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+
+    <Grid>
+        <ScrollViewer
+            x:Name="ContentScrollViewer"
+            HorizontalScrollMode="Disabled"
+            VerticalScrollBarVisibility="Auto"
+            Visibility="{x:Bind ViewModel.IsReloading, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}">
+            <app:VerticalRepeaterView
+                x:Name="VideoRepeaterView"
+                Margin="20,0,20,16"
+                HeaderVisibility="Collapsed"
+                ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
+                MinWideItemWidth="300"
+                RequestLoadMore="OnVideoViewRequestLoadMore">
+                <app:VerticalRepeaterView.ItemTemplate>
+                    <DataTemplate x:DataType="community:IDynamicItemViewModel">
+                        <local:DynamicItem ViewModel="{x:Bind}" />
+                    </DataTemplate>
+                </app:VerticalRepeaterView.ItemTemplate>
+            </app:VerticalRepeaterView>
+        </ScrollViewer>
+
+        <app:ErrorPanel Text="{x:Bind ViewModel.ErrorText, Mode=OneWay}" Visibility="{x:Bind ViewModel.IsError, Mode=OneWay}" />
+        <app:ErrorPanel Text="{ext:Locale Name=NoSpecificData}" Visibility="{x:Bind ViewModel.IsEmpty, Mode=OneWay}" />
+        <app:OverlayLoadingPanel IsBarActive="{x:Bind ViewModel.IsIncrementalLoading, Mode=OneWay}" IsRingActive="{x:Bind ViewModel.IsReloading, Mode=OneWay}" />
+    </Grid>
+</local:DynamicModuleBase>

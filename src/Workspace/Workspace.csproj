@@ -33,6 +33,8 @@
     <None Remove="Assets\Null_rgba.png" />
     <None Remove="Controls\App\CardPanel\CardPanel.xaml" />
     <None Remove="Controls\App\CommonImageEx\CommonImageEx.xaml" />
+    <None Remove="Controls\App\EmoteTextBlock\EmoteTextBlock.xaml" />
+    <None Remove="Controls\App\EpisodeItem\EpisodeItem.xaml" />
     <None Remove="Controls\App\ErrorPanel.xaml" />
     <None Remove="Controls\App\IconTextBlock\IconTextBlock.xaml" />
     <None Remove="Controls\App\LandingPane.xaml" />
@@ -46,9 +48,13 @@
     <None Remove="Controls\Community\PartitionItem\PartitionItem.xaml" />
     <None Remove="Controls\Community\SearchSuggestBox.xaml" />
     <None Remove="Controls\Community\UserAvatar.xaml" />
+    <None Remove="Controls\Dynamic\DynamicItem\DynamicItem.xaml" />
+    <None Remove="Controls\Dynamic\DynamicModule.xaml" />
+    <None Remove="Controls\Dynamic\DynamicPresenter.xaml" />
     <None Remove="Controls\Settings\AboutSettingSection.xaml" />
     <None Remove="Controls\Settings\LaunchTypeSettingSection.xaml" />
     <None Remove="Controls\Settings\StartupPositionSettingSection.xaml" />
+    <None Remove="Pages\DynamicPage.xaml" />
     <None Remove="Pages\HomePage.xaml" />
     <None Remove="Pages\PopularPage.xaml" />
     <None Remove="Pages\SettingsPage.xaml" />
@@ -86,6 +92,12 @@
     <Page Update="Controls\App\CommonImageEx\CommonImageEx.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Controls\App\EmoteTextBlock\EmoteTextBlock.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\App\EpisodeItem\EpisodeItem.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Controls\App\ErrorPanel.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -120,6 +132,15 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\Community\UserAvatar.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Dynamic\DynamicItem\DynamicItem.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Dynamic\DynamicModule.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Dynamic\DynamicPresenter.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Pages\HomePage.xaml">
@@ -173,6 +194,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Pages\DynamicPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Pages\PopularPage.xaml">

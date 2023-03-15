@@ -57,12 +57,10 @@ namespace Bili.ViewModels.Workspace.Core
             Keyword = string.Empty;
             if (!string.IsNullOrEmpty(keyword))
             {
-                var perferLaunch = _settingsToolkit.ReadLocalSetting(Models.Enums.SettingNames.LaunchType, LaunchType.Web);
                 var word = WebUtility.UrlEncode(keyword);
-                var uri = perferLaunch == LaunchType.Web
-                    ? new Uri($"https://search.bilibili.com/all?keyword={word}")
-                    : new Uri($"richasy-bili://find?keyword={word}");
-                await Launcher.LaunchUriAsync(uri);
+                await Utilities.LaunchWithUrlAsync(
+                    $"richasy-bili://find?keyword={word}",
+                    $"https://search.bilibili.com/all?keyword={word}");
             }
         }
 

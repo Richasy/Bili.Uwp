@@ -8,7 +8,7 @@ using Bili.ViewModels.Interfaces.Core;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
-namespace Bili.ViewModels.Uwp.Community
+namespace Bili.ViewModels.Workspace.Community
 {
     /// <summary>
     /// 动态条目视图模型.
@@ -19,7 +19,6 @@ namespace Bili.ViewModels.Uwp.Community
         private readonly INumberToolkit _numberToolkit;
         private readonly IResourceToolkit _resourceToolkit;
         private readonly ICallerViewModel _callerViewModel;
-        private readonly INavigationViewModel _navigationViewModel;
 
         [ObservableProperty]
         private IUserItemViewModel _publisher;
