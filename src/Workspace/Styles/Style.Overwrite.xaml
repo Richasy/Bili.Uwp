@@ -14,6 +14,13 @@
         <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
     </Style>
 
+    <Style x:Key="PageProgressRingStyle" TargetType="ProgressRing">
+        <Setter Property="Width" Value="28" />
+        <Setter Property="Height" Value="28" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+
     <Thickness x:Key="PageMargin">20,20,20,12</Thickness>
 
     <Style x:Key="MUX_NavigationViewItemPresenterStyleWhenOnTopPane" TargetType="primitives:NavigationViewItemPresenter">

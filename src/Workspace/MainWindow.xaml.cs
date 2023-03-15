@@ -2,11 +2,15 @@
 
 using System;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using Bili.DI.Container;
+using Bili.Models.App.Args;
 using Bili.Models.Enums;
 using Bili.Models.Enums.Workspace;
 using Bili.ViewModels.Interfaces.Account;
+using Bili.ViewModels.Interfaces.Core;
 using Bili.ViewModels.Interfaces.Workspace;
+using Bili.Workspace.Controls.App;
 using Bili.Workspace.Pages;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media;
@@ -21,6 +25,7 @@ namespace Bili.Workspace
     {
         private readonly IWorkspaceViewModel _viewModel;
         private readonly IAccountViewModel _accountViewModel;
+        private readonly ICallerViewModel _callerViewModel;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
@@ -28,13 +33,41 @@ namespace Bili.Workspace
         public MainWindow()
         {
             InitializeComponent();
+            Instance = this;
             _viewModel = Locator.Instance.GetService<IWorkspaceViewModel>();
             _accountViewModel = Locator.Instance.GetService<IAccountViewModel>();
+            _callerViewModel = Locator.Instance.GetService<ICallerViewModel>();
             SystemBackdrop = new MicaBackdrop();
             Activated += OnActivated;
             _viewModel.RequestNavigating += OnViewModelRequestNavigating;
             _accountViewModel.PropertyChanged += OnAccountViewModelPropertyChanged;
+            _callerViewModel.RequestShowTip += OnRequestShowTip;
             CheckSignState();
+        }
+
+        /// <summary>
+        /// 当前窗口实例.
+        /// </summary>
+        public static MainWindow Instance { get; private set; }
+
+        /// <summary>
+        /// 显示提示信息，并在指定延时后关闭.
+        /// </summary>
+        /// <param name="element">要插入的元素.</param>
+        /// <param name="delaySeconds">延时时间(秒).</param>
+        /// <returns><see cref="Task"/>.</returns>
+        public async Task ShowTipAsync(UIElement element, double delaySeconds)
+        {
+            TipContainer.Visibility = Visibility.Visible;
+            TipContainer.Children.Add(element);
+            element.Visibility = Visibility.Visible;
+            await Task.Delay(TimeSpan.FromSeconds(delaySeconds));
+            element.Visibility = Visibility.Collapsed;
+            TipContainer.Children.Remove(element);
+            if (TipContainer.Children.Count == 0)
+            {
+                TipContainer.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void LoadPage()
@@ -52,6 +85,7 @@ namespace Bili.Workspace
                         MainFrame.Navigate(typeof(HomePage), null, new DrillInNavigationTransitionInfo());
                         break;
                     case NavigateTarget.Hot:
+                        MainFrame.Navigate(typeof(PopularPage), null, new SlideNavigationTransitionInfo());
                         break;
                     case NavigateTarget.Dynamic:
                         break;
@@ -122,6 +156,9 @@ namespace Bili.Workspace
                 InitializeHomePage();
             }
         }
+
+        private void OnRequestShowTip(object sender, AppTipNotificationEventArgs e)
+            => new TipPopup(e.Message).ShowAsync(e.Type);
 
         private void OnMainFrameLoaded(object sender, RoutedEventArgs e)
             => InitializeHomePage();

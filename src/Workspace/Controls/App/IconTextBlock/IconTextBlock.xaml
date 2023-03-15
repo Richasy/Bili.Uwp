@@ -3,7 +3,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Bili.Workspace.Controls"
     xmlns:local="using:Bili.Workspace.Controls.App">
-    <Style TargetType="local:IconTextBlock">
+
+    <Style BasedOn="{StaticResource DefaultIconTextBlockStyle}" TargetType="local:IconTextBlock" />
+
+    <Style x:Key="DefaultIconTextBlockStyle" TargetType="local:IconTextBlock">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="IconFontSize" Value="14" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:IconTextBlock">

@@ -44,6 +44,9 @@ namespace Bili.Toolkit.Workspace
         }
 
         private static string GetLocaleString(string languageName)
-            => ResourceManager.Current.MainResourceMap[$"Resources/{languageName}"].Candidates[0].ValueAsString;
+        {
+            System.Diagnostics.Debug.WriteLine(languageName);
+            return ResourceManager.Current.MainResourceMap[$"Resources/{languageName}"].Candidates[0].ValueAsString;
+        }
     }
 }

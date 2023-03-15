@@ -72,6 +72,6 @@
                 </NavigationView>
             </Grid>
         </Grid>
+        <Grid x:Name="TipContainer" Visibility="Collapsed" />
     </Grid>
-
 </Window>

@@ -11,7 +11,7 @@ using Bili.ViewModels.Interfaces.Video;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
-namespace Bili.ViewModels.Uwp.Video
+namespace Bili.ViewModels.Workspace.Core
 {
     /// <summary>
     /// 视频条目视图模型.
@@ -19,11 +19,11 @@ namespace Bili.ViewModels.Uwp.Video
     public sealed partial class VideoItemViewModel
     {
         private readonly INumberToolkit _numberToolkit;
+        private readonly ISettingsToolkit _settingsToolkit;
         private readonly IAccountProvider _accountProvider;
         private readonly IAuthorizeProvider _authorizeProvider;
         private readonly IResourceToolkit _resourceToolkit;
         private readonly IFavoriteProvider _favoriteProvider;
-        private readonly INavigationViewModel _navigationViewModel;
         private readonly ICallerViewModel _callerViewModel;
         private Action<IVideoItemViewModel> _additionalAction;
         private object _additionalData;
@@ -72,9 +72,6 @@ namespace Bili.ViewModels.Uwp.Video
 
         /// <inheritdoc/>
         public IAsyncRelayCommand OpenInBroswerCommand { get; }
-
-        /// <inheritdoc/>
-        public IAsyncRelayCommand PlayCommand { get; }
 
         /// <inheritdoc/>
         public IAsyncRelayCommand PlayInPrivateCommand { get; }

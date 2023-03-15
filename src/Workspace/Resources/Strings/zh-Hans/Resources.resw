@@ -120,6 +120,15 @@
   <data name="About" xml:space="preserve">
     <value>关于</value>
   </data>
+  <data name="AddToViewLater" xml:space="preserve">
+    <value>添加到稍后再看</value>
+  </data>
+  <data name="AddViewLaterFailed" xml:space="preserve">
+    <value>添加稍后再看失败</value>
+  </data>
+  <data name="AddViewLaterSucceseded" xml:space="preserve">
+    <value>已添加到稍后再看列表</value>
+  </data>
   <data name="Anime" xml:space="preserve">
     <value>番剧</value>
   </data>
@@ -128,6 +137,9 @@
   </data>
   <data name="AppName" xml:space="preserve">
     <value>哔哩空间</value>
+  </data>
+  <data name="BeLikeCount" xml:space="preserve">
+    <value>点赞数</value>
   </data>
   <data name="Bili" xml:space="preserve">
     <value>哔哩</value>
@@ -153,6 +165,9 @@
   <data name="Center" xml:space="preserve">
     <value>中央</value>
   </data>
+  <data name="DanmakuCount" xml:space="preserve">
+    <value>弹幕数</value>
+  </data>
   <data name="Documentary" xml:space="preserve">
     <value>纪录片</value>
   </data>
@@ -167,6 +182,12 @@
   </data>
   <data name="FailedToLoadQRCode" xml:space="preserve">
     <value>二维码加载失败，请刷新</value>
+  </data>
+  <data name="FailedToRemoveVideoFromFavorite" xml:space="preserve">
+    <value>移除视频收藏失败</value>
+  </data>
+  <data name="FailedToRemoveVideoFromHistory" xml:space="preserve">
+    <value>删除观看历史失败</value>
   </data>
   <data name="FansCount" xml:space="preserve">
     <value>粉丝数</value>
@@ -210,6 +231,9 @@
   <data name="MyFavorite" xml:space="preserve">
     <value>我的收藏</value>
   </data>
+  <data name="NeedLoginFirst" xml:space="preserve">
+    <value>你需要先登录</value>
+  </data>
   <data name="OpenBili" xml:space="preserve">
     <value>打开哔哩</value>
   </data>
@@ -218,6 +242,9 @@
   </data>
   <data name="Personal" xml:space="preserve">
     <value>个人主页</value>
+  </data>
+  <data name="PlayCount" xml:space="preserve">
+    <value>播放数</value>
   </data>
   <data name="Popular" xml:space="preserve">
     <value>热门</value>
@@ -236,6 +263,15 @@
   </data>
   <data name="Refresh" xml:space="preserve">
     <value>刷新</value>
+  </data>
+  <data name="RemoveViewLaterFailed" xml:space="preserve">
+    <value>移除稍后再看失败</value>
+  </data>
+  <data name="RequestPopularFailed" xml:space="preserve">
+    <value>请求热门视频失败</value>
+  </data>
+  <data name="Score" xml:space="preserve">
+    <value>评分</value>
   </data>
   <data name="SearchTip" xml:space="preserve">
     <value>搜索视频、番剧或UP主</value>

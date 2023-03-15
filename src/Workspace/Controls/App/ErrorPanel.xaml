@@ -1,0 +1,32 @@
+﻿<UserControl
+    x:Class="Bili.Workspace.Controls.App.ErrorPanel"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Bili.Workspace.Controls.App"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    HorizontalAlignment="Center"
+    VerticalAlignment="Center"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    IsTabStop="False"
+    mc:Ignorable="d">
+
+    <StackPanel Spacing="12">
+        <Image
+            Width="200"
+            HorizontalAlignment="Center"
+            Source="ms-appx:///Assets/Null_rgba.png" />
+        <TextBlock
+            Style="{StaticResource BodyTextBlockStyle}"
+            HorizontalAlignment="Center"
+            Text="{x:Bind Text, Mode=OneWay}"
+            TextAlignment="Center"
+            TextWrapping="Wrap" />
+        <Button
+            HorizontalAlignment="Center"
+            Click="OnActionButtonClick"
+            Content="{x:Bind ActionContent, Mode=OneWay}"
+            Visibility="{x:Bind ActionContent, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}" />
+    </StackPanel>
+</UserControl>

@@ -6,6 +6,7 @@ using Bili.DI.Container;
 using Bili.Lib.Interfaces;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums;
+using Bili.Models.Enums.Workspace;
 using Bili.Toolkit.Interfaces;
 using Bili.ViewModels.Interfaces.Account;
 using Bili.ViewModels.Interfaces.Core;
@@ -13,7 +14,7 @@ using Bili.ViewModels.Interfaces.Video;
 using CommunityToolkit.Mvvm.Input;
 using Windows.System;
 
-namespace Bili.ViewModels.Uwp.Video
+namespace Bili.ViewModels.Workspace.Core
 {
     /// <summary>
     /// 视频条目视图模型.
@@ -25,36 +26,28 @@ namespace Bili.ViewModels.Uwp.Video
         /// </summary>
         public VideoItemViewModel(
             INumberToolkit numberToolkit,
+            ISettingsToolkit settingsToolkit,
             IAccountProvider accountProvider,
             IAuthorizeProvider authorizeProvider,
             IFavoriteProvider favoriteProvider,
             IResourceToolkit resourceToolkit,
-            INavigationViewModel navigationViewModel,
             ICallerViewModel callerViewModel)
         {
             _numberToolkit = numberToolkit;
+            _settingsToolkit = settingsToolkit;
             _accountProvider = accountProvider;
             _authorizeProvider = authorizeProvider;
             _favoriteProvider = favoriteProvider;
             _resourceToolkit = resourceToolkit;
-            _navigationViewModel = navigationViewModel;
             _callerViewModel = callerViewModel;
 
-            PlayCommand = new AsyncRelayCommand(() => PlayAsync());
-            PlayInPrivateCommand = new AsyncRelayCommand(() => PlayAsync(true));
             AddToViewLaterCommand = new AsyncRelayCommand(AddToViewLaterAsync);
             RemoveFromViewLaterCommand = new AsyncRelayCommand(RemoveFromViewLaterAsync);
             RemoveFromHistoryCommand = new AsyncRelayCommand(RemoveFromHistoryAsync);
-            OpenInBroswerCommand = new AsyncRelayCommand(OpenInBroswerAsync);
             RemoveFromFavoriteCommand = new AsyncRelayCommand(RemoveFromFavoriteAsync);
 
             AttachExceptionHandlerToAsyncCommand(
-                ex =>
-                {
-                    _callerViewModel.ShowTip(
-                        ex.Message,
-                        Models.Enums.App.InfoType.Error);
-                },
+                LogException,
                 RemoveFromFavoriteCommand);
         }
 
@@ -97,21 +90,15 @@ namespace Bili.ViewModels.Uwp.Video
             }
         }
 
-        private Task PlayAsync(bool isInPrivate = false)
+        [RelayCommand]
+        private async Task PlayAsync()
         {
-            var snapshot = new Models.Data.Local.PlaySnapshot(Data.Identifier.Id, "0", VideoType.Video);
-            snapshot.IsInPrivate = isInPrivate;
-            if (_navigationViewModel.IsPlayViewShown && _navigationViewModel.PlayViewId == PageIds.VideoPlayer)
-            {
-                var videoPlayerPageVM = Locator.Instance.GetService<IVideoPlayerPageViewModel>();
-                videoPlayerPageVM.SetSnapshot(snapshot);
-            }
-            else
-            {
-                _navigationViewModel.NavigateToPlayView(snapshot);
-            }
-
-            return Task.CompletedTask;
+            var videoId = Data.Identifier.Id;
+            var perferLaunch = _settingsToolkit.ReadLocalSetting(SettingNames.LaunchType, LaunchType.Web);
+            var uri = perferLaunch == LaunchType.Web
+                ? $"https://www.bilibili.com/video/av{videoId}"
+                : $"richasy-bili://play?video={videoId}";
+            await Launcher.LaunchUriAsync(new Uri(uri));
         }
 
         private async Task AddToViewLaterAsync()
@@ -220,12 +207,6 @@ namespace Bili.ViewModels.Uwp.Video
                         _resourceToolkit.GetLocaleString(LanguageNames.NeedLoginFirst),
                         Models.Enums.App.InfoType.Warning);
             }
-        }
-
-        private async Task OpenInBroswerAsync()
-        {
-            var uri = $"https://www.bilibili.com/video/av{Data.Identifier.Id}";
-            await Launcher.LaunchUriAsync(new Uri(uri));
         }
     }
 }
