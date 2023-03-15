@@ -3,6 +3,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using Bili.Models.Data.Community;
 using CommunityToolkit.Mvvm.Input;
 using Models.Workspace;
 
@@ -42,5 +43,17 @@ namespace Bili.ViewModels.Interfaces.Workspace
         /// 设置按钮命令.
         /// </summary>
         IRelayCommand ShowSettingsCommand { get; }
+
+        /// <summary>
+        /// 导航到指定的分区.
+        /// </summary>
+        /// <param name="partition">分区信息.</param>
+        void NavigateToPartition(Partition partition);
+
+        /// <summary>
+        /// 获取选中的分区.
+        /// </summary>
+        /// <returns>分区信息.</returns>
+        Partition GetSelectedPartition();
     }
 }

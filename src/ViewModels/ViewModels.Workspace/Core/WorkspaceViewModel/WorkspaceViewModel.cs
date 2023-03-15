@@ -3,6 +3,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Bili.Models.Data.Community;
 using Bili.Models.Enums;
 using Bili.Models.Enums.Workspace;
 using Bili.Toolkit.Interfaces;
@@ -27,6 +28,19 @@ namespace Bili.ViewModels.Workspace.Core
             InitializeItems();
             CurrentItem = Items.First();
         }
+
+        /// <inheritdoc/>
+        public void NavigateToPartition(Partition partition)
+        {
+            _selectedPartition = partition;
+            var newNavItem = new NavigateItem(NavigateTarget.Partition, partition.Name, FluentSymbol.Apps);
+            Items.Add(newNavItem);
+            CurrentItem = newNavItem;
+        }
+
+        /// <inheritdoc/>
+        public Partition GetSelectedPartition()
+            => _selectedPartition;
 
         private void InitializeItems()
         {
@@ -63,6 +77,12 @@ namespace Bili.ViewModels.Workspace.Core
             }
 
             IsSettingsOpen = false;
+            if (value.Target != NavigateTarget.Partition && Items.Last().Target == NavigateTarget.Partition)
+            {
+                Items.RemoveAt(Items.Count - 1);
+                _selectedPartition = null;
+            }
+
             RequestNavigating?.Invoke(this, EventArgs.Empty);
         }
     }

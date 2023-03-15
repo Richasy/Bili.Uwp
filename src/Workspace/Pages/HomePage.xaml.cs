@@ -59,7 +59,7 @@ namespace Bili.Workspace.Pages
             var data = ele.DataContext is IVideoPartitionViewModel vpvm
                 ? vpvm.Data
                 : ele.DataContext as Partition;
-            Debug.WriteLine(data.Name);
+            CoreViewModel.NavigateToPartition(data);
         }
 
         private async void OnQuickTopicClickAsync(object sender, RoutedEventArgs e)

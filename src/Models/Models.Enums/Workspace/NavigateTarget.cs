@@ -31,5 +31,10 @@ namespace Bili.Models.Enums.Workspace
         /// 历史记录.
         /// </summary>
         History,
+
+        /// <summary>
+        /// 分区.
+        /// </summary>
+        Partition,
     }
 }

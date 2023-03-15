@@ -57,6 +57,7 @@
     <None Remove="Pages\DynamicPage.xaml" />
     <None Remove="Pages\HistoryPage.xaml" />
     <None Remove="Pages\HomePage.xaml" />
+    <None Remove="Pages\PartitionPage.xaml" />
     <None Remove="Pages\PopularPage.xaml" />
     <None Remove="Pages\RankPage.xaml" />
     <None Remove="Pages\SettingsPage.xaml" />
@@ -196,6 +197,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Pages\PartitionPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Pages\RankPage.xaml">

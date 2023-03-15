@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.ObjectModel;
+using Bili.Models.Data.Community;
 using Bili.Toolkit.Interfaces;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.UI.Xaml;
@@ -21,6 +22,8 @@ namespace Bili.ViewModels.Workspace.Core
 
         [ObservableProperty]
         private bool _isSettingsOpen;
+
+        private Partition _selectedPartition;
 
         /// <inheritdoc/>
         public event EventHandler RequestNavigating;

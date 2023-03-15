@@ -96,6 +96,9 @@ namespace Bili.Workspace
                     case NavigateTarget.History:
                         MainFrame.Navigate(typeof(HistoryPage), null, new SlideNavigationTransitionInfo());
                         break;
+                    case NavigateTarget.Partition:
+                        MainFrame.Navigate(typeof(PartitionPage), _viewModel.GetSelectedPartition(), new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
+                        break;
                     default:
                         break;
                 }
