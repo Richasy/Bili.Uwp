@@ -15,6 +15,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <ContentPresenter
             HorizontalAlignment="Left"
@@ -30,7 +31,7 @@
             Visibility="{x:Bind Element, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}" />
         <Button
             x:Name="RefreshButton"
-            Grid.Column="1"
+            Grid.Column="2"
             Padding="8,4"
             VerticalAlignment="Center"
             Command="{x:Bind RefreshCommand, Mode=OneWay}"

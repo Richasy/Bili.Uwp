@@ -168,6 +168,9 @@
   <data name="DanmakuCount" xml:space="preserve">
     <value>弹幕数</value>
   </data>
+  <data name="Delete" xml:space="preserve">
+    <value>删除</value>
+  </data>
   <data name="Documentary" xml:space="preserve">
     <value>纪录片</value>
   </data>

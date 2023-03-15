@@ -1,9 +1,11 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
+using System;
 using Bili.DI.Container;
 using Bili.ViewModels.Interfaces.Workspace;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Navigation;
 
 namespace Bili.Workspace.Pages
 {
@@ -37,6 +39,13 @@ namespace Bili.Workspace.Pages
         /// </summary>
         /// <returns>视图模型，如果没有则返回<c>null</c>.</returns>
         public virtual object GetViewModel() => null;
+
+        /// <inheritdoc/>
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            GC.Collect();
+            GC.SuppressFinalize(this);
+        }
     }
 
     /// <summary>

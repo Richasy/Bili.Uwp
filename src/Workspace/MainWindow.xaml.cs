@@ -93,8 +93,7 @@ namespace Bili.Workspace
                     case NavigateTarget.Live:
                         break;
                     case NavigateTarget.History:
-                        break;
-                    case NavigateTarget.Settings:
+                        MainFrame.Navigate(typeof(HistoryPage), null, new SlideNavigationTransitionInfo());
                         break;
                     default:
                         break;

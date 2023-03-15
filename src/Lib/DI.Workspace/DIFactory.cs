@@ -84,6 +84,7 @@ namespace DI.Workspace
                 .RegisterSingleton<IHomePageViewModel, HomePageViewModel>()
                 .RegisterSingleton<IPopularPageViewModel, PopularPageViewModel>()
                 .RegisterSingleton<IDynamicVideoModuleViewModel, DynamicVideoModuleViewModel>()
+                .RegisterSingleton<IHistoryPageViewModel, HistoryPageViewModel>()
 
                 .RegisterTransient<IVideoPartitionViewModel, VideoPartitionViewModel>()
                 .RegisterTransient<IUserItemViewModel, UserItemViewModel>()
