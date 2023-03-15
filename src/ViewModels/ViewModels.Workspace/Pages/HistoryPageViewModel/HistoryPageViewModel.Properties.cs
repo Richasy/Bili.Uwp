@@ -5,7 +5,7 @@ using Bili.Toolkit.Interfaces;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
-namespace Bili.ViewModels.Workspace.Account
+namespace Bili.ViewModels.Workspace.Pages
 {
     /// <summary>
     /// 历史记录页面视图模型.

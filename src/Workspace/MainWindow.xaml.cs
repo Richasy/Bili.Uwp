@@ -90,7 +90,8 @@ namespace Bili.Workspace
                     case NavigateTarget.Dynamic:
                         MainFrame.Navigate(typeof(DynamicPage), null, new SlideNavigationTransitionInfo());
                         break;
-                    case NavigateTarget.Live:
+                    case NavigateTarget.Rank:
+                        MainFrame.Navigate(typeof(RankPage), null, new SlideNavigationTransitionInfo());
                         break;
                     case NavigateTarget.History:
                         MainFrame.Navigate(typeof(HistoryPage), null, new SlideNavigationTransitionInfo());

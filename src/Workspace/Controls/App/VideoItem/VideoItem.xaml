@@ -24,7 +24,7 @@
                             <Style BasedOn="{StaticResource DefaultIconTextBlockStyle}" TargetType="local:IconTextBlock">
                                 <Setter Property="Spacing" Value="4" />
                                 <Setter Property="IconFontSize" Value="12" />
-                                <Setter Property="FontSize" Value="10" />
+                                <Setter Property="FontSize" Value="11" />
                             </Style>
                         </Grid.Resources>
                         <controls:CardPanel
@@ -173,7 +173,7 @@
                                     <Grid Grid.Row="4">
                                         <TextBlock
                                             Style="{StaticResource CaptionTextBlockStyle}"
-                                            Margin="0,0,0,8"
+                                            FontSize="11"
                                             Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ViewModel.IsShowScore}">
                                             <Run Foreground="{ThemeResource TextFillColorTertiaryBrush}" Text="{ext:Locale Name=Score}" />
                                             <Run

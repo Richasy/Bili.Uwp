@@ -58,6 +58,7 @@
     <None Remove="Pages\HistoryPage.xaml" />
     <None Remove="Pages\HomePage.xaml" />
     <None Remove="Pages\PopularPage.xaml" />
+    <None Remove="Pages\RankPage.xaml" />
     <None Remove="Pages\SettingsPage.xaml" />
     <None Remove="Styles\TrayResources.xaml" />
   </ItemGroup>
@@ -195,6 +196,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Pages\RankPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Pages\HistoryPage.xaml">

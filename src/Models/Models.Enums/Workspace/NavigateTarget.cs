@@ -23,18 +23,13 @@ namespace Bili.Models.Enums.Workspace
         Dynamic,
 
         /// <summary>
-        /// 直播.
+        /// 排行榜.
         /// </summary>
-        Live,
+        Rank,
 
         /// <summary>
         /// 历史记录.
         /// </summary>
         History,
-
-        /// <summary>
-        /// 设置.
-        /// </summary>
-        Settings,
     }
 }

@@ -36,7 +36,7 @@
                 VerticalAlignment="Center"
                 Spacing="8">
                 <TextBlock
-                    Style="{StaticResource BodyTextBlockStyle}"
+                    Style="{StaticResource BodyStrongTextBlockStyle}"
                     HorizontalAlignment="Left"
                     Text="{x:Bind ViewModel.DisplayName, Mode=OneWay}"
                     TextTrimming="CharacterEllipsis" />
