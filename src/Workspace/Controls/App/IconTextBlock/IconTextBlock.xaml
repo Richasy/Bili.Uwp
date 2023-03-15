@@ -1,0 +1,44 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Bili.Workspace.Controls"
+    xmlns:local="using:Bili.Workspace.Controls.App">
+
+    <Style BasedOn="{StaticResource DefaultIconTextBlockStyle}" TargetType="local:IconTextBlock" />
+
+    <Style x:Key="DefaultIconTextBlockStyle" TargetType="local:IconTextBlock">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="IconFontSize" Value="14" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:IconTextBlock">
+                    <Grid Margin="0,2" ColumnSpacing="{TemplateBinding Spacing}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Viewbox
+                            Width="{TemplateBinding IconFontSize}"
+                            Height="{TemplateBinding IconFontSize}"
+                            VerticalAlignment="Center">
+                            <controls:FluentIcon Symbol="{TemplateBinding Symbol}" />
+                        </Viewbox>
+                        <TextBlock
+                            x:Name="ContentBlock"
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            FontSize="{TemplateBinding FontSize}"
+                            Foreground="{TemplateBinding Foreground}"
+                            Text="{TemplateBinding Text}"
+                            TextLineBounds="Tight"
+                            TextTrimming="CharacterEllipsis">
+                            <ToolTipService.ToolTip>
+                                <ToolTip Content="{TemplateBinding Text}" IsEnabled="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, ElementName=ContentBlock, Path=IsTextTrimmed, Mode=OneWay}" />
+                            </ToolTipService.ToolTip>
+                        </TextBlock>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

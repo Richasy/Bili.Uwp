@@ -39,12 +39,12 @@ namespace Bili.ViewModels.Interfaces.Video
         /// <summary>
         /// 播放命令.
         /// </summary>
-        public IRelayCommand PlayCommand { get; }
+        public IAsyncRelayCommand PlayCommand { get; }
 
         /// <summary>
         /// 无痕播放命令.
         /// </summary>
-        public IRelayCommand PlayInPrivateCommand { get; }
+        public IAsyncRelayCommand PlayInPrivateCommand { get; }
 
         /// <summary>
         /// 发布者.

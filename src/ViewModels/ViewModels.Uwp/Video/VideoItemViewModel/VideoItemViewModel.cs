@@ -40,8 +40,8 @@ namespace Bili.ViewModels.Uwp.Video
             _navigationViewModel = navigationViewModel;
             _callerViewModel = callerViewModel;
 
-            PlayCommand = new RelayCommand(() => Play());
-            PlayInPrivateCommand = new RelayCommand(() => Play(true));
+            PlayCommand = new AsyncRelayCommand(() => PlayAsync());
+            PlayInPrivateCommand = new AsyncRelayCommand(() => PlayAsync(true));
             AddToViewLaterCommand = new AsyncRelayCommand(AddToViewLaterAsync);
             RemoveFromViewLaterCommand = new AsyncRelayCommand(RemoveFromViewLaterAsync);
             RemoveFromHistoryCommand = new AsyncRelayCommand(RemoveFromHistoryAsync);
@@ -97,7 +97,7 @@ namespace Bili.ViewModels.Uwp.Video
             }
         }
 
-        private void Play(bool isInPrivate = false)
+        private Task PlayAsync(bool isInPrivate = false)
         {
             var snapshot = new Models.Data.Local.PlaySnapshot(Data.Identifier.Id, "0", VideoType.Video);
             snapshot.IsInPrivate = isInPrivate;
@@ -110,6 +110,8 @@ namespace Bili.ViewModels.Uwp.Video
             {
                 _navigationViewModel.NavigateToPlayView(snapshot);
             }
+
+            return Task.CompletedTask;
         }
 
         private async Task AddToViewLaterAsync()

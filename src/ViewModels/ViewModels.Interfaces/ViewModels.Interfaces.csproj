@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Bili.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
-    <AssemblyName>Bili$(MSBuildProjectName)</AssemblyName>
+    <AssemblyName>Bili.$(MSBuildProjectName)</AssemblyName>
     <LangVersion>10</LangVersion>
   </PropertyGroup>
 
@@ -14,6 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Models\Models.App\Models.App.csproj" />
     <ProjectReference Include="..\..\Models\Models.Data\Models.Data.csproj" />
+    <ProjectReference Include="..\..\Models\Models.Workspace\Models.Workspace.csproj" />
   </ItemGroup>
 
 </Project>

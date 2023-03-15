@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Window
+    x:Class="Bili.Workspace.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:app="using:Bili.Workspace.Controls.App"
+    xmlns:controls="using:Bili.Workspace.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:ext="using:Bili.Workspace.Resources.Extension"
+    xmlns:local="using:Bili.Workspace"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:workspace="using:Models.Workspace"
+    mc:Ignorable="d">
+
+    <Grid x:Name="RootContainer" Loaded="OnRootContainerLoaded">
+        <app:LandingPane x:Name="LandingPane" ViewModel="{x:Bind _accountViewModel}" />
+        <ProgressRing
+            x:Name="SignInRing"
+            Width="40"
+            Height="40"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center" />
+        <Grid x:Name="MainContainer">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Frame
+                x:Name="MainFrame"
+                Background="{ThemeResource LayerFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource SurfaceStrokeColorDefaultBrush}"
+                BorderThickness="0,0,0,1"
+                Loaded="OnMainFrameLoaded" />
+            <Grid
+                Grid.Row="2"
+                Height="56"
+                Padding="4,0">
+                <NavigationView
+                    x:Name="MainNavView"
+                    Height="48"
+                    Margin="0,-4,0,0"
+                    IsBackButtonVisible="Collapsed"
+                    IsPaneOpen="True"
+                    IsPaneToggleButtonVisible="False"
+                    IsSettingsVisible="False"
+                    IsTitleBarAutoPaddingEnabled="False"
+                    MenuItemsSource="{x:Bind _viewModel.Items}"
+                    PaneDisplayMode="Top"
+                    SelectedItem="{x:Bind _viewModel.CurrentItem, Mode=TwoWay}">
+                    <NavigationView.MenuItemTemplate>
+                        <DataTemplate x:DataType="workspace:NavigateItem">
+                            <NavigationViewItem ToolTipService.ToolTip="{x:Bind Title}">
+                                <NavigationViewItem.Icon>
+                                    <controls:FluentIcon Symbol="{x:Bind Icon}" />
+                                </NavigationViewItem.Icon>
+                            </NavigationViewItem>
+                        </DataTemplate>
+                    </NavigationView.MenuItemTemplate>
+                    <NavigationView.PaneFooter>
+                        <Button
+                            Width="36"
+                            Height="36"
+                            Padding="0"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Command="{x:Bind _viewModel.ShowSettingsCommand}"
+                            ToolTipService.ToolTip="{ext:Locale Name=Settings}">
+                            <controls:FluentIcon FontSize="18" Symbol="Settings" />
+                        </Button>
+                    </NavigationView.PaneFooter>
+                </NavigationView>
+            </Grid>
+        </Grid>
+        <Grid x:Name="TipContainer" Visibility="Collapsed" />
+    </Grid>
+</Window>

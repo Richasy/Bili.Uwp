@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Application
+    x:Class="Bili.Workspace.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="using:Bili.Workspace.Resources.Converter"
+    xmlns:local="using:Bili.Workspace">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+                <ResourceDictionary Source="ms-appx:///Controls/App/IconTextBlock/IconTextBlock.xaml" />
+                <ResourceDictionary Source="ms-appx:///Controls/App/CardPanel/CardPanel.xaml" />
+                <ResourceDictionary Source="ms-appx:///Controls/App/CommonImageEx/CommonImageEx.xaml" />
+                <ResourceDictionary Source="ms-appx:///Controls/App/VideoItem/VideoItem.xaml" />
+                <ResourceDictionary Source="ms-appx:///Controls/App/EpisodeItem/EpisodeItem.xaml" />
+                <ResourceDictionary Source="ms-appx:///Controls/Dynamic/DynamicItem/DynamicItem.xaml" />
+                <ResourceDictionary Source="ms-appx:///Controls/App/EmoteTextBlock/EmoteTextBlock.xaml" />
+                <ResourceDictionary Source="ms-appx:///Controls/App/TwoLineButton/TwoLineButton.xaml" />
+                <ResourceDictionary Source="ms-appx:///Controls/App/VerticalRepeaterView/VerticalRepeaterView.xaml" />
+                <ResourceDictionary Source="ms-appx:///Controls/Community/PartitionItem/PartitionItem.xaml" />
+                <ResourceDictionary Source="ms-appx:///Styles/Style.Overwrite.xaml" />
+                <ResourceDictionary Source="ms-appx:///Styles/TrayResources.xaml" />
+                <!-- Other merged dictionaries here -->
+            </ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light" Source="ms-appx:///Styles/Theme.Light.xaml" />
+                <ResourceDictionary x:Key="Dark" Source="ms-appx:///Styles/Theme.Dark.xaml" />
+                <ResourceDictionary x:Key="HighContrast" Source="ms-appx:///Styles/Theme.HighContrast.xaml" />
+            </ResourceDictionary.ThemeDictionaries>
+
+            <converters:StartupPositionTextConverter x:Key="StartupPositionTextConverter" />
+            <converters:LaunchTypeTextConverter x:Key="LaunchTypeTextConverter" />
+            <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+            <converters:ObjectToBoolConverter x:Key="ObjectToBoolReverseConverter" IsReverse="True" />
+            <converters:ObjectToVisibilityConverter x:Key="ObjectToVisibilityConverter" />
+            <converters:ObjectToVisibilityConverter x:Key="ObjectToVisibilityReverseConverter" IsReverse="True" />
+            <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+            <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityReverseConverter" IsReverse="True" />
+            <converters:UserLevelConverter x:Key="UserLevelConverter" />
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

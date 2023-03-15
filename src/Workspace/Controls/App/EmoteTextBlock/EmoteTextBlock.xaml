@@ -1,0 +1,49 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Bili.Workspace.Controls"
+    xmlns:local="using:Bili.Workspace.Controls.App">
+    <Style TargetType="local:EmoteTextBlock">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:EmoteTextBlock">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <RichTextBlock
+                            x:Name="RichBlock"
+                            FontFamily="{TemplateBinding FontFamily}"
+                            FontSize="{TemplateBinding FontSize}"
+                            FontWeight="{TemplateBinding FontWeight}"
+                            Foreground="{TemplateBinding Foreground}"
+                            IsTextSelectionEnabled="True"
+                            LineHeight="24"
+                            MaxLines="{TemplateBinding MaxLines}"
+                            TextTrimming="None"
+                            TextWrapping="Wrap" />
+                        <Button
+                            x:Name="OverflowButton"
+                            Grid.Row="1"
+                            Padding="2"
+                            BorderThickness="0"
+                            Visibility="Collapsed">
+                            <controls:FluentIcon FontSize="12" Symbol="MoreHorizontal" />
+                            <Button.Flyout>
+                                <Flyout>
+                                    <RichTextBlock
+                                        x:Name="FlyoutRichBlock"
+                                        MaxWidth="320"
+                                        IsTextSelectionEnabled="True"
+                                        LineHeight="24"
+                                        TextWrapping="Wrap" />
+                                </Flyout>
+                            </Button.Flyout>
+                        </Button>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

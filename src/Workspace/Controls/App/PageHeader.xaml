@@ -1,0 +1,42 @@
+﻿<UserControl
+    x:Class="Bili.Workspace.Controls.App.PageHeader"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:ext="using:Bili.Workspace.Resources.Extension"
+    xmlns:local="using:Bili.Workspace.Controls.App"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    IsTabStop="False"
+    mc:Ignorable="d">
+
+    <Grid Margin="20,20,20,16" ColumnSpacing="12">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <ContentPresenter
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Content="{x:Bind Title, Mode=OneWay}"
+            FontWeight="Bold"
+            TextWrapping="NoWrap" />
+        <ContentPresenter
+            Grid.Column="1"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Content="{x:Bind Element, Mode=OneWay}"
+            Visibility="{x:Bind Element, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}" />
+        <Button
+            x:Name="RefreshButton"
+            Grid.Column="2"
+            Padding="8,4"
+            VerticalAlignment="Center"
+            Command="{x:Bind RefreshCommand, Mode=OneWay}"
+            Visibility="{x:Bind RefreshCommand, Mode=OneWay, Converter={StaticResource ObjectToVisibilityConverter}}">
+            <local:IconTextBlock Symbol="ArrowSync" Text="{ext:Locale Name=Refresh}" />
+        </Button>
+    </Grid>
+</UserControl>

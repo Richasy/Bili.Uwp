@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <SolidColorBrush x:Key="AppMaskAcrylicBrush" Color="{ThemeResource SystemChromeAltMediumHighColor}" />
+    <SolidColorBrush x:Key="AccentMaskAcrylicBrush" Color="{ThemeResource SystemAccentColor}" />
+    <SolidColorBrush x:Key="AppMaskBrush" Color="{ThemeResource SystemChromeAltMediumHighColor}" />
+    <SolidColorBrush x:Key="AccentMaskBrush" Color="{ThemeResource SystemColorWindowColor}" />
+    <SolidColorBrush x:Key="AccentBadgeBackground" Color="{ThemeResource SystemColorWindowColor}" />
+    <SolidColorBrush x:Key="ToggleSwitchKnobOffForeground" Color="White" />
+    <SolidColorBrush x:Key="TransparentBackground" Color="#01000000" />
+</ResourceDictionary>

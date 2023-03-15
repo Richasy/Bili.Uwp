@@ -52,70 +52,84 @@
                     </muxc:ItemsRepeater.Layout>
                     <muxc:ItemsRepeater.ItemTemplate>
                         <DataTemplate x:DataType="video:IVideoFavoriteFolderGroupViewModel">
-                            <labs:SettingsExpander Header="{x:Bind Data.Title, Mode=OneWay}" ItemsSource="{x:Bind Items}">
-                                <labs:SettingsExpander.HeaderIcon>
-                                    <icons:RegularFluentIcon Symbol="Folder20" />
-                                </labs:SettingsExpander.HeaderIcon>
-                                <labs:SettingsExpander.ItemTemplate>
-                                    <DataTemplate x:DataType="video:IVideoFavoriteFolderViewModel">
-                                        <labs:SettingsCard>
-                                            <labs:SettingsCard.Header>
-                                                <Grid Margin="-12,0,0,0" ColumnSpacing="12">
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="Auto" />
-                                                        <ColumnDefinition Width="*" />
-                                                    </Grid.ColumnDefinitions>
-                                                    <Grid CornerRadius="{StaticResource ControlCornerRadius}">
-                                                        <controls:CommonImageEx
-                                                            Width="84"
-                                                            Height="56"
-                                                            ImageUrl="{x:Bind Folder.Cover.Uri, Mode=OneWay}" />
-                                                    </Grid>
+                            <muxc:Expander Style="{StaticResource NoAnimationExpanderStyle}">
+                                <muxc:Expander.Header>
+                                    <labs:SettingsCard
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Header="{x:Bind Data.Title, Mode=OneWay}"
+                                        IsClickEnabled="False">
+                                        <labs:SettingsCard.HeaderIcon>
+                                            <icons:RegularFluentIcon Symbol="Folder20" />
+                                        </labs:SettingsCard.HeaderIcon>
+                                    </labs:SettingsCard>
+                                </muxc:Expander.Header>
+
+                                <StackPanel>
+                                    <muxc:ItemsRepeater ItemsSource="{x:Bind Items}">
+                                        <muxc:ItemsRepeater.Layout>
+                                            <muxc:StackLayout />
+                                        </muxc:ItemsRepeater.Layout>
+                                        <muxc:ItemsRepeater.ItemTemplate>
+                                            <DataTemplate x:DataType="video:IVideoFavoriteFolderViewModel">
+                                                <labs:SettingsCard Background="Transparent" BorderThickness="0">
+                                                    <labs:SettingsCard.Header>
+                                                        <Grid Margin="-12,0,0,0" ColumnSpacing="12">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="Auto" />
+                                                                <ColumnDefinition Width="*" />
+                                                            </Grid.ColumnDefinitions>
+                                                            <Grid CornerRadius="{StaticResource ControlCornerRadius}">
+                                                                <controls:CommonImageEx
+                                                                    Width="84"
+                                                                    Height="56"
+                                                                    ImageUrl="{x:Bind Folder.Cover.Uri, Mode=OneWay}" />
+                                                            </Grid>
+                                                            <StackPanel
+                                                                Grid.Column="1"
+                                                                HorizontalAlignment="Left"
+                                                                VerticalAlignment="Center">
+                                                                <TextBlock
+                                                                    FontWeight="Bold"
+                                                                    MaxLines="2"
+                                                                    Text="{x:Bind Folder.Title, Mode=OneWay}"
+                                                                    TextTrimming="CharacterEllipsis"
+                                                                    TextWrapping="Wrap" />
+                                                                <TextBlock
+                                                                    Style="{StaticResource CaptionTextBlockStyle}"
+                                                                    Margin="0,4,0,0"
+                                                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                                    MaxLines="2"
+                                                                    Text="{x:Bind Folder.Description, Mode=OneWay}"
+                                                                    TextTrimming="CharacterEllipsis"
+                                                                    TextWrapping="Wrap"
+                                                                    Visibility="{x:Bind Folder.Description, Converter={StaticResource ObjectToVisibilityConverter}}" />
+                                                            </StackPanel>
+                                                        </Grid>
+                                                    </labs:SettingsCard.Header>
                                                     <StackPanel
-                                                        Grid.Column="1"
-                                                        HorizontalAlignment="Left"
-                                                        VerticalAlignment="Center">
-                                                        <TextBlock
-                                                            FontWeight="Bold"
-                                                            MaxLines="2"
-                                                            Text="{x:Bind Folder.Title, Mode=OneWay}"
-                                                            TextTrimming="CharacterEllipsis"
-                                                            TextWrapping="Wrap" />
-                                                        <TextBlock
-                                                            Style="{StaticResource CaptionTextBlockStyle}"
-                                                            Margin="0,4,0,0"
-                                                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                                            MaxLines="2"
-                                                            Text="{x:Bind Folder.Description, Mode=OneWay}"
-                                                            TextTrimming="CharacterEllipsis"
-                                                            TextWrapping="Wrap"
-                                                            Visibility="{x:Bind Folder.Description, Converter={StaticResource ObjectToVisibilityConverter}}" />
+                                                        Margin="0,0,-12,0"
+                                                        VerticalAlignment="Center"
+                                                        Orientation="Horizontal">
+                                                        <Button
+                                                            Margin="0,0,8,0"
+                                                            Command="{x:Bind ShowDetailCommand}"
+                                                            Content="{loc:Locale Name=SeeDetail}" />
+                                                        <Button
+                                                            Click="OnRemoveFavoriteButtonClickAsync"
+                                                            Content="{loc:Locale Name=DeleteFavorite}"
+                                                            DataContext="{x:Bind}"
+                                                            Visibility="{x:Bind IsMine, Mode=OneWay}" />
+                                                        <Button
+                                                            Click="OnRemoveFavoriteButtonClickAsync"
+                                                            Content="{loc:Locale Name=UnFavorite}"
+                                                            DataContext="{x:Bind}"
+                                                            Visibility="{x:Bind IsMine, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
                                                     </StackPanel>
-                                                </Grid>
-                                            </labs:SettingsCard.Header>
-                                            <StackPanel
-                                                Margin="0,0,-12,0"
-                                                VerticalAlignment="Center"
-                                                Orientation="Horizontal">
-                                                <Button
-                                                    Margin="0,0,8,0"
-                                                    Command="{x:Bind ShowDetailCommand}"
-                                                    Content="{loc:Locale Name=SeeDetail}" />
-                                                <Button
-                                                    Click="OnRemoveFavoriteButtonClickAsync"
-                                                    Content="{loc:Locale Name=DeleteFavorite}"
-                                                    DataContext="{x:Bind}"
-                                                    Visibility="{x:Bind IsMine, Mode=OneWay}" />
-                                                <Button
-                                                    Click="OnRemoveFavoriteButtonClickAsync"
-                                                    Content="{loc:Locale Name=UnFavorite}"
-                                                    DataContext="{x:Bind}"
-                                                    Visibility="{x:Bind IsMine, Mode=OneWay, Converter={StaticResource BoolToVisibilityReverseConverter}}" />
-                                            </StackPanel>
-                                        </labs:SettingsCard>
-                                    </DataTemplate>
-                                </labs:SettingsExpander.ItemTemplate>
-                                <labs:SettingsExpander.ItemsFooter>
+                                                </labs:SettingsCard>
+                                            </DataTemplate>
+                                        </muxc:ItemsRepeater.ItemTemplate>
+                                    </muxc:ItemsRepeater>
                                     <Grid>
                                         <Grid ColumnSpacing="12" Visibility="{x:Bind HasMore, Mode=OneWay}">
                                             <Grid.ColumnDefinitions>
@@ -139,8 +153,8 @@
                                             Text="{loc:Locale Name=NoSpecificData}"
                                             Visibility="{x:Bind IsEmpty, Mode=OneWay}" />
                                     </Grid>
-                                </labs:SettingsExpander.ItemsFooter>
-                            </labs:SettingsExpander>
+                                </StackPanel>
+                            </muxc:Expander>
                         </DataTemplate>
                     </muxc:ItemsRepeater.ItemTemplate>
                 </muxc:ItemsRepeater>

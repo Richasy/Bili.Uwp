@@ -49,7 +49,7 @@ namespace Bili.ViewModels.Interfaces.Community
         /// <summary>
         /// 点击动态的命令.
         /// </summary>
-        IRelayCommand ActiveCommand { get; }
+        IAsyncRelayCommand ActiveCommand { get; }
 
         /// <summary>
         /// 显示用户详情的命令.

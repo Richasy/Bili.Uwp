@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows10.0.22000.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <RootNamespace>SignIn.Workspace</RootNamespace>
+    <RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
+    <UseWinUI>true</UseWinUI>
+    <SupportedOSPlatformVersion>10.0.22000.0</SupportedOSPlatformVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="SignInDialog.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+      <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.3.230202101-experimental1" />
+      <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.755" />
+      <PackageReference Include="ZXing.Net" Version="0.16.9" />
+      <PackageReference Include="ZXing.Net.Bindings.Windows.Compatibility" Version="0.16.12" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Models\Models.Enums\Models.Enums.csproj" />
+    <ProjectReference Include="..\..\Utilities\Toolkit\Toolkit.Interfaces\Toolkit.Interfaces.csproj" />
+    <ProjectReference Include="..\..\ViewModels\ViewModels.Interfaces\ViewModels.Interfaces.csproj" />
+    <ProjectReference Include="..\DI.Container\DI.Container.csproj" />
+    <ProjectReference Include="..\Lib.Interfaces\Lib.Interfaces.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="SignInDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+</Project>

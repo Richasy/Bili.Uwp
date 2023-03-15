@@ -46,7 +46,7 @@ namespace Bili.ViewModels.Uwp.Community
         public IAsyncRelayCommand ToggleLikeCommand { get; }
 
         /// <inheritdoc/>
-        public IRelayCommand ActiveCommand { get; }
+        public IAsyncRelayCommand ActiveCommand { get; }
 
         /// <inheritdoc/>
         public IRelayCommand ShowUserDetailCommand { get; }

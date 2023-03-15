@@ -74,10 +74,10 @@ namespace Bili.ViewModels.Uwp.Video
         public IAsyncRelayCommand OpenInBroswerCommand { get; }
 
         /// <inheritdoc/>
-        public IRelayCommand PlayCommand { get; }
+        public IAsyncRelayCommand PlayCommand { get; }
 
         /// <inheritdoc/>
-        public IRelayCommand PlayInPrivateCommand { get; }
+        public IAsyncRelayCommand PlayInPrivateCommand { get; }
 
         /// <inheritdoc/>
         public override bool Equals(object obj) => obj is VideoItemViewModel model && EqualityComparer<VideoInformation>.Default.Equals(Data, model.Data);

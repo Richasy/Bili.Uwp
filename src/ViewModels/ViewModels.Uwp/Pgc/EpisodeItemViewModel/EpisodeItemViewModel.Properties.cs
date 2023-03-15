@@ -43,7 +43,7 @@ namespace Bili.ViewModels.Uwp.Pgc
         /// <summary>
         /// 播放命令.
         /// </summary>
-        public IRelayCommand PlayCommand { get; }
+        public IAsyncRelayCommand PlayCommand { get; }
 
         /// <inheritdoc/>
         public override bool Equals(object obj) => obj is EpisodeItemViewModel model && EqualityComparer<EpisodeInformation>.Default.Equals(Data, model.Data);

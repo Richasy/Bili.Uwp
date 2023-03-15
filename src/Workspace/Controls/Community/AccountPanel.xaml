@@ -1,0 +1,144 @@
+﻿<local:AccountPanelBase
+    x:Class="Bili.Workspace.Controls.Community.AccountPanel"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:app="using:Bili.Workspace.Controls.App"
+    xmlns:controls="using:Bili.Workspace.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:ext="using:Bili.Workspace.Resources.Extension"
+    xmlns:local="using:Bili.Workspace.Controls.Community"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+
+    <Grid HorizontalAlignment="Stretch" RowSpacing="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid ColumnSpacing="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <local:UserAvatar
+                x:Name="Avatar"
+                Width="40"
+                Height="40"
+                Avatar="{x:Bind ViewModel.Avatar, Mode=OneWay}"
+                Click="OnAvatarClick"
+                DecodeSize="80"
+                UserName="{x:Bind ViewModel.DisplayName, Mode=OneWay}" />
+            <StackPanel
+                Grid.Column="1"
+                VerticalAlignment="Center"
+                Spacing="8">
+                <TextBlock
+                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                    HorizontalAlignment="Left"
+                    Text="{x:Bind ViewModel.DisplayName, Mode=OneWay}"
+                    TextTrimming="CharacterEllipsis" />
+                <Image
+                    Height="10"
+                    HorizontalAlignment="Left"
+                    Source="{x:Bind ViewModel.Level, Mode=OneWay, Converter={StaticResource UserLevelConverter}}" />
+            </StackPanel>
+
+            <Button
+                Grid.Column="2"
+                Width="36"
+                Height="36"
+                Padding="0"
+                VerticalAlignment="Center"
+                Background="Transparent"
+                BorderThickness="0"
+                ToolTipService.ToolTip="{ext:Locale Name=ShowMore}">
+                <controls:FluentIcon FontSize="20" Symbol="MoreCircle" />
+                <Button.Flyout>
+                    <MenuFlyout Placement="Bottom" ShouldConstrainToRootBounds="False">
+                        <MenuFlyoutItem Click="OnPersonalItemClickAsync" Text="{ext:Locale Name=Personal}">
+                            <MenuFlyoutItem.Icon>
+                                <controls:FluentIcon Symbol="Person" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                        <MenuFlyoutItem Click="OnFavoriteItemClickAsync" Text="{ext:Locale Name=MyFavorite}">
+                            <MenuFlyoutItem.Icon>
+                                <controls:FluentIcon Symbol="StarLineHorizontal3" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                        <MenuFlyoutItem Click="OnViewLaterClickAsync" Text="{ext:Locale Name=ViewLater}">
+                            <MenuFlyoutItem.Icon>
+                                <controls:FluentIcon Symbol="CalendarClock" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                        <MenuFlyoutSeparator />
+                        <MenuFlyoutItem Command="{x:Bind ViewModel.SignOutCommand}" Text="{ext:Locale Name=SignOut}">
+                            <MenuFlyoutItem.Icon>
+                                <controls:FluentIcon Foreground="{ThemeResource SystemFillColorCriticalBrush}" Symbol="SignOut" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                    </MenuFlyout>
+                </Button.Flyout>
+            </Button>
+        </Grid>
+        <Grid
+            Grid.Row="1"
+            ColumnSpacing="4"
+            XYFocusKeyboardNavigation="Enabled">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <app:TwoLineButton
+                Click="OnDynamicButtonClickAsync"
+                FirstLineText="{x:Bind ViewModel.DynamicCount, Mode=OneWay}"
+                SecondLineText="{ext:Locale Name=DynamicCount}" />
+
+            <StackPanel
+                Grid.Column="1"
+                Width="1"
+                Height="20"
+                VerticalAlignment="Center"
+                Background="{ThemeResource SurfaceStrokeColorDefaultBrush}" />
+
+            <app:TwoLineButton
+                Grid.Column="2"
+                Click="OnFollowButtonClickAsync"
+                FirstLineText="{x:Bind ViewModel.FollowCount, Mode=OneWay}"
+                SecondLineText="{ext:Locale Name=FollowCount}" />
+
+            <StackPanel
+                Grid.Column="3"
+                Width="1"
+                Height="20"
+                VerticalAlignment="Center"
+                Background="{ThemeResource SurfaceStrokeColorDefaultBrush}" />
+
+            <app:TwoLineButton
+                Grid.Column="4"
+                Click="OnFollowerButtonClickAsync"
+                FirstLineText="{x:Bind ViewModel.FollowerCount, Mode=OneWay}"
+                SecondLineText="{ext:Locale Name=FansCount}" />
+
+            <StackPanel
+                Grid.Column="5"
+                Width="1"
+                Height="20"
+                VerticalAlignment="Center"
+                Background="{ThemeResource SurfaceStrokeColorDefaultBrush}" />
+
+            <app:TwoLineButton
+                Grid.Column="6"
+                Click="OnMessageButtonClickAsync"
+                FirstLineText="{x:Bind ViewModel.UnreadInformation.Total, Mode=OneWay}"
+                SecondLineText="{ext:Locale Name=Message}" />
+        </Grid>
+    </Grid>
+</local:AccountPanelBase>

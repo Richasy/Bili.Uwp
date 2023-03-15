@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<local:SettingSectionBase
+    x:Class="Bili.Workspace.Controls.Settings.AboutSettingSection"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:ext="using:Bili.Workspace.Resources.Extension"
+    xmlns:labs="using:CommunityToolkit.Labs.WinUI"
+    xmlns:local="using:Bili.Workspace.Controls.Settings"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <labs:SettingsExpander Description="{ext:Locale Name=AppDescription}" Header="{ext:Locale Name=AppName}">
+        <labs:SettingsExpander.HeaderIcon>
+            <BitmapIcon
+                MaxWidth="16"
+                ShowAsMonochrome="False"
+                UriSource="ms-appx:///Assets/Logo/StoreLogo.png" />
+        </labs:SettingsExpander.HeaderIcon>
+        <TextBlock
+            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+            IsTextSelectionEnabled="True"
+            Text="{x:Bind ViewModel.Version, Mode=OneWay}" />
+        <labs:SettingsExpander.Items>
+            <labs:SettingsCard HorizontalAlignment="Stretch" ContentAlignment="Left">
+                <StackPanel>
+                    <HyperlinkButton
+                        HorizontalAlignment="Left"
+                        Content="{ext:Locale Name=BiliHomePage}"
+                        FontSize="12"
+                        NavigateUri="https://space.bilibili.com/5992670" />
+                    <HyperlinkButton
+                        HorizontalAlignment="Left"
+                        Content="{ext:Locale Name=ProjectHomePage}"
+                        FontSize="12"
+                        NavigateUri="https://github.com/Richasy/Bili.Uwp/" />
+                </StackPanel>
+            </labs:SettingsCard>
+        </labs:SettingsExpander.Items>
+    </labs:SettingsExpander>
+</local:SettingSectionBase>

@@ -1,0 +1,277 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows10.0.22000.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <RootNamespace>Bili.Workspace</RootNamespace>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <Platforms>x86;x64;ARM64</Platforms>
+    <RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
+    <PublishProfile>win10-$(Platform).pubxml</PublishProfile>
+    <UseWinUI>true</UseWinUI>
+    <EnableMsixTooling>true</EnableMsixTooling>
+    <SupportedOSPlatformVersion>10.0.22000.0</SupportedOSPlatformVersion>
+    <DefaultLanguage>zh-Hans</DefaultLanguage>
+    <CreateMSIXPackage>True</CreateMSIXPackage>
+    <PackageCertificateKeyFile>Workspace_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
+    <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
+    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
+    <AppxBundlePlatforms>x64</AppxBundlePlatforms>
+    <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
+    <AppxPackageDir>D:\Package\Bili\</AppxPackageDir>
+    <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
+    <GenerateTestArtifacts>True</GenerateTestArtifacts>
+    <AppxBundle>Never</AppxBundle>
+    <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Assets\FluentIcon.ttf" />
+    <None Remove="Assets\Images\anime.png" />
+    <None Remove="Assets\Images\document.png" />
+    <None Remove="Assets\Images\guochuang.png" />
+    <None Remove="Assets\Images\jilu.png" />
+    <None Remove="Assets\Images\movie.png" />
+    <None Remove="Assets\Images\tv.png" />
+    <None Remove="Assets\Level\level_0.png" />
+    <None Remove="Assets\Level\level_1.png" />
+    <None Remove="Assets\Level\level_2.png" />
+    <None Remove="Assets\Level\level_3.png" />
+    <None Remove="Assets\Level\level_4.png" />
+    <None Remove="Assets\Level\level_5.png" />
+    <None Remove="Assets\Level\level_6.png" />
+    <None Remove="Assets\logo.ico" />
+    <None Remove="Assets\Null_rgba.png" />
+    <None Remove="Controls\App\CardPanel\CardPanel.xaml" />
+    <None Remove="Controls\App\CommonImageEx\CommonImageEx.xaml" />
+    <None Remove="Controls\App\EmoteTextBlock\EmoteTextBlock.xaml" />
+    <None Remove="Controls\App\EpisodeItem\EpisodeItem.xaml" />
+    <None Remove="Controls\App\ErrorPanel.xaml" />
+    <None Remove="Controls\App\IconTextBlock\IconTextBlock.xaml" />
+    <None Remove="Controls\App\LandingPane.xaml" />
+    <None Remove="Controls\App\OverlayLoadingPanel.xaml" />
+    <None Remove="Controls\App\PageHeader.xaml" />
+    <None Remove="Controls\App\TipPopup.xaml" />
+    <None Remove="Controls\App\TwoLineButton\TwoLineButton.xaml" />
+    <None Remove="Controls\App\VerticalRepeaterView\VerticalRepeaterView.xaml" />
+    <None Remove="Controls\App\VideoItem\VideoItem.xaml" />
+    <None Remove="Controls\Community\AccountPanel.xaml" />
+    <None Remove="Controls\Community\PartitionItem\PartitionItem.xaml" />
+    <None Remove="Controls\Community\SearchSuggestBox.xaml" />
+    <None Remove="Controls\Community\UserAvatar.xaml" />
+    <None Remove="Controls\Dynamic\DynamicItem\DynamicItem.xaml" />
+    <None Remove="Controls\Dynamic\DynamicModule.xaml" />
+    <None Remove="Controls\Dynamic\DynamicPresenter.xaml" />
+    <None Remove="Controls\Settings\AboutSettingSection.xaml" />
+    <None Remove="Controls\Settings\LaunchTypeSettingSection.xaml" />
+    <None Remove="Controls\Settings\StartupPositionSettingSection.xaml" />
+    <None Remove="Pages\DynamicPage.xaml" />
+    <None Remove="Pages\HistoryPage.xaml" />
+    <None Remove="Pages\HomePage.xaml" />
+    <None Remove="Pages\PartitionPage.xaml" />
+    <None Remove="Pages\PopularPage.xaml" />
+    <None Remove="Pages\RankPage.xaml" />
+    <None Remove="Pages\RecommendPage.xaml" />
+    <None Remove="Pages\SettingsPage.xaml" />
+    <None Remove="Styles\TrayResources.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Labs.WinUI.SettingsControls" Version="0.0.17" />
+    <PackageReference Include="CommunityToolkit.WinUI.UI.Animations" Version="7.1.2" />
+    <PackageReference Include="CommunityToolkit.WinUI.UI.Controls" Version="7.1.2" />
+    <PackageReference Include="H.NotifyIcon.WinUI" Version="2.0.97" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.3.230202101-experimental1" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.755" />
+    <PackageReference Include="PInvoke.User32" Version="0.7.124" />
+    <Manifest Include="$(ApplicationManifest)" />
+  </ItemGroup>
+
+  <!-- 
+    Defining the "Msix" ProjectCapability here allows the Single-project MSIX Packaging
+    Tools extension to be activated for this project even if the Windows App SDK Nuget
+    package has not yet been restored.
+  -->
+  <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
+    <ProjectCapability Include="Msix" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Lib\DI.Container\DI.Container.csproj" />
+    <ProjectReference Include="..\Lib\DI.Workspace\DI.Workspace.csproj" />
+    <ProjectReference Include="..\ViewModels\ViewModels.Interfaces\ViewModels.Interfaces.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Controls\App\CardPanel\CardPanel.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\App\CommonImageEx\CommonImageEx.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\App\EmoteTextBlock\EmoteTextBlock.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\App\EpisodeItem\EpisodeItem.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\App\ErrorPanel.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\App\IconTextBlock\IconTextBlock.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\App\OverlayLoadingPanel.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\App\PageHeader.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\App\TipPopup.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\App\TwoLineButton\TwoLineButton.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\App\VerticalRepeaterView\VerticalRepeaterView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\App\VideoItem\VideoItem.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Community\AccountPanel.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Community\PartitionItem\PartitionItem.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Community\SearchSuggestBox.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Community\UserAvatar.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Dynamic\DynamicItem\DynamicItem.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Dynamic\DynamicModule.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\Dynamic\DynamicPresenter.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\HomePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Controls\Settings\LaunchTypeSettingSection.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Controls\Settings\StartupPositionSettingSection.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Styles\TrayResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Styles\Style.Overwrite.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Styles\Theme.HighContrast.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Styles\Theme.Dark.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Styles\Theme.Light.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Controls\Settings\AboutSettingSection.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Pages\SettingsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Pages\RecommendPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Pages\PartitionPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Pages\RankPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Pages\HistoryPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Pages\DynamicPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Pages\PopularPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Controls\App\LandingPane.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <!-- 
+    Defining the "HasPackageAndPublishMenuAddedByProject" property here allows the Solution 
+    Explorer "Package and Publish" context menu entry to be enabled for this project even if 
+    the Windows App SDK Nuget package has not yet been restored.
+  -->
+  <PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
+    <HasPackageAndPublishMenu>true</HasPackageAndPublishMenu>
+  </PropertyGroup>
+
+  <!-- Needed for implementing single instance mode. See https://blogs.windows.com/windowsdeveloper/2022/01/28/making-the-app-single-instanced-part-3 -->
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <DefineConstants>DISABLE_XAML_GENERATED_MAIN</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <DefineConstants>DISABLE_XAML_GENERATED_MAIN</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+    <DefineConstants>DISABLE_XAML_GENERATED_MAIN</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <DefineConstants>DISABLE_XAML_GENERATED_MAIN</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|arm64'">
+    <DefineConstants>DISABLE_XAML_GENERATED_MAIN</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|arm64'">
+    <DefineConstants>DISABLE_XAML_GENERATED_MAIN</DefineConstants>
+  </PropertyGroup>
+</Project>

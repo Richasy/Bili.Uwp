@@ -25,12 +25,12 @@ namespace Bili.ViewModels.Interfaces.Search
         /// <summary>
         /// 执行搜索的命令.
         /// </summary>
-        IRelayCommand<string> SearchCommand { get; }
+        IAsyncRelayCommand<string> SearchCommand { get; }
 
         /// <summary>
         /// 选中搜索建议并执行搜索的命令.
         /// </summary>
-        IRelayCommand<SearchSuggest> SelectSuggestCommand { get; }
+        IAsyncRelayCommand<SearchSuggest> SelectSuggestCommand { get; }
 
         /// <summary>
         /// 关键词.

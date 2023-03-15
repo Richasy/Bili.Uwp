@@ -78,9 +78,12 @@ namespace Bili.Models.Enums
         DefaultLiveFormat,
         LastAppLanguage,
         IsFullTraditionalChinese,
-        DecodeType,
         PlayerType,
+        DecodeType,
         PreferQuality,
+        StartupPosition,
+        LaunchType,
+        FixedPartitions,
 #pragma warning disable SA1602 // Enumeration items should be documented
     }
 }

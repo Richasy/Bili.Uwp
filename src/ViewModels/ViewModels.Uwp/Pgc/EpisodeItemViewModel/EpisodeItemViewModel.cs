@@ -29,7 +29,7 @@ namespace Bili.ViewModels.Uwp.Pgc
             _navigationViewModel = navigationViewModel;
 
             OpenInBroswerCommand = new AsyncRelayCommand(OpenInBroswerAsync);
-            PlayCommand = new RelayCommand(Play);
+            PlayCommand = new AsyncRelayCommand(PlayAsync);
         }
 
         /// <inheritdoc/>
@@ -53,11 +53,15 @@ namespace Bili.ViewModels.Uwp.Pgc
             }
         }
 
-        private void Play()
-            => _navigationViewModel.NavigateToPlayView(new Models.Data.Local.PlaySnapshot(Data.Identifier.Id, Data.SeasonId, Models.Enums.VideoType.Pgc)
+        private Task PlayAsync()
+        {
+            _navigationViewModel.NavigateToPlayView(new Models.Data.Local.PlaySnapshot(Data.Identifier.Id, Data.SeasonId, Models.Enums.VideoType.Pgc)
             {
                 Title = Data.Identifier.Title,
             });
+
+            return Task.CompletedTask;
+        }
 
         private async Task OpenInBroswerAsync()
         {

@@ -34,8 +34,8 @@ namespace Bili.ViewModels.Uwp.Search
             HotSearchCollection = new ObservableCollection<SearchSuggest>();
             SearchSuggestion = new ObservableCollection<SearchSuggest>();
 
-            SearchCommand = new RelayCommand<string>(Search);
-            SelectSuggestCommand = new RelayCommand<SearchSuggest>(Search);
+            SearchCommand = new AsyncRelayCommand<string>(Search);
+            SelectSuggestCommand = new AsyncRelayCommand<SearchSuggest>(Search);
             InitializeCommand = new AsyncRelayCommand(LoadHotSearchAsync);
 
             _suggestionTimer = new DispatcherTimer
@@ -47,16 +47,18 @@ namespace Bili.ViewModels.Uwp.Search
             AttachExceptionHandlerToAsyncCommand(LogException, InitializeCommand);
         }
 
-        private void Search(SearchSuggest suggest)
+        private Task Search(SearchSuggest suggest)
             => Search(suggest.Keyword);
 
-        private void Search(string keyword)
+        private Task Search(string keyword)
         {
             Keyword = string.Empty;
             if (!string.IsNullOrEmpty(keyword))
             {
                 _navigationViewModel.NavigateToSecondaryView(Models.Enums.PageIds.Search, keyword);
             }
+
+            return Task.CompletedTask;
         }
 
         private void InitializeSuggestionCancellationTokenSource()

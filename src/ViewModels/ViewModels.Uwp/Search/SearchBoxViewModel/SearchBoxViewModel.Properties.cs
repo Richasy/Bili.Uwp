@@ -35,10 +35,10 @@ namespace Bili.ViewModels.Uwp.Search
         public ObservableCollection<SearchSuggest> SearchSuggestion { get; }
 
         /// <inheritdoc/>
-        public IRelayCommand<string> SearchCommand { get; }
+        public IAsyncRelayCommand<string> SearchCommand { get; }
 
         /// <inheritdoc/>
-        public IRelayCommand<SearchSuggest> SelectSuggestCommand { get; }
+        public IAsyncRelayCommand<SearchSuggest> SelectSuggestCommand { get; }
 
         /// <inheritdoc/>
         public IAsyncRelayCommand InitializeCommand { get; }
