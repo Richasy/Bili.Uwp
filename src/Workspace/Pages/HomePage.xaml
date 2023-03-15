@@ -19,10 +19,10 @@
         <DataTemplate x:Key="PinPartitionItemTemplate" x:DataType="workspace:IVideoPartitionViewModel">
             <controls:CardPanel
                 Background="Transparent"
-                BorderThickness="0"
                 Click="OnVideoPartitionClick"
                 DataContext="{x:Bind}"
-                PointerOverBackground="{ThemeResource CardBackgroundFillColorDefaultBrush}">
+                PointerOverBackground="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                StrokeThickness="0">
                 <Grid
                     Width="172"
                     Padding="12,8"

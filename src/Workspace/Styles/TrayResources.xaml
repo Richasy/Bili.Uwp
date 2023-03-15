@@ -33,8 +33,6 @@
         Visibility="Visible">
         <tb:TaskbarIcon.ContextFlyout>
             <MenuFlyout>
-                <MenuFlyoutItem Command="{StaticResource LaunchAppCommand}" />
-                <MenuFlyoutSeparator />
                 <MenuFlyoutItem Command="{StaticResource QuitCommand}" />
             </MenuFlyout>
         </tb:TaskbarIcon.ContextFlyout>
