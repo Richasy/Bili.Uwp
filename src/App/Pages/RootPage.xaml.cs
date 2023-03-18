@@ -319,10 +319,6 @@ namespace Bili.App.Pages.Desktop
             {
                 ViewModel.BackCommand.Execute(null);
             }
-            else if (CoreViewModel.IsXbox)
-            {
-                Application.Current.Exit();
-            }
         }
 
         private async void OnRootNavViewFirstLoadAsync(object sender, EventArgs e)
