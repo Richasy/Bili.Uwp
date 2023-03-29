@@ -14,7 +14,7 @@ jobs:
 
     env:
       SigningCertificate: App_TemporaryKey.pfx
-      Solution_Path: .\src\App\App.csproj
+      Solution_Path: .\Bili.Uwp.sln
       UWP_Project_Directory: src\App
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
