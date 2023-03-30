@@ -30,6 +30,7 @@ namespace Bili.ViewModels.Uwp.Core
             ResetMediaData();
             await LoadVideoAsync();
             StartTimers();
+            InitializeSmtc();
         }
 
         private async Task LoadVideoAsync()
