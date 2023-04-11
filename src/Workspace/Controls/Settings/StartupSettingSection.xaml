@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<local:SettingSectionBase
+    x:Class="Bili.Workspace.Controls.Settings.StartupSettingSection"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Bili.Workspace.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:ext="using:Bili.Workspace.Resources.Extension"
+    xmlns:labs="using:CommunityToolkit.Labs.WinUI"
+    xmlns:local="using:Bili.Workspace.Controls.Settings"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <labs:SettingsCard Description="{ext:Locale Name=StartupDescription}" Header="{ext:Locale Name=Startup}">
+        <labs:SettingsCard.HeaderIcon>
+            <controls:FluentIcon Symbol="AirplaneTakeOff" />
+        </labs:SettingsCard.HeaderIcon>
+        <ToggleSwitch IsOn="{x:Bind ViewModel.IsStartup, Mode=TwoWay}" />
+    </labs:SettingsCard>
+</local:SettingSectionBase>

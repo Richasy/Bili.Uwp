@@ -3,6 +3,7 @@
 using System.Collections.ObjectModel;
 using Bili.Models.Enums.Workspace;
 using Bili.Toolkit.Interfaces;
+using Bili.ViewModels.Interfaces.Core;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Bili.ViewModels.Workspace.Core
@@ -13,7 +14,9 @@ namespace Bili.ViewModels.Workspace.Core
     public sealed partial class SettingsViewModel
     {
         private readonly ISettingsToolkit _settingsToolkit;
+        private readonly IResourceToolkit _resourceToolkit;
         private readonly IAppToolkit _appToolkit;
+        private readonly ICallerViewModel _callerViewModel;
 
         [ObservableProperty]
         private StartupPosition _startupPosition;
@@ -23,6 +26,9 @@ namespace Bili.ViewModels.Workspace.Core
 
         [ObservableProperty]
         private string _version;
+
+        [ObservableProperty]
+        private bool _isStartup;
 
         /// <inheritdoc/>
         public ObservableCollection<StartupPosition> StartupPositions { get; }

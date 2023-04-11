@@ -35,5 +35,10 @@ namespace Bili.ViewModels.Interfaces.Workspace
         /// 启动类型.
         /// </summary>
         LaunchType LaunchType { get; set; }
+
+        /// <summary>
+        /// 是否开机自启动.
+        /// </summary>
+        bool IsStartup { get; set; }
     }
 }

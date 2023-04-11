@@ -65,6 +65,7 @@
     <None Remove="Controls\Settings\AboutSettingSection.xaml" />
     <None Remove="Controls\Settings\LaunchTypeSettingSection.xaml" />
     <None Remove="Controls\Settings\StartupPositionSettingSection.xaml" />
+    <None Remove="Controls\Settings\StartupSettingSection.xaml" />
     <None Remove="Pages\DynamicPage.xaml" />
     <None Remove="Pages\HistoryPage.xaml" />
     <None Remove="Pages\HomePage.xaml" />
@@ -209,6 +210,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Controls\Settings\StartupSettingSection.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Pages\RecommendPage.xaml">

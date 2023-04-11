@@ -13,6 +13,7 @@ namespace Bili.Models.App.Constants
         public const string ThemeDark = "Dark";
 
         public const string StartupTaskId = "Richasy.Bili";
+        public const string WorkspaceStartupTaskId = "Richasy.Bili.Workspace";
 
         public const int AppMinWidth = 500;
         public const int AppMinHeight = 500;

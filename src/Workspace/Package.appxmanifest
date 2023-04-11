@@ -5,7 +5,8 @@
   xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
-  IgnorableNamespaces="uap rescap">
+  xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5"
+  IgnorableNamespaces="uap rescap uap5">
 
   <Identity
     Name="5f47f20f-9418-4cc2-b693-73a8529bb017"
@@ -43,6 +44,17 @@
         </uap:DefaultTile >
         <uap:SplashScreen Image="Assets\Logo\SplashScreen.png" />
       </uap:VisualElements>
+      <Extensions>
+        <uap5:Extension
+          Category="windows.startupTask"
+          Executable="$targetnametoken$.exe"
+          EntryPoint="Windows.FullTrustApplication">
+          <uap5:StartupTask
+            TaskId="Richasy.Bili.Workspace"
+            Enabled="false"
+            DisplayName="ms-resource:AppName" />
+        </uap5:Extension>
+      </Extensions>
     </Application>
   </Applications>
 
