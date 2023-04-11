@@ -94,6 +94,10 @@ namespace DI.Workspace
                 .RegisterTransient<IVideoItemViewModel, VideoItemViewModel>()
                 .RegisterTransient<IDynamicItemViewModel, DynamicItemViewModel>()
                 .RegisterTransient<IEpisodeItemViewModel, EpisodeItemViewModel>()
+                .RegisterTransient<IVideoPlayerPageViewModel, VideoPlayerPageViewModel>()
+                .RegisterTransient<IMediaPlayerViewModel, MediaPlayerViewModel>()
+                .RegisterTransient<IFFmpegPlayerViewModel, FFmpegPlayerViewModel>()
+                .RegisterTransient<INativePlayerViewModel, NativePlayerViewModel>()
                 .Build();
         }
     }
