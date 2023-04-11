@@ -33,6 +33,7 @@
             <TextBlock Style="{StaticResource SettingsSubHeadingText}" Text="{ext:Locale Name=Generic}" />
             <settings:StartupPositionSettingSection />
             <settings:LaunchTypeSettingSection />
+            <settings:StartupSettingSection />
             <TextBlock
                 Style="{StaticResource SettingsSubHeadingText}"
                 Margin="1,29,0,5"

@@ -65,6 +65,7 @@
     <None Remove="Controls\Settings\AboutSettingSection.xaml" />
     <None Remove="Controls\Settings\LaunchTypeSettingSection.xaml" />
     <None Remove="Controls\Settings\StartupPositionSettingSection.xaml" />
+    <None Remove="Controls\Settings\StartupSettingSection.xaml" />
     <None Remove="Pages\DynamicPage.xaml" />
     <None Remove="Pages\HistoryPage.xaml" />
     <None Remove="Pages\HomePage.xaml" />
@@ -80,7 +81,7 @@
     <PackageReference Include="CommunityToolkit.Labs.WinUI.SettingsControls" Version="0.0.17" />
     <PackageReference Include="CommunityToolkit.WinUI.UI.Animations" Version="7.1.2" />
     <PackageReference Include="CommunityToolkit.WinUI.UI.Controls" Version="7.1.2" />
-    <PackageReference Include="H.NotifyIcon.WinUI" Version="2.0.97" />
+    <PackageReference Include="H.NotifyIcon.WinUI" Version="2.0.108" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.3.230202101-experimental1" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.755" />
     <PackageReference Include="PInvoke.User32" Version="0.7.124" />
@@ -209,6 +210,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Controls\Settings\StartupSettingSection.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Pages\RecommendPage.xaml">
