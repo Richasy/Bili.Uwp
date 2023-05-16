@@ -68,7 +68,8 @@ namespace Bili.SignIn.Uwp
         public async Task<Dictionary<string, string>> GenerateAuthorizedQueryDictionaryAsync(
             Dictionary<string, string> queryParameters,
             RequestClientType clientType,
-            bool needToken = false)
+            bool needToken = false,
+            bool forcrNoToken = false)
         {
             if (queryParameters == null)
             {
@@ -79,7 +80,7 @@ namespace Bili.SignIn.Uwp
             GenerateAppKey(queryParameters, clientType);
 
             var token = string.Empty;
-            if (await IsTokenValidAsync())
+            if (await IsTokenValidAsync() && !forcrNoToken)
             {
                 token = _tokenInfo.AccessToken;
             }
@@ -123,9 +124,9 @@ namespace Bili.SignIn.Uwp
         }
 
         /// <inheritdoc/>
-        public async Task<string> GenerateAuthorizedQueryStringAsync(Dictionary<string, string> queryParameters, RequestClientType clientType, bool needToken = true)
+        public async Task<string> GenerateAuthorizedQueryStringAsync(Dictionary<string, string> queryParameters, RequestClientType clientType, bool needToken = true, bool forcrNoToken = false)
         {
-            var parameters = await GenerateAuthorizedQueryDictionaryAsync(queryParameters, clientType, needToken);
+            var parameters = await GenerateAuthorizedQueryDictionaryAsync(queryParameters, clientType, needToken, forcrNoToken);
             var queryList = parameters.Select(p => $"{p.Key}={p.Value}").ToList();
             queryList.Sort();
             var query = string.Join('&', queryList);
