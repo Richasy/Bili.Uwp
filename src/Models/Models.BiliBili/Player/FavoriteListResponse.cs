@@ -40,13 +40,13 @@ namespace Bili.Models.BiliBili
         /// 收藏夹原始Id.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "fid", Required = Required.Default)]
-        public int FolderId { get; set; }
+        public long FolderId { get; set; }
 
         /// <summary>
         /// 用户Id.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "mid", Required = Required.Default)]
-        public int UserId { get; set; }
+        public long UserId { get; set; }
 
         /// <summary>
         /// 收藏夹标题.
