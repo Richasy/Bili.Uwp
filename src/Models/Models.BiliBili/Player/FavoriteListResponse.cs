@@ -34,7 +34,7 @@ namespace Bili.Models.BiliBili
         /// 收藏夹完整Id.
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id", Required = Required.Default)]
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         /// <summary>
         /// 收藏夹原始Id.
