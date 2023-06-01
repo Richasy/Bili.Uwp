@@ -80,6 +80,7 @@ namespace Bili.Lib
             var isPgc = string.IsNullOrEmpty(aid) && !string.IsNullOrEmpty(seasonType);
 
             var url = isPgc ? ApiConstants.Pgc.PlayInformation(proxy) : ApiConstants.Video.PlayInformation;
+            var requestType = isPgc ? RequestClientType.Web : RequestClientType.IOS;
 
             var queryParameters = new Dictionary<string, string>
             {
@@ -113,7 +114,7 @@ namespace Bili.Lib
                 otherQuery = $"area={area}";
             }
 
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, url, queryParameters, RequestClientType.IOS, additionalQuery: otherQuery);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, url, queryParameters, requestType, additionalQuery: otherQuery);
             var response = await _httpProvider.SendAsync(request);
             var data = await _httpProvider.ParseAsync<ServerResponse<PlayerInformation>, ServerResponse2<PlayerInformation>>(response, (str) =>
             {

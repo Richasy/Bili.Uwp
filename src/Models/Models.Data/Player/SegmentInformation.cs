@@ -32,7 +32,8 @@ namespace Bili.Models.Data.Player
             int width,
             int height,
             string initialization,
-            string indexRange)
+            string indexRange,
+            int startWithSap = 1)
         {
             Id = id;
             BaseUrl = baseUrl;
@@ -44,6 +45,7 @@ namespace Bili.Models.Data.Player
             Height = height;
             Initialization = initialization;
             IndexRange = indexRange;
+            StartWithSap = startWithSap;
         }
 
         /// <summary>
@@ -95,6 +97,11 @@ namespace Bili.Models.Data.Player
         /// 索引范围.
         /// </summary>
         public string IndexRange { get; }
+
+        /// <summary>
+        /// None.
+        /// </summary>
+        public int StartWithSap { get; }
 
         /// <inheritdoc/>
         public override bool Equals(object obj) => obj is SegmentInformation information && Id == information.Id;

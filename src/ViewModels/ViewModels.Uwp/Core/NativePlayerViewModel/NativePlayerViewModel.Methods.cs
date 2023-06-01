@@ -23,7 +23,7 @@ namespace Bili.ViewModels.Uwp.Core
         private HttpClient GetVideoClient()
         {
             var httpClient = new HttpClient();
-            httpClient.DefaultRequestHeaders.Referer = new Uri("https://www.bilibili.com");
+            httpClient.DefaultRequestHeaders.Add("Referer", "https://www.bilibili.com");
             httpClient.DefaultRequestHeaders.Add("User-Agent", ServiceConstants.DefaultUserAgentString);
             return httpClient;
         }
@@ -37,7 +37,7 @@ namespace Bili.ViewModels.Uwp.Core
             var mpdStr = await _fileToolkit.ReadPackageFile(mpdFilePath);
 
             var videoStr =
-                    $@"<Representation bandwidth=""{_video.Bandwidth}"" codecs=""{_video.Codecs}"" height=""{_video.Height}"" mimeType=""{_video.MimeType}"" id=""{_video.Id}"" width=""{_video.Width}"">
+                    $@"<Representation bandwidth=""{_video.Bandwidth}"" codecs=""{_video.Codecs}"" height=""{_video.Height}"" mimeType=""{_video.MimeType}"" id=""{_video.Id}"" width=""{_video.Width}"" startWithSap=""{_video.StartWithSap}"">
                                <BaseURL></BaseURL>
                                <SegmentBase indexRange=""{_video.IndexRange}"">
                                    <Initialization range=""{_video.Initialization}"" />
@@ -65,6 +65,7 @@ namespace Bili.ViewModels.Uwp.Core
 
             var stream = new MemoryStream(Encoding.UTF8.GetBytes(mpdStr)).AsInputStream();
             var source = await AdaptiveMediaSource.CreateFromStreamAsync(stream, new Uri(_video.BaseUrl), "application/dash+xml", httpClient);
+            source.MediaSource.AdvancedSettings.AllSegmentsIndependent = true;
             Debug.Assert(source.Status == AdaptiveMediaSourceCreationStatus.Success, "解析MPD失败");
             source.MediaSource.DownloadRequested += (sender, args) =>
             {
