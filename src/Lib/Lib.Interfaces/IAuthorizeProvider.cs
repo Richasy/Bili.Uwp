@@ -34,8 +34,9 @@ namespace Bili.Lib.Interfaces
         /// <param name="queryParameters">请求所需的查询参数.</param>
         /// <param name="clientType">请求需要模拟的客户端类型.</param>
         /// <param name="needToken">是否需要令牌.</param>
+        /// <param name="forceNoToken">是否强制不需要令牌.</param>
         /// <returns>包含授权验证的查询字符串.</returns>
-        Task<string> GenerateAuthorizedQueryStringAsync(Dictionary<string, string> queryParameters, RequestClientType clientType, bool needToken = true);
+        Task<string> GenerateAuthorizedQueryStringAsync(Dictionary<string, string> queryParameters, RequestClientType clientType, bool needToken = true, bool forceNoToken = false);
 
         /// <summary>
         /// 获取包含授权码的查询字典.
@@ -43,8 +44,9 @@ namespace Bili.Lib.Interfaces
         /// <param name="queryParameters">请求所需的查询参数.</param>
         /// <param name="clientType">请求需要模拟的客户端类型.</param>
         /// <param name="needToken">是否需要访问令牌.</param>
+        /// <param name="forceNoToken">是否强制不需要令牌.</param>
         /// <returns>包含授权验证码的查询字典.</returns>
-        Task<Dictionary<string, string>> GenerateAuthorizedQueryDictionaryAsync(Dictionary<string, string> queryParameters, RequestClientType clientType, bool needToken = true);
+        Task<Dictionary<string, string>> GenerateAuthorizedQueryDictionaryAsync(Dictionary<string, string> queryParameters, RequestClientType clientType, bool needToken = true, bool forceNoToken = false);
 
         /// <summary>
         /// 获取包含授权码的查询字典，无token且先加盐.

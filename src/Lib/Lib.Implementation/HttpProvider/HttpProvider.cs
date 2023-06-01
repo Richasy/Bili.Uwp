@@ -71,7 +71,8 @@ namespace Bili.Lib
             bool needToken = true,
             string additionalQuery = "",
             bool needCookie = false,
-            bool needAppKey = false)
+            bool needAppKey = false,
+            bool forceNoToken = false)
         {
             HttpRequestMessage requestMessage;
 
@@ -94,7 +95,7 @@ namespace Bili.Lib
             }
             else if (method == HttpMethod.Get || method == HttpMethod.Delete)
             {
-                var query = await _authenticationProvider.GenerateAuthorizedQueryStringAsync(queryParams, clientType, needToken);
+                var query = await _authenticationProvider.GenerateAuthorizedQueryStringAsync(queryParams, clientType, needToken, forceNoToken);
                 if (!string.IsNullOrEmpty(additionalQuery))
                 {
                     query += $"&{additionalQuery}";

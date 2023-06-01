@@ -36,8 +36,9 @@ namespace Bili.Lib.Interfaces
         /// <param name="additionalQuery">附加查询参数.</param>
         /// <param name="needCookie">是否需要cookie.</param>
         /// <param name="needAppKey">是否需要appKey.</param>
+        /// <param name="forceNoToken">是否强制不AccessKey.</param>
         /// <returns><see cref="HttpRequestMessage"/>.</returns>
-        Task<HttpRequestMessage> GetRequestMessageAsync(HttpMethod method, string url, Dictionary<string, string> queryParams = null, RequestClientType type = RequestClientType.Android, bool needToken = false, string additionalQuery = "", bool needCookie = false, bool needAppKey = false);
+        Task<HttpRequestMessage> GetRequestMessageAsync(HttpMethod method, string url, Dictionary<string, string> queryParams = null, RequestClientType type = RequestClientType.Android, bool needToken = false, string additionalQuery = "", bool needCookie = false, bool needAppKey = false, bool forceNoToken = false);
 
         /// <summary>
         /// 获取 <see cref="HttpRequestMessage"/>.

@@ -121,7 +121,7 @@ namespace Bili.Lib
                 { Query.VMid, userId },
             };
 
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Account.Space, queryParameters);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Account.Space, queryParameters, forceNoToken: true);
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync<ServerResponse<UserSpaceResponse>>(response);
             var accInfo = _userAdapter.ConvertToAccountInformation(result.Data.User, AvatarSize.Size96);
@@ -144,7 +144,7 @@ namespace Bili.Lib
                 { Query.Order, "pubdate" },
             };
 
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Account.VideoCursor, queryParameters);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, Account.VideoCursor, queryParameters, forceNoToken: true);
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync<ServerResponse<UserSpaceVideoSet>>(response);
             var data = _videoAdapter.ConvertToVideoSet(result.Data);
