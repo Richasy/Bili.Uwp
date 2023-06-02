@@ -333,7 +333,7 @@ namespace Bili.Lib
                 url = "https:" + url;
             }
 
-            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, url);
+            var request = await _httpProvider.GetRequestMessageAsync(HttpMethod.Get, url, type: RequestClientType.IOS, needCookie: true);
             var response = await _httpProvider.SendAsync(request);
             var result = await _httpProvider.ParseAsync<SubtitleDetailResponse>(response);
             return result.Body.Select(p => _playerAdapter.ConvertToSubtitleInformation(p)).ToList();

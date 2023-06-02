@@ -1,7 +1,6 @@
-﻿<MPD xmlns="urn:mpeg:DASH:schema:MPD:2011" profiles="urn:mpeg:dash:profile:isoff-on-demand:2011" type="static"
-     minBufferTime="{bufferTime}">
+﻿<MPD xmlns="urn:mpeg:DASH:schema:MPD:2011" profiles="urn:mpeg:dash:profile:isoff-on-demand:2011" type="static">
     <Period start="PT0S">
-        <AdaptationSet group="1">
+        <AdaptationSet>
             <ContentComponent contentType="video" id="1" />
             {video}
         </AdaptationSet>

@@ -1330,7 +1330,7 @@
       <Version>2.8.2-prerelease.220830001</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
-      <Version>13.0.2</Version>
+      <Version>13.0.3</Version>
     </PackageReference>
     <PackageReference Include="Richasy.FluentIcon.Regular.UWP">
       <Version>1.1.150</Version>
