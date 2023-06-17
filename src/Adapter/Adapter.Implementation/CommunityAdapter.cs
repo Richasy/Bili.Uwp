@@ -260,7 +260,8 @@ namespace Bili.Adapter
         public VideoCommunityInformation ConvertToVideoCommunityInformation(MdlDynArchive video)
         {
             var danmakuCount = _numberToolkit.GetCountNumber(video.CoverLeftText3, "弹幕");
-            return new VideoCommunityInformation(video.Avid.ToString(), video.View, danmakuCount);
+            var dynamicVideoPlayCount = _numberToolkit.GetCountNumber(video.CoverLeftText2, "观看");
+            return new VideoCommunityInformation(video.Avid.ToString(), dynamicVideoPlayCount, danmakuCount);
         }
 
         /// <inheritdoc/>
