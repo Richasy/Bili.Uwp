@@ -29,7 +29,7 @@ namespace Bili.Lib
         /// <param name="authProvider">授权验证模块.</param>
         public HttpProvider(IAuthorizeProvider authProvider)
         {
-            this._authenticationProvider = authProvider;
+            _authenticationProvider = authProvider;
             InitHttpClient();
         }
 
@@ -38,14 +38,14 @@ namespace Bili.Lib
         {
             get
             {
-                return this._httpClient.Timeout;
+                return HttpClient.Timeout;
             }
 
             set
             {
                 try
                 {
-                    this._httpClient.Timeout = value;
+                    HttpClient.Timeout = value;
                 }
                 catch (InvalidOperationException exception)
                 {
@@ -60,7 +60,7 @@ namespace Bili.Lib
         }
 
         /// <inheritdoc/>
-        public HttpClient HttpClient { get => _httpClient; }
+        public HttpClient HttpClient { get; private set; }
 
         /// <inheritdoc/>
         public async Task<HttpRequestMessage> GetRequestMessageAsync(
@@ -150,6 +150,7 @@ namespace Bili.Lib
             requestMessage.Headers.Add(Headers.Envoriment, GRPCConfig.Envorienment);
             requestMessage.Headers.Add(Headers.TransferEncodingKey, Headers.TransferEncodingValue);
             requestMessage.Headers.Add(Headers.TEKey, Headers.TEValue);
+            requestMessage.Headers.Add(Headers.Buvid, GetBuvid());
 
             var messageBytes = grpcMessage.ToByteArray();
 

@@ -238,6 +238,7 @@ namespace Bili.Models.App.Constants
             public const string TransferEncodingValue = "chunked";
             public const string TEKey = "TE";
             public const string TEValue = "trailers";
+            public const string Buvid = "buvid";
         }
 
         public static class Settings
