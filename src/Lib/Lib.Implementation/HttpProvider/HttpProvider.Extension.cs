@@ -1,15 +1,18 @@
 ﻿// Copyright (c) Richasy. All rights reserved.
 
 using System;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Net.NetworkInformation;
 using System.Threading;
 using System.Threading.Tasks;
 using Bili.Lib.Interfaces;
 using Bili.Models.App.Constants;
 using Bili.Models.App.Other;
 using Bili.Models.BiliBili;
+using Bili.Models.gRPC;
 using Newtonsoft.Json;
 
 namespace Bili.Lib
@@ -19,8 +22,8 @@ namespace Bili.Lib
     /// </summary>
     public partial class HttpProvider
     {
+        private static string _buvid;
         private readonly IAuthorizeProvider _authenticationProvider;
-        private HttpClient _httpClient;
         private bool _disposedValue;
         private CookieContainer _cookieContainer;
 
@@ -40,7 +43,7 @@ namespace Bili.Lib
             {
                 await Task.Run(async () =>
                 {
-                    response = await _httpClient.SendAsync(request, cancellationToken);
+                    response = await HttpClient.SendAsync(request, cancellationToken);
                 });
                 await ThrowIfHasExceptionAsync(response);
             }
@@ -83,15 +86,27 @@ namespace Bili.Lib
             {
                 if (disposing)
                 {
-                    if (this._httpClient != null)
-                    {
-                        this._httpClient.Dispose();
-                    }
+                    HttpClient?.Dispose();
                 }
 
-                this._httpClient = null;
+                HttpClient = null;
                 _disposedValue = true;
             }
+        }
+
+        private static string GetBuvid()
+        {
+            if (string.IsNullOrEmpty(_buvid))
+            {
+                var macAddress = NetworkInterface.GetAllNetworkInterfaces()
+                    .Where(nic => nic.OperationalStatus == OperationalStatus.Up && nic.NetworkInterfaceType != NetworkInterfaceType.Loopback)
+                    .Select(nic => nic.GetPhysicalAddress().ToString())
+                    .FirstOrDefault();
+                var buvidObj = new Buvid(macAddress);
+                _buvid = buvidObj.Generate();
+            }
+
+            return _buvid;
         }
 
         private void InitHttpClient()
@@ -108,7 +123,7 @@ namespace Bili.Lib
             var client = new HttpClient(handler);
             client.DefaultRequestHeaders.CacheControl = new CacheControlHeaderValue { NoCache = false, NoStore = false };
             client.DefaultRequestHeaders.Add("accept", ServiceConstants.DefaultAcceptString);
-            this._httpClient = client;
+            this.HttpClient = client;
         }
 
         private async Task ThrowIfHasExceptionAsync(HttpResponseMessage response)
