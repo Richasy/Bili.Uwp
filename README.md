@@ -16,6 +16,10 @@
 
 ---
 
+### [哔哩助理](https://github.com/Richasy/Bili.Copilot) 已经上线，将逐步替代现在的哔哩 UWP
+
+---
+
 `哔哩` 是一款 [哔哩哔哩](https://www.bilibili.com) 的第三方应用，使用 UWP 框架开发，是原生的 Windows 应用，支持 Windows 10/11 桌面系统。主打设计和易用性，~~广受用户好评~~。
 
 ## 🙌 简单的开始
