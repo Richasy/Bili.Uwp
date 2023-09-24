@@ -172,11 +172,12 @@ namespace Bili.SignIn.Uwp
         {
             HideQRTip();
             QRLoadingRing.IsActive = true;
-            var imgSource = await _authorizeProvider.GetQRImageAsync();
-            if (imgSource != null)
+            var bitmapImage = await _authorizeProvider.GetQRImageAsync();
+            if (bitmapImage != null)
             {
-                QRCodeImage.Source = imgSource;
+                QRCodeImage.Source = bitmapImage;
                 _authorizeProvider.StartQRLoginListener();
+                QRTipBlock.Visibility = Visibility.Visible;
             }
             else
             {

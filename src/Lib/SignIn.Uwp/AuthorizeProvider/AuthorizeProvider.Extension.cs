@@ -2,6 +2,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -17,13 +19,13 @@ using Bili.Models.BiliBili;
 using Bili.Models.Enums;
 using Bili.Toolkit.Interfaces;
 using Newtonsoft.Json.Linq;
+using QRCoder;
 using Windows.Security.Cryptography.Core;
 using Windows.Storage;
+using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.Web.Http.Filters;
-using ZXing;
-using ZXing.Common;
 using static Bili.Models.App.Constants.ApiConstants;
 using static Bili.Models.App.Constants.ServiceConstants;
 
@@ -229,7 +231,7 @@ namespace Bili.SignIn.Uwp
             return null;
         }
 
-        internal async Task<WriteableBitmap> GetQRImageAsync()
+        internal async Task<BitmapImage> GetQRImageAsync()
         {
             try
             {
@@ -244,17 +246,22 @@ namespace Bili.SignIn.Uwp
                 var result = await httpProvider.ParseAsync<ServerResponse<QRInfo>>(response);
 
                 _internalQRAuthCode = result.Data.AuthCode;
-                var barcodeWriter = new BarcodeWriter();
-                barcodeWriter.Format = BarcodeFormat.QR_CODE;
-                barcodeWriter.Options = new EncodingOptions()
+                var generator = new QRCodeGenerator();
+                var data = generator.CreateQrCode(result.Data.Url, QRCodeGenerator.ECCLevel.Q);
+                var code = new BitmapByteQRCode(data);
+                var image = code.GetGraphic(20);
+                using (var stream = new InMemoryRandomAccessStream())
                 {
-                    Margin = 1,
-                    Height = 200,
-                    Width = 200,
-                };
+                    using (var writer = new DataWriter(stream.GetOutputStreamAt(0)))
+                    {
+                        writer.WriteBytes(image);
+                        await writer.StoreAsync();
+                    }
 
-                var img = barcodeWriter.Write(result.Data.Url);
-                return img;
+                    var bitmap = new BitmapImage();
+                    await bitmap.SetSourceAsync(stream);
+                    return bitmap;
+                }
             }
             catch
             {
