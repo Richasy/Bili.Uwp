@@ -14,6 +14,7 @@ namespace Bili.Models.App.Constants
         public const string _vcBase = "https://api.vc.bilibili.com";
         public const string _liveBase = "https://api.live.bilibili.com";
         public const string _passBase = "https://passport.bilibili.com";
+        public const string _passSnmBase = "https://passport.snm0516.aisee.tv";
         public const string _bangumiBase = "https://bangumi.bilibili.com";
         public const string _grpcBase = "https://grpc.biliapi.net";
 
@@ -50,12 +51,12 @@ namespace Bili.Models.App.Constants
             /// <summary>
             /// 获取登录二维码.
             /// </summary>
-            public const string QRCode = _passBase + "/x/passport-tv-login/qrcode/auth_code";
+            public const string QRCode = _passSnmBase + "/x/passport-tv-login/qrcode/auth_code";
 
             /// <summary>
             /// 登录二维码轮询状态.
             /// </summary>
-            public const string QRCodeCheck = _passBase + "/x/passport-tv-login/qrcode/poll";
+            public const string QRCodeCheck = _passSnmBase + "/x/passport-tv-login/qrcode/poll";
 
             /// <summary>
             /// cookie转访问令牌.
