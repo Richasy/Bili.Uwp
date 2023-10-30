@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -6,6 +6,10 @@
     <AssemblyName>Bili.$(MSBuildProjectName)</AssemblyName>
     <LangVersion>10</LangVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.46" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Models.Enums\Models.Enums.csproj" />

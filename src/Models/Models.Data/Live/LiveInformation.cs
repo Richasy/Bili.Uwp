@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Bili.Models.Data.User;
 using Bili.Models.Data.Video;
 using Bili.Models.Enums.Community;
+using HtmlAgilityPack;
 
 namespace Bili.Models.Data.Live
 {
@@ -34,7 +35,7 @@ namespace Bili.Models.Data.Live
             ViewerCount = viewerCount;
             Relation = relation;
             Subtitle = subtitle;
-            Description = description;
+            Description = ParseDescription(description);
         }
 
         /// <inheritdoc/>
@@ -70,5 +71,17 @@ namespace Bili.Models.Data.Live
 
         /// <inheritdoc/>
         public override int GetHashCode() => Identifier.GetHashCode();
+
+        private string ParseDescription(string description)
+        {
+            if (description == null)
+            {
+                return null;
+            }
+
+            var document = new HtmlDocument();
+            document.LoadHtml(description);
+            return document.DocumentNode.InnerText;
+        }
     }
 }
