@@ -2,8 +2,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing.Imaging;
-using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -241,7 +239,7 @@ namespace Bili.SignIn.Uwp
                     { Query.LocalId, _guid },
                 };
                 var httpProvider = Locator.Instance.GetService<IHttpProvider>();
-                var request = await httpProvider.GetRequestMessageAsync(HttpMethod.Post, Passport.QRCode, queryParameters);
+                var request = await httpProvider.GetRequestMessageAsync(HttpMethod.Post, Passport.QRCode, queryParameters, RequestClientType.Login);
                 var response = await httpProvider.SendAsync(request);
                 var result = await httpProvider.ParseAsync<ServerResponse<QRInfo>>(response);
 
@@ -305,25 +303,19 @@ namespace Bili.SignIn.Uwp
             {
                 { Query.AuthCode, _internalQRAuthCode },
                 { Query.LocalId, _guid },
+                { "guid", Guid.NewGuid().ToString() },
             };
 
             try
             {
                 var httpProvider = Locator.Instance.GetService<IHttpProvider>();
-                var request = await httpProvider.GetRequestMessageAsync(HttpMethod.Post, Passport.QRCodeCheck, queryParameters);
+                var request = await httpProvider.GetRequestMessageAsync(HttpMethod.Post, Passport.QRCodeCheck, queryParameters, RequestClientType.Login);
                 var response = await httpProvider.SendAsync(request, _qrPollCancellationTokenSource.Token);
                 var result = await httpProvider.ParseAsync<ServerResponse<TokenInfo>>(response);
 
                 // 保存cookie
                 SaveCookie(result.Data.CookieInfo);
-
-                // 获取确认链接
-                var confirmUrl = await GetCookieToAccessKeyConfirmUrlAsync();
-
-                // 获取新的访问令牌
-                var accessKey = await GetAccessKeyAsync(confirmUrl);
-                result.Data.AccessToken = accessKey;
-
+                SaveAuthorizeResult(result.Data);
                 QRCodeStatusChanged?.Invoke(this, new Tuple<QRCodeStatus, TokenInfo>(QRCodeStatus.Success, result.Data));
             }
             catch (ServiceException se)
@@ -336,7 +328,7 @@ namespace Bili.SignIn.Uwp
                 if (se.Error != null)
                 {
                     QRCodeStatus qrStatus = default;
-                    if (se.Error.Code == 86039)
+                    if (se.Error.Code == 86039 || se.Error.Code == 86090)
                     {
                         qrStatus = QRCodeStatus.NotConfirm;
                     }

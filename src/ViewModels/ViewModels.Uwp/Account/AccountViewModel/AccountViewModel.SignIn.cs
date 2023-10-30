@@ -28,6 +28,7 @@ namespace Bili.ViewModels.Uwp.Account
                 if (isTokenValid)
                 {
                     isSuccess = true;
+                    State = AuthorizeState.SignedIn;
                     HandleLogged();
                 }
                 else if (!isSlientOnly)
@@ -60,6 +61,13 @@ namespace Bili.ViewModels.Uwp.Account
                             IsConnected = true;
                             await InitializeFixedItemAsync();
                             State = AuthorizeState.SignedIn;
+                        });
+                    }
+                    else
+                    {
+                        await _dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+                        {
+                            await SignOutAsync();
                         });
                     }
                 });
